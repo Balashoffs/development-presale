@@ -10,11 +10,13 @@ class CustomDropdownWithSearchWidget extends StatefulWidget {
     required this.divisions,
     required this.onSelected,
     required this.enabled,
+    required this.onTap,
     required this.autoFocus,
   });
 
   final List<DivisionDTO> divisions;
   final Function(DivisionDTO) onSelected;
+  final Function() onTap;
   final bool enabled;
   final bool autoFocus;
 
@@ -136,7 +138,7 @@ class _CustomDropdownWithSearchWidgetState
                           onTap: () {
                             _handleSelect(option);
                           },
-                          label: Text(option.divisionName),
+                          label: Text('${option.divisionName} (${option.divisionShortName})'),
                         );
                       },
                     ),
@@ -158,6 +160,7 @@ class _CustomDropdownWithSearchWidgetState
           hintText: "Нажмите на поле ввода, чтобы найти нужный раздел",
           controller: _searchController,
           onTap: () {
+            widget.onTap();
             _performSearch();
           },
           onTapOutside: (PointerDownEvent _) {
@@ -333,7 +336,6 @@ class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownS
   @override
   void initState() {
     super.initState();
-    widget.resources.sort((a, b) => b.resourceCostPerDay.compareTo(a.resourceCostPerDay),);
     _selected = widget.resources.firstOrNull;
     _unselected =  List.of(widget.resources);
     _unselected!.removeWhere((element) => element.id == _selected!.id,);
@@ -360,7 +362,7 @@ class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownS
       }),
       content: Column(
         children: List.generate(_unselected!.length, (index) {
-          String name = _unselected![index].resourceName;
+          String name = _unselected![index].resourceName ;
           return MoonMenuItem(
             onTap: () => setState(() {
               _showMenu = false;

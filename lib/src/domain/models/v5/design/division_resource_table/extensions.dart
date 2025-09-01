@@ -30,12 +30,12 @@ extension ResourceCsvExt on ResourceCSV {
 }
 
 extension DivisionDtoExt on DivisionDTO {
-  DivisionWithResourceRowVM toDivisionResourceRowVM() {
+  DivisionWithResourceRowVM toDivisionResourceRowVM(int id) {
     return DivisionWithResourceRowVM(
       divisionDescription: divisionDescription,
       divisionShortName: divisionShortName,
       divisionName: divisionName,
-      id: DateTime.now().microsecondsSinceEpoch,
+      id: id,
     );
   }
 }

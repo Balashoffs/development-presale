@@ -111,6 +111,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                     valueListenable: controller.unselectedDivisionsVN,
                     builder: (context, value, child) {
                       return CustomDropdownWithSearchWidget(
+                        onTap: controller.sortTable,
                         autoFocus: true,
                         enabled: true,
                         divisions: value,

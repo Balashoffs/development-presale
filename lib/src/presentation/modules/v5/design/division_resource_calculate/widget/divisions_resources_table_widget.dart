@@ -85,9 +85,7 @@ class _DivisionsResourceTableWidgetState
     // final controller = context.read<ResourcesViewController>();
     return List.generate(widget.tableDataRows.length, (int index) {
       final row = widget.tableDataRows[index];
-      List<ResourceDTO> resources = controller.resourcesByDivisionShortName(
-        row.divisionShortName,
-      );
+      int pos = index + 1;
       return MoonTableRow(
         height: 72,
         cells: [
@@ -102,6 +100,9 @@ class _DivisionsResourceTableWidgetState
                 _isRemoveAction = true;
               },
             ),
+          ),
+          CellDecorationWidget(
+            child: TextCellWidget(label: '$pos', key: Key(row.id.toString())),
           ),
           //Division short name
           CellDecorationWidget(
@@ -118,30 +119,6 @@ class _DivisionsResourceTableWidgetState
               hint: row.divisionDescription,
             ),
           ),
-          // resources.length == 1
-          //     ? CellDecorationWidget(
-          //         child: TextCellWidget(
-          //           key: Key(row.id.toString()),
-          //           label: row.resourceNameVN.value,
-          //         ),
-          //       )
-          //     : CellDecorationWidget(
-          //         child: ResourcesDropdownWidget(
-          //           key: Key(row.id.toString()),
-          //           onChanged: (context, value) {
-          //             controller.onResourceName(row.id, value);
-          //           },
-          //           resources: controller.resourcesByDivisionShortName(
-          //             row.divisionShortName,
-          //           ),
-          //         ),
-          //       ),
-          // CellDecorationWidget(
-          //   child: TextWithNotifier(
-          //     key: Key(row.id.toString()),
-          //     vn: row.resourceCostPerDayVN,
-          //   ),
-          // ),
           row.resourceCostPerDayVN.value.compareTo(0.0) == 0
               ? CellDecorationWidget(
                   child: ResourcesDropdownWidget(
@@ -154,20 +131,10 @@ class _DivisionsResourceTableWidgetState
                     ),
                   ),
                 )
-              : row.resourceCostPerDayVN.value.compareTo(0.0) > 0
-              ? CellDecorationWidget(
+              : CellDecorationWidget(
                   child: TextCellWidget(
                     key: Key(row.id.toString()),
                     label: row.resourceNameVN.value,
-                  ),
-                )
-              : CellDecorationWidget(
-                  child: TextInputCellWidget(
-                    key: Key(row.id.toString()),
-                    defaultValue: 'Введите специализацию',
-                    onChanged: (context, value) {
-                      controller.onCustomResourceName(row.id, value);
-                    },
                   ),
                 ),
           row.resourceCostPerDayVN.value.compareTo(0.0) >= 0

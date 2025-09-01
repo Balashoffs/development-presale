@@ -19,6 +19,7 @@ class DesignOfferHeaderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<DesignOfferResultController>();
     return Form(
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Builder(
@@ -62,13 +63,7 @@ class DesignOfferHeaderWidget extends StatelessWidget {
                           color: getColor(context, MoonColor.trunks),
                         ),
                       ),
-                      AvanceInputWidget(
-                        onChanged: (value) {
-                          context.read<DesignOfferResultController>().onAvance(
-                            value,
-                          );
-                        },
-                      ),
+                      AvanceInputWidget(onChanged: controller.onAvance),
                     ],
                   ),
                   HeaderEditableWidget(
@@ -81,30 +76,23 @@ class DesignOfferHeaderWidget extends StatelessWidget {
                           color: getColor(context, MoonColor.trunks),
                         ),
                       ),
-                      context
-                          .read<DesignOfferResultController>().sign.isNotEmpty ?
-                      ChangeNotifierProvider(
-                        create: (context) => DropDownTextController(
-                          inputData: context
-                              .read<DesignOfferResultController>()
-                              .signsNames
-                              .value,
-                        ),
-                        child: CustomMoonDropDown(
-                          validator: personSignDropDownValidator,
-                          initText: "Выбрать",
-                          onSelected: context
-                              .read<DesignOfferResultController>()
-                              .onSelectSign,
-                          leadingIcon: MoonIcons.other_player_24_light,
-                        ),
-                      ):
-                      HeaderCellWidget(
-                        title: 'Заполняется непосредственно ',
-                        value: 'в файле КП',
-                        width: 148,
-                      ),
-
+                      controller.sign.isNotEmpty
+                          ? ChangeNotifierProvider(
+                              create: (context) => DropDownTextController(
+                                inputData: controller.signsNames.value,
+                              ),
+                              child: CustomMoonDropDown(
+                                validator: personSignDropDownValidator,
+                                initText: "Выбрать",
+                                onSelected: controller.onSelectSign,
+                                leadingIcon: MoonIcons.other_player_24_light,
+                              ),
+                            )
+                          : HeaderCellWidget(
+                              title: 'Заполняется непосредственно ',
+                              value: 'в файле КП',
+                              width: 148,
+                            ),
                     ],
                   ),
                   HeaderEditableWidget(

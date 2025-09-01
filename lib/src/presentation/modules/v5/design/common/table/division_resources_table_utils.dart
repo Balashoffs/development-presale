@@ -85,10 +85,7 @@ class TextCellWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Padding(
-        padding: const EdgeInsetsDirectional.all(8.0),
-        child: Text(textAlign: TextAlign.center, label.toString()),
-      ),
+      child: Text(textAlign: TextAlign.center, label.toString()),
     );
   }
 }
@@ -262,10 +259,7 @@ class CellWithIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: const BoxDecoration(),
-      child: Padding(
-        padding: const EdgeInsetsDirectional.all(8.0),
-        child: MoonButton.icon(icon: Icon(iconData), onTap: onTap),
-      ),
+      child: Center(child: MoonButton.icon(icon: Icon(iconData), onTap: onTap)),
     );
   }
 }

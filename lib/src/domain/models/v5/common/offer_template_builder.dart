@@ -180,25 +180,39 @@ class DesignOfferTemplateBuilder {
   }
 
   void _addTableHeader() {
-    _buildCell('№ п/п', 'A$_rowPos', width: 7.5, alignType: HAlignType.center);
+    _buildCell(
+      '№ п/п',
+      'A$_rowPos',
+      width: 7.5,
+      alignType: HAlignType.center,
+      isBold: true,
+    );
     _buildCell(
       'Наименование услуги',
       'B$_rowPos',
       width: 50,
       alignType: HAlignType.center,
+      isBold: true,
     );
-    _buildCell('Кол-во', 'C$_rowPos', width: 7.5, alignType: HAlignType.center);
     _buildCell(
-      'Стоимость без НДС',
-      'D$_rowPos',
-      width: 25,
+      'Кол-во',
+      'C$_rowPos',
+      width: 7.5,
       alignType: HAlignType.center,
+      isBold: true,
     );
+    // _buildCell(
+    //   'Стоимость без НДС',
+    //   'D$_rowPos',
+    //   width: 25,
+    //   alignType: HAlignType.center,
+    // );
     _buildCell(
       'Стоимость с НДС',
       'E$_rowPos',
       width: 25,
       alignType: HAlignType.center,
+        isBold: true
     );
   }
 
@@ -223,14 +237,14 @@ class DesignOfferTemplateBuilder {
         width: 7.5,
         alignType: HAlignType.center,
       );
+      // _buildCell(
+      //   convertToString(result.divisionSummary, 2),
+      //   'D$_rowPos',
+      //   width: 25,
+      //   alignType: HAlignType.center,
+      // );
       _buildCell(
-        convertToString(result.divisionSummary, 2),
-        'D$_rowPos',
-        width: 25,
-        alignType: HAlignType.center,
-      );
-      _buildCell(
-          convertToString(result.divisionSummaryWithTax, 2),
+        convertToString(result.divisionSummaryWithTax, 2),
         'E$_rowPos',
         width: 25,
         alignType: HAlignType.center,
@@ -304,7 +318,6 @@ class DesignOfferTemplateBuilder {
         );
       }
     }
-
   }
 
   void _addAvance() {
@@ -326,7 +339,6 @@ class DesignOfferTemplateBuilder {
         alignType: HAlignType.left,
       );
     }
-
   }
 
   _buildCell(

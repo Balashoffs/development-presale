@@ -12,7 +12,8 @@ class CollumAttribute {
 
 
 final List<CollumAttribute> divisionResourceTableAttributes = [
-  CollumAttribute(name: '', width: 64.0, tooltip: ''),
+  CollumAttribute(name: '', width: 48.0, tooltip: ''),
+  CollumAttribute(name: '№', width: 48.0, tooltip: ''),
   CollumAttribute(name: 'Шифр', width: 64, tooltip: ''),
   CollumAttribute(name: 'Раздел*', width: 312, tooltip: ''),
   CollumAttribute(
