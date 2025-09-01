@@ -18,12 +18,12 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading: true,
         actions: [
           MoonButton.icon(
             icon: Icon(MoonIcons.controls_close_16_light),
             onTap: () {
-              context.go(serviceTypeRoutePath );
+              context.go(serviceTypeRoutePath);
             },
           ),
         ],
@@ -33,7 +33,6 @@ class CustomAppBar extends StatelessWidget {
     );
   }
 }
-
 
 class TextCellWidget extends StatelessWidget {
   const TextCellWidget({
@@ -56,4 +55,3 @@ class TextCellWidget extends StatelessWidget {
     );
   }
 }
-

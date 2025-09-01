@@ -30,24 +30,12 @@ extension ResourceCsvExt on ResourceCSV {
 }
 
 extension DivisionDtoExt on DivisionDTO {
-  DivisionWithResourceRowVM toDivisionResourceRowVM({
-    required double squareFactor,
-    required double complexityFactor,
-    String resourceName = '',
-    double resourceCostPerDay = 0.0,
-  }) {
+  DivisionWithResourceRowVM toDivisionResourceRowVM() {
     return DivisionWithResourceRowVM(
       divisionDescription: divisionDescription,
-      workDays: 0,
-      resourceQnt: 0,
-      resourceUsingFactor: 1.0,
       divisionShortName: divisionShortName,
       divisionName: divisionName,
       id: DateTime.now().microsecondsSinceEpoch,
-      squareFactor: squareFactor,
-      complexFactor: complexityFactor,
-      resourceName: resourceName,
-      resourceCostPerDay: resourceCostPerDay,
     );
   }
 }

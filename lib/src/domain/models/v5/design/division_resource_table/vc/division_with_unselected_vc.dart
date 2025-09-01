@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/domain/models/v3/design/input_data/input_data_design.dart';
@@ -5,9 +6,9 @@ import 'package:presale/src/domain/models/v4/design/division_resource_table/widg
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';
 
-import 'divisions_with_resources_dto.dart';
+import '../divisions_with_resources_dto.dart';
 
-class ResourcesViewController {
+class ResourcesWithUnselectedViewController {
   final ValueNotifier<List<DivisionDTO>> unselectedDivisionsVN = ValueNotifier(
     [],
   );
@@ -21,9 +22,6 @@ class ResourcesViewController {
   final ValueNotifier<bool> isValid = ValueNotifier(false);
   final ValueNotifier<String> divisionTypeVN = ValueNotifier('');
 
-
-  double _squareFactor = 0.0;
-  double _complexityFactor = 0.0;
   final DesignOfferCalculator _designOfferCalculator = DesignOfferCalculator();
 
   double get summaryCost => selectedRows.value.isNotEmpty
@@ -44,12 +42,7 @@ class ResourcesViewController {
   DivisionWithResourceRowVM? getById(int id) {
     return _unselectedDivisions.values
         .where((element) => element.id == id)
-        .map(
-          (e) => e.toDivisionResourceRowVM(
-            squareFactor: _squareFactor,
-            complexityFactor: _complexityFactor,
-          ),
-        )
+        .map((e) => e.toDivisionResourceRowVM())
         .firstOrNull;
   }
 
@@ -61,14 +54,9 @@ class ResourcesViewController {
     Map<String, DivisionDTO> divisions,
     InputDataDesign inputDataDesign,
   ) {
-    _squareFactor = inputDataDesign.inputFactors.squareFactor;
-    _complexityFactor = inputDataDesign.inputFactors.complexityFactor;
     _unselectedDivisions.addAll(divisions);
     unselectedDivisionsVN.value = [...divisions.values];
     divisionTypeVN.value = inputDataDesign.divisionType.text;
-    selectedRows.addListener(() {
-      print('Event on selected');
-    },);
   }
 
   List<ResourceDTO> resourcesByDivisionShortName(String divisionShortName) =>
@@ -86,7 +74,6 @@ class ResourcesViewController {
   }
 
   void _onAdd(int id) {
-    print('_onAdd::id - $id');
     _updateUnselectedDivision();
 
     DivisionWithResourceRowVM? found = getById(id);
@@ -102,18 +89,19 @@ class ResourcesViewController {
         found.resourceCostPerDayVN.value = -1;
         found.resourceNameVN.value = '';
       }
-      selectedRows.value = [...selectedRows.value, found];
+      List<DivisionWithResourceRowVM> updated = [...selectedRows.value, found];
+      updated.sort((a, b) => b.id.compareTo(a.id),);
+      selectedRows.value = [...updated];
       _updateUnselectedDivision();
     }
   }
 
   void _onDelete(int id) {
-    print('_onDelete::id - $id');
     DivisionWithResourceRowVM? found = getByIdVM(id);
     if (found != null) {
       selectedRows.value.removeWhere((element) => element.id == id);
       selectedRows.value = [...selectedRows.value];
-      summaryVN.value =  summaryCost;
+      summaryVN.value = summaryCost;
       _updateSelectedDivision(
         found.divisionShortName,
         found.resourceNameVN.value,
@@ -124,10 +112,6 @@ class ResourcesViewController {
   void onResourceName(int id, String resourceName) {
     DivisionWithResourceRowVM? found = getByIdVM(id);
     if (found != null) {
-      if (resourceName.isEmpty) {
-        found.resourceNameVN.value = '';
-        found.resourceCostPerDayVN.value = 0.0;
-      }
       DivisionDTO? divisionDTO = _unselectedDivisions[found.divisionShortName];
       if (divisionDTO != null) {
         ResourceDTO? foundResource = divisionDTO.resources
@@ -177,7 +161,6 @@ class ResourcesViewController {
     }
   }
 
-
   void onComplexFactor(int id, double value) {
     DivisionWithResourceRowVM? found = getByIdVM(id);
     if (found != null) {
@@ -202,7 +185,7 @@ class ResourcesViewController {
     }
   }
 
-  _calcResourceTotal(DivisionWithResourceRowVM value) {
+  void _calcResourceTotal(DivisionWithResourceRowVM value) {
     double total = _designOfferCalculator.calcResourceCost(value);
     if (total.compareTo(0.0) > 0) {
       value.totalResourceRowCostVN.value = total;

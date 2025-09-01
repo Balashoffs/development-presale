@@ -5,8 +5,9 @@ import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/widget_action_type.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
-import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_summary_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/vc/division_with_all_vc.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/vc/division_with_unselected_vc.dart';
 import 'package:presale/src/presentation/bloc/v5/design/division_resource_calculator/division_resource_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
@@ -36,7 +37,7 @@ class DivisionResourceCalculateRepository extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) => ResourcesViewController(),
+      create: (context) => ResourcesWithUnselectedViewController(),
       child: DivisionResourceCalculateProvider(),
     );
   }
@@ -51,7 +52,7 @@ class DivisionResourceCalculateProvider extends StatelessWidget {
       create: (context) {
         return DivisionResourceCalculateCubit(
           dbClient: di.dbClientImpl,
-          resourcesViewController: context.read<ResourcesViewController>(),
+          resourcesViewController: context.read<ResourcesWithUnselectedViewController>(),
         )..init();
       },
       child: DivisionResourceCalculateConsumer(),
@@ -87,7 +88,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<ResourcesViewController>();
+    final controller = context.read<ResourcesWithUnselectedViewController>();
     return Column(
       children: [
         Expanded(

@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/widget_action_type.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
-import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_summary_viewmodel.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/vc/division_with_all_vc.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/vc/division_with_unselected_vc.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 
 import '../../common/table/division_resources_table_utils.dart';
@@ -45,13 +47,10 @@ class _DivisionsResourceTableWidgetState
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    print('DivisionsResourceTableWidget::didChangeDependencies');
-    //
   }
 
   @override
   void didUpdateWidget(DivisionsResourceTableWidget oldWidget) {
-    print('DivisionsResourceTableWidget::didUpdateWidget');
     super.didUpdateWidget(oldWidget);
     if (!_isRemoveAction) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -82,12 +81,17 @@ class _DivisionsResourceTableWidgetState
   }
 
   List<MoonTableRow> _generateTableRows() {
-    final controller = context.read<ResourcesViewController>();
+    final controller = context.read<ResourcesWithUnselectedViewController>();
+    // final controller = context.read<ResourcesViewController>();
     return List.generate(widget.tableDataRows.length, (int index) {
       final row = widget.tableDataRows[index];
+      List<ResourceDTO> resources = controller.resourcesByDivisionShortName(
+        row.divisionShortName,
+      );
       return MoonTableRow(
         height: 72,
         cells: [
+          //Close icon
           CellDecorationWidget(
             isFistCell: true,
             child: CellWithIconWidget(
@@ -99,12 +103,14 @@ class _DivisionsResourceTableWidgetState
               },
             ),
           ),
+          //Division short name
           CellDecorationWidget(
             child: TextCellWidget(
               label: row.divisionShortName,
               key: Key(row.id.toString()),
             ),
           ),
+          //Division name
           CellDecorationWidget(
             child: CellWithMultiLineWidget(
               key: Key(row.id.toString()),
@@ -112,6 +118,30 @@ class _DivisionsResourceTableWidgetState
               hint: row.divisionDescription,
             ),
           ),
+          // resources.length == 1
+          //     ? CellDecorationWidget(
+          //         child: TextCellWidget(
+          //           key: Key(row.id.toString()),
+          //           label: row.resourceNameVN.value,
+          //         ),
+          //       )
+          //     : CellDecorationWidget(
+          //         child: ResourcesDropdownWidget(
+          //           key: Key(row.id.toString()),
+          //           onChanged: (context, value) {
+          //             controller.onResourceName(row.id, value);
+          //           },
+          //           resources: controller.resourcesByDivisionShortName(
+          //             row.divisionShortName,
+          //           ),
+          //         ),
+          //       ),
+          // CellDecorationWidget(
+          //   child: TextWithNotifier(
+          //     key: Key(row.id.toString()),
+          //     vn: row.resourceCostPerDayVN,
+          //   ),
+          // ),
           row.resourceCostPerDayVN.value.compareTo(0.0) == 0
               ? CellDecorationWidget(
                   child: ResourcesDropdownWidget(
@@ -156,6 +186,7 @@ class _DivisionsResourceTableWidgetState
                     defaultValue: 0.0,
                   ),
                 ),
+
           CellDecorationWidget(
             child: IntInputCellWidget(
               key: Key(row.id.toString()),

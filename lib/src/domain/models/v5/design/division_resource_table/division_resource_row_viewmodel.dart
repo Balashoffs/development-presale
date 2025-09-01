@@ -41,7 +41,7 @@ final class DivisionWithResourceRowVM {
   }
 
   // Коэфициент по площади
-  double _squareFactor;
+  double _squareFactor = 1.0;
 
   double get squareFactor => _squareFactor;
 
@@ -64,32 +64,17 @@ final class DivisionWithResourceRowVM {
   // Стоимость задествия должности по конкретному разделу
   final ValueNotifier<double> totalResourceRowCostVN;
 
-
-  @override
-  String toString() {
-    return 'DivisionWithResourceRowVM{id: $id, divisionName: $divisionName, divisionShortName: $divisionShortName, resourceNameVN: $resourceNameVN, _resourceQnt: $_resourceQnt, _workDays: $_workDays, _complexFactor: $_complexFactor, _squareFactor: $_squareFactor, _resourceUsingFactor: $_resourceUsingFactor, resourceCostPerDayVN: $resourceCostPerDayVN, totalResourceRowCostVN: $totalResourceRowCostVN}';
-  }
-
   DivisionWithResourceRowVM({
     required this.id,
     required this.divisionName,
     required this.divisionShortName,
     required this.divisionDescription,
-    required String resourceName,
-    required double resourceCostPerDay,
-    required int resourceQnt,
-    required int workDays,
-    required double complexFactor,
-    required double squareFactor,
-    required double resourceUsingFactor,
-    double totalResourceRowCost = 0.0,
-  }) : _resourceQnt = resourceQnt,
-       resourceNameVN = ValueNotifier(resourceName),
+    String resourceName = '',
+    double resourceCostPerDay = 0.0,
+  }) : resourceNameVN = ValueNotifier(resourceName),
        resourceCostPerDayVN = ValueNotifier(resourceCostPerDay),
-       totalResourceRowCostVN = ValueNotifier(totalResourceRowCost),
-       _workDays = workDays,
-       _complexFactor = complexFactor,
-       _squareFactor = squareFactor,
-       _resourceUsingFactor = resourceUsingFactor;
-
+       totalResourceRowCostVN = ValueNotifier(0.0),
+       _workDays = 0,
+       _resourceQnt = 0,
+       _resourceUsingFactor = 1.0;
 }

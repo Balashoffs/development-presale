@@ -36,7 +36,6 @@ class InputDataPage extends StatelessWidget {
         textAlign: TextAlign.center,
         style: TextStyle(fontSize: 16),
       ),
-
       child: ObjectInputDataBlocBuilderWidget(),
     );
   }
@@ -61,23 +60,19 @@ class ObjectInputDataConsumerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ObjectDataCubit, ObjectInputDataState>(
       listener: (context, state) {
-        state.mapOrNull(nextPage: (_) => context.go(designResourcesRoute));
+       state.whenOrNull(nextPage: () => context.go(designResourcesRoute));
       },
       builder: (context, state) {
-        return state.mapOrNull(
-              initial: (_) => CustomCircleLoader(),
-              enterInputData: (value) => LoadedWidget(factors: value.factors),
-            ) ??
-            SizedBox();
+        return state.whenOrNull(
+              initial: () => CustomCircleLoader(),
+            ) ??LoadedWidget();
       },
     );
   }
 }
 
 class LoadedWidget extends StatelessWidget {
-  const LoadedWidget({super.key, required this.factors});
-
-  final InputFactorsViewModel factors;
+  const LoadedWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

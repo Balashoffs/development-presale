@@ -38,12 +38,12 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   }
 
   void init() async {
-    _inputFactorRepository.readFactors().then((value) {
-      _inputFactors = value;
-      if (_inputFactors != null) {
-        emit(ObjectInputDataState.enterInputData(_inputFactors));
-      }
-    }, onError: (error) => ObjectInputDataState.errorMessage(""));
+    emit(ObjectInputDataState.enterInputData());    // _inputFactorRepository.readFactors().then((value) {
+    //   _inputFactors = value;
+    //   if (_inputFactors != null) {
+    //
+    //   }
+    // }, onError: (error) => ObjectInputDataState.errorMessage(""));
   }
 
   ObjectDataCubit(DBClient dbClient)

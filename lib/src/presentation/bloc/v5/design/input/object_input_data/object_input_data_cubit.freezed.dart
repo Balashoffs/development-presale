@@ -134,11 +134,11 @@ return errorMessage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( InputFactorsViewModel factors)?  enterInputData,TResult Function()?  nextPage,TResult Function( String errorText)?  errorMessage,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  enterInputData,TResult Function()?  nextPage,TResult Function( String errorText)?  errorMessage,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _EnterInputData() when enterInputData != null:
-return enterInputData(_that.factors);case _NextPage() when nextPage != null:
+return enterInputData();case _NextPage() when nextPage != null:
 return nextPage();case _ErrorMessage() when errorMessage != null:
 return errorMessage(_that.errorText);case _:
   return orElse();
@@ -158,11 +158,11 @@ return errorMessage(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( InputFactorsViewModel factors)  enterInputData,required TResult Function()  nextPage,required TResult Function( String errorText)  errorMessage,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  enterInputData,required TResult Function()  nextPage,required TResult Function( String errorText)  errorMessage,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _EnterInputData():
-return enterInputData(_that.factors);case _NextPage():
+return enterInputData();case _NextPage():
 return nextPage();case _ErrorMessage():
 return errorMessage(_that.errorText);case _:
   throw StateError('Unexpected subclass');
@@ -181,11 +181,11 @@ return errorMessage(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( InputFactorsViewModel factors)?  enterInputData,TResult? Function()?  nextPage,TResult? Function( String errorText)?  errorMessage,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  enterInputData,TResult? Function()?  nextPage,TResult? Function( String errorText)?  errorMessage,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _EnterInputData() when enterInputData != null:
-return enterInputData(_that.factors);case _NextPage() when nextPage != null:
+return enterInputData();case _NextPage() when nextPage != null:
 return nextPage();case _ErrorMessage() when errorMessage != null:
 return errorMessage(_that.errorText);case _:
   return null;
@@ -237,73 +237,39 @@ String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
 
 
 class _EnterInputData with DiagnosticableTreeMixin implements ObjectInputDataState {
-  const _EnterInputData(this.factors);
+  const _EnterInputData();
   
 
- final  InputFactorsViewModel factors;
 
-/// Create a copy of ObjectInputDataState
-/// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$EnterInputDataCopyWith<_EnterInputData> get copyWith => __$EnterInputDataCopyWithImpl<_EnterInputData>(this, _$identity);
+
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'ObjectInputDataState.enterInputData'))
-    ..add(DiagnosticsProperty('factors', factors));
+    ;
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EnterInputData&&(identical(other.factors, factors) || other.factors == factors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EnterInputData);
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,factors);
+int get hashCode => runtimeType.hashCode;
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ObjectInputDataState.enterInputData(factors: $factors)';
+  return 'ObjectInputDataState.enterInputData()';
 }
 
 
 }
 
-/// @nodoc
-abstract mixin class _$EnterInputDataCopyWith<$Res> implements $ObjectInputDataStateCopyWith<$Res> {
-  factory _$EnterInputDataCopyWith(_EnterInputData value, $Res Function(_EnterInputData) _then) = __$EnterInputDataCopyWithImpl;
-@useResult
-$Res call({
- InputFactorsViewModel factors
-});
 
 
-
-
-}
-/// @nodoc
-class __$EnterInputDataCopyWithImpl<$Res>
-    implements _$EnterInputDataCopyWith<$Res> {
-  __$EnterInputDataCopyWithImpl(this._self, this._then);
-
-  final _EnterInputData _self;
-  final $Res Function(_EnterInputData) _then;
-
-/// Create a copy of ObjectInputDataState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? factors = null,}) {
-  return _then(_EnterInputData(
-null == factors ? _self.factors : factors // ignore: cast_nullable_to_non_nullable
-as InputFactorsViewModel,
-  ));
-}
-
-
-}
 
 /// @nodoc
 
