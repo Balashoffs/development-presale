@@ -82,9 +82,10 @@ class _DivisionsResourceTableWidgetState
 
   List<MoonTableRow> _generateTableRows() {
     final controller = context.read<ResourcesWithUnselectedViewController>();
-    // final controller = context.read<ResourcesViewController>();
+
     return List.generate(widget.tableDataRows.length, (int index) {
       final row = widget.tableDataRows[index];
+      List<ResourceDTO> resources = controller.resourcesByDivisionShortName(row.divisionShortName);
       int pos = index + 1;
       return MoonTableRow(
         height: 72,
@@ -119,16 +120,14 @@ class _DivisionsResourceTableWidgetState
               hint: row.divisionDescription,
             ),
           ),
-          row.resourceCostPerDayVN.value.compareTo(0.0) == 0
+          resources.length > 1
               ? CellDecorationWidget(
                   child: ResourcesDropdownWidget(
                     key: Key(row.id.toString()),
                     onChanged: (context, value) {
                       controller.onResourceName(row.id, value);
                     },
-                    resources: controller.resourcesByDivisionShortName(
-                      row.divisionShortName,
-                    ),
+                    resources: resources,
                   ),
                 )
               : CellDecorationWidget(
@@ -137,22 +136,12 @@ class _DivisionsResourceTableWidgetState
                     label: row.resourceNameVN.value,
                   ),
                 ),
-          row.resourceCostPerDayVN.value.compareTo(0.0) >= 0
-              ? CellDecorationWidget(
-                  child: TextWithNotifier(
-                    key: Key(row.id.toString()),
-                    vn: row.resourceCostPerDayVN,
-                  ),
-                )
-              : CellDecorationWidget(
-                  child: FloatInputCellWidget(
-                    key: Key(row.id.toString()),
-                    onChanged: (context, value) {
-                      controller.onResourceCostPerDay(row.id, value);
-                    },
-                    defaultValue: 0.0,
-                  ),
-                ),
+          CellDecorationWidget(
+            child: TextWithNotifier(
+              key: Key(row.id.toString()),
+              vn: row.resourceCostPerDayVN,
+            ),
+          ),
 
           CellDecorationWidget(
             child: IntInputCellWidget(

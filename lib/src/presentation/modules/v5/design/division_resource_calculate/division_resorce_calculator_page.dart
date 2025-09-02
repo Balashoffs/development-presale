@@ -52,7 +52,8 @@ class DivisionResourceCalculateProvider extends StatelessWidget {
       create: (context) {
         return DivisionResourceCalculateCubit(
           dbClient: di.dbClientImpl,
-          resourcesViewController: context.read<ResourcesWithUnselectedViewController>(),
+          resourcesViewController: context
+              .read<ResourcesWithUnselectedViewController>(),
         )..init();
       },
       child: DivisionResourceCalculateConsumer(),
@@ -103,22 +104,15 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                   Text(
                     "Разделы для проектирования",
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 12,
-                    ),
+                    style: TextStyle(fontSize: 12),
                   ),
-                  ValueListenableBuilder<List<DivisionDTO>>(
-                    valueListenable: controller.unselectedDivisionsVN,
-                    builder: (context, value, child) {
-                      return CustomDropdownWithSearchWidget(
-                        onTap: controller.sortTable,
-                        autoFocus: true,
-                        enabled: true,
-                        divisions: value,
-                        onSelected: (p0) =>
-                            controller.onRowAction(p0.id, WidgetActionType.add),
-                      );
-                    },
+                  CustomDropdownWithSearchWidget(
+                    onTap: controller.sortTable,
+                    autoFocus: true,
+                    enabled: true,
+                    divisions: controller.divisionsVM,
+                    onSelected: (p0) =>
+                        controller.onRowAction(p0.id, WidgetActionType.add),
                   ),
                 ],
               ),

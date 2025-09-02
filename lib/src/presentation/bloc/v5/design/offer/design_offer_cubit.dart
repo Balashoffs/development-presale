@@ -1,8 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:presale/src/di/di.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
-import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 import 'package:presale/src/data/core/db_client.dart';

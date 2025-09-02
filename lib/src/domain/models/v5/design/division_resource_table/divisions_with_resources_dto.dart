@@ -62,14 +62,6 @@ class DivisionDTO {
 
 
 class ResourcesDTO {
-  // final List<DivisionDTO> divisions;
-  // final Map<String, List<ResourceDTO>> resources;
-  //
-  // const ResourcesDTO({
-  //   required this.divisions,
-  //   required this.resources,
-  // });
-
   static Future<Map<String,DivisionDTO>> build(DivisionType type, DesignClass dc) async {
     List<ResourceCSV> resourcesFromCsv = await ResourceCostDtoBuilder(dc.resources).build();
     String divisionPath = type == DivisionType.working ? dc.workDivisions : dc.projectDivisions;
@@ -97,6 +89,5 @@ class ResourcesDTO {
       }
     }
     return divisions;
-
   }
 }

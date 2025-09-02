@@ -5,15 +5,14 @@ import 'package:presale/src/domain/models/v3/design/input_data/input_data_design
 import 'package:presale/src/domain/models/v4/design/division_resource_table/widget_action_type.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';
+import 'package:presale/src/presentation/modules/v5/design/division_resource_calculate/viewmodel/division_viewmodel.dart';
 
 import '../divisions_with_resources_dto.dart';
 
 class ResourcesWithUnselectedViewController {
-  final ValueNotifier<List<DivisionDTO>> unselectedDivisionsVN = ValueNotifier(
-    [],
-  );
-  final Map<String, DivisionDTO> _unselectedDivisions = {};
-  final Map<String, DivisionDTO> _selectedDivisions = {};
+  final List<DivisionDTO> _loadedDivisions = [];
+  final List<DivisionViewModel> divisionsVM = [];
+  final Map<int, List<int>> _createdResourcedId = {};
 
   final ValueNotifier<List<DivisionWithResourceRowVM>> selectedRows =
       ValueNotifier([]);
@@ -39,33 +38,17 @@ class ResourcesWithUnselectedViewController {
           )
           .isEmpty;
 
-  DivisionWithResourceRowVM? buildById(int id) {
-    return _unselectedDivisions.values.where((element) => element.id == id).map(
-      (e) {
-        List<ResourceDTO> resources = resourcesByDivisionShortName(
-          e.divisionShortName,
-        );
-        int id = e.id * 10 + resources[0].id;
-        return e.toDivisionResourceRowVM(id);
-      },
-    ).firstOrNull;
-  }
-
-  DivisionWithResourceRowVM? getById(int id) {
-    return selectedRows.value.where((element) => element.id == id).firstOrNull;
-  }
-
   void fill(
     Map<String, DivisionDTO> divisions,
     InputDataDesign inputDataDesign,
   ) {
-    _unselectedDivisions.addAll(divisions);
-    unselectedDivisionsVN.value = [...divisions.values];
+    _loadedDivisions.addAll(divisions.values);
+    List<DivisionViewModel> vms = divisions.values
+        .map((e) => e.toViewModel())
+        .sorted((a, b) => a.id.compareTo(b.id));
+    divisionsVM.addAll(vms);
     divisionTypeVN.value = inputDataDesign.divisionType.text;
   }
-
-  List<ResourceDTO> resourcesByDivisionShortName(String divisionShortName) =>
-      _unselectedDivisions[divisionShortName]?.resources.sorted((a, b) => b.resourceCostPerDay.compareTo(a.resourceCostPerDay),) ?? [];
 
   void onRowAction(int id, WidgetActionType type) {
     switch (type) {
@@ -79,9 +62,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void _onAdd(int id) {
-    _updateUnselectedDivision();
-
-    DivisionWithResourceRowVM? found = buildById(id);
+    DivisionWithResourceRowVM? found = _buildById(id);
     if (found != null) {
       String divisionShortName = found.divisionShortName;
       List<ResourceDTO> resources = resourcesByDivisionShortName(
@@ -90,34 +71,31 @@ class ResourcesWithUnselectedViewController {
       if (resources.length == 1) {
         found.resourceCostPerDayVN.value = resources[0].resourceCostPerDay;
         found.resourceNameVN.value = resources[0].resourceName;
-      } else if (resources.isEmpty) {
-        found.resourceCostPerDayVN.value = -1;
-        found.resourceNameVN.value = '';
       }
       List<DivisionWithResourceRowVM> updated = [...selectedRows.value, found];
       updated.sort((a, b) => a.id.compareTo(b.id));
       selectedRows.value = [...updated];
-      _updateUnselectedDivision();
     }
   }
 
   void _onDelete(int id) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
       selectedRows.value.removeWhere((element) => element.id == id);
       selectedRows.value = [...selectedRows.value];
       summaryVN.value = summaryCost;
-      _updateSelectedDivision(
-        found.divisionShortName,
-        found.resourceNameVN.value,
-      );
+      _deleteResourceId(id, found.id);
     }
   }
 
   void onResourceName(int id, String resourceName) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
-      DivisionDTO? divisionDTO = _unselectedDivisions[found.divisionShortName];
+      DivisionDTO? divisionDTO = _loadedDivisions
+          .where(
+            (element) => element.divisionShortName == found.divisionShortName,
+          )
+          .firstOrNull;
       if (divisionDTO != null) {
         ResourceDTO? foundResource = divisionDTO.resources
             .where((element) => element.resourceName == resourceName)
@@ -132,7 +110,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void onCustomResourceName(int id, String resourceName) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
       if (resourceName.isEmpty) {
         found.resourceNameVN.value = '';
@@ -143,7 +121,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void onResourceCostPerDay(int id, double value) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
       found.resourceCostPerDayVN.value = value;
       _calcResourceTotal(found);
@@ -151,7 +129,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void onResourceQnt(int id, int value) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
       found.resourceQnt = value;
       _calcResourceTotal(found);
@@ -159,7 +137,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void onWorkDays(int id, int value) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
       found.workDays = value;
       _calcResourceTotal(found);
@@ -167,7 +145,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void onComplexFactor(int id, double value) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
       found.complexFactor = value;
       _calcResourceTotal(found);
@@ -175,7 +153,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void onSquareFactor(int id, double value) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
       found.squareFactor = value;
       _calcResourceTotal(found);
@@ -183,7 +161,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void onResourceUsingFactor(int id, double value) {
-    DivisionWithResourceRowVM? found = getById(id);
+    DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
       found.resourceUsingFactor = value;
       _calcResourceTotal(found);
@@ -199,71 +177,45 @@ class ResourcesWithUnselectedViewController {
     }
   }
 
-  void _updateUnselectedDivision() {
-    Map<String, Set<String>> selectedResources = {};
-    for (var value in selectedRows.value) {
-      String divisionShortName = value.divisionShortName;
-      String resourcesName = value.resourceNameVN.value;
-      selectedResources.putIfAbsent(divisionShortName, () => {});
-      selectedResources[divisionShortName]?.add(resourcesName);
-    }
+  List<ResourceDTO> resourcesByDivisionShortName(String divisionShortName) =>
+      _loadedDivisions
+          .where((element) => element.divisionShortName == divisionShortName)
+          .firstOrNull
+          ?.resources ??
+      [];
 
-    for (var selected in selectedResources.entries) {
-      DivisionDTO? unselectedDivisionDTO = _unselectedDivisions[selected.key];
+  int resourcesQnt(String divisionShortName) => _loadedDivisions
+      .where((element) => element.divisionShortName == divisionShortName)
+      .length;
 
-      if (unselectedDivisionDTO != null) {
-        List<ResourceDTO> maybeSelected = unselectedDivisionDTO.resources
-            .where((element) => selected.value.contains(element.resourceName))
-            .toList();
-        unselectedDivisionDTO.resources.removeWhere(
-          (element) => selected.value.contains(element.resourceName),
-        );
-        _selectedDivisions.putIfAbsent(
-          selected.key,
-          () => unselectedDivisionDTO.copyWith(resources: []),
-        );
-        _selectedDivisions[selected.key]?.resources.addAll(maybeSelected);
-
-        if (unselectedDivisionDTO.resources.isEmpty) {
-          _unselectedDivisions.remove(selected.key);
-        }
-      }
-    }
-    final sorted = _unselectedDivisions.values.sorted(
-      (a, b) => a.id.compareTo(b.id),
-    );
-    unselectedDivisionsVN.value = [...sorted];
+  DivisionWithResourceRowVM? _buildById(int id) {
+    return _loadedDivisions.where((element) => element.id == id).map((e) {
+      int resourceId = _createResourceId(id);
+      return e.toDivisionResourceRowVM(resourceId);
+    }).firstOrNull;
   }
 
-  void _updateSelectedDivision(String divisionShortName, String resourceName) {
-    DivisionDTO? selectedDivision = _selectedDivisions[divisionShortName];
-    if (selectedDivision != null) {
-      ResourceDTO? selectedResource = selectedDivision.resources
-          .where((element) => element.resourceName == resourceName)
-          .firstOrNull;
-
-      if (selectedResource != null) {
-        selectedDivision.resources.removeWhere(
-          (element) => element.resourceName == resourceName,
-        );
-
-        DivisionDTO? unselectedDivision =
-            _unselectedDivisions[divisionShortName];
-        if (unselectedDivision == null) {
-          _unselectedDivisions.putIfAbsent(
-            divisionShortName,
-            () => selectedDivision.copyWith(resources: []),
-          );
-        }
-        _unselectedDivisions[divisionShortName]?.resources.add(
-          selectedResource,
-        );
-        final sorted = _unselectedDivisions.values.sorted(
-          (a, b) => a.id.compareTo(b.id),
-        );
-        unselectedDivisionsVN.value = [...sorted];
-      }
+  int _createResourceId(int id) {
+    int resourceId = 0;
+    if (!_createdResourcedId.containsKey(id)) {
+      _createdResourcedId.putIfAbsent(id, () => []);
+      resourceId = id * 10 + 1;
+    } else {
+      resourceId = _createdResourcedId[id]!.last + 1;
     }
+    _createdResourcedId[id]!.add(resourceId);
+    return resourceId;
+  }
+
+  void _deleteResourceId(int id, int resourceId) {
+    _createdResourcedId[id]!.removeWhere((element) => element == resourceId);
+    if (_createdResourcedId[id]!.isEmpty) {
+      _createdResourcedId.remove(id);
+    }
+  }
+
+  DivisionWithResourceRowVM? _getById(int id) {
+    return selectedRows.value.where((element) => element.id == id).firstOrNull;
   }
 
   void sortTable() {

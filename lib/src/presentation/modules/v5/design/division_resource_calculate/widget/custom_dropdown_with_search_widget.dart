@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/presentation/common/color_options.dart';
+import 'package:presale/src/presentation/modules/v5/design/division_resource_calculate/viewmodel/division_viewmodel.dart';
 import 'package:uuid/uuid.dart';
 
 class CustomDropdownWithSearchWidget extends StatefulWidget {
@@ -14,8 +15,8 @@ class CustomDropdownWithSearchWidget extends StatefulWidget {
     required this.autoFocus,
   });
 
-  final List<DivisionDTO> divisions;
-  final Function(DivisionDTO) onSelected;
+  final List<DivisionViewModel> divisions;
+  final Function(DivisionViewModel) onSelected;
   final Function() onTap;
   final bool enabled;
   final bool autoFocus;
@@ -30,13 +31,13 @@ class _CustomDropdownWithSearchWidgetState
   final TextEditingController _searchController = TextEditingController();
 
   final FocusNode _focusNode = FocusNode();
-  List<DivisionDTO> _filteredOptionsList = [];
-  DivisionDTO? _selectedOption;
+  List<DivisionViewModel> _filteredOptionsList = [];
+  DivisionViewModel? _selectedOption;
   bool _showDropdown = false;
 
   bool get _optionIsSelected =>
-      _selectedOption?.divisionShortName == _searchController.text ||
-      _selectedOption?.divisionName == _searchController.text;
+      _selectedOption?.divisionName == _searchController.text ||
+      _selectedOption?.divisionDescription == _searchController.text;
 
   String get _inputValue => _searchController.text.trim().toLowerCase();
 
@@ -46,9 +47,8 @@ class _CustomDropdownWithSearchWidgetState
 
       _filteredOptionsList = widget.divisions
           .where(
-            (DivisionDTO option) =>
+            (DivisionViewModel option) =>
                 option.divisionName.toLowerCase().contains(_inputValue) ||
-                option.divisionShortName.toLowerCase().contains(_inputValue) ||
                 option.divisionDescription.toLowerCase().contains(_inputValue),
           )
           .toList();
@@ -56,7 +56,7 @@ class _CustomDropdownWithSearchWidgetState
     });
   }
 
-  void _handleSelect(DivisionDTO option) {
+  void _handleSelect(DivisionViewModel option) {
     setState(() {
       _showDropdown = false;
       _searchController.clear();
@@ -133,12 +133,12 @@ class _CustomDropdownWithSearchWidgetState
                         if (index >= _filteredOptionsList.length) {
                           return const SizedBox.shrink();
                         }
-                        final DivisionDTO option = _filteredOptionsList[index];
+                        final DivisionViewModel option = _filteredOptionsList[index];
                         return MoonMenuItem(
                           onTap: () {
                             _handleSelect(option);
                           },
-                          label: Text('${option.divisionName} (${option.divisionShortName})'),
+                          label: Text(option.divisionName),
                         );
                       },
                     ),
