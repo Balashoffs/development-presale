@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
@@ -47,6 +49,10 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     CommercialOfferResult? commercialOfferResult = _designOfferController
         .designOfferResultVM
         ?.toPojo(designPresalePojo.inputDataDesign);
+    if(kDebugMode){
+      String json = jsonEncode(commercialOfferResult?.toJson());
+      print(json);
+    }
     if (commercialOfferResult != null) {
       int total = designPresalePojo.divisions?.rows.length ?? 0;
       if (total != 0) {

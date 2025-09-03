@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/next_page_widget.dart';
-import 'package:presale/src/presentation/modules/v5/design/common/opacity_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
-import 'package:presale/src/presentation/modules/v5/design/object_data_input/widget/drop_down_factors_controller.dart';
-import 'package:presale/src/presentation/modules/v5/design/object_data_input/widget/drop_down_factors_widgets.dart';
 import 'package:provider/provider.dart';
 
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/presentation/common/widget/text_divider.dart';
-import 'package:presale/src/domain/models/v2/constructing/model/input/input_repository.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 
 import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/object_input_data_cubit.dart';
@@ -161,7 +156,7 @@ class LoadedWidget extends StatelessWidget {
                         ),
                         TextWithRowHint(
                           leading: Icons.money_off,
-                          hintText: 'Накладные, ',
+                          hintText: 'Накладные',
                           textWidget: CustomTextInput(
                             width: 128,
                             onChanged: cubit.setOverPriceFactor,
@@ -172,7 +167,7 @@ class LoadedWidget extends StatelessWidget {
                         ),
                         TextWithRowHint(
                           leading: Icons.calculate,
-                          hintText: 'Норма прибыли,',
+                          hintText: 'Норма прибыли',
                           textWidget: CustomTextInput(
                             width: 128,
                             onChanged: cubit.setMarginFactor,
@@ -183,7 +178,7 @@ class LoadedWidget extends StatelessWidget {
                         ),
                         TextWithRowHint(
                           leading: Icons.person,
-                          hintText: 'Заказчик, ',
+                          hintText: 'Заказчик',
                           textWidget: CustomTextInput(
                             width: 128,
                             onChanged: cubit.setCustomerFactor,
