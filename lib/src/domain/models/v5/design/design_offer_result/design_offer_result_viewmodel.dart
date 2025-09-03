@@ -10,7 +10,9 @@ class DesignOfferResultVM{
   final List<DesignOfferResultRowVM> divisionRows;
   final double overPrice;
   final double margin;
+  final double client;
   final double summary;
+  final double summaryWithTax;
   final double tax;
   String notes = '';
   int _totalDays;
@@ -27,7 +29,9 @@ class DesignOfferResultVM{
 
    String get overPriceS => convertToString(overPrice, 0);
    String get marginS => convertToString(margin, 0);
+   String get clientS => convertToString(margin, 0);
    String get summaryS => convertToString(summary, 0);
+   String get summaryWithTaxS => convertToString(summaryWithTax, 0);
    String get taxS => convertToString(tax, 0);
 
   DesignOfferResultVM({
@@ -38,7 +42,9 @@ class DesignOfferResultVM{
     required this.divisionRows,
     required this.overPrice,
     required this.margin,
+    required this.client,
     required this.summary,
+    required this.summaryWithTax,
     required this.tax,
     int totalDays = 0,
     this.objectSquare = 0,

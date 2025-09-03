@@ -27,7 +27,7 @@ class TextDivider extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               text,
-              style: context.moonTypography?.body.text14
+              style: context.moonTypography?.body.text16
                   .copyWith(color: context.moonColors?.trunks),
             ),
           ),

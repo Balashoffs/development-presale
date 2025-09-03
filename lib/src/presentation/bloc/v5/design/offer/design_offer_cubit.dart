@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:presale/src/di/di.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
@@ -14,7 +16,7 @@ import 'package:presale/src/domain/models/v5/common/offer_template_builder.dart'
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 
 import 'package:presale/src/data/helpers/xlsx_helper/save_file_mobile.dart'
-    if (dart.library.html) 'package:presale/src/data/helpers/xlsx_helper/save_file_web.dart';
+if (dart.library.html) 'package:presale/src/data/helpers/xlsx_helper/save_file_web.dart';
 
 
 part 'design_offer_state.dart';
@@ -28,13 +30,28 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
   DesignOfferCubit({
     required DesignOfferResultController controller,
     required DBClient dbClient,
-  }) : _designOfferController = controller,
-       _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
-       super(const DesignOfferState.initial());
+  })
+      : _designOfferController = controller,
+        _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
+        super(const DesignOfferState.initial());
 
   void init() async {
-    DesignPresalePojo designPresalePojo = await _dataSourceLocal
-        .getDesignPresale(DesignPresaleDataSourceLocal.key);
+    DesignPresalePojo designPresalePojo;
+    if (di.dartDefineModel.ui == 'true') {
+      String json = await rootBundle.loadString(
+          'assets/calculator_data/test_resources/design_presale_pojo.json');
+      DesignPresalePojo d = DesignPresalePojo.fromJson(jsonDecode(json));
+      bool isBuild = _designOfferController.buildModel(d);
+      if (isBuild) {
+        emit(
+          DesignOfferState.showPage(_designOfferController.designOfferResultVM!),
+        );
+      }
+      return;
+    }else{
+      designPresalePojo = await _dataSourceLocal
+          .getDesignPresale(DesignPresaleDataSourceLocal.key);
+    }
     bool isBuild = _designOfferController.buildModel(designPresalePojo);
     if (isBuild) {
       emit(
@@ -49,7 +66,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     CommercialOfferResult? commercialOfferResult = _designOfferController
         .designOfferResultVM
         ?.toPojo(designPresalePojo.inputDataDesign);
-    if(kDebugMode){
+    if (kDebugMode) {
       String json = jsonEncode(commercialOfferResult?.toJson());
       print(json);
     }

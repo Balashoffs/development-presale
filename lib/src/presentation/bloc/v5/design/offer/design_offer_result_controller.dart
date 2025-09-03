@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:presale/src/domain/models/v3/design/custom_fuctors/custom_factors.dart';
 import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
@@ -88,22 +87,32 @@ class DesignOfferResultController {
 
       double marginCost =
           designPresalePojo.divisions?.rows
-              .map(
-                (e) =>
-                    e.margin ,
-              )
+              .map((e) => e.margin)
+              .reduce((value, element) => value + element) ??
+          0.0;
+
+      double clientCost =
+          designPresalePojo.divisions?.rows
+              .map((e) => e.client)
               .reduce((value, element) => value + element) ??
           0.0;
 
       double summary =
           designPresalePojo.divisions?.rows
+              .map((e) => e.summaryCostWithMargin)
+              .reduce((value, element) => value + element) ??
+          0.0;
+
+      double summaryWithTax =
+          designPresalePojo.divisions?.rows
               .map((e) => e.summaryCostWithTax)
               .reduce((value, element) => value + element) ??
           0.0;
-      summary = double.parse(summary.toStringAsFixed(0));
-      double tax = (summary - summary * RussianTax).abs();
+      summary = double.parse(summaryWithTax.toStringAsFixed(0));
+      double tax = (summaryWithTax - summaryWithTax * RussianTax).abs();
 
       return DesignOfferResultVM(
+        summaryWithTax: summaryWithTax,
         divisionType: designPresalePojo.inputDataDesign.divisionType.text,
         createdDesignOffer: designPresalePojo.inputDataDesign.created!
             .toLocal()
@@ -114,6 +123,7 @@ class DesignOfferResultController {
         divisionRows: divisionRows,
         summary: summary,
         totalDays: designPresalePojo.inputDataDesign.objectData.deadlineValue,
+        client: clientCost,
         margin: marginCost,
         tax: tax,
         overPrice: overPrice,

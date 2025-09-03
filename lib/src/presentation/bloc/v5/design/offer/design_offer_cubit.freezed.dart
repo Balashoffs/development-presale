@@ -12,11 +12,17 @@ part of 'design_offer_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$DesignOfferState {
+mixin _$DesignOfferState implements DiagnosticableTreeMixin {
 
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'DesignOfferState'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -28,7 +34,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'DesignOfferState()';
 }
 
@@ -192,7 +198,7 @@ return error(_that.errorText);case _:
 /// @nodoc
 
 
-class _Initial implements DesignOfferState {
+class _Initial with DiagnosticableTreeMixin implements DesignOfferState {
   const _Initial();
   
 
@@ -200,6 +206,12 @@ class _Initial implements DesignOfferState {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'DesignOfferState.initial'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -211,7 +223,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'DesignOfferState.initial()';
 }
 
@@ -224,7 +236,7 @@ String toString() {
 /// @nodoc
 
 
-class _NextPage implements DesignOfferState {
+class _NextPage with DiagnosticableTreeMixin implements DesignOfferState {
   const _NextPage();
   
 
@@ -232,6 +244,12 @@ class _NextPage implements DesignOfferState {
 
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'DesignOfferState.nextPage'))
+    ;
+}
 
 @override
 bool operator ==(Object other) {
@@ -243,7 +261,7 @@ bool operator ==(Object other) {
 int get hashCode => runtimeType.hashCode;
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'DesignOfferState.nextPage()';
 }
 
@@ -256,7 +274,7 @@ String toString() {
 /// @nodoc
 
 
-class _ShowPage implements DesignOfferState {
+class _ShowPage with DiagnosticableTreeMixin implements DesignOfferState {
   const _ShowPage(this.result);
   
 
@@ -269,6 +287,12 @@ class _ShowPage implements DesignOfferState {
 _$ShowPageCopyWith<_ShowPage> get copyWith => __$ShowPageCopyWithImpl<_ShowPage>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'DesignOfferState.showPage'))
+    ..add(DiagnosticsProperty('result', result));
+}
 
 @override
 bool operator ==(Object other) {
@@ -280,7 +304,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,result);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'DesignOfferState.showPage(result: $result)';
 }
 
@@ -322,7 +346,7 @@ as DesignOfferResultVM,
 /// @nodoc
 
 
-class _Error implements DesignOfferState {
+class _Error with DiagnosticableTreeMixin implements DesignOfferState {
   const _Error(this.errorText);
   
 
@@ -335,6 +359,12 @@ class _Error implements DesignOfferState {
 _$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$identity);
 
 
+@override
+void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+  properties
+    ..add(DiagnosticsProperty('type', 'DesignOfferState.error'))
+    ..add(DiagnosticsProperty('errorText', errorText));
+}
 
 @override
 bool operator ==(Object other) {
@@ -346,7 +376,7 @@ bool operator ==(Object other) {
 int get hashCode => Object.hash(runtimeType,errorText);
 
 @override
-String toString() {
+String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
   return 'DesignOfferState.error(errorText: $errorText)';
 }
 

@@ -6,7 +6,8 @@ import 'package:presale/src/utils/dart_define/model/design_class/design_class.da
 DartDefineModel buildFrom(){
   String type =const String.fromEnvironment('type');
   final source = const String.fromEnvironment('design');
+  final ui = const String.fromEnvironment('ui');
   final map = json.decode(source);
   DesignClass design = DesignClass.fromJson(map);
-  return DartDefineModel(type: type, design: design);
+  return DartDefineModel(type: type, design: design, ui: ui);
 }

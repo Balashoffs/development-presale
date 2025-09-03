@@ -8,7 +8,7 @@ import 'package:presale/src/presentation/modules/service_type_select/navi/servic
 import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
 import 'package:presale/src/presentation/modules/v5/user_login/navi/service_navi.dart';
 
-final  appRouterDebug = GoRouter(
+final appRouterDebug = GoRouter(
   routes: [
     ServiceTypeSelectRoute(
       routes: [
@@ -16,9 +16,7 @@ final  appRouterDebug = GoRouter(
           routes: [
             DesignResourcesRoute(
               routes: [
-                DesignDivisionsRoute(
-                  routes: [DesignOfferRoute(routes: [])],
-                ),
+                DesignDivisionsRoute(routes: [DesignOfferRoute(routes: [])]),
               ],
             ),
           ],

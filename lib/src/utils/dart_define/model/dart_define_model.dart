@@ -8,6 +8,7 @@ part 'dart_define_model.g.dart';
 abstract class DartDefineModel with _$DartDefineModel {
   const factory DartDefineModel({
     required String type,
+    required String ui,
     required DesignClass design,
 }) = _DartDefineModel;
 
