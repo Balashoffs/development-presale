@@ -7,7 +7,7 @@ import 'package:presale/src/domain/models/v5/design/division_resource_table/divi
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';
 import 'package:presale/src/presentation/modules/v5/design/division_resource_calculate/viewmodel/division_viewmodel.dart';
 
-import '../divisions_with_resources_dto.dart';
+import 'divisions_with_resources_dto.dart';
 
 class ResourcesWithUnselectedViewController {
   final List<DivisionDTO> _loadedDivisions = [];
@@ -64,16 +64,8 @@ class ResourcesWithUnselectedViewController {
   void _onAdd(int id) {
     DivisionWithResourceRowVM? found = _buildById(id);
     if (found != null) {
-      String divisionShortName = found.divisionShortName;
-      List<ResourceDTO> resources = resourcesByDivisionShortName(
-        divisionShortName,
-      );
-      if (resources.length == 1) {
-        found.resourceCostPerDayVN.value = resources[0].resourceCostPerDay;
-        found.resourceNameVN.value = resources[0].resourceName;
-      }
       List<DivisionWithResourceRowVM> updated = [...selectedRows.value, found];
-      updated.sort((a, b) => a.id.compareTo(b.id));
+      updated.sort((a, b) => a.resourceId.compareTo(b.resourceId));
       selectedRows.value = [...updated];
     }
   }
@@ -81,10 +73,10 @@ class ResourcesWithUnselectedViewController {
   void _onDelete(int id) {
     DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
-      selectedRows.value.removeWhere((element) => element.id == id);
+      selectedRows.value.removeWhere((element) => element.resourceId == id);
       selectedRows.value = [...selectedRows.value];
       summaryVN.value = summaryCost;
-      _deleteResourceId(id, found.id);
+      _deleteResourceId(found.id, found.resourceId);
     }
   }
 
@@ -112,10 +104,6 @@ class ResourcesWithUnselectedViewController {
   void onCustomResourceName(int id, String resourceName) {
     DivisionWithResourceRowVM? found = _getById(id);
     if (found != null) {
-      if (resourceName.isEmpty) {
-        found.resourceNameVN.value = '';
-        found.resourceCostPerDayVN.value = 0.0;
-      }
       found.resourceNameVN.value = resourceName;
     }
   }
@@ -181,7 +169,7 @@ class ResourcesWithUnselectedViewController {
       _loadedDivisions
           .where((element) => element.divisionShortName == divisionShortName)
           .firstOrNull
-          ?.resources ??
+          ?.resources.sorted((a, b) => b.resourceCostPerDay.compareTo(a.resourceCostPerDay),) ??
       [];
 
   int resourcesQnt(String divisionShortName) => _loadedDivisions
@@ -191,7 +179,22 @@ class ResourcesWithUnselectedViewController {
   DivisionWithResourceRowVM? _buildById(int id) {
     return _loadedDivisions.where((element) => element.id == id).map((e) {
       int resourceId = _createResourceId(id);
-      return e.toDivisionResourceRowVM(resourceId);
+      ResourceDTO? resource = e.resources.length == 1
+          ? e.resources[0]
+          : e.resources
+                .sorted(
+                  (a, b) =>
+                      b.resourceCostPerDay.compareTo(a.resourceCostPerDay),
+                )
+                .firstOrNull;
+      if (resource != null) {
+        return e.toDivisionResourceRowVM(
+          resourceId,
+          e.resources.length,
+          resourceName: resource.resourceName,
+          resourceCostPerDay: resource.resourceCostPerDay,
+        );
+      }
     }).firstOrNull;
   }
 
@@ -204,6 +207,7 @@ class ResourcesWithUnselectedViewController {
       resourceId = _createdResourcedId[id]!.last + 1;
     }
     _createdResourcedId[id]!.add(resourceId);
+    print('id: $id, resourceId: $resourceId');
     return resourceId;
   }
 
@@ -215,11 +219,29 @@ class ResourcesWithUnselectedViewController {
   }
 
   DivisionWithResourceRowVM? _getById(int id) {
-    return selectedRows.value.where((element) => element.id == id).firstOrNull;
+    return selectedRows.value
+        .where((element) => element.resourceId == id)
+        .firstOrNull;
   }
 
   void sortTable() {
     final sorted = selectedRows.value.sorted((a, b) => a.id.compareTo(b.id));
     selectedRows.value = [...sorted];
+  }
+
+  void changeTableView(bool value) {
+    selectedRows.value = [];
+    _createdResourcedId.clear();
+    List<DivisionWithResourceRowVM> rows;
+    if (value) {
+      rows = _loadedDivisions
+          .where((element) => !element.divisionShortName.contains('ИД'))
+          .map((e) => _buildById(e.id))
+          .nonNulls.toList();
+      rows.sorted((a, b) => a.resourceId.compareTo(b.resourceId));
+    } else {
+      rows = [];
+    }
+    selectedRows.value = [...rows];
   }
 }

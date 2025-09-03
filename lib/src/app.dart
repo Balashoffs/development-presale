@@ -80,42 +80,12 @@ class ServiceCalcApp extends App {
                 body: MoonTypography.typography.body.apply(
                   fontFamily: "DMSans",
                 ),
-
-
               ),
             ),
           ),
         ],
       ),
-      builder: (context, child) {
-        return FullScreenWidget(child: child!,);
-      },
       routerConfig: di.appGoRouter,
     );
-  }
-}
-
-
-class FullScreenWidget extends StatefulWidget {
-  const FullScreenWidget({super.key, required this.child});
-  final Widget child;
-
-  @override
-  State<FullScreenWidget> createState() => _FullScreenWidgetState();
-}
-
-class _FullScreenWidgetState extends State<FullScreenWidget> {
-
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    FullScreen.setFullScreen(true);
-
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-final class DivisionWithResourceRowVM {
+class DivisionWithResourceRowVM {
   final int id;
+  final int resourceId;
+  final int resourcesQnt;
 
   //Имя раздела
   final String divisionName;
@@ -14,7 +16,7 @@ final class DivisionWithResourceRowVM {
   final ValueNotifier<String> resourceNameVN;
 
   // Кол-во задействованных должностей
-  int _resourceQnt = 0;
+  int _resourceQnt;
 
   int get resourceQnt => _resourceQnt; // Ставка в день
   set resourceQnt(int value) {
@@ -22,7 +24,7 @@ final class DivisionWithResourceRowVM {
   }
 
   // Кол-во задействованных дней
-  int _workDays = 0;
+  int _workDays;
 
   int get workDays => _workDays;
 
@@ -32,7 +34,7 @@ final class DivisionWithResourceRowVM {
 
   // Коэфициент сложности
 
-  double _complexFactor = 1.0;
+  double _complexFactor;
 
   double get complexFactor => _complexFactor;
 
@@ -41,7 +43,7 @@ final class DivisionWithResourceRowVM {
   }
 
   // Коэфициент по площади
-  double _squareFactor = 1.0;
+  double _squareFactor;
 
   double get squareFactor => _squareFactor;
 
@@ -50,7 +52,7 @@ final class DivisionWithResourceRowVM {
   }
 
   // Коэфициент участия
-  double _resourceUsingFactor = 1.0;
+  double _resourceUsingFactor;
 
   double get resourceUsingFactor => _resourceUsingFactor;
 
@@ -58,7 +60,11 @@ final class DivisionWithResourceRowVM {
     _resourceUsingFactor = value;
   }
 
-  //Ставка специалиста в день
+  @override
+  String toString() {
+    return 'DivisionWithResourceRowVM{id: $id, resourceId: $resourceId, divisionName: $divisionName, divisionShortName: $divisionShortName, divisionDescription: $divisionDescription, _resourceQnt: $_resourceQnt, _workDays: $_workDays, _complexFactor: $_complexFactor, _squareFactor: $_squareFactor, _resourceUsingFactor: $_resourceUsingFactor}';
+  } //Ставка специалиста в день
+
   final ValueNotifier<double> resourceCostPerDayVN;
 
   // Стоимость задествия должности по конкретному разделу
@@ -66,15 +72,19 @@ final class DivisionWithResourceRowVM {
 
   DivisionWithResourceRowVM({
     required this.id,
+    required this.resourceId,
+    required this.resourcesQnt,
     required this.divisionName,
     required this.divisionShortName,
     required this.divisionDescription,
-    String resourceName = '',
+    required String resourceName,
     double resourceCostPerDay = 0.0,
   }) : resourceNameVN = ValueNotifier(resourceName),
        resourceCostPerDayVN = ValueNotifier(resourceCostPerDay),
        totalResourceRowCostVN = ValueNotifier(0.0),
+       _complexFactor = 1.0,
+       _squareFactor = 1.0,
+       _resourceUsingFactor = 1.0,
        _workDays = 0,
-       _resourceQnt = 0,
-       _resourceUsingFactor = 1.0;
+       _resourceQnt = 0;
 }

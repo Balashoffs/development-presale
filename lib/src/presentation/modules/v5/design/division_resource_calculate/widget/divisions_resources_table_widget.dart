@@ -4,26 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/widget_action_type.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
-import 'package:presale/src/domain/models/v5/design/division_resource_table/vc/division_with_all_vc.dart';
-import 'package:presale/src/domain/models/v5/design/division_resource_table/vc/division_with_unselected_vc.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/division_with_unselected_vc.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 
 import '../../common/table/division_resources_table_utils.dart';
-
-typedef OnRowAction = Function(int id, WidgetActionType actionType);
 
 class DivisionsResourceTableWidget extends StatefulWidget {
   const DivisionsResourceTableWidget({
     super.key,
     required this.rowAttributes,
     required this.tableDataRows,
-    required this.onRowAction,
   });
 
   final List<CollumAttribute> rowAttributes;
   final List<DivisionWithResourceRowVM> tableDataRows;
-  final OnRowAction onRowAction;
 
   @override
   State<DivisionsResourceTableWidget> createState() =>
@@ -40,13 +35,9 @@ class _DivisionsResourceTableWidgetState
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
+  void dispose() {
+    _verticalScrollController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -82,11 +73,13 @@ class _DivisionsResourceTableWidgetState
 
   List<MoonTableRow> _generateTableRows() {
     final controller = context.read<ResourcesWithUnselectedViewController>();
-
     return List.generate(widget.tableDataRows.length, (int index) {
       final row = widget.tableDataRows[index];
-      List<ResourceDTO> resources = controller.resourcesByDivisionShortName(row.divisionShortName);
+      List<ResourceDTO> resources = controller.resourcesByDivisionShortName(
+        row.divisionShortName,
+      );
       int pos = index + 1;
+      String key = row.resourceId.toString();
       return MoonTableRow(
         height: 72,
         cells: [
@@ -94,28 +87,30 @@ class _DivisionsResourceTableWidgetState
           CellDecorationWidget(
             isFistCell: true,
             child: CellWithIconWidget(
-              key: Key(row.id.toString()),
+              key: Key(key),
               iconData: MoonIcons.controls_close_16_light,
-              onTap: () {
-                widget.onRowAction(row.id, WidgetActionType.delete);
-                _isRemoveAction = true;
+              onTap: () async {
+                setState(() {
+                  controller.onRowAction(
+                    row.resourceId,
+                    WidgetActionType.delete,
+                  );
+                  _isRemoveAction = true;
+                });
               },
             ),
           ),
           CellDecorationWidget(
-            child: TextCellWidget(label: '$pos', key: Key(row.id.toString())),
+            child: TextCellWidget(label: '$pos', key: Key(key)),
           ),
           //Division short name
           CellDecorationWidget(
-            child: TextCellWidget(
-              label: row.divisionShortName,
-              key: Key(row.id.toString()),
-            ),
+            child: TextCellWidget(label: row.divisionShortName, key: Key(key)),
           ),
           //Division name
           CellDecorationWidget(
             child: CellWithMultiLineWidget(
-              key: Key(row.id.toString()),
+              key: Key(key),
               label: row.divisionName,
               hint: row.divisionDescription,
             ),
@@ -123,73 +118,84 @@ class _DivisionsResourceTableWidgetState
           resources.length > 1
               ? CellDecorationWidget(
                   child: ResourcesDropdownWidget(
-                    key: Key(row.id.toString()),
-                    onChanged: (context, value) {
-                      controller.onResourceName(row.id, value);
+                    key: Key(key),
+                    onChanged: (context, value) async{
+                      setState(() {
+                        controller.onResourceName(row.resourceId, value);
+                      });
                     },
                     resources: resources,
                   ),
                 )
               : CellDecorationWidget(
                   child: TextCellWidget(
-                    key: Key(row.id.toString()),
+                    key: Key(key),
                     label: row.resourceNameVN.value,
                   ),
                 ),
           CellDecorationWidget(
             child: TextWithNotifier(
-              key: Key(row.id.toString()),
+              key: Key(key),
               vn: row.resourceCostPerDayVN,
             ),
           ),
-
           CellDecorationWidget(
             child: IntInputCellWidget(
-              key: Key(row.id.toString()),
-              onChanged: (context, value) {
-                controller.onResourceQnt(row.id, value);
+              key: Key(row.resourceId.toString()),
+              onChanged: (context, value) async {
+                setState(() {
+                  controller.onResourceQnt(row.resourceId, value);
+                });
               },
               defaultValue: row.resourceQnt,
             ),
           ),
           CellDecorationWidget(
             child: IntInputCellWidget(
-              key: Key(row.id.toString()),
+              key: Key(key),
               onChanged: (context, value) {
-                controller.onWorkDays(row.id, value);
+                setState(() {
+                  controller.onWorkDays(row.resourceId, value);
+                });
               },
               defaultValue: row.workDays,
             ),
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
-              key: Key(row.id.toString()),
+              key: Key(key),
               onChanged: (context, value) {
-                controller.onComplexFactor(row.id, value);
+                setState(() {
+                  controller.onComplexFactor(row.resourceId, value);
+                });
               },
               defaultValue: row.complexFactor,
             ),
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
-              key: Key(row.id.toString()),
+              key: Key(key),
               onChanged: (context, value) {
-                controller.onSquareFactor(row.id, value);
+                setState(() {
+                  controller.onSquareFactor(row.resourceId, value);
+                });
               },
               defaultValue: row.squareFactor,
             ),
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
-              key: Key(row.id.toString()),
+              key: Key(key),
               onChanged: (context, value) {
-                controller.onResourceUsingFactor(row.id, value);
+                setState(() {
+                  controller.onResourceUsingFactor(row.resourceId, value);
+                });
               },
               defaultValue: row.resourceUsingFactor,
             ),
           ),
           CellDecorationWidget(
-            key: Key(row.id.toString()),
+            key: Key(key),
             child: TextWithNotifier(vn: row.totalResourceRowCostVN),
           ),
         ],

@@ -9,8 +9,7 @@ import 'package:presale/src/data/data_sources/v3/input_result_design_source.dart
 import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/division_resource_row_pojo.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/division_resource_table_pojo.dart';
-import 'package:presale/src/domain/models/v5/design/division_resource_table/vc/division_with_all_vc.dart';
-import 'package:presale/src/domain/models/v5/design/division_resource_table/vc/division_with_unselected_vc.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/division_with_unselected_vc.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';
 import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
@@ -22,13 +21,11 @@ part 'division_resource_calculate_cubit.freezed.dart';
 class DivisionResourceCalculateCubit
     extends Cubit<DivisionResourceCalculateState> {
   final ResourcesWithUnselectedViewController _resourcesViewController;
-  // final ResourcesViewController _resourcesViewController;.
   final DesignPresaleDataSourceLocal _dataSourceLocal;
 
   DivisionResourceCalculateCubit({
     required DBClient dbClient,
     required ResourcesWithUnselectedViewController resourcesViewController,
-    // required ResourcesViewController resourcesViewController,
   }) : _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
        _resourcesViewController = resourcesViewController,
        super(const DivisionResourceCalculateState.initial());
@@ -51,7 +48,7 @@ class DivisionResourceCalculateCubit
   void onNextPage() async {
     List<DivisionResourceRowPojo> rows = _resourcesViewController
         .selectedRows
-        .value
+        .value!
         .map((e) => e.toPojo())
         .toList();
 
@@ -77,5 +74,9 @@ class DivisionResourceCalculateCubit
     if (isSaves) {
       emit(DivisionResourceCalculateState.nextPage());
     }
+  }
+
+  void changeTableView(bool value){
+    _resourcesViewController.changeTableView(value);
   }
 }

@@ -30,12 +30,20 @@ extension ResourceCsvExt on ResourceCSV {
 }
 
 extension DivisionDtoExt on DivisionDTO {
-  DivisionWithResourceRowVM toDivisionResourceRowVM(int id) {
+  DivisionWithResourceRowVM toDivisionResourceRowVM(
+    int resourceId, int resourcesQnt,{
+    String resourceName = '',
+    double resourceCostPerDay = 0.0,
+  }) {
     return DivisionWithResourceRowVM(
+      id: id,
+      resourceId: resourceId,
+      resourcesQnt: resourcesQnt,
       divisionDescription: divisionDescription,
       divisionShortName: divisionShortName,
       divisionName: divisionName,
-      id: id,
+      resourceName: resourceName,
+      resourceCostPerDay: resourceCostPerDay,
     );
   }
 }
