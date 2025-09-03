@@ -79,8 +79,11 @@ class _DivisionsMarginTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
-              onChanged: (context, value) {
+              onChanged: (context, value) async{
                 controller.onOverPriceFactor(row.id, value);
+                setState(() {
+
+                });
               },
               defaultValue: row.overPriceFactor,
             ),
@@ -88,8 +91,11 @@ class _DivisionsMarginTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
-              onChanged: (context, value) {
+              onChanged: (context, value) async{
                 controller.onMarginFactor(row.id, value);
+                setState(() {
+
+                });
               },
               defaultValue: row.marginFactor,
             ),
@@ -97,8 +103,11 @@ class _DivisionsMarginTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
-              onChanged: (context, value) {
+              onChanged: (context, value) async{
                 controller.onClientFactor(row.id, value);
+                setState(() {
+                  
+                });
               },
               defaultValue: row.clientFactor,
             ),

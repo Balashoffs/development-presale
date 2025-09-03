@@ -23,32 +23,28 @@ class CellDecorationWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return DecoratedBox(
-          decoration: isFistCell
-              ? BoxDecoration()
-              : BoxDecoration(
-                  border: Border(
-                    left: Directionality.of(context) == TextDirection.ltr
-                        ? Divider.createBorderSide(
-                            context,
-                            color: context.moonColors!.beerus,
-                            width: 1,
-                          )
-                        : BorderSide.none,
-                    right: Directionality.of(context) == TextDirection.rtl
-                        ? Divider.createBorderSide(
-                            context,
-                            color: context.moonColors!.beerus,
-                            width: 1,
-                          )
-                        : BorderSide.none,
-                  ),
-                ),
-          child: child,
-        );
-      },
+    return DecoratedBox(
+      decoration: isFistCell
+          ? BoxDecoration()
+          : BoxDecoration(
+        border: Border(
+          left: Directionality.of(context) == TextDirection.ltr
+              ? Divider.createBorderSide(
+            context,
+            color: context.moonColors!.beerus,
+            width: 1,
+          )
+              : BorderSide.none,
+          right: Directionality.of(context) == TextDirection.rtl
+              ? Divider.createBorderSide(
+            context,
+            color: context.moonColors!.beerus,
+            width: 1,
+          )
+              : BorderSide.none,
+        ),
+      ),
+      child: child,
     );
   }
 }
@@ -236,15 +232,11 @@ class ResourcesDropdownWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return Center(
-          child: ResourceObjectDropDownSelector(
-            onSelected: (p0) => onChanged(context, p0?.resourceName ?? ''),
-            resources: resources,
-          ),
-        );
-      },
+    return Center(
+      child: ResourceObjectDropDownSelector(
+        onSelected: (p0) => onChanged(context, p0?.resourceName ?? ''),
+        resources: resources,
+      ),
     );
   }
 }

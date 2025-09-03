@@ -35,12 +35,6 @@ class _DivisionsResourceTableWidgetState
   }
 
   @override
-  void dispose() {
-    _verticalScrollController?.dispose();
-    super.dispose();
-  }
-
-  @override
   void didUpdateWidget(DivisionsResourceTableWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!_isRemoveAction) {
@@ -90,11 +84,8 @@ class _DivisionsResourceTableWidgetState
               key: Key(key),
               iconData: MoonIcons.controls_close_16_light,
               onTap: () async {
+                controller.onRowAction(row.resourceId, WidgetActionType.delete);
                 setState(() {
-                  controller.onRowAction(
-                    row.resourceId,
-                    WidgetActionType.delete,
-                  );
                   _isRemoveAction = true;
                 });
               },
@@ -119,10 +110,9 @@ class _DivisionsResourceTableWidgetState
               ? CellDecorationWidget(
                   child: ResourcesDropdownWidget(
                     key: Key(key),
-                    onChanged: (context, value) async{
-                      setState(() {
-                        controller.onResourceName(row.resourceId, value);
-                      });
+                    onChanged: (context, value) async {
+                      controller.onResourceName(row.resourceId, value);
+                      setState(() {});
                     },
                     resources: resources,
                   ),
@@ -143,9 +133,8 @@ class _DivisionsResourceTableWidgetState
             child: IntInputCellWidget(
               key: Key(row.resourceId.toString()),
               onChanged: (context, value) async {
-                setState(() {
-                  controller.onResourceQnt(row.resourceId, value);
-                });
+                controller.onResourceQnt(row.resourceId, value);
+                setState(() {});
               },
               defaultValue: row.resourceQnt,
             ),
@@ -153,10 +142,9 @@ class _DivisionsResourceTableWidgetState
           CellDecorationWidget(
             child: IntInputCellWidget(
               key: Key(key),
-              onChanged: (context, value) {
-                setState(() {
-                  controller.onWorkDays(row.resourceId, value);
-                });
+              onChanged: (context, value) async {
+                controller.onWorkDays(row.resourceId, value);
+                setState(() {});
               },
               defaultValue: row.workDays,
             ),
@@ -164,10 +152,9 @@ class _DivisionsResourceTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(key),
-              onChanged: (context, value) {
-                setState(() {
-                  controller.onComplexFactor(row.resourceId, value);
-                });
+              onChanged: (context, value) async {
+                controller.onComplexFactor(row.resourceId, value);
+                setState(() {});
               },
               defaultValue: row.complexFactor,
             ),
@@ -175,10 +162,9 @@ class _DivisionsResourceTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(key),
-              onChanged: (context, value) {
-                setState(() {
-                  controller.onSquareFactor(row.resourceId, value);
-                });
+              onChanged: (context, value) async {
+                controller.onSquareFactor(row.resourceId, value);
+                setState(() {});
               },
               defaultValue: row.squareFactor,
             ),
@@ -186,10 +172,9 @@ class _DivisionsResourceTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(key),
-              onChanged: (context, value) {
-                setState(() {
-                  controller.onResourceUsingFactor(row.resourceId, value);
-                });
+              onChanged: (context, value) async {
+                controller.onResourceUsingFactor(row.resourceId, value);
+                setState(() {});
               },
               defaultValue: row.resourceUsingFactor,
             ),

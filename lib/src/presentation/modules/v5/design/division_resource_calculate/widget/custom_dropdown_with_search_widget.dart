@@ -339,7 +339,7 @@ class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownS
     _unselected =  List.of(widget.resources);
     _unselected!.removeWhere((element) => element.id == _selected!.id,);
     _hintText = _selected!.resourceName;
-    widget.onSelected(_selected);
+
   }
 
   @override
