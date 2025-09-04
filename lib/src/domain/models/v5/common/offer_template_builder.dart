@@ -37,9 +37,9 @@ class DesignOfferTemplateBuilder {
     _addTableTitle();
     _increment();
     _addTable();
-    _addOfferNotes();
     _addObjectSquare();
     _addAvance();
+    _addOfferNotes();
     _increment(2);
     _addSignRows();
     _addSignPlace();
@@ -156,7 +156,7 @@ class DesignOfferTemplateBuilder {
     if (_offerResult.inputDataDesign.objectData.square != 0) {
       _increment();
       String objectLocation =
-          'Площадь объекта: ${_offerResult.inputDataDesign.objectData.square} м2';
+          'Площадь объекта: ${_offerResult.inputDataDesign.objectData.square} м\u00B2';
       _buildCell(
         objectLocation,
         'B$_rowPos:D$_rowPos',

@@ -40,8 +40,7 @@ class _ServiceTypeSelectPageState extends State<ServiceTypeSelectPage> {
                 MoonButton(
                   width: double.infinity,
                   onTap: () {
-                    context.go(designOfferRoute);
-                    // context.go(designInputRoute);
+                    context.go(designInputRoute);
                   },
                   showBorder: true,
                   label: Text(

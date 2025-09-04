@@ -38,6 +38,7 @@ class DesignOfferAdditionalDataWidget extends StatelessWidget {
                   ),
                 ),
                 CustomTextInput(
+                  hasFloatingLabel: true,
                   hintText: 'Авансирование, рубл.*',
                   onChanged: controller.onAvance,
                   trailing: MoonIcons.controls_close_small_24_light,

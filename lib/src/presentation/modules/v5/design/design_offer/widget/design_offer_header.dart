@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
-import 'package:presale/src/presentation/common/color_options.dart'
-    show getColor, MoonColor;
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/text_utils.dart';
 
 
@@ -41,10 +39,7 @@ class DesignOfferHeaderWidget extends StatelessWidget {
             verticalGap: 8.0,
             label: Text("Адрес объекта", style: labelStyle),
             content: Text(
-              List.generate(
-                5,
-                (index) => result.objectLocation + result.objectLocation,
-              ).join('\n'),
+              result.objectLocation,
               style: contentStyle(context),
             ),
           ),

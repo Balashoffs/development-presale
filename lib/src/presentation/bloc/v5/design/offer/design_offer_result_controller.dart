@@ -15,7 +15,7 @@ class DesignOfferResultController {
   final StreamController<PersonSignDTO> _streamController = StreamController();
 
   StreamSink<PersonSignDTO> get personSignSink => _streamController.sink;
-  late final PersonSignDTO? _personSignDTO;
+  PersonSignDTO _personSignDTO = PersonSignDTO.empty();
 
   DesignOfferResultController() {
     _streamController.stream.listen((event) {
@@ -40,14 +40,14 @@ class DesignOfferResultController {
       if (designOfferResultVM != null) {
         designOfferResultVM!.avance = result;
       }
-    }else{
+    } else {
       designOfferResultVM!.avance = 0;
     }
     _check();
   }
 
-  void _check(){
-    if(_personSignDTO != null && designOfferResultVM!.avance != 0){
+  void _check() {
+    if (_personSignDTO.id != 0 && designOfferResultVM!.avance != 0) {
       isCorrect.value = true;
     }
   }
@@ -100,10 +100,11 @@ class DesignOfferResultController {
               .map((e) => e.summaryCostWithTax)
               .reduce((value, element) => value + element) ??
           0.0;
-      summary = double.parse(summaryWithTax.toStringAsFixed(0));
+      summary = double.parse(summary.toStringAsFixed(0));
       double tax = (summaryWithTax - summaryWithTax * RussianTax).abs();
 
       return DesignOfferResultVM(
+        signPerson: _personSignDTO,
         summaryWithTax: summaryWithTax,
         divisionType: designPresalePojo.inputDataDesign.divisionType.text,
         createdDesignOffer: designPresalePojo.inputDataDesign.created!

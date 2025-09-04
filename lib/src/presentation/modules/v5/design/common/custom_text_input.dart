@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/presentation/common/color_options.dart';
-import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/text_utils.dart';
 
 class CustomTextInput extends StatefulWidget {
   const CustomTextInput({
@@ -16,6 +15,7 @@ class CustomTextInput extends StatefulWidget {
     this.initValue,
     this.autofocus = false,
     required this.isEnables,
+    this.hasFloatingLabel = false,
   });
 
   final String hintText;
@@ -28,6 +28,7 @@ class CustomTextInput extends StatefulWidget {
   final FormFieldValidator<String>? validator;
   final bool autofocus;
   final bool isEnables;
+  final bool hasFloatingLabel;
 
   @override
   State<CustomTextInput> createState() => _CustomTextInputState();
@@ -74,7 +75,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
       controller: _textController,
       enabled: widget.isEnables,
       textInputSize: MoonTextInputSize.xl,
-      hasFloatingLabel: true,
+      hasFloatingLabel: widget.hasFloatingLabel,
       activeBorderColor: getColor(context, MoonColor.zeno),
       inactiveBorderColor: _borderColor ?? getColor(context, MoonColor.whis10),
       errorColor: colorTable(context)[MoonColor.chichi.index]!,
