@@ -32,7 +32,7 @@ class DivisionsMarginCalculateCubit
   void init() async {
     DesignPresalePojo designPresalePojo;
 
-    designPresalePojo = await _dataSourceLocal.getDesignPresale(
+    designPresalePojo = await _dataSourceLocal.read(
       DesignPresaleDataSourceLocal.key,
     );
 
@@ -51,7 +51,7 @@ class DivisionsMarginCalculateCubit
         .toList();
 
     DesignPresalePojo designPresalePojo = await _dataSourceLocal
-        .getDesignPresale(DesignPresaleDataSourceLocal.key);
+        .read(DesignPresaleDataSourceLocal.key);
 
     final updatesDivisions = DivisionsMarginTableWithTypePojo(
       divisionType: designPresalePojo.inputDataDesign.divisionType,
@@ -62,7 +62,7 @@ class DivisionsMarginCalculateCubit
       divisions: updatesDivisions,
     );
 
-    bool isSaves = await _dataSourceLocal.addDesignPresale(updated);
+    bool isSaves = await _dataSourceLocal.add(updated);
     if (isSaves) {
       emit(DivisionsMarginCalculateState.nextPage());
     }

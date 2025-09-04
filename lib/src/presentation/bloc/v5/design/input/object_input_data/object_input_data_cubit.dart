@@ -178,7 +178,7 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
         inputDataDesign: inputDataDesign,
       );
 
-      bool isSaves = await _dataSourceLocal.addDesignPresale(designPresalePojo);
+      bool isSaves = await _dataSourceLocal.add(designPresalePojo);
       if (isSaves) {
         emit(ObjectInputDataState.nextPage());
       }

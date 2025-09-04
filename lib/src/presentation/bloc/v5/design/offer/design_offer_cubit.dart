@@ -50,7 +50,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
       return;
     }else{
       designPresalePojo = await _dataSourceLocal
-          .getDesignPresale(DesignPresaleDataSourceLocal.key);
+          .read(DesignPresaleDataSourceLocal.key);
     }
     bool isBuild = _designOfferController.buildModel(designPresalePojo);
     if (isBuild) {
@@ -62,7 +62,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
 
   void saveToFile() async {
     DesignPresalePojo designPresalePojo = await _dataSourceLocal
-        .getDesignPresale(DesignPresaleDataSourceLocal.key);
+        .read(DesignPresaleDataSourceLocal.key);
     CommercialOfferResult? commercialOfferResult = _designOfferController
         .designOfferResultVM
         ?.toPojo(designPresalePojo.inputDataDesign);

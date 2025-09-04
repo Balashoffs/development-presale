@@ -1,15 +1,7 @@
-/*
-  final String fistName;
-  final String secondName;
-  final String lastName;
-  final String jobTitle;
-  final String companyTitle;
-  final String phoneNumber;
-  final String jobEmail;
- */
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 
-class UserLoginTextGroupController {
+class PersonSignTextInputValidator {
   final TextEditingController fistNameController = TextEditingController();
   final TextEditingController secondNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
@@ -26,8 +18,19 @@ class UserLoginTextGroupController {
   final String phoneNumberHintText = 'Введите рабочий номер телефона';
   final String jobEmailHintText = 'Введите рабочую электронную почту';
 
+  void dispose() {
+    fistNameController.dispose();
+    secondNameController.dispose();
+    lastNameController.dispose();
+    jobTitleController.dispose();
+    companyTitleController.dispose();
+    phoneNumberController.dispose();
+    jobEmailController.dispose();
+  }
+
   FormFieldValidator<String>? fistNameValidator = (value) {
-    return value?.length != null && RegExp(r'^[А-ЯЁ][а-яё]{1,29}$').hasMatch(value!)
+    return value?.length != null &&
+            RegExp(r'^[А-ЯЁ][а-яё]{1,29}$').hasMatch(value!)
         ? null
         : "Разрешаются только буквы русского языка";
   };
@@ -72,4 +75,14 @@ class UserLoginTextGroupController {
         ? "Разрешаются буквы английского языка, цифры и другие допустимые символы"
         : null;
   };
+
+  void setPersonSign(PersonSignDTO personSignDTO) {
+    fistNameController.text = personSignDTO.fistName;
+    secondNameController.text = personSignDTO.secondName;
+    lastNameController.text = personSignDTO.lastName;
+    jobTitleController.text = personSignDTO.jobTitle;
+    companyTitleController.text = personSignDTO.companyTitle;
+    phoneNumberController.text = personSignDTO.phoneNumber;
+    jobEmailController.text = personSignDTO.jobEmail;
+  }
 }

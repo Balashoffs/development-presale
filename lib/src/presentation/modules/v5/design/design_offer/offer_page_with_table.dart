@@ -8,7 +8,7 @@ import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_resul
 import 'package:presale/src/presentation/bloc/v5/user_login/user_login_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
-import 'package:presale/src/presentation/modules/v5/design/design_offer/result_commerce_offer_page/widget/design_offer_root_widget.dart';
+import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/design_offer_root_widget.dart';
 
 class DesignOfferPage extends StatelessWidget {
   const DesignOfferPage({super.key});
@@ -44,7 +44,14 @@ class DesignOfferBlocProviderWidget extends StatelessWidget {
             controller: context.read<DesignOfferResultController>(),
           )..init(),
         ),
-        BlocProvider(create: (context) => UserLoginCubit()),
+        BlocProvider(
+          create: (context) => UserLoginCubit(
+            client: di.dbClientImpl,
+            sinkPersonSign: context
+                .read<DesignOfferResultController>()
+                .personSignSink,
+          )..init(),
+        ),
       ],
       child: DesignOfferBlocConsumerWidget(),
     );

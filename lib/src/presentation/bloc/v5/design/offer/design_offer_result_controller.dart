@@ -1,42 +1,36 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
-import 'package:presale/src/domain/models/v3/design/custom_fuctors/custom_factors.dart';
+import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/divisions_margin_table_with_type_pojo.dart';
-import 'package:presale/src/domain/models/v5/common/person_sign_dto.dart';
+import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
-import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 class DesignOfferResultController {
   late final DesignOfferResultVM? designOfferResultVM;
-  final ValueNotifier<List<String>> signsNames = ValueNotifier([]);
-  final List<PersonSignDTO> sign = [];
   final ValueNotifier<bool> isCorrect = ValueNotifier(false);
+
+  final StreamController<PersonSignDTO> _streamController = StreamController();
+
+  StreamSink<PersonSignDTO> get personSignSink => _streamController.sink;
+  late final PersonSignDTO? _personSignDTO;
+
+  DesignOfferResultController() {
+    _streamController.stream.listen((event) {
+      _personSignDTO = event;
+    });
+  }
 
   bool buildModel(DesignPresalePojo designPresalePojo) {
     designOfferResultVM = _buildFrom(designPresalePojo);
     return designOfferResultVM != null;
   }
 
-  Future<void> fillSign(DesignClass dc) async {
-    if (dc.sign != null) {
-      List<PersonSignDTO> persons = await DivisionCostDtoBuilder(
-        dc.sign!,
-      ).build();
-      sign.addAll(persons);
-      signsNames.value = [...sign.map((e) => e.fullName)];
-    }
-  }
-
   void onComments(String value) {
     if (designOfferResultVM != null) {
       designOfferResultVM!.notes = value;
-    }
-  }
-
-  void onWorkTime(int value) {
-    if (designOfferResultVM != null) {
-      designOfferResultVM!.totalDays = value;
     }
   }
 
@@ -46,17 +40,15 @@ class DesignOfferResultController {
       if (designOfferResultVM != null) {
         designOfferResultVM!.avance = result;
       }
+    }else{
+      designOfferResultVM!.avance = 0;
     }
+    _check();
   }
 
-  void onSelectSign(String vale) {
-    if (designOfferResultVM != null) {
-      PersonSignDTO? found = sign
-          .where((element) => element.fullName == vale)
-          .firstOrNull;
-      if (found != null) {
-        designOfferResultVM!.signPerson = found;
-      }
+  void _check(){
+    if(_personSignDTO != null && designOfferResultVM!.avance != 0){
+      isCorrect.value = true;
     }
   }
 

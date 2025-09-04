@@ -1,33 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/presentation/bloc/v5/user_login/user_login_cubit.dart';
 import 'package:presale/src/presentation/common/color_options.dart';
-import 'package:presale/src/presentation/modules/v5/user_login/user_login_page_controller.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/person_sign/person_sign_validator.dart';
 
-class UserLoginPage extends StatelessWidget {
-  const UserLoginPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(), body: UserLoginCubitBuilder());
-  }
-}
-
-class UserLoginCubitBuilder extends StatelessWidget {
-  const UserLoginCubitBuilder({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<UserLoginCubit>(
-      create: (context) => UserLoginCubit(),
-      child: UserLoginWidget(),
-    );
-  }
-}
-
-class UserLoginWidget extends StatelessWidget {
-  const UserLoginWidget({super.key});
+class PersonSignMenuItemWidget extends StatelessWidget {
+  const PersonSignMenuItemWidget({super.key, required this.onSaved});
+  final Function() onSaved;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +59,11 @@ class UserLoginWidget extends StatelessWidget {
                       child: MoonFilledButton(
                         backgroundColor: context.moonColors!.zeno,
                         label: const Text("Сохранить"),
-                        onTap: () => Form.of(context).validate(),
+                        onTap: ()async{
+                          if(Form.of(context).validate()){
+                            onSaved();
+                          }
+                        },
                       ),
                     ),
                   ],
@@ -97,9 +83,9 @@ class CustomMoonGroupTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BorderRadius customRadius = BorderRadius.circular(8.0);
-    UserLoginCubit cubit = context.read<UserLoginCubit>();
-    UserLoginTextGroupController textGroupController =
-        cubit.textGroupController;
+    final cubit = context.read<UserLoginCubit>();
+    PersonSignTextInputValidator textGroupController =
+        context.read<UserLoginCubit>().textGroupController;
     double width = MediaQuery.of(context).size.width / 2;
     return SizedBox(
       width: width,
@@ -110,8 +96,6 @@ class CustomMoonGroupTextWidget extends StatelessWidget {
         children: [
           MoonFormTextInput(
             width: width,
-            activeBorderColor: colorTable(context)[40],
-            inactiveBorderColor: colorTable(context)[40],
             textInputSize: MoonTextInputSize.xl,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: textGroupController.fistNameController,

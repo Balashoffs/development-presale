@@ -32,7 +32,7 @@ class DivisionResourceCalculateCubit
 
   void init() async {
     DesignPresalePojo designPresalePojo;
-    designPresalePojo = await _dataSourceLocal.getDesignPresale(
+    designPresalePojo = await _dataSourceLocal.read(
       DesignPresaleDataSourceLocal.key,
     );
     DesignClass dc = di.dartDefineModel.design;
@@ -53,7 +53,7 @@ class DivisionResourceCalculateCubit
         .toList();
 
     DesignPresalePojo designPresalePojo = await _dataSourceLocal
-        .getDesignPresale(DesignPresaleDataSourceLocal.key);
+        .read(DesignPresaleDataSourceLocal.key);
 
     DivisionResourceTableWithTypePojo updatedResources =
         DivisionResourceTableWithTypePojo(
@@ -70,7 +70,7 @@ class DivisionResourceCalculateCubit
       ;
     }
 
-    bool isSaves = await _dataSourceLocal.addDesignPresale(updated);
+    bool isSaves = await _dataSourceLocal.add(updated);
     if (isSaves) {
       emit(DivisionResourceCalculateState.nextPage());
     }

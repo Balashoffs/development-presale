@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/presentation/common/color_options.dart';
+import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/text_utils.dart';
 
 class CustomTextInput extends StatefulWidget {
   const CustomTextInput({
@@ -56,16 +57,13 @@ class _CustomTextInputState extends State<CustomTextInput> {
     super.dispose(); //
   }
 
-
   @override
   void didUpdateWidget(CustomTextInput oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if(oldWidget.key != widget.key){
+    if (oldWidget.key != widget.key) {
       _textController.text = widget.hintText;
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -75,14 +73,14 @@ class _CustomTextInputState extends State<CustomTextInput> {
       textAlign: TextAlign.center,
       controller: _textController,
       enabled: widget.isEnables,
-      textInputSize: MoonTextInputSize.sm,
-      hasFloatingLabel: false,
+      textInputSize: MoonTextInputSize.xl,
+      hasFloatingLabel: true,
       activeBorderColor: getColor(context, MoonColor.zeno),
       inactiveBorderColor: _borderColor ?? getColor(context, MoonColor.whis10),
       errorColor: colorTable(context)[MoonColor.chichi.index]!,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       hintText: widget.hintText,
-      helperTextStyle: TextStyle(fontSize: 8),
+      helperTextStyle: TextStyle(fontSize: 16),
       validator: widget.validator,
       autofocus: widget.autofocus,
       onTapOutside: (PointerDownEvent _) {
@@ -120,6 +118,9 @@ class CustomTextAreaInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: MoonTextArea(
+        activeBorderColor: getColor(context, MoonColor.zeno),
+        inactiveBorderColor: getColor(context, MoonColor.whis10),
+        errorColor: colorTable(context)[MoonColor.chichi.index]!,
         height: null,
         enabled: true,
         expands: true,

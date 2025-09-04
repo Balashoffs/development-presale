@@ -14,30 +14,62 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserLoginState {
 
-
+ bool get isFilled; dynamic get labelText;
+/// Create a copy of UserLoginState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$UserLoginStateCopyWith<UserLoginState> get copyWith => _$UserLoginStateCopyWithImpl<UserLoginState>(this as UserLoginState, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserLoginState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserLoginState&&(identical(other.isFilled, isFilled) || other.isFilled == isFilled)&&const DeepCollectionEquality().equals(other.labelText, labelText));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,isFilled,const DeepCollectionEquality().hash(labelText));
 
 @override
 String toString() {
-  return 'UserLoginState()';
+  return 'UserLoginState(isFilled: $isFilled, labelText: $labelText)';
 }
 
 
 }
 
 /// @nodoc
-class $UserLoginStateCopyWith<$Res>  {
-$UserLoginStateCopyWith(UserLoginState _, $Res Function(UserLoginState) __);
+abstract mixin class $UserLoginStateCopyWith<$Res>  {
+  factory $UserLoginStateCopyWith(UserLoginState value, $Res Function(UserLoginState) _then) = _$UserLoginStateCopyWithImpl;
+@useResult
+$Res call({
+ bool isFilled, dynamic labelText
+});
+
+
+
+
+}
+/// @nodoc
+class _$UserLoginStateCopyWithImpl<$Res>
+    implements $UserLoginStateCopyWith<$Res> {
+  _$UserLoginStateCopyWithImpl(this._self, this._then);
+
+  final UserLoginState _self;
+  final $Res Function(UserLoginState) _then;
+
+/// Create a copy of UserLoginState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? isFilled = null,Object? labelText = freezed,}) {
+  return _then(_self.copyWith(
+isFilled: null == isFilled ? _self.isFilled : isFilled // ignore: cast_nullable_to_non_nullable
+as bool,labelText: freezed == labelText ? _self.labelText : labelText // ignore: cast_nullable_to_non_nullable
+as dynamic,
+  ));
+}
+
 }
 
 
@@ -55,11 +87,11 @@ extension UserLoginStatePatterns on UserLoginState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _UserLoginState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _:
+case _UserLoginState() when $default != null:
+return $default(_that);case _:
   return orElse();
 
 }
@@ -77,11 +109,11 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,}){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _UserLoginState value)  $default,){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _:
+case _UserLoginState():
+return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +130,11 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _UserLoginState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _:
+case _UserLoginState() when $default != null:
+return $default(_that);case _:
   return null;
 
 }
@@ -119,10 +151,10 @@ return initial(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( bool isFilled,  dynamic labelText)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _:
+case _UserLoginState() when $default != null:
+return $default(_that.isFilled,_that.labelText);case _:
   return orElse();
 
 }
@@ -140,10 +172,10 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( bool isFilled,  dynamic labelText)  $default,) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _:
+case _UserLoginState():
+return $default(_that.isFilled,_that.labelText);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +192,10 @@ return initial();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( bool isFilled,  dynamic labelText)?  $default,) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _:
+case _UserLoginState() when $default != null:
+return $default(_that.isFilled,_that.labelText);case _:
   return null;
 
 }
@@ -174,33 +206,69 @@ return initial();case _:
 /// @nodoc
 
 
-class _Initial implements UserLoginState {
-  const _Initial();
+class _UserLoginState implements UserLoginState {
+  const _UserLoginState({this.isFilled = false, this.labelText = ''});
   
 
+@override@JsonKey() final  bool isFilled;
+@override@JsonKey() final  dynamic labelText;
 
-
+/// Create a copy of UserLoginState
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UserLoginStateCopyWith<_UserLoginState> get copyWith => __$UserLoginStateCopyWithImpl<_UserLoginState>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserLoginState&&(identical(other.isFilled, isFilled) || other.isFilled == isFilled)&&const DeepCollectionEquality().equals(other.labelText, labelText));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,isFilled,const DeepCollectionEquality().hash(labelText));
 
 @override
 String toString() {
-  return 'UserLoginState.initial()';
+  return 'UserLoginState(isFilled: $isFilled, labelText: $labelText)';
 }
 
 
 }
 
+/// @nodoc
+abstract mixin class _$UserLoginStateCopyWith<$Res> implements $UserLoginStateCopyWith<$Res> {
+  factory _$UserLoginStateCopyWith(_UserLoginState value, $Res Function(_UserLoginState) _then) = __$UserLoginStateCopyWithImpl;
+@override @useResult
+$Res call({
+ bool isFilled, dynamic labelText
+});
 
 
+
+
+}
+/// @nodoc
+class __$UserLoginStateCopyWithImpl<$Res>
+    implements _$UserLoginStateCopyWith<$Res> {
+  __$UserLoginStateCopyWithImpl(this._self, this._then);
+
+  final _UserLoginState _self;
+  final $Res Function(_UserLoginState) _then;
+
+/// Create a copy of UserLoginState
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? isFilled = null,Object? labelText = freezed,}) {
+  return _then(_UserLoginState(
+isFilled: null == isFilled ? _self.isFilled : isFilled // ignore: cast_nullable_to_non_nullable
+as bool,labelText: freezed == labelText ? _self.labelText : labelText // ignore: cast_nullable_to_non_nullable
+as dynamic,
+  ));
+}
+
+
+}
 
 // dart format on

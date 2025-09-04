@@ -1,12 +1,7 @@
-import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:presale/src/presentation/core/navigation/not_found_page.dart';
-import 'package:presale/src/presentation/modules/auth/navi/auth_navi.dart';
 import 'package:presale/src/presentation/modules/service_type_select/navi/service_navi.dart';
 import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
-import 'package:presale/src/presentation/modules/v5/user_login/navi/service_navi.dart';
 
 final  appRouterRelease = GoRouter(
   routes: [
@@ -26,7 +21,7 @@ final  appRouterRelease = GoRouter(
       ],
     ),
   ],
-  initialLocation: userLoginPageRoutePath,
+  initialLocation: serviceTypeRoutePath,
   debugLogDiagnostics: true,
   errorBuilder: (context, state) => const NotFoundPage(),
   redirect: (context, state) {

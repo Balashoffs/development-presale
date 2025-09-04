@@ -1,5 +1,5 @@
 import 'package:presale/src/data/core/string_converter.dart';
-import 'package:presale/src/domain/models/v5/common/person_sign_dto.dart';
+import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_row_viewmodel.dart';
 
 class DesignOfferResultVM{
