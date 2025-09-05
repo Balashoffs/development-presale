@@ -25,7 +25,6 @@ class DesignOfferResultVM{
 
   int objectSquare;
   int avance = 0;
-  PersonSignDTO? signPerson;
 
    String get overPriceS => convertToString(overPrice, 0);
    String get marginS => convertToString(margin, 0);
@@ -48,6 +47,5 @@ class DesignOfferResultVM{
     required this.tax,
     int totalDays = 0,
     this.objectSquare = 0,
-    this.signPerson,
   }):_totalDays = totalDays;
 }

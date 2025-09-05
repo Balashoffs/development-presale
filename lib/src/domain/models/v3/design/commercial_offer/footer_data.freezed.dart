@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FooterData {
 
- String get noteText; String get workCompletionTime; String get prepayment; SignPerson? get signPerson;
+ String get noteText; String get workCompletionTime; String get prepayment; PersonSignPojo get personSign;
 /// Create a copy of FooterData
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $FooterDataCopyWith<FooterData> get copyWith => _$FooterDataCopyWithImpl<FooterD
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FooterData&&(identical(other.noteText, noteText) || other.noteText == noteText)&&(identical(other.workCompletionTime, workCompletionTime) || other.workCompletionTime == workCompletionTime)&&(identical(other.prepayment, prepayment) || other.prepayment == prepayment)&&(identical(other.signPerson, signPerson) || other.signPerson == signPerson));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FooterData&&(identical(other.noteText, noteText) || other.noteText == noteText)&&(identical(other.workCompletionTime, workCompletionTime) || other.workCompletionTime == workCompletionTime)&&(identical(other.prepayment, prepayment) || other.prepayment == prepayment)&&(identical(other.personSign, personSign) || other.personSign == personSign));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,noteText,workCompletionTime,prepayment,signPerson);
+int get hashCode => Object.hash(runtimeType,noteText,workCompletionTime,prepayment,personSign);
 
 @override
 String toString() {
-  return 'FooterData(noteText: $noteText, workCompletionTime: $workCompletionTime, prepayment: $prepayment, signPerson: $signPerson)';
+  return 'FooterData(noteText: $noteText, workCompletionTime: $workCompletionTime, prepayment: $prepayment, personSign: $personSign)';
 }
 
 
@@ -48,11 +48,11 @@ abstract mixin class $FooterDataCopyWith<$Res>  {
   factory $FooterDataCopyWith(FooterData value, $Res Function(FooterData) _then) = _$FooterDataCopyWithImpl;
 @useResult
 $Res call({
- String noteText, String workCompletionTime, String prepayment, SignPerson? signPerson
+ String noteText, String workCompletionTime, String prepayment, PersonSignPojo personSign
 });
 
 
-$SignPersonCopyWith<$Res>? get signPerson;
+$PersonSignPojoCopyWith<$Res> get personSign;
 
 }
 /// @nodoc
@@ -65,26 +65,23 @@ class _$FooterDataCopyWithImpl<$Res>
 
 /// Create a copy of FooterData
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? noteText = null,Object? workCompletionTime = null,Object? prepayment = null,Object? signPerson = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? noteText = null,Object? workCompletionTime = null,Object? prepayment = null,Object? personSign = null,}) {
   return _then(_self.copyWith(
 noteText: null == noteText ? _self.noteText : noteText // ignore: cast_nullable_to_non_nullable
 as String,workCompletionTime: null == workCompletionTime ? _self.workCompletionTime : workCompletionTime // ignore: cast_nullable_to_non_nullable
 as String,prepayment: null == prepayment ? _self.prepayment : prepayment // ignore: cast_nullable_to_non_nullable
-as String,signPerson: freezed == signPerson ? _self.signPerson : signPerson // ignore: cast_nullable_to_non_nullable
-as SignPerson?,
+as String,personSign: null == personSign ? _self.personSign : personSign // ignore: cast_nullable_to_non_nullable
+as PersonSignPojo,
   ));
 }
 /// Create a copy of FooterData
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SignPersonCopyWith<$Res>? get signPerson {
-    if (_self.signPerson == null) {
-    return null;
-  }
-
-  return $SignPersonCopyWith<$Res>(_self.signPerson!, (value) {
-    return _then(_self.copyWith(signPerson: value));
+$PersonSignPojoCopyWith<$Res> get personSign {
+  
+  return $PersonSignPojoCopyWith<$Res>(_self.personSign, (value) {
+    return _then(_self.copyWith(personSign: value));
   });
 }
 }
@@ -168,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String noteText,  String workCompletionTime,  String prepayment,  SignPerson? signPerson)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String noteText,  String workCompletionTime,  String prepayment,  PersonSignPojo personSign)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FooterData() when $default != null:
-return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.signPerson);case _:
+return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.personSign);case _:
   return orElse();
 
 }
@@ -189,10 +186,10 @@ return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.s
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String noteText,  String workCompletionTime,  String prepayment,  SignPerson? signPerson)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String noteText,  String workCompletionTime,  String prepayment,  PersonSignPojo personSign)  $default,) {final _that = this;
 switch (_that) {
 case _FooterData():
-return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.signPerson);case _:
+return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.personSign);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -209,10 +206,10 @@ return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.s
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String noteText,  String workCompletionTime,  String prepayment,  SignPerson? signPerson)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String noteText,  String workCompletionTime,  String prepayment,  PersonSignPojo personSign)?  $default,) {final _that = this;
 switch (_that) {
 case _FooterData() when $default != null:
-return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.signPerson);case _:
+return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.personSign);case _:
   return null;
 
 }
@@ -224,13 +221,13 @@ return $default(_that.noteText,_that.workCompletionTime,_that.prepayment,_that.s
 @JsonSerializable()
 
 class _FooterData implements FooterData {
-  const _FooterData({this.noteText = '', required this.workCompletionTime, required this.prepayment, this.signPerson});
+  const _FooterData({this.noteText = '', required this.workCompletionTime, required this.prepayment, required this.personSign});
   factory _FooterData.fromJson(Map<String, dynamic> json) => _$FooterDataFromJson(json);
 
 @override@JsonKey() final  String noteText;
 @override final  String workCompletionTime;
 @override final  String prepayment;
-@override final  SignPerson? signPerson;
+@override final  PersonSignPojo personSign;
 
 /// Create a copy of FooterData
 /// with the given fields replaced by the non-null parameter values.
@@ -245,16 +242,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FooterData&&(identical(other.noteText, noteText) || other.noteText == noteText)&&(identical(other.workCompletionTime, workCompletionTime) || other.workCompletionTime == workCompletionTime)&&(identical(other.prepayment, prepayment) || other.prepayment == prepayment)&&(identical(other.signPerson, signPerson) || other.signPerson == signPerson));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _FooterData&&(identical(other.noteText, noteText) || other.noteText == noteText)&&(identical(other.workCompletionTime, workCompletionTime) || other.workCompletionTime == workCompletionTime)&&(identical(other.prepayment, prepayment) || other.prepayment == prepayment)&&(identical(other.personSign, personSign) || other.personSign == personSign));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,noteText,workCompletionTime,prepayment,signPerson);
+int get hashCode => Object.hash(runtimeType,noteText,workCompletionTime,prepayment,personSign);
 
 @override
 String toString() {
-  return 'FooterData(noteText: $noteText, workCompletionTime: $workCompletionTime, prepayment: $prepayment, signPerson: $signPerson)';
+  return 'FooterData(noteText: $noteText, workCompletionTime: $workCompletionTime, prepayment: $prepayment, personSign: $personSign)';
 }
 
 
@@ -265,11 +262,11 @@ abstract mixin class _$FooterDataCopyWith<$Res> implements $FooterDataCopyWith<$
   factory _$FooterDataCopyWith(_FooterData value, $Res Function(_FooterData) _then) = __$FooterDataCopyWithImpl;
 @override @useResult
 $Res call({
- String noteText, String workCompletionTime, String prepayment, SignPerson? signPerson
+ String noteText, String workCompletionTime, String prepayment, PersonSignPojo personSign
 });
 
 
-@override $SignPersonCopyWith<$Res>? get signPerson;
+@override $PersonSignPojoCopyWith<$Res> get personSign;
 
 }
 /// @nodoc
@@ -282,13 +279,13 @@ class __$FooterDataCopyWithImpl<$Res>
 
 /// Create a copy of FooterData
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? noteText = null,Object? workCompletionTime = null,Object? prepayment = null,Object? signPerson = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? noteText = null,Object? workCompletionTime = null,Object? prepayment = null,Object? personSign = null,}) {
   return _then(_FooterData(
 noteText: null == noteText ? _self.noteText : noteText // ignore: cast_nullable_to_non_nullable
 as String,workCompletionTime: null == workCompletionTime ? _self.workCompletionTime : workCompletionTime // ignore: cast_nullable_to_non_nullable
 as String,prepayment: null == prepayment ? _self.prepayment : prepayment // ignore: cast_nullable_to_non_nullable
-as String,signPerson: freezed == signPerson ? _self.signPerson : signPerson // ignore: cast_nullable_to_non_nullable
-as SignPerson?,
+as String,personSign: null == personSign ? _self.personSign : personSign // ignore: cast_nullable_to_non_nullable
+as PersonSignPojo,
   ));
 }
 
@@ -296,13 +293,10 @@ as SignPerson?,
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
-$SignPersonCopyWith<$Res>? get signPerson {
-    if (_self.signPerson == null) {
-    return null;
-  }
-
-  return $SignPersonCopyWith<$Res>(_self.signPerson!, (value) {
-    return _then(_self.copyWith(signPerson: value));
+$PersonSignPojoCopyWith<$Res> get personSign {
+  
+  return $PersonSignPojoCopyWith<$Res>(_self.personSign, (value) {
+    return _then(_self.copyWith(personSign: value));
   });
 }
 }

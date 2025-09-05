@@ -75,8 +75,15 @@ class PersonSignMenuItemWidget extends StatelessWidget {
   }
 }
 
-class CustomMoonGroupTextWidget extends StatelessWidget {
+class CustomMoonGroupTextWidget extends StatefulWidget {
   const CustomMoonGroupTextWidget({super.key});
+
+  @override
+  State<CustomMoonGroupTextWidget> createState() => _CustomMoonGroupTextWidgetState();
+}
+
+class _CustomMoonGroupTextWidgetState extends State<CustomMoonGroupTextWidget> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -245,7 +252,7 @@ class CustomMoonGroupTextWidget extends StatelessWidget {
           MoonFormTextInput(
             width: width,
             textInputSize: MoonTextInputSize.xl,
-            controller: textGroupController.jobEmailController,
+            controller: textGroupController.emailController,
             enabled: true,
             hasFloatingLabel: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -263,12 +270,20 @@ class CustomMoonGroupTextWidget extends StatelessWidget {
                   MoonIcons.controls_close_small_24_light,
                   size: 24,
                 ),
-                onTap: () => textGroupController.jobEmailController.clear(),
+                onTap: () => textGroupController.emailController.clear(),
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    context.read<PersonSignCubit>().textGroupController.dispose();
+    super.dispose();
+
+    //
   }
 }

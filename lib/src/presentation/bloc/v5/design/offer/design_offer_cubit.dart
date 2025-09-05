@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/di/di.dart';
+import 'package:presale/src/domain/models/v5/common/person_sign/extension.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
@@ -51,7 +52,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     );
     CommercialOfferResult? commercialOfferResult = _designOfferController
         .designOfferResultVM
-        ?.toPojo(designPresalePojo.inputDataDesign);
+        ?.toPojo(designPresalePojo.inputDataDesign, _designOfferController.personSign);
     if (commercialOfferResult != null) {
       int total = designPresalePojo.divisions?.rows.length ?? 0;
       if (total != 0) {

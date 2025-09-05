@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/person_sign/email_custom_validator.dart';
 
 class PersonSignTextInputValidator {
   final TextEditingController fistNameController = TextEditingController();
@@ -7,45 +8,15 @@ class PersonSignTextInputValidator {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController jobTitleController = TextEditingController();
   final TextEditingController companyTitleController = TextEditingController();
-  final TextEditingController phoneNumberController = TextEditingController(text: '+7');
-  final TextEditingController jobEmailController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController(
+    text: '+7',
+  );
+
+  final EmailCustomValidator _emailCustomValidator = EmailCustomValidator();
+  TextEditingController get emailController => _emailCustomValidator.jobEmailController;
 
 
-  PersonSignTextInputValidator(){
-    jobEmailController.addListener(_handleTextChange);
-  }
-  final String emailSuffix = '@liis.su';
-  bool _isInternalUpdate = false;
-  void _handleTextChange() {
-    if (_isInternalUpdate) return;
-
-    String currentText = jobEmailController.text;
-    String userInput = currentText;
-
-    // Extract user input (remove suffix if present)
-    if (currentText.endsWith(emailSuffix)) {
-      userInput = currentText.substring(0, currentText.length - emailSuffix.length);
-    }
-
-    // Create new text with suffix
-    String newText = userInput + emailSuffix;
-
-    if (newText != currentText) {
-      _isInternalUpdate = true;
-
-      jobEmailController.value = TextEditingValue(
-        text: newText,
-        selection: TextSelection.collapsed(offset: userInput.length),
-      );
-
-      _isInternalUpdate = false;
-    }
-
-    // // Call external onChanged if provided
-    // if (widget.onChanged != null) {
-    //   widget.onChanged!(userInput); // Pass only user input, not the suffix
-    // }
-  }
+  PersonSignTextInputValidator();
 
   final String fistNameHintText = 'Введите имя';
   final String secondNameHintText = 'Введите очество';
@@ -62,8 +33,16 @@ class PersonSignTextInputValidator {
     jobTitleController.dispose();
     companyTitleController.dispose();
     phoneNumberController.dispose();
-    jobEmailController.dispose();
+    emailController.dispose();
   }
+  FormFieldValidator<String>? jobEmailValidator = (value) {
+    return value != null &&
+        !RegExp(
+          r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@liis.su$',
+        ).hasMatch(value)
+        ? "Разрешаются буквы английского языка, цифры и другие допустимые символы"
+        : null;
+  };
 
   FormFieldValidator<String>? fistNameValidator = (value) {
     return value?.length != null &&
@@ -104,14 +83,6 @@ class PersonSignTextInputValidator {
         ? "Разрешаются только цифры, круглые скобочки, пробелы и тире"
         : null;
   };
-  FormFieldValidator<String>? jobEmailValidator = (value) {
-    return value != null &&
-            !RegExp(
-              r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@liis.su$',
-            ).hasMatch(value)
-        ? "Разрешаются буквы английского языка, цифры и другие допустимые символы"
-        : null;
-  };
 
   void setPersonSign(PersonSignDTO personSignDTO) {
     fistNameController.text = personSignDTO.fistName;
@@ -120,6 +91,6 @@ class PersonSignTextInputValidator {
     jobTitleController.text = personSignDTO.jobTitle;
     companyTitleController.text = personSignDTO.companyTitle;
     phoneNumberController.text = personSignDTO.phoneNumber;
-    jobEmailController.text = personSignDTO.jobEmail;
+    emailController.text = personSignDTO.jobEmail;
   }
 }

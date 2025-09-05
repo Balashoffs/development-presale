@@ -6,6 +6,7 @@ import 'package:presale/src/data/common/utils/date_utils.dart';
 import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/domain/models/v3/design/commercial_offer/commercial_offer.dart';
 import 'package:presale/src/domain/models/v3/design/division_result/division_result.dart';
+import 'package:presale/src/domain/models/v3/design/extension.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 class DesignOfferTemplateBuilder {
@@ -52,7 +53,7 @@ class DesignOfferTemplateBuilder {
   }
 
   void _addSignRows() {
-    if (_offerResult.footerData.signPerson != null) {
+    if (_offerResult.footerData.personSign != null) {
       _addCompanyJobTitle();
       _increment();
       _addCreaterName();
@@ -209,7 +210,7 @@ class DesignOfferTemplateBuilder {
     // );
     _buildCell(
       'Стоимость с НДС',
-      'E$_rowPos',
+      'D$_rowPos',
       width: 25,
       alignType: HAlignType.center,
         isBold: true
@@ -245,7 +246,7 @@ class DesignOfferTemplateBuilder {
       // );
       _buildCell(
         convertToString(result.divisionSummaryWithTax, 2),
-        'E$_rowPos',
+        'D$_rowPos',
         width: 25,
         alignType: HAlignType.center,
       );
@@ -379,13 +380,13 @@ class DesignOfferTemplateBuilder {
 
   void _addCompanyJobTitle() {
     _buildCell(
-      '${_offerResult.footerData.signPerson!.jobTitle} - ${_offerResult.footerData.signPerson!.companyName}',
+      '${_offerResult.footerData.personSign.jobTitle} - ${_offerResult.footerData.personSign.companyTitle}',
       'B$_rowPos',
     );
   }
 
   void _addCreaterName() {
-    _buildCell(_offerResult.footerData.signPerson!.fullName, 'B$_rowPos');
+    _buildCell(_offerResult.footerData.personSign.fullName, 'B$_rowPos');
   }
 
   void _addSignPlace() {
