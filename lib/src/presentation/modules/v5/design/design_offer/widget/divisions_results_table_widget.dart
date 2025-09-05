@@ -161,11 +161,14 @@ class _DivisionsResultsTableWidgetState
 
   @override
   Widget build(BuildContext context) {
-    double height = 48 * 2 + 64 * widget.footerResult.divisionRows.length + 64;
+    double height = 48.0 * 2 + 64.0 * widget.footerResult.divisionRows.length;
     return LimitedBox(
-      maxWidth: 2000,
-      maxHeight: height > 1000 ? 1000 : height,
+      maxWidth: MediaQuery.sizeOf(context).width - 100,
+      maxHeight: height > MediaQuery.sizeOf(context).height - 200
+          ? MediaQuery.sizeOf(context).height - 200
+          : height,
       child: MoonTable(
+
         columnsCount: widget.rowAttributes.length,
         isHeaderPinned: true,
         isFooterPinned: true,
