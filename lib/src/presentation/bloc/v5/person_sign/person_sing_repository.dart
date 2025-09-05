@@ -55,6 +55,7 @@ class PersonSingRepository {
     );
     PersonSignPojo? personSignPojo = _personSignDTO.toPojo();
     bool isAdd = await _dataSourceLocal.add(personSignPojo);
+    print('is add: $isAdd');
     return _personSignDTO;
   }
 }

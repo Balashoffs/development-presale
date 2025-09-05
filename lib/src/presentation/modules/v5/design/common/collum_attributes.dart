@@ -116,26 +116,26 @@ final List<CollumAttribute> designOfferTableAttribute = [
   CollumAttribute(
     pos: 4,
     name: 'Накладные раходы',
-    width: 196,
+    width: 212,
     tooltip: 'Расходы на бэкофис',
   ),
-  CollumAttribute(pos: 5, name: 'Маржа', width: 196, tooltip: 'Чистая прибиль'),
+  CollumAttribute(pos: 5, name: 'Маржа', width: 212, tooltip: 'Чистая прибиль'),
   CollumAttribute(
     pos: 6,
     name: 'Клиент',
-    width: 196,
+    width: 212,
     tooltip: 'Клиентские отчисления',
   ),
   CollumAttribute(
     pos: 7,
     name: 'Стоимость',
-    width: 196,
+    width: 212,
     tooltip: 'Полная стоимость',
   ),
   CollumAttribute(
     pos: 8,
     name: 'Стоимость с НДС',
-    width: 196,
+    width: 212,
     tooltip: 'Стоимость с НДС (Итог для раздела)',
   ),
 ];

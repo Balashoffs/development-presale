@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
-import 'package:presale/src/presentation/bloc/v5/user_login/user_login_cubit.dart';
+import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/design_offer_root_widget.dart';
@@ -45,7 +45,7 @@ class DesignOfferBlocProviderWidget extends StatelessWidget {
           )..init(),
         ),
         BlocProvider(
-          create: (context) => UserLoginCubit(
+          create: (context) => PersonSignCubit(
             client: di.dbClientImpl,
             sinkPersonSign: context
                 .read<DesignOfferResultController>()

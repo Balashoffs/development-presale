@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
-import 'package:presale/src/presentation/bloc/v5/user_login/user_login_cubit.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
+import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/person_sign/person_sign_validator.dart';
 
 
@@ -83,9 +81,9 @@ class CustomMoonGroupTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BorderRadius customRadius = BorderRadius.circular(8.0);
-    final cubit = context.read<UserLoginCubit>();
+    final cubit = context.read<PersonSignCubit>();
     PersonSignTextInputValidator textGroupController =
-        context.read<UserLoginCubit>().textGroupController;
+        context.read<PersonSignCubit>().textGroupController;
     double width = MediaQuery.of(context).size.width / 2;
     return SizedBox(
       width: width,

@@ -48,7 +48,7 @@ class _DivisionsResultsTableWidgetState
       final row = widget.tableDataRows[index];
       String id = '${index + 1}';
       return MoonTableRow(
-        height: 64,
+        height: 54,
         cells: [
           CellDecorationWidget(
             isFistCell: true,
@@ -161,9 +161,10 @@ class _DivisionsResultsTableWidgetState
 
   @override
   Widget build(BuildContext context) {
+    double height = 48 * 2 + 64 * widget.footerResult.divisionRows.length + 64;
     return LimitedBox(
-      maxWidth: 1900,
-      maxHeight: 1000,
+      maxWidth: 2000,
+      maxHeight: height > 1000 ? 1000 : height,
       child: MoonTable(
         columnsCount: widget.rowAttributes.length,
         isHeaderPinned: true,

@@ -5,29 +5,29 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/data/core/db_client.dart';
 import 'package:presale/src/data/data_sources/v3/person_sign_source.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
-import 'package:presale/src/presentation/bloc/v5/user_login/person_sing_repository.dart';
+import 'package:presale/src/presentation/bloc/v5/person_sign/person_sing_repository.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/person_sign/person_sign_validator.dart';
 
-part 'user_login_state.dart';
+part 'person_sign_state.dart';
 
-part 'user_login_cubit.freezed.dart';
+part 'person_sign_cubit.freezed.dart';
 
 final String _addDataText = 'Для ввода нажмите на икноку справа';
 final String _signTemplateText = 'Подписант: ';
 
-class UserLoginCubit extends Cubit<UserLoginState> {
+class PersonSignCubit extends Cubit<PersonSignState> {
   final PersonSignTextInputValidator textGroupController;
   final PersonSingRepository _personSingRepository;
   final StreamSink<PersonSignDTO> _streamSink;
 
 
-  UserLoginCubit({required DBClient client, required  StreamSink<PersonSignDTO> sinkPersonSign})
+  PersonSignCubit({required DBClient client, required  StreamSink<PersonSignDTO> sinkPersonSign})
     : textGroupController = PersonSignTextInputValidator(),
       _personSingRepository = PersonSingRepository(
         dataSourceLocal: PersonSignDataSourceLocal(client),
       ),
         _streamSink = sinkPersonSign,
-      super(const UserLoginState());
+      super(const PersonSignState());
 
   void init() async {
     PersonSignDTO personSignDTO = await _personSingRepository.getPersonSign();
@@ -36,7 +36,7 @@ class UserLoginCubit extends Cubit<UserLoginState> {
       _streamSink.add(personSignDTO);
     }
 
-    UserLoginState state = _buildState(personSignDTO);
+    PersonSignState state = _buildState(personSignDTO);
     emit(state);
   }
 
@@ -70,13 +70,14 @@ class UserLoginCubit extends Cubit<UserLoginState> {
 
   void onSaved() async {
     PersonSignDTO? personSignDTO = await _personSingRepository.build();
-    if (personSignDTO != null && personSignDTO.id != 0) {
-      UserLoginState state = _buildState(personSignDTO);
+    if (personSignDTO.id != 0) {
+      _streamSink.add(personSignDTO);
+      PersonSignState state = _buildState(personSignDTO);
       emit(state);
     }
   }
 
-  UserLoginState _buildState(PersonSignDTO? personSignDTO) {
+  PersonSignState _buildState(PersonSignDTO? personSignDTO) {
     String labelText = personSignDTO!.id != 0
         ? '$_signTemplateText ${personSignDTO.fullName}'
         : _addDataText;

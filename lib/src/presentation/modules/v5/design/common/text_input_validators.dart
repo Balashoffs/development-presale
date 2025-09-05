@@ -4,6 +4,17 @@ import 'package:flutter/material.dart';
 String objectNameTemplate = '^[а-яА-ЯёЁa-zA-Z0-9\\s.,/-№\\"\'()]+\$';
 String locationTemplate = '^[а-яА-ЯёЁa-zA-Z0-9\\s.,/-№\\"\'()]+\$';
 
+FormFieldValidator<String>? commentValidator = (value) {
+  if (value == null) {
+    return 'Начните вводить адрес объекта';
+  } else if (!RegExp(objectNameTemplate).hasMatch(value)) {
+    return 'Допускаются только цифры, русские и латинские буквы';
+  } else if (value.length < 3) {
+    return 'Слишком короткой комментарий';
+  }
+  return null;
+};
+
 FormFieldValidator<String>? objectNameValidator = (value) {
   if (value == null) {
     return 'Начните вводить адрес объекта';

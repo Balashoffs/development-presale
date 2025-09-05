@@ -29,7 +29,7 @@ class DesignOfferResultVM{
 
    String get overPriceS => convertToString(overPrice, 0);
    String get marginS => convertToString(margin, 0);
-   String get clientS => convertToString(margin, 0);
+   String get clientS => convertToString(client, 0);
    String get summaryS => convertToString(summary, 0);
    String get summaryWithTaxS => convertToString(summaryWithTax, 0);
    String get taxS => convertToString(tax, 0);

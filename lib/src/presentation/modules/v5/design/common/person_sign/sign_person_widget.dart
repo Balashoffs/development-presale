@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 
-import 'package:presale/src/presentation/bloc/v5/user_login/user_login_cubit.dart';
-import 'package:presale/src/presentation/modules/v5/design/common/person_sign/user_login_widget.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/person_sign/person_sign_widget.dart';
 
-class SignPersonBuilderWidget extends StatelessWidget {
-  const SignPersonBuilderWidget({super.key, required this.onSaved});
+class PersonSignBuilderWidget extends StatelessWidget {
+  const PersonSignBuilderWidget({super.key, required this.onSaved});
 
   final Function() onSaved;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserLoginCubit, UserLoginState>(
+    return BlocBuilder<PersonSignCubit, PersonSignState>(
       buildWhen: (previous, current) => previous.isFilled != current.isFilled,
       builder: (context, state) {
         if (state.isFilled) {
           return MoonMenuItem(
             onTap: () {
-              context.read<UserLoginCubit>().edit();
+              context.read<PersonSignCubit>().edit();
             },
             width: 500,
             absorbGestures: false,

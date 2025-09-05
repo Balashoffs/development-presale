@@ -5,7 +5,7 @@ import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
-import 'package:presale/src/presentation/bloc/v5/user_login/user_login_cubit.dart';
+import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/common/widget/text_divider.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
@@ -15,6 +15,8 @@ import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/d
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/divisions_results_table_widget.dart';
 
 class DesignOfferRootWidget extends StatelessWidget {
+
+
   const DesignOfferRootWidget({super.key, required this.result});
 
   final DesignOfferResultVM result;
@@ -27,6 +29,8 @@ class DesignOfferRootWidget extends StatelessWidget {
       child: SingleChildScrollView(
         primary: true,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             DesignOfferHeaderWidget(result: result),
             TextDivider(
@@ -49,8 +53,8 @@ class DesignOfferRootWidget extends StatelessWidget {
                 DesignOfferAdditionalDataWidget(result: result),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: SignPersonBuilderWidget(
-                    onSaved: context.read<UserLoginCubit>().onSaved,
+                  child: PersonSignBuilderWidget(
+                    onSaved: context.read<PersonSignCubit>().onSaved,
                   ),
                 ),
               ],

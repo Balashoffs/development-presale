@@ -27,23 +27,23 @@ class CellDecorationWidget extends StatelessWidget {
       decoration: isFistCell
           ? BoxDecoration()
           : BoxDecoration(
-        border: Border(
-          left: Directionality.of(context) == TextDirection.ltr
-              ? Divider.createBorderSide(
-            context,
-            color: context.moonColors!.beerus,
-            width: 1,
-          )
-              : BorderSide.none,
-          right: Directionality.of(context) == TextDirection.rtl
-              ? Divider.createBorderSide(
-            context,
-            color: context.moonColors!.beerus,
-            width: 1,
-          )
-              : BorderSide.none,
-        ),
-      ),
+              border: Border(
+                left: Directionality.of(context) == TextDirection.ltr
+                    ? Divider.createBorderSide(
+                        context,
+                        color: context.moonColors!.beerus,
+                        width: 1,
+                      )
+                    : BorderSide.none,
+                right: Directionality.of(context) == TextDirection.rtl
+                    ? Divider.createBorderSide(
+                        context,
+                        color: context.moonColors!.beerus,
+                        width: 1,
+                      )
+                    : BorderSide.none,
+              ),
+            ),
       child: child,
     );
   }
@@ -59,7 +59,11 @@ class HeaderCellWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(textAlign: TextAlign.center, attribute.name, style: TextStyle()),
+        Text(
+          textAlign: TextAlign.center,
+          attribute.name,
+          style: TextStyle(fontSize: 16),
+        ),
         if (attribute.tooltip.isNotEmpty)
           InkWell(
             onTap: () {}, // Optional tap handler
@@ -81,7 +85,11 @@ class TextCellWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Text(textAlign: TextAlign.center, label.toString()),
+      child: Text(
+        textAlign: TextAlign.center,
+        label.toString(),
+        style: TextStyle(fontSize: 16),
+      ),
     );
   }
 }
@@ -107,7 +115,7 @@ class TextWithNotifier extends StatelessWidget {
               return Text(
                 textAlign: TextAlign.center,
                 convertToString(value, 0),
-                style: TextStyle(color: textColor),
+                style: TextStyle(color: textColor, fontSize: 16),
               );
             },
           ),
@@ -187,39 +195,6 @@ class FloatInputCellWidget extends StatelessWidget {
   }
 }
 
-class TextInputCellWidget extends StatelessWidget {
-  const TextInputCellWidget({
-    super.key,
-    required this.defaultValue,
-    required this.onChanged,
-  });
-
-  final String defaultValue;
-  final ValueChangedWithContext<String> onChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return Center(
-          child: SizedBox(
-            width: 56,
-            child: CustomTextInput(
-              key: super.key,
-              isEnables: true,
-              hintText: defaultValue,
-              onChanged: (input) {
-                onChanged(context, input);
-              },
-              validator: onlyStringValidator,
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
 class ResourcesDropdownWidget extends StatelessWidget {
   const ResourcesDropdownWidget({
     super.key,
@@ -251,7 +226,9 @@ class CellWithIconWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: const BoxDecoration(),
-      child: Center(child: MoonButton.icon(icon: Icon(iconData), onTap: onTap)),
+      child: Center(
+        child: MoonButton.icon(icon: Icon(iconData), onTap: onTap),
+      ),
     );
   }
 }
@@ -281,7 +258,7 @@ class CellWithMultiLineWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(),
+              style: TextStyle(fontSize: 14),
             ),
           ),
           Flexible(
@@ -289,11 +266,11 @@ class CellWithMultiLineWidget extends StatelessWidget {
             child: InkWell(
               onTap: () {}, // Optional tap handler
               child: Tooltip(
-                  message: hint,
-                  child: Icon(MoonIcons.generic_info_16_light, size: 16.0,)
+                message: hint,
+                child: Icon(MoonIcons.generic_info_16_light, size: 16.0),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -319,4 +296,3 @@ int? onChangeIntValue(String? newValue) {
   }
   return null;
 }
-

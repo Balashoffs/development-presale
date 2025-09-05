@@ -13,9 +13,11 @@ class CustomTextInput extends StatefulWidget {
     this.validator,
     this.width,
     this.initValue,
+    this.styleFontSize = 12,
+    this.helpStyleFontSize = 12,
     this.autofocus = false,
     required this.isEnables,
-    this.hasFloatingLabel = false,
+    this.hasFloatingLabel = false, this.textInputSize = MoonTextInputSize.sm,
   });
 
   final String hintText;
@@ -29,6 +31,9 @@ class CustomTextInput extends StatefulWidget {
   final bool autofocus;
   final bool isEnables;
   final bool hasFloatingLabel;
+  final MoonTextInputSize textInputSize;
+  final double styleFontSize;
+  final double helpStyleFontSize;
 
   @override
   State<CustomTextInput> createState() => _CustomTextInputState();
@@ -74,14 +79,15 @@ class _CustomTextInputState extends State<CustomTextInput> {
       textAlign: TextAlign.center,
       controller: _textController,
       enabled: widget.isEnables,
-      textInputSize: MoonTextInputSize.xl,
+      style: TextStyle(fontSize: widget.styleFontSize),
+      helperTextStyle: TextStyle(fontSize: widget.helpStyleFontSize),
+      textInputSize: widget.textInputSize,
       hasFloatingLabel: widget.hasFloatingLabel,
       activeBorderColor: getColor(context, MoonColor.zeno),
       inactiveBorderColor: _borderColor ?? getColor(context, MoonColor.whis10),
       errorColor: colorTable(context)[MoonColor.chichi.index]!,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       hintText: widget.hintText,
-      helperTextStyle: TextStyle(fontSize: 16),
       validator: widget.validator,
       autofocus: widget.autofocus,
       onTapOutside: (PointerDownEvent _) {

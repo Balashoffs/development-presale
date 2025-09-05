@@ -7,8 +7,45 @@ class PersonSignTextInputValidator {
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController jobTitleController = TextEditingController();
   final TextEditingController companyTitleController = TextEditingController();
-  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController(text: '+7');
   final TextEditingController jobEmailController = TextEditingController();
+
+
+  PersonSignTextInputValidator(){
+    jobEmailController.addListener(_handleTextChange);
+  }
+  final String emailSuffix = '@liis.su';
+  bool _isInternalUpdate = false;
+  void _handleTextChange() {
+    if (_isInternalUpdate) return;
+
+    String currentText = jobEmailController.text;
+    String userInput = currentText;
+
+    // Extract user input (remove suffix if present)
+    if (currentText.endsWith(emailSuffix)) {
+      userInput = currentText.substring(0, currentText.length - emailSuffix.length);
+    }
+
+    // Create new text with suffix
+    String newText = userInput + emailSuffix;
+
+    if (newText != currentText) {
+      _isInternalUpdate = true;
+
+      jobEmailController.value = TextEditingValue(
+        text: newText,
+        selection: TextSelection.collapsed(offset: userInput.length),
+      );
+
+      _isInternalUpdate = false;
+    }
+
+    // // Call external onChanged if provided
+    // if (widget.onChanged != null) {
+    //   widget.onChanged!(userInput); // Pass only user input, not the suffix
+    // }
+  }
 
   final String fistNameHintText = 'Введите имя';
   final String secondNameHintText = 'Введите очество';
@@ -70,7 +107,7 @@ class PersonSignTextInputValidator {
   FormFieldValidator<String>? jobEmailValidator = (value) {
     return value != null &&
             !RegExp(
-              r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$',
+              r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@liis.su$',
             ).hasMatch(value)
         ? "Разрешаются буквы английского языка, цифры и другие допустимые символы"
         : null;

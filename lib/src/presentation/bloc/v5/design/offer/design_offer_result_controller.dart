@@ -12,7 +12,7 @@ class DesignOfferResultController {
   late final DesignOfferResultVM? designOfferResultVM;
   final ValueNotifier<bool> isCorrect = ValueNotifier(false);
 
-  final StreamController<PersonSignDTO> _streamController = StreamController();
+  final StreamController<PersonSignDTO> _streamController = StreamController.broadcast();
 
   StreamSink<PersonSignDTO> get personSignSink => _streamController.sink;
   PersonSignDTO _personSignDTO = PersonSignDTO.empty();
@@ -20,6 +20,7 @@ class DesignOfferResultController {
   DesignOfferResultController() {
     _streamController.stream.listen((event) {
       _personSignDTO = event;
+      _check();
     });
   }
 
