@@ -39,7 +39,7 @@ class DesignOfferAdditionalDataWidget extends StatelessWidget {
                 ),
                 CustomTextInput(
                   hasFloatingLabel: true,
-                  hintText: 'Авансирование, рубл.*',
+                  hintText: 'Авансирование, руб.*',
                   onChanged: controller.onAvance,
                   styleFontSize: 16,
                   helpStyleFontSize: 16,

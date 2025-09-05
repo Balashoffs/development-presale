@@ -53,12 +53,12 @@ class DesignOfferTemplateBuilder {
   }
 
   void _addSignRows() {
-    if (_offerResult.footerData.personSign != null) {
-      _addCompanyJobTitle();
-      _increment();
-      _addCreaterName();
-      _increment();
-    }
+    _addCompanySignHeader();
+    _increment();
+    _addCompanyJobTitle();
+    _increment();
+    _addCreaterName();
+    _increment();
   }
 
   void _addTable() {
@@ -91,7 +91,7 @@ class DesignOfferTemplateBuilder {
         .load('assets/calculator_data/template/header.png')
         .then((value) => value.buffer);
     var m = base64.encode(Uint8List.view(imageBytes));
-    return _worksheet.pictures.addBase64(_rowPos, 3, m);
+    return _worksheet.pictures.addBase64(_rowPos, 4, m);
   }
 
   void _addOfferId() {
@@ -112,7 +112,7 @@ class DesignOfferTemplateBuilder {
           : "${dateTime.day}";
       String yearName = '${dateTime.year} г.';
       String dateAsText = 'Дата: $dayName $shortMonthName $yearName';
-      _buildCell(dateAsText, "D$_rowPos");
+      _buildCell(dateAsText, "G$_rowPos");
     }
   }
 
@@ -130,11 +130,16 @@ class DesignOfferTemplateBuilder {
   }
 
   void _addObjectName() {
-    String objectName =
-        'Объект: ${_offerResult.inputDataDesign.objectData.name}';
     _buildCell(
-      objectName,
-      'B$_rowPos:D$_rowPos',
+      'Объект:',
+      'B$_rowPos',
+      alignType: HAlignType.left,
+      fontSize: 12,
+      isBold: true
+    );
+    _buildCell(
+      _offerResult.inputDataDesign.objectData.name,
+      'C$_rowPos:E$_rowPos',
       alignType: HAlignType.left,
       fontSize: 14,
       isMerge: true,
@@ -142,11 +147,16 @@ class DesignOfferTemplateBuilder {
   }
 
   void _addObjectLocation() {
-    String objectLocation =
-        'Адреc ${_offerResult.inputDataDesign.objectData.address}';
     _buildCell(
-      objectLocation,
-      'B$_rowPos:D$_rowPos',
+        'Адрес:',
+        'B$_rowPos',
+        alignType: HAlignType.left,
+        fontSize: 12,
+        isBold: true
+    );
+    _buildCell(
+      _offerResult.inputDataDesign.objectData.address,
+      'C$_rowPos:E$_rowPos',
       alignType: HAlignType.left,
       fontSize: 14,
       isMerge: true,
@@ -172,7 +182,7 @@ class DesignOfferTemplateBuilder {
     String title = 'Рассчет стоимости';
     _buildCell(
       title,
-      'B$_rowPos:D$_rowPos',
+      'B$_rowPos:E$_rowPos',
       alignType: HAlignType.center,
       fontSize: 14,
       isBold: true,
@@ -183,37 +193,32 @@ class DesignOfferTemplateBuilder {
   void _addTableHeader() {
     _buildCell(
       '№ п/п',
-      'A$_rowPos',
+      'B$_rowPos',
       width: 7.5,
       alignType: HAlignType.center,
       isBold: true,
     );
     _buildCell(
       'Наименование услуги',
-      'B$_rowPos',
-      width: 50,
+      'C$_rowPos:E$_rowPos',
+      width: 20,
       alignType: HAlignType.center,
       isBold: true,
+      isMerge: true,
     );
     _buildCell(
       'Кол-во',
-      'C$_rowPos',
+      'F$_rowPos',
       width: 7.5,
       alignType: HAlignType.center,
       isBold: true,
     );
-    // _buildCell(
-    //   'Стоимость без НДС',
-    //   'D$_rowPos',
-    //   width: 25,
-    //   alignType: HAlignType.center,
-    // );
     _buildCell(
       'Стоимость с НДС',
-      'D$_rowPos',
+      'G$_rowPos',
       width: 25,
       alignType: HAlignType.center,
-        isBold: true
+      isBold: true,
     );
   }
 
@@ -222,19 +227,20 @@ class DesignOfferTemplateBuilder {
       DivisionResult result = _offerResult.divisionResults[i];
       _buildCell(
         result.id.toString(),
-        'A$_rowPos',
+        'B$_rowPos',
         width: 7.5,
         alignType: HAlignType.center,
       );
       _buildCell(
         result.divisionName,
-        'B$_rowPos',
-        width: 50,
+        'C$_rowPos:E$_rowPos',
+        width: 20,
         alignType: HAlignType.center,
+        isMerge: true,
       );
       _buildCell(
         1.toString(),
-        'C$_rowPos',
+        'F$_rowPos',
         width: 7.5,
         alignType: HAlignType.center,
       );
@@ -246,7 +252,7 @@ class DesignOfferTemplateBuilder {
       // );
       _buildCell(
         convertToString(result.divisionSummaryWithTax, 2),
-        'D$_rowPos',
+        'G$_rowPos',
         width: 25,
         alignType: HAlignType.center,
       );
@@ -258,15 +264,15 @@ class DesignOfferTemplateBuilder {
 
   void _addTableFooter1() {
     _buildCell(
-      'ИТОГО с НДС 20% :',
-      'A$_rowPos:D$_rowPos',
+      'ИТОГО с НДС 20%:',
+      'B$_rowPos:F$_rowPos',
       isMerge: true,
       alignType: HAlignType.right,
     );
     _buildCell(
       convertToString(_offerResult.designOfferSummaryCost, 0),
-      'E$_rowPos',
-      // width: 100,
+      'G$_rowPos',
+      width: 25,
       alignType: HAlignType.center,
     );
   }
@@ -274,14 +280,14 @@ class DesignOfferTemplateBuilder {
   void _addTableFooter2() {
     _buildCell(
       'НДС 20%:',
-      'A$_rowPos:D$_rowPos',
+      'B$_rowPos:F$_rowPos',
       isMerge: true,
       alignType: HAlignType.right,
     );
     _buildCell(
       convertToString(_offerResult.designOfferSummaryTax, 0),
-      'E$_rowPos',
-      // width: 100,
+      'G$_rowPos',
+      width: 25,
       alignType: HAlignType.center,
     );
   }
@@ -290,7 +296,7 @@ class DesignOfferTemplateBuilder {
     if (_offerResult.footerData.noteText.isNotEmpty) {
       _increment(2);
       _buildCell(
-        'Примечание',
+        'Примечания:',
         'B$_rowPos:D$_rowPos',
         isMerge: true,
         alignType: HAlignType.left,
@@ -306,6 +312,7 @@ class DesignOfferTemplateBuilder {
             line,
             'B$_rowPos:D$_rowPos',
             isMerge: true,
+            fontSize: 14,
             alignType: HAlignType.left,
           );
         }
@@ -313,6 +320,7 @@ class DesignOfferTemplateBuilder {
         _increment(1);
         _buildCell(
           note,
+          fontSize: 14,
           'B$_rowPos:D$_rowPos',
           isMerge: true,
           alignType: HAlignType.left,
@@ -334,9 +342,10 @@ class DesignOfferTemplateBuilder {
       );
       _increment(1);
       _buildCell(
-        '${_offerResult.footerData.prepayment} рубл.',
+        '${_offerResult.footerData.prepayment} руб.',
         'B$_rowPos:D$_rowPos',
         isMerge: true,
+        fontSize: 14,
         alignType: HAlignType.left,
       );
     }
@@ -378,15 +387,24 @@ class DesignOfferTemplateBuilder {
     }
   }
 
+  void _addCompanySignHeader() {
+    _buildCell('Подписант', 'B$_rowPos', fontSize: 12, isBold: true);
+  }
+
   void _addCompanyJobTitle() {
     _buildCell(
       '${_offerResult.footerData.personSign.jobTitle} - ${_offerResult.footerData.personSign.companyTitle}',
       'B$_rowPos',
+      fontSize: 14,
     );
   }
 
   void _addCreaterName() {
-    _buildCell(_offerResult.footerData.personSign.fullName, 'B$_rowPos');
+    _buildCell(
+      _offerResult.footerData.personSign.fullName,
+      'B$_rowPos',
+      fontSize: 14,
+    );
   }
 
   void _addSignPlace() {
@@ -398,7 +416,7 @@ class DesignOfferTemplateBuilder {
   }
 
   void _setTableBorder(int start, int end) {
-    final Range headerRange = _worksheet.getRangeByName('A$start:E$end');
+    final Range headerRange = _worksheet.getRangeByName('B$start:G$end');
     headerRange.cellStyle.borders.all.lineStyle = LineStyle.thin;
     headerRange.cellStyle.borders.left.lineStyle = LineStyle.thick;
     headerRange.cellStyle.borders.right.lineStyle = LineStyle.thick;

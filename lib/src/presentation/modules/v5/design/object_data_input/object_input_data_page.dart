@@ -26,10 +26,12 @@ class InputDataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(
-      title: Text(
-        'Первоначальные данные о проекте',
-        textAlign: TextAlign.center,
-        style: TextStyle(fontSize: 16),
+      title: Center(
+        child: Text(
+          'Первоначальные данные о проекте',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 16),
+        ),
       ),
       child: ObjectInputDataBlocBuilderWidget(),
     );

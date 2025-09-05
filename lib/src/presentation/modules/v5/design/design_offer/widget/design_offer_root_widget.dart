@@ -15,8 +15,6 @@ import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/d
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/divisions_results_table_widget.dart';
 
 class DesignOfferRootWidget extends StatelessWidget {
-
-
   const DesignOfferRootWidget({super.key, required this.result});
 
   final DesignOfferResultVM result;
@@ -28,6 +26,7 @@ class DesignOfferRootWidget extends StatelessWidget {
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
         primary: true,
+
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,

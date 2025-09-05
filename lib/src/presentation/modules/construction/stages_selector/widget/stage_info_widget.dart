@@ -61,7 +61,7 @@ class _StageDataWidgetState extends State<StageDataWidget> {
       backgroundColor: backgroundColor,
       expandedBackgroundColor: backgroundColor,
       label: Text(
-        '${widget.stageViewModel.stageInfo.name}, цена: ${widget.stageViewModel.stageInfo.value} рубл. (${widget.stageViewModel.stageInfo.factor * 100}%)',
+        '${widget.stageViewModel.stageInfo.name}, цена: ${widget.stageViewModel.stageInfo.value} руб. (${widget.stageViewModel.stageInfo.factor * 100}%)',
         style: context.moonTypography!.body.textDefault.copyWith(
           color: labelTextColor,
           fontWeight: FontWeight.w400,

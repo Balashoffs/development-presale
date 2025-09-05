@@ -7,8 +7,7 @@ import 'package:presale/src/domain/models/v5/design/division_resource_table/divi
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_with_unselected_vc.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
-
-import '../../common/table/division_resources_table_utils.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/table/division_resources_table_utils.dart';
 
 class DivisionsResourceTableWidget extends StatefulWidget {
   const DivisionsResourceTableWidget({

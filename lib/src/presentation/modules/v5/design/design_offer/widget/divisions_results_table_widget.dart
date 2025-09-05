@@ -1,5 +1,5 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
@@ -26,6 +26,43 @@ class DivisionsResultsTableWidget extends StatefulWidget {
 
 class _DivisionsResultsTableWidgetState
     extends State<DivisionsResultsTableWidget> {
+  @override
+  Widget build(BuildContext context) {
+    double height = 48.0 * 2 + 64.0 * widget.footerResult.divisionRows.length;
+    return LimitedBox(
+      maxWidth: MediaQuery.sizeOf(context).width - 100,
+      maxHeight: height > MediaQuery.sizeOf(context).height - 300
+          ? MediaQuery.sizeOf(context).height - 300
+          : height,
+      child: MoonTable(
+        columnsCount: widget.rowAttributes.length,
+        isHeaderPinned: true,
+        isFooterPinned: true,
+        rowGap: 2.0,
+        scrollBehaviour: MaterialScrollBehavior().copyWith(
+          scrollbars: true,
+          overscroll: false,
+          dragDevices: {
+            PointerDeviceKind.touch,
+            PointerDeviceKind.mouse,
+            PointerDeviceKind.stylus,
+          },
+        ),
+        rowSize: MoonTableRowSize.md,
+        header: _generateTableHeader(),
+        rows: _generateTableRows(),
+        footer: _generateTableFooter(),
+        tablePadding: const EdgeInsets.symmetric(horizontal: 16),
+        cellPadding: const EdgeInsets.symmetric(vertical: 8),
+        onScrollControllersReady:
+            (
+            ScrollController verticalScrollController,
+            ScrollController horizontalScrollController,
+            ) => _scrollListener(verticalScrollController),
+      ),
+    );
+  }
+
   void _scrollListener(ScrollController verticalScrollController) {}
 
   MoonTableHeader _generateTableHeader() {
@@ -156,39 +193,6 @@ class _DivisionsResultsTableWidgetState
         );
       }),
       height: 48,
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double height = 48.0 * 2 + 64.0 * widget.footerResult.divisionRows.length;
-    return LimitedBox(
-      maxWidth: MediaQuery.sizeOf(context).width - 100,
-      maxHeight: height > MediaQuery.sizeOf(context).height - 200
-          ? MediaQuery.sizeOf(context).height - 200
-          : height,
-      child: MoonTable(
-
-        columnsCount: widget.rowAttributes.length,
-        isHeaderPinned: true,
-        isFooterPinned: true,
-        rowGap: 2.0,
-        scrollBehaviour: MaterialScrollBehavior().copyWith(
-          scrollbars: true,
-          overscroll: true,
-        ),
-        rowSize: MoonTableRowSize.md,
-        header: _generateTableHeader(),
-        rows: _generateTableRows(),
-        footer: _generateTableFooter(),
-        tablePadding: const EdgeInsets.symmetric(horizontal: 16),
-        cellPadding: const EdgeInsets.symmetric(vertical: 8),
-        onScrollControllersReady:
-            (
-              ScrollController verticalScrollController,
-              ScrollController horizontalScrollController,
-            ) => _scrollListener(verticalScrollController),
-      ),
     );
   }
 }

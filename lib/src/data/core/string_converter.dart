@@ -13,5 +13,5 @@ String convertToString(double value, int digits) {
   }
 
 
-  return '$res рубл.';
+  return '$res руб.';
 }
