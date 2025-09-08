@@ -6,6 +6,7 @@ import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/widget_action_type.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_with_unselected_vc.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/division_resource_calculator/division_resource_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
@@ -53,7 +54,7 @@ class DivisionResourceCalculateProvider extends StatelessWidget {
           dbClient: di.dbClientImpl,
           resourcesViewController: context
               .read<ResourcesWithUnselectedViewController>(),
-        )..init();
+        );
       },
       child: DivisionResourceCalculateConsumer(),
     );
@@ -70,14 +71,15 @@ class DivisionResourceCalculateConsumer extends StatelessWidget {
       DivisionResourceCalculateState
     >(
       builder: (context, state) {
-        return state.mapOrNull(
-              initial: (value) => CustomCircleLoader(),
-              showPage: (value) => DivisionResourceCalculateWidget(),
-            ) ??
-            SizedBox();
+        if (state.stateEnum == StateEnum.loading) {
+          return CustomCircleLoader();
+        }
+        return DivisionResourceCalculateWidget();
       },
       listener: (context, state) {
-        state.whenOrNull(nextPage: () => context.go(designDivisionsRoute));
+        if (state.stateEnum == StateEnum.nextPage) {
+          context.push(designDivisionsRoute);
+        }
       },
     );
   }

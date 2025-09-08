@@ -1,11 +1,10 @@
 
 
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/di/di.dart';
 import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/common/typography_page_options.dart';
+import 'package:presale/src/presentation/core/navigation/app_router.dart';
 
-import 'package:presale/src/presentation/core/navigation/app_routes.dart';
 import 'package:presale/src/presentation/core/navigation/nested_route.dart';
 import 'package:presale/src/presentation/modules/data_viewer/viewer_info.dart';
 import 'package:file_picker/file_picker.dart';
@@ -87,8 +86,7 @@ class _ViewerPageState extends State<ViewerPage> with SingleTickerProviderStateM
                 )
                     .then((value) {
                   if (value != null) {
-                    var bytes = value.files.single.bytes;
-                    if (bytes != null) di.employeeRepository.loadData(bytes);
+
                   }
                 });
               },

@@ -1,8 +1,8 @@
 import 'package:presale/src/presentation/bloc/core/core/repository_state.dart';
 import 'package:presale/src/presentation/bloc/user/user_repository.dart';
-import 'package:presale/src/presentation/core/navigation/app_routes.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:presale/src/presentation/core/navigation/app_router.dart';
 
 part 'navigation_mode.dart';
 

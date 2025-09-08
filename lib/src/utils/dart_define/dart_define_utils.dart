@@ -7,7 +7,8 @@ DartDefineModel buildFrom(){
   String type =const String.fromEnvironment('type');
   final source = const String.fromEnvironment('design');
   final ui = const String.fromEnvironment('ui');
+  final password = const String.fromEnvironment('email');
   final map = json.decode(source);
   DesignClass design = DesignClass.fromJson(map);
-  return DartDefineModel(type: type, design: design, ui: ui);
+  return DartDefineModel(type: type, design: design, ui: ui, user: password);
 }

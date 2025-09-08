@@ -26,18 +26,19 @@ class SectionInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SectionInputCubit(
-        di.sectionClient,
-        di.employeeClient,
-      ),
-      child: _SectionInput(
-        section: initial,
-        onChanged: onChanged,
-        blank: blank,
-        stage: stage,
-      ),
-    );
+    return SizedBox();
+    // return BlocProvider(
+    //   // create: (context) => SectionInputCubit(
+    //   //   di.sectionClient,
+    //   //   di.employeeClient,
+    //   // ),
+    //   child: _SectionInput(
+    //     section: initial,
+    //     onChanged: onChanged,
+    //     blank: blank,
+    //     stage: stage,
+    //   ),
+    // );
   }
 }
 

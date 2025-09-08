@@ -15,13 +15,12 @@ import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/d
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/divisions_results_table_widget.dart';
 
 class DesignOfferRootWidget extends StatelessWidget {
-  const DesignOfferRootWidget({super.key, required this.result});
-
-  final DesignOfferResultVM result;
+  const DesignOfferRootWidget({super.key,});
 
   @override
   Widget build(BuildContext context) {
     final controller = context.read<DesignOfferResultController>();
+    final DesignOfferResultVM? result = controller.designOfferResultVM;
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: SingleChildScrollView(
@@ -31,7 +30,7 @@ class DesignOfferRootWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            DesignOfferHeaderWidget(result: result),
+            DesignOfferHeaderWidget(result: result!),
             TextDivider(
               text: 'Итоговая таблица',
               paddingTop: 8.0,

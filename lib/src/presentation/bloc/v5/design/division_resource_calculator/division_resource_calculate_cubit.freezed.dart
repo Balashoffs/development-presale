@@ -14,36 +14,67 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DivisionResourceCalculateState implements DiagnosticableTreeMixin {
 
-
+ StateEnum get stateEnum;
+/// Create a copy of DivisionResourceCalculateState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DivisionResourceCalculateStateCopyWith<DivisionResourceCalculateState> get copyWith => _$DivisionResourceCalculateStateCopyWithImpl<DivisionResourceCalculateState>(this as DivisionResourceCalculateState, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'DivisionResourceCalculateState'))
-    ;
+    ..add(DiagnosticsProperty('stateEnum', stateEnum));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DivisionResourceCalculateState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DivisionResourceCalculateState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,stateEnum);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionResourceCalculateState()';
+  return 'DivisionResourceCalculateState(stateEnum: $stateEnum)';
 }
 
 
 }
 
 /// @nodoc
-class $DivisionResourceCalculateStateCopyWith<$Res>  {
-$DivisionResourceCalculateStateCopyWith(DivisionResourceCalculateState _, $Res Function(DivisionResourceCalculateState) __);
+abstract mixin class $DivisionResourceCalculateStateCopyWith<$Res>  {
+  factory $DivisionResourceCalculateStateCopyWith(DivisionResourceCalculateState value, $Res Function(DivisionResourceCalculateState) _then) = _$DivisionResourceCalculateStateCopyWithImpl;
+@useResult
+$Res call({
+ StateEnum stateEnum
+});
+
+
+
+
+}
+/// @nodoc
+class _$DivisionResourceCalculateStateCopyWithImpl<$Res>
+    implements $DivisionResourceCalculateStateCopyWith<$Res> {
+  _$DivisionResourceCalculateStateCopyWithImpl(this._self, this._then);
+
+  final DivisionResourceCalculateState _self;
+  final $Res Function(DivisionResourceCalculateState) _then;
+
+/// Create a copy of DivisionResourceCalculateState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? stateEnum = null,}) {
+  return _then(_self.copyWith(
+stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
+as StateEnum,
+  ));
+}
+
 }
 
 
@@ -61,14 +92,11 @@ extension DivisionResourceCalculateStatePatterns on DivisionResourceCalculateSta
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _NextPage value)?  nextPage,TResult Function( _ShowPage value)?  showPage,TResult Function( _Error value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DivisionResourceCalculateState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _NextPage() when nextPage != null:
-return nextPage(_that);case _ShowPage() when showPage != null:
-return showPage(_that);case _Error() when error != null:
-return error(_that);case _:
+case _DivisionResourceCalculateState() when $default != null:
+return $default(_that);case _:
   return orElse();
 
 }
@@ -86,14 +114,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _NextPage value)  nextPage,required TResult Function( _ShowPage value)  showPage,required TResult Function( _Error value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DivisionResourceCalculateState value)  $default,){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _NextPage():
-return nextPage(_that);case _ShowPage():
-return showPage(_that);case _Error():
-return error(_that);case _:
+case _DivisionResourceCalculateState():
+return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -110,14 +135,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _NextPage value)?  nextPage,TResult? Function( _ShowPage value)?  showPage,TResult? Function( _Error value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DivisionResourceCalculateState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _NextPage() when nextPage != null:
-return nextPage(_that);case _ShowPage() when showPage != null:
-return showPage(_that);case _Error() when error != null:
-return error(_that);case _:
+case _DivisionResourceCalculateState() when $default != null:
+return $default(_that);case _:
   return null;
 
 }
@@ -134,13 +156,10 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  nextPage,TResult Function()?  showPage,TResult Function( String errorText)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StateEnum stateEnum)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _NextPage() when nextPage != null:
-return nextPage();case _ShowPage() when showPage != null:
-return showPage();case _Error() when error != null:
-return error(_that.errorText);case _:
+case _DivisionResourceCalculateState() when $default != null:
+return $default(_that.stateEnum);case _:
   return orElse();
 
 }
@@ -158,13 +177,10 @@ return error(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  nextPage,required TResult Function()  showPage,required TResult Function( String errorText)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StateEnum stateEnum)  $default,) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _NextPage():
-return nextPage();case _ShowPage():
-return showPage();case _Error():
-return error(_that.errorText);case _:
+case _DivisionResourceCalculateState():
+return $default(_that.stateEnum);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -181,13 +197,10 @@ return error(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  nextPage,TResult? Function()?  showPage,TResult? Function( String errorText)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StateEnum stateEnum)?  $default,) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _NextPage() when nextPage != null:
-return nextPage();case _ShowPage() when showPage != null:
-return showPage();case _Error() when error != null:
-return error(_that.errorText);case _:
+case _DivisionResourceCalculateState() when $default != null:
+return $default(_that.stateEnum);case _:
   return null;
 
 }
@@ -198,163 +211,49 @@ return error(_that.errorText);case _:
 /// @nodoc
 
 
-class _Initial with DiagnosticableTreeMixin implements DivisionResourceCalculateState {
-  const _Initial();
+class _DivisionResourceCalculateState with DiagnosticableTreeMixin implements DivisionResourceCalculateState {
+  const _DivisionResourceCalculateState({this.stateEnum = StateEnum.loading});
   
 
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DivisionResourceCalculateState.initial'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionResourceCalculateState.initial()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _NextPage with DiagnosticableTreeMixin implements DivisionResourceCalculateState {
-  const _NextPage();
-  
-
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DivisionResourceCalculateState.nextPage'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NextPage);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionResourceCalculateState.nextPage()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _ShowPage with DiagnosticableTreeMixin implements DivisionResourceCalculateState {
-  const _ShowPage();
-  
-
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DivisionResourceCalculateState.showPage'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShowPage);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionResourceCalculateState.showPage()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _Error with DiagnosticableTreeMixin implements DivisionResourceCalculateState {
-  const _Error(this.errorText);
-  
-
- final  String errorText;
+@override@JsonKey() final  StateEnum stateEnum;
 
 /// Create a copy of DivisionResourceCalculateState
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$identity);
+_$DivisionResourceCalculateStateCopyWith<_DivisionResourceCalculateState> get copyWith => __$DivisionResourceCalculateStateCopyWithImpl<_DivisionResourceCalculateState>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'DivisionResourceCalculateState.error'))
-    ..add(DiagnosticsProperty('errorText', errorText));
+    ..add(DiagnosticsProperty('type', 'DivisionResourceCalculateState'))
+    ..add(DiagnosticsProperty('stateEnum', stateEnum));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.errorText, errorText) || other.errorText == errorText));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DivisionResourceCalculateState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,errorText);
+int get hashCode => Object.hash(runtimeType,stateEnum);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionResourceCalculateState.error(errorText: $errorText)';
+  return 'DivisionResourceCalculateState(stateEnum: $stateEnum)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $DivisionResourceCalculateStateCopyWith<$Res> {
-  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
-@useResult
+abstract mixin class _$DivisionResourceCalculateStateCopyWith<$Res> implements $DivisionResourceCalculateStateCopyWith<$Res> {
+  factory _$DivisionResourceCalculateStateCopyWith(_DivisionResourceCalculateState value, $Res Function(_DivisionResourceCalculateState) _then) = __$DivisionResourceCalculateStateCopyWithImpl;
+@override @useResult
 $Res call({
- String errorText
+ StateEnum stateEnum
 });
 
 
@@ -362,19 +261,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$ErrorCopyWithImpl<$Res>
-    implements _$ErrorCopyWith<$Res> {
-  __$ErrorCopyWithImpl(this._self, this._then);
+class __$DivisionResourceCalculateStateCopyWithImpl<$Res>
+    implements _$DivisionResourceCalculateStateCopyWith<$Res> {
+  __$DivisionResourceCalculateStateCopyWithImpl(this._self, this._then);
 
-  final _Error _self;
-  final $Res Function(_Error) _then;
+  final _DivisionResourceCalculateState _self;
+  final $Res Function(_DivisionResourceCalculateState) _then;
 
 /// Create a copy of DivisionResourceCalculateState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? errorText = null,}) {
-  return _then(_Error(
-null == errorText ? _self.errorText : errorText // ignore: cast_nullable_to_non_nullable
-as String,
+@override @pragma('vm:prefer-inline') $Res call({Object? stateEnum = null,}) {
+  return _then(_DivisionResourceCalculateState(
+stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
+as StateEnum,
   ));
 }
 

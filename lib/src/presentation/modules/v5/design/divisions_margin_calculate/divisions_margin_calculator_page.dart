@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_summary_viewmodel.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/divisions_margin_calculator/divisions_margin_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
@@ -47,7 +48,7 @@ class DivisionsMarginCalculateProvider extends StatelessWidget {
         return DivisionsMarginCalculateCubit(
           dbClient: di.dbClientImpl,
           resourceSummaryViewModel: context.read<DivisionsViewController>(),
-        )..init();
+        );
       },
       child: DivisionsMarginCalculateConsumer(),
     );
@@ -60,18 +61,19 @@ class DivisionsMarginCalculateConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<
-      DivisionsMarginCalculateCubit,
-      DivisionsMarginCalculateState
+        DivisionsMarginCalculateCubit,
+        DivisionsMarginCalculateState
     >(
       builder: (context, state) {
-        return state.whenOrNull(
-              initial: () => CustomCircleLoader(),
-              showPage: () => DivisionsMarginCalculateWidget(),
-            ) ??
-            SizedBox();
+        if(state.stateEnum == StateEnum.loading){
+          return CustomCircleLoader();
+        }
+        return  DivisionsMarginCalculateWidget();
       },
       listener: (context, state) {
-        state.whenOrNull(nextPage: () => context.go(designOfferRoute));
+        if(state.stateEnum == StateEnum.nextPage){
+          context.push(designOfferRoute);
+        }
       },
     );
   }
@@ -88,13 +90,17 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
           flex: 9,
           child: DivisionsMarginTableWidget(
             rowAttributes: divisionMarginTableAttributes,
-            tableDataRows: context.read<DivisionsViewController>().rows,
+            tableDataRows: context
+                .read<DivisionsViewController>()
+                .rows,
           ),
         ),
         Expanded(
           flex: 1,
           child: NextPageWidget(
-            onTap: context.read<DivisionsMarginCalculateCubit>().onNextPage,
+            onTap: context
+                .read<DivisionsMarginCalculateCubit>()
+                .onNextPage,
           ),
         ),
       ],

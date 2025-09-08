@@ -1,30 +1,17 @@
 import 'package:dart_seq/dart_seq.dart';
 import 'package:dart_seq_http_client/dart_seq_http_client.dart';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:presale/src/data/clients/v1/employee_client.dart';
-import 'package:presale/src/data/clients/v1/section_client.dart';
 import 'package:presale/src/data/core/db_client.dart';
-import 'package:presale/src/data/data_sources/v1/employee_cost_data_source.dart';
-import 'package:presale/src/data/data_sources/v1/section_data_source.dart';
-
-import 'package:presale/src/domain/data/data_cubit.dart';
 import 'package:presale/src/presentation/bloc/auth/auth_cubit.dart';
 import 'package:presale/src/presentation/bloc/core/core/global_bloc_observer.dart';
 import 'package:presale/src/presentation/bloc/core/navigation/navigation_cubit.dart';
-import 'package:presale/src/presentation/bloc/core/theme_cubit/theme_cubit.dart';
-import 'package:presale/src/presentation/bloc/employee_repository.dart';
-import 'package:presale/src/presentation/bloc/object_table_page/cubit.dart';
-import 'package:presale/src/presentation/bloc/section_repository.dart';
-import 'package:presale/src/presentation/bloc/stages_table_page/cubit.dart';
+
 import 'package:presale/src/presentation/bloc/user/user_repository.dart';
-import 'package:presale/src/presentation/core/navigation/routers/debug_app_router.dart';
-import 'package:presale/src/presentation/core/navigation/routers/release_app_router.dart';
-import 'package:presale/src/presentation/core/services/theme_service.dart';
+import 'package:presale/src/presentation/core/navigation/app_router.dart';
 import 'package:presale/src/utils/dart_define/dart_define_utils.dart';
 import 'package:presale/src/utils/dart_define/model/dart_define_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,13 +35,12 @@ class DependencyInjector {
       );
 
   Future<void> init() async {
-    _initBuildConfig();
     await _registerDBClient();
     await _setupStorageAndObserver();
-    await _initSegClient();
+    // await _initSegClient();
 
     _registerRouter();
-    // _registerBlocs();
+    _registerBlocs();
   }
 
   void _initBuildConfig() {
@@ -71,58 +57,17 @@ class DependencyInjector {
   }
 
   void _registerRouter() {
-    DartDefineModel ddm = dartDefineModel;
-    GoRouter? goRouter = switch (ddm.type) {
-      "dev" => appRouterDebug,
-      "prod" => appRouterRelease,
-      String() => null,
-    };
-    if (goRouter != null) {
-      _getItInstance.registerSingleton<GoRouter>(goRouter);
-    }
+    _getItInstance.registerSingleton<AppRouter>(AppRouter());
   }
 
-  Future<void> initConfig() async {
-    // await _registerAppConfig();
+  void initConfig() {
+    _initBuildConfig();
   }
-
-  Future<void> _registerAppConfig() async {
-
-  }
-
-  void _registerThemeService() =>
-      _getItInstance.registerSingleton<ThemeService>(
-        ThemeService(_getItInstance<DBClient>()),
-      );
 
   Future<void> _registerDBClient() async {
     final preferences = await SharedPreferences.getInstance();
     _getItInstance.registerLazySingleton<DBClient>(
       () => DBClientImpl(preferences),
-    );
-  }
-
-  Future<void> _registerLocalNotifications() async {}
-
-  Future<void> _registerApiClients() async {}
-
-  void _registerDataSources() {
-    _getItInstance.registerSingleton<EmployeeDataSource>(
-      EmployeeDataSourceLocal(_getItInstance<DBClient>()),
-    );
-
-    _getItInstance.registerSingleton<SectionDataSource>(
-      SectionDataSourceLocal(_getItInstance<DBClient>()),
-    );
-  }
-
-  void _registerClients() {
-    _getItInstance.registerSingleton<EmployeeClient>(
-      EmployeeClientImpl(_getItInstance<EmployeeDataSource>()),
-    );
-
-    _getItInstance.registerSingleton<SectionClient>(
-      SectionClientImpl(_getItInstance<SectionDataSource>()),
     );
   }
 
@@ -137,60 +82,34 @@ class DependencyInjector {
   }
 
   void _registerBlocs() {
-    // /// User
-    // _getItInstance.registerSingleton<AuthCubit>(
-    //   AuthCubit(),
-    // );
-    //
-    // _getItInstance.registerSingleton<UserRepository>(
-    //   UserRepository(),
-    // );
-    //
-    // /// Navigation
-    // _getItInstance.registerSingleton<NavigationCubit>(
-    //   NavigationCubit(
-    //     _getItInstance<UserRepository>(),
-    //     _getItInstance<AppRouter>(),
-    //   ),
-    // );
+    /// User
+    _getItInstance.registerSingleton<AuthCubit>(AuthCubit());
+
+    _getItInstance.registerSingleton<UserRepository>(UserRepository());
+
+    /// Navigation
+    _getItInstance.registerSingleton<NavigationCubit>(
+      NavigationCubit(
+        _getItInstance<UserRepository>(),
+        _getItInstance<AppRouter>(),
+      ),
+    );
   }
 
   /// Core
 
-
-  ThemeService get themeService => _getItInstance<ThemeService>();
-
-  ThemeCubit get themeBloc => _getItInstance<ThemeCubit>();
-
   NavigationCubit get navigationCubit => _getItInstance<NavigationCubit>();
-
-  DataCubit get dataCubit => _getItInstance<DataCubit>();
 
   /// Auth
   AuthCubit get authCubit => _getItInstance<AuthCubit>();
 
   UserRepository get userRepository => _getItInstance<UserRepository>();
 
-  /// Employee
-  EmployeeRepository get employeeRepository =>
-      _getItInstance<EmployeeRepository>();
-
-  EmployeeClient get employeeClient => _getItInstance<EmployeeClient>();
-
-  SectionClient get sectionClient => _getItInstance<SectionClient>();
-
-  SectionRepository get sectionRepository =>
-      _getItInstance<SectionRepository>();
-
-  ObjectTableCubit get objectTableCubit => _getItInstance<ObjectTableCubit>();
-
   SeqLogger get segLogger => _getItInstance<SeqLogger>();
-
-  StagesTableCubit get stagesTableCubit => _getItInstance<StagesTableCubit>();
 
   DBClient get dbClientImpl => _getItInstance<DBClient>();
 
   DartDefineModel get dartDefineModel => _getItInstance<DartDefineModel>();
 
-  GoRouter get appGoRouter => _getItInstance<GoRouter>();
+  AppRouter get appGoRouter => _getItInstance<AppRouter>();
 }

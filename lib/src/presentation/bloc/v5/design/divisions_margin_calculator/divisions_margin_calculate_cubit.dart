@@ -12,6 +12,7 @@ import 'package:presale/src/domain/models/v4/design/division_resource_table/divi
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_row_pojo.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_summary_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/extensions.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 
 part 'divisions_margin_calculate_state.dart';
 
@@ -27,7 +28,9 @@ class DivisionsMarginCalculateCubit
     required DivisionsViewController resourceSummaryViewModel,
   }) : _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
        _divisionsViewController = resourceSummaryViewModel,
-       super(const DivisionsMarginCalculateState.initial());
+       super(const DivisionsMarginCalculateState()) {
+    init();
+  }
 
   void init() async {
     DesignPresalePojo designPresalePojo;
@@ -39,19 +42,24 @@ class DivisionsMarginCalculateCubit
     List<DivisionResourceRowPojo> divisionsByType =
         designPresalePojo.resource?.rows ?? [];
     if (divisionsByType.isNotEmpty) {
-      InputFactorsPojo inputFactors  = designPresalePojo.inputDataDesign.inputFactors;
+      InputFactorsPojo inputFactors =
+          designPresalePojo.inputDataDesign.inputFactors;
       _divisionsViewController.fill(inputFactors, divisionsByType);
-      emit(DivisionsMarginCalculateState.showPage());
+      emit(DivisionsMarginCalculateState(stateEnum: StateEnum.showing));
     }
   }
 
   void onNextPage() async {
+    if (state.stateEnum == StateEnum.nextPage) {
+      emit(DivisionsMarginCalculateState(stateEnum: StateEnum.showing));
+    }
     List<DivisionsMarginRowPojo> rows = _divisionsViewController.rows
         .map((e) => e.toRowPojo())
         .toList();
 
-    DesignPresalePojo designPresalePojo = await _dataSourceLocal
-        .read(DesignPresaleDataSourceLocal.key);
+    DesignPresalePojo designPresalePojo = await _dataSourceLocal.read(
+      DesignPresaleDataSourceLocal.key,
+    );
 
     final updatesDivisions = DivisionsMarginTableWithTypePojo(
       divisionType: designPresalePojo.inputDataDesign.divisionType,
@@ -64,7 +72,7 @@ class DivisionsMarginCalculateCubit
 
     bool isSaves = await _dataSourceLocal.add(updated);
     if (isSaves) {
-      emit(DivisionsMarginCalculateState.nextPage());
+      emit(DivisionsMarginCalculateState(stateEnum: StateEnum.nextPage));
     }
   }
 }

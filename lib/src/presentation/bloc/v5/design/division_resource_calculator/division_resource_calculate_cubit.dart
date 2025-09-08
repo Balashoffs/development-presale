@@ -12,6 +12,7 @@ import 'package:presale/src/domain/models/v4/design/division_resource_table/divi
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_with_unselected_vc.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 part 'division_resource_calculate_state.dart';
@@ -28,7 +29,9 @@ class DivisionResourceCalculateCubit
     required ResourcesWithUnselectedViewController resourcesViewController,
   }) : _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
        _resourcesViewController = resourcesViewController,
-       super(const DivisionResourceCalculateState.initial());
+       super(const DivisionResourceCalculateState()) {
+    init();
+  }
 
   void init() async {
     DesignPresalePojo designPresalePojo;
@@ -42,18 +45,22 @@ class DivisionResourceCalculateCubit
     );
 
     _resourcesViewController.fill(divisions, designPresalePojo.inputDataDesign);
-    emit(DivisionResourceCalculateState.showPage());
+    emit(DivisionResourceCalculateState(stateEnum: StateEnum.showing));
   }
 
   void onNextPage() async {
+    if (state.stateEnum == StateEnum.nextPage) {
+      emit(DivisionResourceCalculateState(stateEnum: StateEnum.showing));
+    }
     List<DivisionResourceRowPojo> rows = _resourcesViewController
         .selectedRows
-        .value!
+        .value
         .map((e) => e.toPojo())
         .toList();
 
-    DesignPresalePojo designPresalePojo = await _dataSourceLocal
-        .read(DesignPresaleDataSourceLocal.key);
+    DesignPresalePojo designPresalePojo = await _dataSourceLocal.read(
+      DesignPresaleDataSourceLocal.key,
+    );
 
     DivisionResourceTableWithTypePojo updatedResources =
         DivisionResourceTableWithTypePojo(
@@ -65,18 +72,13 @@ class DivisionResourceCalculateCubit
       resource: updatedResources,
     );
 
-    if (kDebugMode) {
-      String result = json.encode(updated.toJson());
-      ;
-    }
-
     bool isSaves = await _dataSourceLocal.add(updated);
     if (isSaves) {
-      emit(DivisionResourceCalculateState.nextPage());
+      emit(DivisionResourceCalculateState(stateEnum: StateEnum.nextPage));
     }
   }
 
-  void changeTableView(bool value){
+  void changeTableView(bool value) {
     _resourcesViewController.changeTableView(value);
   }
 }

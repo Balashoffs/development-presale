@@ -12,6 +12,7 @@ import 'package:presale/src/domain/models/v3/design/input_data/input_data_design
 import 'package:presale/src/domain/models/v3/design/input_data/object_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
 import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/object_data_viewmodel.dart';
 
 part 'object_input_data_state.dart';
@@ -19,7 +20,8 @@ part 'object_input_data_state.dart';
 part 'object_input_data_cubit.freezed.dart';
 
 class ObjectDataCubit extends Cubit<ObjectInputDataState> {
-  final InputFactorsRepository _inputFactorRepository;
+
+
   late final InputFactorsViewModel? _inputFactors;
 
   final InputDataBuilder _objectDataBuilder;
@@ -38,19 +40,15 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   }
 
   void init() async {
-    emit(ObjectInputDataState.enterInputData());    // _inputFactorRepository.readFactors().then((value) {
-    //   _inputFactors = value;
-    //   if (_inputFactors != null) {
-    //
-    //   }
-    // }, onError: (error) => ObjectInputDataState.errorMessage(""));
+    emit(ObjectInputDataState(stateEnum: StateEnum.showing));
   }
 
   ObjectDataCubit(DBClient dbClient)
     : _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
       _objectDataBuilder = InputDataBuilder(),
-      _inputFactorRepository = InputFactorsRepository(),
-      super(ObjectInputDataState.initial());
+      super(ObjectInputDataState()){
+    init();
+  }
 
   //Данные объекте
   void setObjectName(String name) {
@@ -165,6 +163,9 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
 
   Future<void> nextPage() async {
     try {
+      if(state.stateEnum == StateEnum.nextPage){
+        emit(ObjectInputDataState(stateEnum: StateEnum.showing));
+      }
       InputDataMV inputDataMv = _objectDataBuilder.build();
       ObjectDataDesign objectDataData = inputDataMv.toObject();
       InputFactorsPojo inputFactorsPojo = inputDataMv.toFactors();
@@ -180,8 +181,14 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
 
       bool isSaves = await _dataSourceLocal.add(designPresalePojo);
       if (isSaves) {
-        emit(ObjectInputDataState.nextPage());
+        print(state.runtimeType);
+        emit(ObjectInputDataState(stateEnum: StateEnum.nextPage));
       }
     } catch (_) {}
+  }
+
+  @override
+  void onChange(Change<ObjectInputDataState> change) {
+    super.onChange(change);
   }
 }

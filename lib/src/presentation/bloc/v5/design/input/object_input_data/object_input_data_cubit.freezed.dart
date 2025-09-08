@@ -14,36 +14,67 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ObjectInputDataState implements DiagnosticableTreeMixin {
 
-
+ StateEnum get stateEnum;
+/// Create a copy of ObjectInputDataState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$ObjectInputDataStateCopyWith<ObjectInputDataState> get copyWith => _$ObjectInputDataStateCopyWithImpl<ObjectInputDataState>(this as ObjectInputDataState, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'ObjectInputDataState'))
-    ;
+    ..add(DiagnosticsProperty('stateEnum', stateEnum));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ObjectInputDataState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ObjectInputDataState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,stateEnum);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ObjectInputDataState()';
+  return 'ObjectInputDataState(stateEnum: $stateEnum)';
 }
 
 
 }
 
 /// @nodoc
-class $ObjectInputDataStateCopyWith<$Res>  {
-$ObjectInputDataStateCopyWith(ObjectInputDataState _, $Res Function(ObjectInputDataState) __);
+abstract mixin class $ObjectInputDataStateCopyWith<$Res>  {
+  factory $ObjectInputDataStateCopyWith(ObjectInputDataState value, $Res Function(ObjectInputDataState) _then) = _$ObjectInputDataStateCopyWithImpl;
+@useResult
+$Res call({
+ StateEnum stateEnum
+});
+
+
+
+
+}
+/// @nodoc
+class _$ObjectInputDataStateCopyWithImpl<$Res>
+    implements $ObjectInputDataStateCopyWith<$Res> {
+  _$ObjectInputDataStateCopyWithImpl(this._self, this._then);
+
+  final ObjectInputDataState _self;
+  final $Res Function(ObjectInputDataState) _then;
+
+/// Create a copy of ObjectInputDataState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? stateEnum = null,}) {
+  return _then(_self.copyWith(
+stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
+as StateEnum,
+  ));
+}
+
 }
 
 
@@ -61,14 +92,11 @@ extension ObjectInputDataStatePatterns on ObjectInputDataState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _EnterInputData value)?  enterInputData,TResult Function( _NextPage value)?  nextPage,TResult Function( _ErrorMessage value)?  errorMessage,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _ObjectInputDataState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _EnterInputData() when enterInputData != null:
-return enterInputData(_that);case _NextPage() when nextPage != null:
-return nextPage(_that);case _ErrorMessage() when errorMessage != null:
-return errorMessage(_that);case _:
+case _ObjectInputDataState() when $default != null:
+return $default(_that);case _:
   return orElse();
 
 }
@@ -86,14 +114,11 @@ return errorMessage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _EnterInputData value)  enterInputData,required TResult Function( _NextPage value)  nextPage,required TResult Function( _ErrorMessage value)  errorMessage,}){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _ObjectInputDataState value)  $default,){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _EnterInputData():
-return enterInputData(_that);case _NextPage():
-return nextPage(_that);case _ErrorMessage():
-return errorMessage(_that);case _:
+case _ObjectInputDataState():
+return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -110,14 +135,11 @@ return errorMessage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _EnterInputData value)?  enterInputData,TResult? Function( _NextPage value)?  nextPage,TResult? Function( _ErrorMessage value)?  errorMessage,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _ObjectInputDataState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _EnterInputData() when enterInputData != null:
-return enterInputData(_that);case _NextPage() when nextPage != null:
-return nextPage(_that);case _ErrorMessage() when errorMessage != null:
-return errorMessage(_that);case _:
+case _ObjectInputDataState() when $default != null:
+return $default(_that);case _:
   return null;
 
 }
@@ -134,13 +156,10 @@ return errorMessage(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  enterInputData,TResult Function()?  nextPage,TResult Function( String errorText)?  errorMessage,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StateEnum stateEnum)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _EnterInputData() when enterInputData != null:
-return enterInputData();case _NextPage() when nextPage != null:
-return nextPage();case _ErrorMessage() when errorMessage != null:
-return errorMessage(_that.errorText);case _:
+case _ObjectInputDataState() when $default != null:
+return $default(_that.stateEnum);case _:
   return orElse();
 
 }
@@ -158,13 +177,10 @@ return errorMessage(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  enterInputData,required TResult Function()  nextPage,required TResult Function( String errorText)  errorMessage,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StateEnum stateEnum)  $default,) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _EnterInputData():
-return enterInputData();case _NextPage():
-return nextPage();case _ErrorMessage():
-return errorMessage(_that.errorText);case _:
+case _ObjectInputDataState():
+return $default(_that.stateEnum);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -181,13 +197,10 @@ return errorMessage(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  enterInputData,TResult? Function()?  nextPage,TResult? Function( String errorText)?  errorMessage,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StateEnum stateEnum)?  $default,) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _EnterInputData() when enterInputData != null:
-return enterInputData();case _NextPage() when nextPage != null:
-return nextPage();case _ErrorMessage() when errorMessage != null:
-return errorMessage(_that.errorText);case _:
+case _ObjectInputDataState() when $default != null:
+return $default(_that.stateEnum);case _:
   return null;
 
 }
@@ -198,163 +211,49 @@ return errorMessage(_that.errorText);case _:
 /// @nodoc
 
 
-class _Initial with DiagnosticableTreeMixin implements ObjectInputDataState {
-  const _Initial();
+class _ObjectInputDataState with DiagnosticableTreeMixin implements ObjectInputDataState {
+  const _ObjectInputDataState({this.stateEnum = StateEnum.loading});
   
 
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'ObjectInputDataState.initial'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ObjectInputDataState.initial()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _EnterInputData with DiagnosticableTreeMixin implements ObjectInputDataState {
-  const _EnterInputData();
-  
-
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'ObjectInputDataState.enterInputData'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EnterInputData);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ObjectInputDataState.enterInputData()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _NextPage with DiagnosticableTreeMixin implements ObjectInputDataState {
-  const _NextPage();
-  
-
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'ObjectInputDataState.nextPage'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NextPage);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ObjectInputDataState.nextPage()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _ErrorMessage with DiagnosticableTreeMixin implements ObjectInputDataState {
-  const _ErrorMessage(this.errorText);
-  
-
- final  String errorText;
+@override@JsonKey() final  StateEnum stateEnum;
 
 /// Create a copy of ObjectInputDataState
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ErrorMessageCopyWith<_ErrorMessage> get copyWith => __$ErrorMessageCopyWithImpl<_ErrorMessage>(this, _$identity);
+_$ObjectInputDataStateCopyWith<_ObjectInputDataState> get copyWith => __$ObjectInputDataStateCopyWithImpl<_ObjectInputDataState>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'ObjectInputDataState.errorMessage'))
-    ..add(DiagnosticsProperty('errorText', errorText));
+    ..add(DiagnosticsProperty('type', 'ObjectInputDataState'))
+    ..add(DiagnosticsProperty('stateEnum', stateEnum));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ErrorMessage&&(identical(other.errorText, errorText) || other.errorText == errorText));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ObjectInputDataState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,errorText);
+int get hashCode => Object.hash(runtimeType,stateEnum);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'ObjectInputDataState.errorMessage(errorText: $errorText)';
+  return 'ObjectInputDataState(stateEnum: $stateEnum)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorMessageCopyWith<$Res> implements $ObjectInputDataStateCopyWith<$Res> {
-  factory _$ErrorMessageCopyWith(_ErrorMessage value, $Res Function(_ErrorMessage) _then) = __$ErrorMessageCopyWithImpl;
-@useResult
+abstract mixin class _$ObjectInputDataStateCopyWith<$Res> implements $ObjectInputDataStateCopyWith<$Res> {
+  factory _$ObjectInputDataStateCopyWith(_ObjectInputDataState value, $Res Function(_ObjectInputDataState) _then) = __$ObjectInputDataStateCopyWithImpl;
+@override @useResult
 $Res call({
- String errorText
+ StateEnum stateEnum
 });
 
 
@@ -362,19 +261,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$ErrorMessageCopyWithImpl<$Res>
-    implements _$ErrorMessageCopyWith<$Res> {
-  __$ErrorMessageCopyWithImpl(this._self, this._then);
+class __$ObjectInputDataStateCopyWithImpl<$Res>
+    implements _$ObjectInputDataStateCopyWith<$Res> {
+  __$ObjectInputDataStateCopyWithImpl(this._self, this._then);
 
-  final _ErrorMessage _self;
-  final $Res Function(_ErrorMessage) _then;
+  final _ObjectInputDataState _self;
+  final $Res Function(_ObjectInputDataState) _then;
 
 /// Create a copy of ObjectInputDataState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? errorText = null,}) {
-  return _then(_ErrorMessage(
-null == errorText ? _self.errorText : errorText // ignore: cast_nullable_to_non_nullable
-as String,
+@override @pragma('vm:prefer-inline') $Res call({Object? stateEnum = null,}) {
+  return _then(_ObjectInputDataState(
+stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
+as StateEnum,
   ));
 }
 

@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:presale/src/di/di.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
+import 'package:presale/src/presentation/core/navigation/app_router.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/design_offer_root_widget.dart';
@@ -42,7 +44,7 @@ class DesignOfferBlocProviderWidget extends StatelessWidget {
           create: (context) => DesignOfferCubit(
             dbClient: di.dbClientImpl,
             controller: context.read<DesignOfferResultController>(),
-          )..init(),
+          ),
         ),
         BlocProvider(
           create: (context) => PersonSignCubit(
@@ -63,16 +65,12 @@ class DesignOfferBlocConsumerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<DesignOfferCubit, DesignOfferState>(
+    return BlocBuilder<DesignOfferCubit, DesignOfferState>(
       builder: (context, state) {
-        return state.whenOrNull(
-              initial: () => CustomCircleLoader(),
-              showPage: (value) => DesignOfferRootWidget(result: value),
-            ) ??
-            SizedBox();
-      },
-      listener: (context, state) {
-        state.whenOrNull(nextPage: () => context.go('/'));
+        if (state.stateEnum == StateEnum.loading) {
+          return CustomCircleLoader();
+        }
+        return DesignOfferRootWidget();
       },
     );
   }

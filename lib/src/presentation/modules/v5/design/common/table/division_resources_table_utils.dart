@@ -62,7 +62,7 @@ class HeaderCellWidget extends StatelessWidget {
         Text(
           textAlign: TextAlign.center,
           attribute.name,
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(fontSize: 14),
         ),
         if (attribute.tooltip.isNotEmpty)
           InkWell(

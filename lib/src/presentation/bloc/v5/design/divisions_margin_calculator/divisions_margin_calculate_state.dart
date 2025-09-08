@@ -2,8 +2,7 @@ part of 'divisions_margin_calculate_cubit.dart';
 
 @freezed
 abstract class DivisionsMarginCalculateState with _$DivisionsMarginCalculateState {
-  const factory DivisionsMarginCalculateState.initial() = _Initial;
-  const factory DivisionsMarginCalculateState.nextPage() = _NextPage;
-  const factory DivisionsMarginCalculateState.showPage() = _ShowTable;
-  const factory DivisionsMarginCalculateState.error(String errorText) = _Error;
+  const factory DivisionsMarginCalculateState({
+    @Default(StateEnum.loading) StateEnum stateEnum,
+  }) = _DivisionsMarginCalculateState;
 }

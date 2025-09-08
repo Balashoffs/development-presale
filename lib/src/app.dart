@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_fullscreen/flutter_fullscreen.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/di/di.dart';
@@ -22,15 +23,13 @@ abstract class App extends StatelessWidget {
 
   void _run() => runApp(this);
 
-  void _ensureWidgetsInitialized(){
+  void _ensureWidgetsInitialized() {
     WidgetsFlutterBinding.ensureInitialized();
-
   }
 
   Future<void> _initAppComponents() async {
-    await di.initConfig();
+    di.initConfig();
     await di.init();
-
   }
 
   void _print(Zone self, ZoneDelegate parent, Zone zone, String message) {
@@ -43,49 +42,59 @@ class ServiceCalcApp extends App {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light().copyWith(
-        scaffoldBackgroundColor: const Color(0xFFF6F7F9), // Gohan light.
-        extensions: <ThemeExtension<dynamic>>[
-          MoonTheme(
-            tokens: MoonTokens.light.copyWith(
-              colors: mdsLightColors,
-              typography: MoonTypography.typography.copyWith(
-                heading: MoonTypography.typography.heading.apply(
-                  fontFamily: "DMSans",
-                  fontWeightDelta: -1,
-                  fontVariations: [const FontVariation('wght', 500)],
-                ),
-                body: MoonTypography.typography.body.apply(
-                  fontFamily: "DMSans",
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-      darkTheme: ThemeData.dark().copyWith(
-        scaffoldBackgroundColor: const Color(0xFF1F1F1F), // Gohan dark.
-        extensions: <ThemeExtension<dynamic>>[
-          MoonTheme(
-            tokens: MoonTokens.dark.copyWith(
-              colors: mdsDarkColors,
-              typography: MoonTypography.typography.copyWith(
-                heading: MoonTypography.typography.heading.apply(
-                  fontFamily: "DMSans",
-                  fontWeightDelta: -1,
-                  fontVariations: [const FontVariation('wght', 500)],
-                ),
-                body: MoonTypography.typography.body.apply(
-                  fontFamily: "DMSans",
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider.value(value: di.navigationCubit),
+        BlocProvider.value(value: di.authCubit),
+        BlocProvider.value(value: di.userRepository),
+      ],
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.light().copyWith(
+          scaffoldBackgroundColor: const Color(0xFFF6F7F9), // Gohan light.
+          extensions: <ThemeExtension<dynamic>>[
+            MoonTheme(
+              tokens: MoonTokens.light.copyWith(
+                colors: mdsLightColors,
+                typography: MoonTypography.typography.copyWith(
+                  heading: MoonTypography.typography.heading.apply(
+                    fontFamily: "DMSans",
+                    fontWeightDelta: -1,
+                    fontVariations: [const FontVariation('wght', 500)],
+                  ),
+                  body: MoonTypography.typography.body.apply(
+                    fontFamily: "DMSans",
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
+        darkTheme: ThemeData.dark().copyWith(
+          scaffoldBackgroundColor: const Color(0xFF1F1F1F), // Gohan dark.
+          extensions: <ThemeExtension<dynamic>>[
+            MoonTheme(
+              tokens: MoonTokens.dark.copyWith(
+                colors: mdsDarkColors,
+                typography: MoonTypography.typography.copyWith(
+                  heading: MoonTypography.typography.heading.apply(
+                    fontFamily: "DMSans",
+                    fontWeightDelta: -1,
+                    fontVariations: [const FontVariation('wght', 500)],
+                  ),
+                  body: MoonTypography.typography.body.apply(
+                    fontFamily: "DMSans",
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+        routeInformationParser: di.appGoRouter.routeInformationParser,
+        routeInformationProvider: di.appGoRouter.routeInformationProvider,
+        routerDelegate: di.appGoRouter.routerDelegate,
+        backButtonDispatcher: di.appGoRouter.backButtonDispatcher,
       ),
-      routerConfig: di.appGoRouter,
     );
   }
 }

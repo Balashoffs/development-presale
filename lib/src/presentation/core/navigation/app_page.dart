@@ -11,14 +11,12 @@ class AppPage<T> extends Page<T> {
   final int transitionDuration, reverseTransitionDuration;
   final TransitionAnimationBuilder? animationBuilder;
   final Widget child;
-  final bool rootNavigation;
 
   const AppPage({
     required this.child,
     this.transitionDuration = 200,
     this.reverseTransitionDuration = 200,
     this.animationBuilder,
-    this.rootNavigation = false,
     super.key,
     super.name,
     super.arguments,

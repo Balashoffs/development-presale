@@ -1,10 +1,7 @@
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:presale/src/di/di.dart';
-import 'package:presale/src/domain/models/v5/common/person_sign/extension.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
@@ -14,7 +11,6 @@ import 'package:presale/src/domain/models/v3/design/commercial_offer/commercial_
 import 'package:presale/src/domain/models/v3/design/extension.dart';
 import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
 import 'package:presale/src/domain/models/v5/common/offer_template_builder.dart';
-import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 
 import 'package:presale/src/data/helpers/xlsx_helper/save_file_mobile.dart'
     if (dart.library.html) 'package:presale/src/data/helpers/xlsx_helper/save_file_web.dart';
@@ -32,7 +28,9 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     required DBClient dbClient,
   }) : _designOfferController = controller,
        _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
-       super(const DesignOfferState.initial());
+       super(const DesignOfferState()) {
+    init();
+  }
 
   void init() async {
     DesignPresalePojo designPresalePojo = await _dataSourceLocal.read(
@@ -40,9 +38,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     );
     bool isBuild = _designOfferController.buildModel(designPresalePojo);
     if (isBuild) {
-      emit(
-        DesignOfferState.showPage(_designOfferController.designOfferResultVM!),
-      );
+      emit(DesignOfferState(stateEnum: StateEnum.showing));
     }
   }
 
@@ -52,7 +48,10 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     );
     CommercialOfferResult? commercialOfferResult = _designOfferController
         .designOfferResultVM
-        ?.toPojo(designPresalePojo.inputDataDesign, _designOfferController.personSign);
+        ?.toPojo(
+          designPresalePojo.inputDataDesign,
+          _designOfferController.personSign,
+        );
     if (commercialOfferResult != null) {
       int total = designPresalePojo.divisions?.rows.length ?? 0;
       if (total != 0) {

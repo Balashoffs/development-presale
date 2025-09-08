@@ -14,36 +14,67 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DivisionsMarginCalculateState implements DiagnosticableTreeMixin {
 
-
+ StateEnum get stateEnum;
+/// Create a copy of DivisionsMarginCalculateState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DivisionsMarginCalculateStateCopyWith<DivisionsMarginCalculateState> get copyWith => _$DivisionsMarginCalculateStateCopyWithImpl<DivisionsMarginCalculateState>(this as DivisionsMarginCalculateState, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'DivisionsMarginCalculateState'))
-    ;
+    ..add(DiagnosticsProperty('stateEnum', stateEnum));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DivisionsMarginCalculateState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DivisionsMarginCalculateState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,stateEnum);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionsMarginCalculateState()';
+  return 'DivisionsMarginCalculateState(stateEnum: $stateEnum)';
 }
 
 
 }
 
 /// @nodoc
-class $DivisionsMarginCalculateStateCopyWith<$Res>  {
-$DivisionsMarginCalculateStateCopyWith(DivisionsMarginCalculateState _, $Res Function(DivisionsMarginCalculateState) __);
+abstract mixin class $DivisionsMarginCalculateStateCopyWith<$Res>  {
+  factory $DivisionsMarginCalculateStateCopyWith(DivisionsMarginCalculateState value, $Res Function(DivisionsMarginCalculateState) _then) = _$DivisionsMarginCalculateStateCopyWithImpl;
+@useResult
+$Res call({
+ StateEnum stateEnum
+});
+
+
+
+
+}
+/// @nodoc
+class _$DivisionsMarginCalculateStateCopyWithImpl<$Res>
+    implements $DivisionsMarginCalculateStateCopyWith<$Res> {
+  _$DivisionsMarginCalculateStateCopyWithImpl(this._self, this._then);
+
+  final DivisionsMarginCalculateState _self;
+  final $Res Function(DivisionsMarginCalculateState) _then;
+
+/// Create a copy of DivisionsMarginCalculateState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? stateEnum = null,}) {
+  return _then(_self.copyWith(
+stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
+as StateEnum,
+  ));
+}
+
 }
 
 
@@ -61,14 +92,11 @@ extension DivisionsMarginCalculateStatePatterns on DivisionsMarginCalculateState
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _NextPage value)?  nextPage,TResult Function( _ShowTable value)?  showPage,TResult Function( _Error value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DivisionsMarginCalculateState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _NextPage() when nextPage != null:
-return nextPage(_that);case _ShowTable() when showPage != null:
-return showPage(_that);case _Error() when error != null:
-return error(_that);case _:
+case _DivisionsMarginCalculateState() when $default != null:
+return $default(_that);case _:
   return orElse();
 
 }
@@ -86,14 +114,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _NextPage value)  nextPage,required TResult Function( _ShowTable value)  showPage,required TResult Function( _Error value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DivisionsMarginCalculateState value)  $default,){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _NextPage():
-return nextPage(_that);case _ShowTable():
-return showPage(_that);case _Error():
-return error(_that);case _:
+case _DivisionsMarginCalculateState():
+return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -110,14 +135,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _NextPage value)?  nextPage,TResult? Function( _ShowTable value)?  showPage,TResult? Function( _Error value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DivisionsMarginCalculateState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _NextPage() when nextPage != null:
-return nextPage(_that);case _ShowTable() when showPage != null:
-return showPage(_that);case _Error() when error != null:
-return error(_that);case _:
+case _DivisionsMarginCalculateState() when $default != null:
+return $default(_that);case _:
   return null;
 
 }
@@ -134,13 +156,10 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  nextPage,TResult Function()?  showPage,TResult Function( String errorText)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StateEnum stateEnum)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _NextPage() when nextPage != null:
-return nextPage();case _ShowTable() when showPage != null:
-return showPage();case _Error() when error != null:
-return error(_that.errorText);case _:
+case _DivisionsMarginCalculateState() when $default != null:
+return $default(_that.stateEnum);case _:
   return orElse();
 
 }
@@ -158,13 +177,10 @@ return error(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  nextPage,required TResult Function()  showPage,required TResult Function( String errorText)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StateEnum stateEnum)  $default,) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _NextPage():
-return nextPage();case _ShowTable():
-return showPage();case _Error():
-return error(_that.errorText);case _:
+case _DivisionsMarginCalculateState():
+return $default(_that.stateEnum);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -181,13 +197,10 @@ return error(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  nextPage,TResult? Function()?  showPage,TResult? Function( String errorText)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StateEnum stateEnum)?  $default,) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _NextPage() when nextPage != null:
-return nextPage();case _ShowTable() when showPage != null:
-return showPage();case _Error() when error != null:
-return error(_that.errorText);case _:
+case _DivisionsMarginCalculateState() when $default != null:
+return $default(_that.stateEnum);case _:
   return null;
 
 }
@@ -198,163 +211,49 @@ return error(_that.errorText);case _:
 /// @nodoc
 
 
-class _Initial with DiagnosticableTreeMixin implements DivisionsMarginCalculateState {
-  const _Initial();
+class _DivisionsMarginCalculateState with DiagnosticableTreeMixin implements DivisionsMarginCalculateState {
+  const _DivisionsMarginCalculateState({this.stateEnum = StateEnum.loading});
   
 
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DivisionsMarginCalculateState.initial'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionsMarginCalculateState.initial()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _NextPage with DiagnosticableTreeMixin implements DivisionsMarginCalculateState {
-  const _NextPage();
-  
-
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DivisionsMarginCalculateState.nextPage'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NextPage);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionsMarginCalculateState.nextPage()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _ShowTable with DiagnosticableTreeMixin implements DivisionsMarginCalculateState {
-  const _ShowTable();
-  
-
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DivisionsMarginCalculateState.showPage'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShowTable);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionsMarginCalculateState.showPage()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _Error with DiagnosticableTreeMixin implements DivisionsMarginCalculateState {
-  const _Error(this.errorText);
-  
-
- final  String errorText;
+@override@JsonKey() final  StateEnum stateEnum;
 
 /// Create a copy of DivisionsMarginCalculateState
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$identity);
+_$DivisionsMarginCalculateStateCopyWith<_DivisionsMarginCalculateState> get copyWith => __$DivisionsMarginCalculateStateCopyWithImpl<_DivisionsMarginCalculateState>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'DivisionsMarginCalculateState.error'))
-    ..add(DiagnosticsProperty('errorText', errorText));
+    ..add(DiagnosticsProperty('type', 'DivisionsMarginCalculateState'))
+    ..add(DiagnosticsProperty('stateEnum', stateEnum));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.errorText, errorText) || other.errorText == errorText));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DivisionsMarginCalculateState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,errorText);
+int get hashCode => Object.hash(runtimeType,stateEnum);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionsMarginCalculateState.error(errorText: $errorText)';
+  return 'DivisionsMarginCalculateState(stateEnum: $stateEnum)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $DivisionsMarginCalculateStateCopyWith<$Res> {
-  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
-@useResult
+abstract mixin class _$DivisionsMarginCalculateStateCopyWith<$Res> implements $DivisionsMarginCalculateStateCopyWith<$Res> {
+  factory _$DivisionsMarginCalculateStateCopyWith(_DivisionsMarginCalculateState value, $Res Function(_DivisionsMarginCalculateState) _then) = __$DivisionsMarginCalculateStateCopyWithImpl;
+@override @useResult
 $Res call({
- String errorText
+ StateEnum stateEnum
 });
 
 
@@ -362,19 +261,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$ErrorCopyWithImpl<$Res>
-    implements _$ErrorCopyWith<$Res> {
-  __$ErrorCopyWithImpl(this._self, this._then);
+class __$DivisionsMarginCalculateStateCopyWithImpl<$Res>
+    implements _$DivisionsMarginCalculateStateCopyWith<$Res> {
+  __$DivisionsMarginCalculateStateCopyWithImpl(this._self, this._then);
 
-  final _Error _self;
-  final $Res Function(_Error) _then;
+  final _DivisionsMarginCalculateState _self;
+  final $Res Function(_DivisionsMarginCalculateState) _then;
 
 /// Create a copy of DivisionsMarginCalculateState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? errorText = null,}) {
-  return _then(_Error(
-null == errorText ? _self.errorText : errorText // ignore: cast_nullable_to_non_nullable
-as String,
+@override @pragma('vm:prefer-inline') $Res call({Object? stateEnum = null,}) {
+  return _then(_DivisionsMarginCalculateState(
+stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
+as StateEnum,
   ));
 }
 

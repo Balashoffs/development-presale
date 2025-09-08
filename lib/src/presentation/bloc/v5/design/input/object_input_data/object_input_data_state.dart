@@ -9,8 +9,8 @@ LoadedState
  */
 @freezed
 abstract class ObjectInputDataState with _$ObjectInputDataState {
-  const factory ObjectInputDataState.initial() = _Initial;
-  const factory ObjectInputDataState.enterInputData() = _EnterInputData;
-  const factory ObjectInputDataState.nextPage() = _NextPage;
-  const factory ObjectInputDataState.errorMessage(String errorText) = _ErrorMessage;
+  const factory ObjectInputDataState({
+    @Default(StateEnum.loading) StateEnum stateEnum,
+}) = _ObjectInputDataState;
+
 }

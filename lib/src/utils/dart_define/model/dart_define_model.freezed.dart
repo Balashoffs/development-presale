@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DartDefineModel {
 
- String get type; String get ui; DesignClass get design;
+ String get type; String get ui; DesignClass get design; String get user;
 /// Create a copy of DartDefineModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $DartDefineModelCopyWith<DartDefineModel> get copyWith => _$DartDefineModelCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DartDefineModel&&(identical(other.type, type) || other.type == type)&&(identical(other.ui, ui) || other.ui == ui)&&(identical(other.design, design) || other.design == design));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DartDefineModel&&(identical(other.type, type) || other.type == type)&&(identical(other.ui, ui) || other.ui == ui)&&(identical(other.design, design) || other.design == design)&&(identical(other.user, user) || other.user == user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,ui,design);
+int get hashCode => Object.hash(runtimeType,type,ui,design,user);
 
 @override
 String toString() {
-  return 'DartDefineModel(type: $type, ui: $ui, design: $design)';
+  return 'DartDefineModel(type: $type, ui: $ui, design: $design, user: $user)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $DartDefineModelCopyWith<$Res>  {
   factory $DartDefineModelCopyWith(DartDefineModel value, $Res Function(DartDefineModel) _then) = _$DartDefineModelCopyWithImpl;
 @useResult
 $Res call({
- String type, String ui, DesignClass design
+ String type, String ui, DesignClass design, String user
 });
 
 
@@ -65,12 +65,13 @@ class _$DartDefineModelCopyWithImpl<$Res>
 
 /// Create a copy of DartDefineModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? ui = null,Object? design = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? type = null,Object? ui = null,Object? design = null,Object? user = null,}) {
   return _then(_self.copyWith(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as String,ui: null == ui ? _self.ui : ui // ignore: cast_nullable_to_non_nullable
 as String,design: null == design ? _self.design : design // ignore: cast_nullable_to_non_nullable
-as DesignClass,
+as DesignClass,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 /// Create a copy of DartDefineModel
@@ -164,10 +165,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String type,  String ui,  DesignClass design)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String type,  String ui,  DesignClass design,  String user)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DartDefineModel() when $default != null:
-return $default(_that.type,_that.ui,_that.design);case _:
+return $default(_that.type,_that.ui,_that.design,_that.user);case _:
   return orElse();
 
 }
@@ -185,10 +186,10 @@ return $default(_that.type,_that.ui,_that.design);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String type,  String ui,  DesignClass design)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String type,  String ui,  DesignClass design,  String user)  $default,) {final _that = this;
 switch (_that) {
 case _DartDefineModel():
-return $default(_that.type,_that.ui,_that.design);case _:
+return $default(_that.type,_that.ui,_that.design,_that.user);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -205,10 +206,10 @@ return $default(_that.type,_that.ui,_that.design);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String type,  String ui,  DesignClass design)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String type,  String ui,  DesignClass design,  String user)?  $default,) {final _that = this;
 switch (_that) {
 case _DartDefineModel() when $default != null:
-return $default(_that.type,_that.ui,_that.design);case _:
+return $default(_that.type,_that.ui,_that.design,_that.user);case _:
   return null;
 
 }
@@ -220,12 +221,13 @@ return $default(_that.type,_that.ui,_that.design);case _:
 @JsonSerializable()
 
 class _DartDefineModel implements DartDefineModel {
-  const _DartDefineModel({required this.type, required this.ui, required this.design});
+  const _DartDefineModel({required this.type, required this.ui, required this.design, required this.user});
   factory _DartDefineModel.fromJson(Map<String, dynamic> json) => _$DartDefineModelFromJson(json);
 
 @override final  String type;
 @override final  String ui;
 @override final  DesignClass design;
+@override final  String user;
 
 /// Create a copy of DartDefineModel
 /// with the given fields replaced by the non-null parameter values.
@@ -240,16 +242,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DartDefineModel&&(identical(other.type, type) || other.type == type)&&(identical(other.ui, ui) || other.ui == ui)&&(identical(other.design, design) || other.design == design));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DartDefineModel&&(identical(other.type, type) || other.type == type)&&(identical(other.ui, ui) || other.ui == ui)&&(identical(other.design, design) || other.design == design)&&(identical(other.user, user) || other.user == user));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,type,ui,design);
+int get hashCode => Object.hash(runtimeType,type,ui,design,user);
 
 @override
 String toString() {
-  return 'DartDefineModel(type: $type, ui: $ui, design: $design)';
+  return 'DartDefineModel(type: $type, ui: $ui, design: $design, user: $user)';
 }
 
 
@@ -260,7 +262,7 @@ abstract mixin class _$DartDefineModelCopyWith<$Res> implements $DartDefineModel
   factory _$DartDefineModelCopyWith(_DartDefineModel value, $Res Function(_DartDefineModel) _then) = __$DartDefineModelCopyWithImpl;
 @override @useResult
 $Res call({
- String type, String ui, DesignClass design
+ String type, String ui, DesignClass design, String user
 });
 
 
@@ -277,12 +279,13 @@ class __$DartDefineModelCopyWithImpl<$Res>
 
 /// Create a copy of DartDefineModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? ui = null,Object? design = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? type = null,Object? ui = null,Object? design = null,Object? user = null,}) {
   return _then(_DartDefineModel(
 type: null == type ? _self.type : type // ignore: cast_nullable_to_non_nullable
 as String,ui: null == ui ? _self.ui : ui // ignore: cast_nullable_to_non_nullable
 as String,design: null == design ? _self.design : design // ignore: cast_nullable_to_non_nullable
-as DesignClass,
+as DesignClass,user: null == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/presentation/modules/v5/design/common/next_page_widget.dart';
-import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:provider/provider.dart';
 
+import 'package:presale/src/presentation/modules/v5/design/common/next_page_widget.dart';
+import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/presentation/common/widget/text_divider.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
-
 import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/object_input_data_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
@@ -44,7 +44,7 @@ class ObjectInputDataBlocBuilderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ObjectDataCubit(di.dbClientImpl)..init(),
+      create: (context) => ObjectDataCubit(di.dbClientImpl),
       child: ObjectInputDataConsumerWidget(),
     );
   }
@@ -57,12 +57,15 @@ class ObjectInputDataConsumerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<ObjectDataCubit, ObjectInputDataState>(
       listener: (context, state) {
-       state.whenOrNull(nextPage: () => context.go(designResourcesRoute));
+        if(state.stateEnum == StateEnum.nextPage){
+          context.push(designResourcesRoute);
+        }
       },
       builder: (context, state) {
-        return state.whenOrNull(
-              initial: () => CustomCircleLoader(),
-            ) ??LoadedWidget();
+        if(state.stateEnum == StateEnum.loading){
+          return CustomCircleLoader();
+        }
+        return  LoadedWidget();
       },
     );
   }
@@ -116,19 +119,20 @@ class LoadedWidget extends StatelessWidget {
                             ),
                             child: CustomMoonDropDown(
                               width: 240,
-                              validator: divisionTypeValidator(
-                                'Нужно выбрать',
-                              ),
+                              validator: divisionTypeValidator('Нужно выбрать'),
                               initText: 'Нужно выбрать',
                               onSelected: cubit.setResultDesignDocumentations,
-                              leadingIcon:
-                              MoonIcons.text_bullets_list_16_light,
+                              leadingIcon: MoonIcons.text_bullets_list_16_light,
                             ),
                           ),
                         ),
                       ],
                     ),
-                    TextDivider(text: 'Необязательные параметры', paddingTop: 8.0, paddingBottom: 8.0,),
+                    TextDivider(
+                      text: 'Необязательные параметры',
+                      paddingTop: 8.0,
+                      paddingBottom: 8.0,
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,

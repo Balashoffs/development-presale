@@ -14,36 +14,67 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DesignOfferState implements DiagnosticableTreeMixin {
 
-
+ StateEnum get stateEnum;
+/// Create a copy of DesignOfferState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DesignOfferStateCopyWith<DesignOfferState> get copyWith => _$DesignOfferStateCopyWithImpl<DesignOfferState>(this as DesignOfferState, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'DesignOfferState'))
-    ;
+    ..add(DiagnosticsProperty('stateEnum', stateEnum));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DesignOfferState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DesignOfferState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
 }
 
 
 @override
-int get hashCode => runtimeType.hashCode;
+int get hashCode => Object.hash(runtimeType,stateEnum);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DesignOfferState()';
+  return 'DesignOfferState(stateEnum: $stateEnum)';
 }
 
 
 }
 
 /// @nodoc
-class $DesignOfferStateCopyWith<$Res>  {
-$DesignOfferStateCopyWith(DesignOfferState _, $Res Function(DesignOfferState) __);
+abstract mixin class $DesignOfferStateCopyWith<$Res>  {
+  factory $DesignOfferStateCopyWith(DesignOfferState value, $Res Function(DesignOfferState) _then) = _$DesignOfferStateCopyWithImpl;
+@useResult
+$Res call({
+ StateEnum stateEnum
+});
+
+
+
+
+}
+/// @nodoc
+class _$DesignOfferStateCopyWithImpl<$Res>
+    implements $DesignOfferStateCopyWith<$Res> {
+  _$DesignOfferStateCopyWithImpl(this._self, this._then);
+
+  final DesignOfferState _self;
+  final $Res Function(DesignOfferState) _then;
+
+/// Create a copy of DesignOfferState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? stateEnum = null,}) {
+  return _then(_self.copyWith(
+stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
+as StateEnum,
+  ));
+}
+
 }
 
 
@@ -61,14 +92,11 @@ extension DesignOfferStatePatterns on DesignOfferState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( _NextPage value)?  nextPage,TResult Function( _ShowPage value)?  showPage,TResult Function( _Error value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _DesignOfferState value)?  $default,{required TResult orElse(),}){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _NextPage() when nextPage != null:
-return nextPage(_that);case _ShowPage() when showPage != null:
-return showPage(_that);case _Error() when error != null:
-return error(_that);case _:
+case _DesignOfferState() when $default != null:
+return $default(_that);case _:
   return orElse();
 
 }
@@ -86,14 +114,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( _NextPage value)  nextPage,required TResult Function( _ShowPage value)  showPage,required TResult Function( _Error value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _DesignOfferState value)  $default,){
 final _that = this;
 switch (_that) {
-case _Initial():
-return initial(_that);case _NextPage():
-return nextPage(_that);case _ShowPage():
-return showPage(_that);case _Error():
-return error(_that);case _:
+case _DesignOfferState():
+return $default(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -110,14 +135,11 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( _NextPage value)?  nextPage,TResult? Function( _ShowPage value)?  showPage,TResult? Function( _Error value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _DesignOfferState value)?  $default,){
 final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial(_that);case _NextPage() when nextPage != null:
-return nextPage(_that);case _ShowPage() when showPage != null:
-return showPage(_that);case _Error() when error != null:
-return error(_that);case _:
+case _DesignOfferState() when $default != null:
+return $default(_that);case _:
   return null;
 
 }
@@ -134,13 +156,10 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  nextPage,TResult Function( DesignOfferResultVM result)?  showPage,TResult Function( String errorText)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StateEnum stateEnum)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _NextPage() when nextPage != null:
-return nextPage();case _ShowPage() when showPage != null:
-return showPage(_that.result);case _Error() when error != null:
-return error(_that.errorText);case _:
+case _DesignOfferState() when $default != null:
+return $default(_that.stateEnum);case _:
   return orElse();
 
 }
@@ -158,13 +177,10 @@ return error(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  nextPage,required TResult Function( DesignOfferResultVM result)  showPage,required TResult Function( String errorText)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StateEnum stateEnum)  $default,) {final _that = this;
 switch (_that) {
-case _Initial():
-return initial();case _NextPage():
-return nextPage();case _ShowPage():
-return showPage(_that.result);case _Error():
-return error(_that.errorText);case _:
+case _DesignOfferState():
+return $default(_that.stateEnum);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -181,13 +197,10 @@ return error(_that.errorText);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  nextPage,TResult? Function( DesignOfferResultVM result)?  showPage,TResult? Function( String errorText)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StateEnum stateEnum)?  $default,) {final _that = this;
 switch (_that) {
-case _Initial() when initial != null:
-return initial();case _NextPage() when nextPage != null:
-return nextPage();case _ShowPage() when showPage != null:
-return showPage(_that.result);case _Error() when error != null:
-return error(_that.errorText);case _:
+case _DesignOfferState() when $default != null:
+return $default(_that.stateEnum);case _:
   return null;
 
 }
@@ -198,125 +211,49 @@ return error(_that.errorText);case _:
 /// @nodoc
 
 
-class _Initial with DiagnosticableTreeMixin implements DesignOfferState {
-  const _Initial();
+class _DesignOfferState with DiagnosticableTreeMixin implements DesignOfferState {
+  const _DesignOfferState({this.stateEnum = StateEnum.loading});
   
 
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DesignOfferState.initial'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DesignOfferState.initial()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _NextPage with DiagnosticableTreeMixin implements DesignOfferState {
-  const _NextPage();
-  
-
-
-
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DesignOfferState.nextPage'))
-    ;
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _NextPage);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DesignOfferState.nextPage()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class _ShowPage with DiagnosticableTreeMixin implements DesignOfferState {
-  const _ShowPage(this.result);
-  
-
- final  DesignOfferResultVM result;
+@override@JsonKey() final  StateEnum stateEnum;
 
 /// Create a copy of DesignOfferState
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
+@override @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ShowPageCopyWith<_ShowPage> get copyWith => __$ShowPageCopyWithImpl<_ShowPage>(this, _$identity);
+_$DesignOfferStateCopyWith<_DesignOfferState> get copyWith => __$DesignOfferStateCopyWithImpl<_DesignOfferState>(this, _$identity);
 
 
 @override
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
-    ..add(DiagnosticsProperty('type', 'DesignOfferState.showPage'))
-    ..add(DiagnosticsProperty('result', result));
+    ..add(DiagnosticsProperty('type', 'DesignOfferState'))
+    ..add(DiagnosticsProperty('stateEnum', stateEnum));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ShowPage&&(identical(other.result, result) || other.result == result));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DesignOfferState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,result);
+int get hashCode => Object.hash(runtimeType,stateEnum);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DesignOfferState.showPage(result: $result)';
+  return 'DesignOfferState(stateEnum: $stateEnum)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ShowPageCopyWith<$Res> implements $DesignOfferStateCopyWith<$Res> {
-  factory _$ShowPageCopyWith(_ShowPage value, $Res Function(_ShowPage) _then) = __$ShowPageCopyWithImpl;
-@useResult
+abstract mixin class _$DesignOfferStateCopyWith<$Res> implements $DesignOfferStateCopyWith<$Res> {
+  factory _$DesignOfferStateCopyWith(_DesignOfferState value, $Res Function(_DesignOfferState) _then) = __$DesignOfferStateCopyWithImpl;
+@override @useResult
 $Res call({
- DesignOfferResultVM result
+ StateEnum stateEnum
 });
 
 
@@ -324,91 +261,19 @@ $Res call({
 
 }
 /// @nodoc
-class __$ShowPageCopyWithImpl<$Res>
-    implements _$ShowPageCopyWith<$Res> {
-  __$ShowPageCopyWithImpl(this._self, this._then);
+class __$DesignOfferStateCopyWithImpl<$Res>
+    implements _$DesignOfferStateCopyWith<$Res> {
+  __$DesignOfferStateCopyWithImpl(this._self, this._then);
 
-  final _ShowPage _self;
-  final $Res Function(_ShowPage) _then;
-
-/// Create a copy of DesignOfferState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? result = null,}) {
-  return _then(_ShowPage(
-null == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
-as DesignOfferResultVM,
-  ));
-}
-
-
-}
-
-/// @nodoc
-
-
-class _Error with DiagnosticableTreeMixin implements DesignOfferState {
-  const _Error(this.errorText);
-  
-
- final  String errorText;
+  final _DesignOfferState _self;
+  final $Res Function(_DesignOfferState) _then;
 
 /// Create a copy of DesignOfferState
 /// with the given fields replaced by the non-null parameter values.
-@JsonKey(includeFromJson: false, includeToJson: false)
-@pragma('vm:prefer-inline')
-_$ErrorCopyWith<_Error> get copyWith => __$ErrorCopyWithImpl<_Error>(this, _$identity);
-
-
-@override
-void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  properties
-    ..add(DiagnosticsProperty('type', 'DesignOfferState.error'))
-    ..add(DiagnosticsProperty('errorText', errorText));
-}
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Error&&(identical(other.errorText, errorText) || other.errorText == errorText));
-}
-
-
-@override
-int get hashCode => Object.hash(runtimeType,errorText);
-
-@override
-String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DesignOfferState.error(errorText: $errorText)';
-}
-
-
-}
-
-/// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $DesignOfferStateCopyWith<$Res> {
-  factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
-@useResult
-$Res call({
- String errorText
-});
-
-
-
-
-}
-/// @nodoc
-class __$ErrorCopyWithImpl<$Res>
-    implements _$ErrorCopyWith<$Res> {
-  __$ErrorCopyWithImpl(this._self, this._then);
-
-  final _Error _self;
-  final $Res Function(_Error) _then;
-
-/// Create a copy of DesignOfferState
-/// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? errorText = null,}) {
-  return _then(_Error(
-null == errorText ? _self.errorText : errorText // ignore: cast_nullable_to_non_nullable
-as String,
+@override @pragma('vm:prefer-inline') $Res call({Object? stateEnum = null,}) {
+  return _then(_DesignOfferState(
+stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
+as StateEnum,
   ));
 }
 
