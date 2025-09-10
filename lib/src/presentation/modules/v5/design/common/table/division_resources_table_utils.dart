@@ -62,7 +62,9 @@ class HeaderCellWidget extends StatelessWidget {
         Text(
           textAlign: TextAlign.center,
           attribute.name,
-          style: TextStyle(fontSize: 14),
+          style: context.moonTypography?.body.text14.copyWith(
+            color: context.moonColors?.popo,
+          ),
         ),
         if (attribute.tooltip.isNotEmpty)
           InkWell(
@@ -88,7 +90,9 @@ class TextCellWidget extends StatelessWidget {
       child: Text(
         textAlign: TextAlign.center,
         label.toString(),
-        style: TextStyle(fontSize: 16),
+        style: context.moonTypography?.body.text16.copyWith(
+          color: context.moonColors?.popo,
+        ),
       ),
     );
   }
@@ -115,7 +119,9 @@ class TextWithNotifier extends StatelessWidget {
               return Text(
                 textAlign: TextAlign.center,
                 convertToString(value, 0),
-                style: TextStyle(color: textColor, fontSize: 16),
+                style: context.moonTypography?.body.text16.copyWith(
+                  color: textColor,
+                ),
               );
             },
           ),
@@ -258,7 +264,9 @@ class CellWithMultiLineWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 14),
+              style: context.moonTypography?.body.text14.copyWith(
+                color: context.moonColors?.popo,
+              ),
             ),
           ),
           Flexible(

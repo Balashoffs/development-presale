@@ -12,7 +12,7 @@ part 'person_sign_state.dart';
 
 part 'person_sign_cubit.freezed.dart';
 
-final String _addDataText = 'Для ввода нажмите на икноку справа';
+final String _addDataText = 'Ввести данные о подсписанте';
 final String _signTemplateText = 'Подписант: ';
 
 class PersonSignCubit extends Cubit<PersonSignState> {
@@ -20,18 +20,19 @@ class PersonSignCubit extends Cubit<PersonSignState> {
   final PersonSingRepository _personSingRepository;
   final StreamSink<PersonSignDTO> _streamSink;
 
-
-  PersonSignCubit({required DBClient client, required  StreamSink<PersonSignDTO> sinkPersonSign})
-    : textGroupController = PersonSignTextInputValidator(),
-      _personSingRepository = PersonSingRepository(
-        dataSourceLocal: PersonSignDataSourceLocal(client),
-      ),
-        _streamSink = sinkPersonSign,
-      super(const PersonSignState());
+  PersonSignCubit({
+    required DBClient client,
+    required StreamSink<PersonSignDTO> sinkPersonSign,
+  }) : textGroupController = PersonSignTextInputValidator(),
+       _personSingRepository = PersonSingRepository(
+         dataSourceLocal: PersonSignDataSourceLocal(client),
+       ),
+       _streamSink = sinkPersonSign,
+       super(PersonSignState(labelText: _addDataText));
 
   void init() async {
     PersonSignDTO personSignDTO = await _personSingRepository.getPersonSign();
-    if(personSignDTO.id != 0){
+    if (personSignDTO.id != 0) {
       textGroupController.setPersonSign(personSignDTO);
       _streamSink.add(personSignDTO);
     }
@@ -88,6 +89,6 @@ class PersonSignCubit extends Cubit<PersonSignState> {
   }
 
   void edit() {
-    emit(state.copyWith(isFilled: false,));
+    emit(state.copyWith(isFilled: false));
   }
 }

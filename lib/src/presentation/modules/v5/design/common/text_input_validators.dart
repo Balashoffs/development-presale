@@ -41,7 +41,7 @@ FormFieldValidator<String>? onlyInfiniteNumberValidator = (value) {
   if (value == null) {
     return 'Начните вводить';
   } else if (!RegExp(r'^\d+$').hasMatch(value)) {
-    return 'только цифры';
+    return 'от 1 рубля';
   }
   return null;
 };

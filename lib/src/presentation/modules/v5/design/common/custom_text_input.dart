@@ -76,7 +76,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
     return MoonFormTextInput(
       key: widget.key,
       focusNode: _focusNode,
-      textAlign: TextAlign.center,
+      textAlign: TextAlign.start,
       controller: _textController,
       enabled: widget.isEnables,
       style: TextStyle(fontSize: widget.styleFontSize),
@@ -122,24 +122,21 @@ class CustomTextAreaInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: MoonTextArea(
-        activeBorderColor: getColor(context, MoonColor.zeno),
-        inactiveBorderColor: getColor(context, MoonColor.whis10),
-        errorColor: colorTable(context)[MoonColor.chichi.index]!,
-        height: null,
-        enabled: true,
-        expands: true,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        borderRadius: BorderRadius.circular(8.toDouble()),
-        hintText: hintText,
-        validator: validator,
-        onTapOutside: (PointerDownEvent _) =>
-            FocusManager.instance.primaryFocus?.unfocus(),
-        onChanged: onChanged,
-        helper: helperText != null ? Text(helperText!) : null,
-      ),
+    return MoonTextArea(
+      activeBorderColor: getColor(context, MoonColor.zeno),
+      inactiveBorderColor: getColor(context, MoonColor.whis10),
+      errorColor: colorTable(context)[MoonColor.chichi.index]!,
+      height: null,
+      enabled: true,
+      expands: true,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
+      borderRadius: BorderRadius.circular(8.toDouble()),
+      hintText: hintText,
+      validator: validator,
+      onTapOutside: (PointerDownEvent _) =>
+          FocusManager.instance.primaryFocus?.unfocus(),
+      onChanged: onChanged,
+      helper: helperText != null ? Text(helperText!) : null,
     );
   }
 }

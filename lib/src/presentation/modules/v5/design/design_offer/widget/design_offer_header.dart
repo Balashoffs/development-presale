@@ -1,66 +1,156 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
-import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/text_utils.dart';
+import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
+import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/person_sign/sign_person_widget.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
 
-
+import '../../common/custom_text_input.dart';
 
 class DesignOfferHeaderWidget extends StatelessWidget {
-  const DesignOfferHeaderWidget({super.key, required this.result});
+  const DesignOfferHeaderWidget({super.key, required this.controller});
 
-  final DesignOfferResultVM result;
+  final DesignOfferResultController controller;
 
   @override
   Widget build(BuildContext context) {
+    final DesignOfferResultVM result = controller.designOfferResultVM!;
     return SizedBox(
-      width: 500,
+      width:786,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        spacing: 8.0,
+        spacing: 16.0,
         children: [
-          MoonMenuItem(
-            verticalGap: 8.0,
-            label: Text("Дата создания КП", style: labelStyle),
-            content: Text(
-              result.createdDesignOffer,
-              style: contentStyle(context),
+          DesignOfferHeaderRowHeaderWidget(
+            type: "Дата создания КП",
+            value: result.createdDesignOffer,
+          ),
+          DesignOfferHeaderRowHeaderWidget(
+            type: "Тип документации",
+            value: result.divisionType,
+          ),
+          DesignOfferHeaderRowHeaderWidget(
+            type: "Наименование объекта",
+            value: result.objectName,
+          ),
+          DesignOfferHeaderRowHeaderWidget(
+            type: "Адрес объекта",
+            value: result.objectLocation,
+          ),
+          DesignOfferHeaderRowHeaderWidget(
+            type: "Площадь объекта, м\u00B2",
+            value: '${result.objectSquare}',
+          ),
+
+          DesignOfferHeaderRowHeaderWidget(
+            type: "Сроки выполнения, дн.",
+            value: '${result.totalDays}',
+          ),
+          DesignOfferHeaderRowWithTextInputHeaderWidget(
+            type: 'Авансирование, руб',
+            onChanged: controller.onAvance,
+            validator: onlyInfiniteNumberValidator,
+          ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: SizedBox(
+            width: 788,
+            child: CustomTextAreaInput(
+              helperText: 'Примечание (Поддерживает многострочность)',
+              onChanged: controller.onComments,
+              trailing: MoonIcons.controls_close_small_24_light,
+              validator: commentValidator,
             ),
           ),
-          MoonMenuItem(
-            verticalGap: 8.0,
-            label: Text("Наименование объекта", style: labelStyle),
-            content: Text(
-              result.objectName,
-              style: contentStyle(context),
-            ),
-          ),
-          MoonMenuItem(
-            verticalGap: 8.0,
-            label: Text("Адрес объекта", style: labelStyle),
-            content: Text(
-              result.objectLocation,
-              style: contentStyle(context),
-            ),
-          ),
-          MoonMenuItem(
-            verticalGap: 8.0,
-            label: Text("Тип документации", style: labelStyle),
-            content: Text(
-              result.divisionType,
-              style: contentStyle(context),
-            ),
-          ),
-          MoonMenuItem(
-            verticalGap: 8.0,
-            label: Text("Площадь объекта", style: labelStyle),
-            content: Text(
-              '${result.objectSquare} м\u00B2',
-              style: contentStyle(context),
-            ),
+        ),
+          PersonSignBuilderWidget(
+            onSaved: context.read<PersonSignCubit>().onSaved,
           ),
         ],
       ),
+    );
+  }
+}
+
+class DesignOfferHeaderRowHeaderWidget extends StatelessWidget {
+  const DesignOfferHeaderRowHeaderWidget({
+    super.key,
+    required this.type,
+    required this.value,
+  });
+
+  final String type;
+  final String value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 32.0,
+      children: [
+        SizedBox(
+          width: 212,
+          child: Text(
+            type,
+            style: context.moonTypography?.body.text16.copyWith(
+              color: context.moonColors?.popo,
+            ),
+          ),
+        ),
+        Text(
+          value,
+          style: context.moonTypography?.body.text20.copyWith(
+            color: context.moonColors?.popo,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class DesignOfferHeaderRowWithTextInputHeaderWidget extends StatelessWidget {
+  const DesignOfferHeaderRowWithTextInputHeaderWidget({
+    super.key,
+    required this.type,
+    this.onChanged,
+    this.validator,
+  });
+
+  final String type;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      spacing: 32.0,
+      children: [
+        SizedBox(
+          width: 196,
+          child: Text(
+            type,
+            style: context.moonTypography?.body.text16.copyWith(
+              color: context.moonColors?.popo,
+            ),
+          ),
+        ),
+        SizedBox(
+          width: 96,
+          child: CustomTextInput(
+            hasFloatingLabel: false,
+            hintText: '0',
+            onChanged: onChanged,
+            styleFontSize: 16,
+            helpStyleFontSize: 12,
+            trailing: MoonIcons.controls_close_small_24_light,
+            validator: validator,
+            textInputSize: MoonTextInputSize.xl,
+            isEnables: true,
+          ),
+        ),
+      ],
     );
   }
 }

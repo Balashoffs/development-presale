@@ -39,7 +39,9 @@ class DesignOfferResultController {
   }
 
   void onAvance(String value) {
+    print(value);
     int? result = int.tryParse(value);
+    print(result);
     if (result != null) {
       if (designOfferResultVM != null) {
         designOfferResultVM!.avance = result;
@@ -51,10 +53,7 @@ class DesignOfferResultController {
   }
 
   void _check() {
-    if (_personSignDTO.id != 0 && designOfferResultVM!.avance != 0) {
-      isCorrect.value = true;
-
-    }
+    isCorrect.value = _personSignDTO.id != 0 && designOfferResultVM!.avance != 0;
   }
 
   DesignOfferResultVM? _buildFrom(DesignPresalePojo designPresalePojo) {
