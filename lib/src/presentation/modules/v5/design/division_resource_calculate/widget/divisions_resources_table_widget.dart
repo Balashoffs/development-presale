@@ -187,6 +187,27 @@ class _DivisionsResourceTableWidgetState
     });
   }
 
+  MoonTableFooter _generateTableFooter() {
+    final controller = context.read<ResourcesWithUnselectedViewController>();
+    return MoonTableFooter(
+      cells: List.generate(widget.rowAttributes.length, (int index) {
+        final row = widget.rowAttributes[index];
+        if (row.pos == 12) {
+          return CellDecorationWidget(
+            key: Key('total'),
+            child: TextWithNotifier(vn: controller.summaryVN),
+          );
+        }
+
+        return CellDecorationWidget(
+          isFistCell: index != 12,
+          child: SizedBox(child: Center(child: Text(''))),
+        );
+      }),
+      height: 48,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return OverflowBox(
@@ -194,10 +215,12 @@ class _DivisionsResourceTableWidgetState
       child: MoonTable(
         columnsCount: widget.rowAttributes.length,
         isHeaderPinned: true,
+        isFooterPinned: true,
         rowGap: 2.0,
         rowSize: MoonTableRowSize.md,
         header: _generateTableHeader(),
         rows: _generateTableRows(),
+        footer: _generateTableFooter(),
         scrollBehaviour: MaterialScrollBehavior().copyWith(
           scrollbars: true,
           overscroll: true,

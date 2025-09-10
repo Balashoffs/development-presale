@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
+
 import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/widget_action_type.dart';
@@ -97,62 +98,28 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Row(
                 spacing: 8.0,
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ValueListenableBuilder<String>(
-                          valueListenable: controller.divisionTypeVN,
-                          builder: (context, value, child) {
-                            return Text(
-                              'Разделы для "$value"',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 14,
-                                decoration: TextDecoration.underline,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                      CustomDropdownWithSearchWidget(
-                        onTap: controller.sortTable,
-                        autoFocus: true,
-                        enabled: true,
-                        divisions: controller.divisionsVM,
-                        onSelected: (p0) =>
-                            controller.onRowAction(p0.id, WidgetActionType.add),
-                      ),
-                    ],
+                  CustomDropdownWithSearchWidget(
+                    onTap: controller.sortTable,
+                    autoFocus: true,
+                    enabled: true,
+                    divisions: controller.divisionsVM,
+                    onSelected: (p0) =>
+                        controller.onRowAction(p0.id, WidgetActionType.add),
                   ),
                   CustomCheckBox(
-                    labelText: 'Отобразить все основные разделы (кроме ИД)',
+                    labelText: 'Отображать все разделы (кроме ИД)',
                     onChanged: context
                         .read<DivisionResourceCalculateCubit>()
                         .changeTableView,
                   ),
                 ],
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ValueListenableBuilder<double>(
-                  valueListenable: controller.summaryVN,
-                  builder: (context, value, child) {
-                    return TextCustomWidget(
-                      name: 'Итого',
-                      value: convertToString(value, 0),
-                    );
-                  },
-                ),
               ),
             ],
           ),

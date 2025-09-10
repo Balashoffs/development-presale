@@ -5,7 +5,6 @@ import 'package:presale/src/presentation/common/color_options.dart';
 void showToast(BuildContext context, String text){
   MoonToast.show(
     context,
-    backgroundColor: colorTable(context)[40],
     isPersistent: false,
     useSafeArea: false,
     width: 196,
@@ -15,11 +14,9 @@ void showToast(BuildContext context, String text){
     borderRadius: BorderRadius.circular(8.toDouble()),
     leading: Icon(
       MoonIcons.generic_info_24_light,
-      color: colorTable(context)[40],
     ),
     label: Text(
       text,
-      style: TextStyle(color: colorTable(context)[40]),
     ),
   );
 }
@@ -27,7 +24,6 @@ void showToast(BuildContext context, String text){
 void showToastWithoutContext(BuildContext context, String text){
   MoonToast.show(
     context,
-    backgroundColor: colorTable(context)[40],
     isPersistent: false,
     useSafeArea: false,
     width: 230,
@@ -37,15 +33,12 @@ void showToastWithoutContext(BuildContext context, String text){
     borderRadius: BorderRadius.circular(8.toDouble()),
     leading: Icon(
       MoonIcons.generic_info_24_light,
-      color: colorTable(context)[40],
     ),
     label: Text(
       text,
-      style: TextStyle(color: colorTable(context)[40]),
     ),
     trailing: Icon(
       MoonIcons.generic_star_24_light,
-      color: colorTable(context)[40],
     ),
   );
 }

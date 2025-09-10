@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/presentation/common/color_options.dart';
 
 class CustomCheckBox extends StatefulWidget {
   const CustomCheckBox({
@@ -18,7 +19,7 @@ class CustomCheckBox extends StatefulWidget {
 }
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
-  bool checkboxWithLabelValue = false;
+  bool _checkboxWithLabelValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +27,17 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       width: widget.width,
       absorbGestures: true,
       onTap: () {
-        checkboxWithLabelValue = !checkboxWithLabelValue;
-        widget.onChanged(checkboxWithLabelValue);
+        _checkboxWithLabelValue = !_checkboxWithLabelValue;
+        widget.onChanged(_checkboxWithLabelValue);
         setState(() {});
       },
       label: Text(widget.labelText),
       trailing: MoonCheckbox(
+        checkColor: getColor(context, MoonColor.zeno),
+        activeColor: getColor(context, MoonColor.goku),
+        borderColor: getColor(context, MoonColor.trunks),
         tristate: false,
-        value: checkboxWithLabelValue,
+        value: _checkboxWithLabelValue,
         tapAreaSizeValue: 0,
         onChanged: (_) {},
       ),

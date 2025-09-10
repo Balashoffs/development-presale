@@ -19,7 +19,6 @@ class ResourcesWithUnselectedViewController {
 
   final ValueNotifier<double> summaryVN = ValueNotifier(0.0);
   final ValueNotifier<bool> isValid = ValueNotifier(false);
-  final ValueNotifier<String> divisionTypeVN = ValueNotifier('');
 
   final DesignOfferCalculator _designOfferCalculator = DesignOfferCalculator();
 
@@ -47,7 +46,6 @@ class ResourcesWithUnselectedViewController {
         .map((e) => e.toViewModel())
         .sorted((a, b) => a.id.compareTo(b.id));
     divisionsVM.addAll(vms);
-    divisionTypeVN.value = inputDataDesign.divisionType.text;
   }
 
   void onRowAction(int id, WidgetActionType type) {
@@ -231,7 +229,9 @@ class ResourcesWithUnselectedViewController {
 
   void changeTableView(bool value) {
     selectedRows.value = [];
+    summaryVN.value = 0.0;
     _createdResourcedId.clear();
+    isValid.value = false;
     List<DivisionWithResourceRowVM> rows;
     if (value) {
       rows = _loadedDivisions

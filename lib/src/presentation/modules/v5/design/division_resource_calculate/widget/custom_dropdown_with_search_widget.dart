@@ -93,7 +93,6 @@ class _CustomDropdownWithSearchWidgetState
     super.dispose();
   }
 
-
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -104,7 +103,7 @@ class _CustomDropdownWithSearchWidgetState
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: MoonDropdown(
-        borderColor:  getColor(context, MoonColor.trunks),
+        borderColor: getColor(context, MoonColor.trunks),
         show: _showDropdown,
         constrainWidthToChild: true,
         backgroundColor: colorTable(context)[40],
@@ -119,7 +118,7 @@ class _CustomDropdownWithSearchWidgetState
             maxHeight: MediaQuery.of(context).size.height * 2 / 3,
           ),
           child: ScrollConfiguration(
-            behavior: const ScrollBehavior().copyWith(scrollbars: false),
+            behavior: const ScrollBehavior(),
             child: _filteredOptionsList.isEmpty
                 ? const MoonMenuItem(label: Text('Раздел не найден'))
                 : ClipRRect(
@@ -133,7 +132,8 @@ class _CustomDropdownWithSearchWidgetState
                         if (index >= _filteredOptionsList.length) {
                           return const SizedBox.shrink();
                         }
-                        final DivisionViewModel option = _filteredOptionsList[index];
+                        final DivisionViewModel option =
+                            _filteredOptionsList[index];
                         return MoonMenuItem(
                           onTap: () {
                             _handleSelect(option);
@@ -149,15 +149,15 @@ class _CustomDropdownWithSearchWidgetState
           autofocus: widget.autoFocus,
           enabled: widget.enabled,
           hasFloatingLabel: false,
-          width: 480,
+          width: 500,
           focusNode: _focusNode,
-          activeBorderColor:  getColor(context, MoonColor.trunks),
+          activeBorderColor: getColor(context, MoonColor.trunks),
           inactiveBorderColor: colorTable(context)[40],
           backgroundColor: colorTable(context)[40],
           hoverBorderColor: colorTable(context)[40],
           borderRadius: BorderRadius.circular(8.0),
           textInputSize: MoonTextInputSize.md,
-          hintText: "Нажмите на поле ввода, чтобы найти нужный раздел",
+          hintText: "Выбор разделов",
           controller: _searchController,
           onTap: () {
             widget.onTap();
@@ -167,7 +167,6 @@ class _CustomDropdownWithSearchWidgetState
             _handleInputTapOutside();
           },
           onChanged: (String _) => _performSearch(),
-          leading: const Icon(MoonIcons.generic_search_16_light),
           trailing: MoonButton.icon(
             buttonSize: MoonButtonSize.xs,
             hoverEffectColor: Colors.transparent,
@@ -255,7 +254,7 @@ class _ResourceDropDownSelectorState extends State<ResourceDropDownSelector> {
         }),
       ),
       child: MoonTextInput(
-        activeBorderColor:  getColor(context, MoonColor.trunks),
+        activeBorderColor: getColor(context, MoonColor.trunks),
         width: 256,
         readOnly: true,
         canRequestFocus: false,
@@ -293,7 +292,6 @@ class _ResourceDropDownSelectorState extends State<ResourceDropDownSelector> {
   }
 }
 
-
 class ResourceObjectDropDownSelector extends StatefulWidget {
   const ResourceObjectDropDownSelector({
     super.key,
@@ -309,7 +307,8 @@ class ResourceObjectDropDownSelector extends StatefulWidget {
       _ResourceObjectDropDownSelectorState();
 }
 
-class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownSelector> {
+class _ResourceObjectDropDownSelectorState
+    extends State<ResourceObjectDropDownSelector> {
   bool _showMenu = false;
   String _hintText = '';
   final GlobalKey _dropWidgetKey = GlobalKey();
@@ -320,7 +319,7 @@ class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownS
 
   void _getPosition() {
     final RenderBox? renderBox =
-    _dropWidgetKey.currentContext?.findRenderObject() as RenderBox?;
+        _dropWidgetKey.currentContext?.findRenderObject() as RenderBox?;
     print('find render: ${renderBox.toString()}');
     if (renderBox != null) {
       final Offset globalPosition = renderBox.localToGlobal(Offset.zero);
@@ -331,15 +330,13 @@ class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownS
     }
   }
 
-
   @override
   void initState() {
     super.initState();
     _selected = widget.resources.firstOrNull;
-    _unselected =  List.of(widget.resources);
-    _unselected!.removeWhere((element) => element.id == _selected!.id,);
+    _unselected = List.of(widget.resources);
+    _unselected!.removeWhere((element) => element.id == _selected!.id);
     _hintText = _selected!.resourceName;
-
   }
 
   @override
@@ -361,13 +358,15 @@ class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownS
       }),
       content: Column(
         children: List.generate(_unselected!.length, (index) {
-          String name = _unselected![index].resourceName ;
+          String name = _unselected![index].resourceName;
           return MoonMenuItem(
             onTap: () => setState(() {
               _showMenu = false;
               _unselected!.add(_selected!);
               _selected = _unselected![index];
-              _unselected!.removeWhere((element) => element.id == _selected!.id,);
+              _unselected!.removeWhere(
+                (element) => element.id == _selected!.id,
+              );
               _hintText = _selected!.resourceName;
               widget.onSelected(_selected!);
             }),
@@ -376,7 +375,7 @@ class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownS
         }),
       ),
       child: MoonTextInput(
-        activeBorderColor:  getColor(context, MoonColor.trunks),
+        activeBorderColor: getColor(context, MoonColor.trunks),
         width: 256,
         readOnly: true,
         canRequestFocus: false,
@@ -408,4 +407,3 @@ class _ResourceObjectDropDownSelectorState extends State<ResourceObjectDropDownS
     );
   }
 }
-
