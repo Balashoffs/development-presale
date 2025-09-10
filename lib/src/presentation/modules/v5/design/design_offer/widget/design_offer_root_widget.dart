@@ -24,42 +24,53 @@ class DesignOfferRootWidget extends StatelessWidget {
     final DesignOfferResultVM? result = controller.designOfferResultVM;
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: SingleChildScrollView(
-        primary: true,
-
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            DesignOfferHeaderWidget(result: result!),
-            TextDivider(
-              text: 'Итоговая таблица',
-              paddingTop: 8.0,
-              paddingBottom: 32.0,
-            ),
-            DivisionsResultsTableWidget(
-              rowAttributes: designOfferTableAttribute,
-              footerResult: controller.designOfferResultVM!,
-              tableDataRows: controller.designOfferResultVM!.divisionRows,
-            ),
-            TextDivider(
-              text: 'Дополнительные данные по объекту',
-              paddingTop: 16.0,
-              paddingBottom: 8.0,
-            ),
-            Column(
-              children: [
-                DesignOfferAdditionalDataWidget(result: result),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: PersonSignBuilderWidget(
-                    onSaved: context.read<PersonSignCubit>().onSaved,
+      child: Column(
+        children: [
+          Expanded(
+            flex: 9,
+            child: SingleChildScrollView(
+              primary: true,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DesignOfferHeaderWidget(result: result!),
+                  TextDivider(
+                    text: 'Итоговая таблица',
+                    paddingTop: 8.0,
+                    paddingBottom: 32.0,
                   ),
-                ),
-              ],
+                  DivisionsResultsTableWidget(
+                    rowAttributes: designOfferTableAttribute,
+                    footerResult: controller.designOfferResultVM!,
+                    tableDataRows: controller.designOfferResultVM!.divisionRows,
+                  ),
+                  TextDivider(
+                    text: 'Дополнительные данные по объекту',
+                    paddingTop: 16.0,
+                    paddingBottom: 8.0,
+                  ),
+                  Column(
+                    children: [
+                      DesignOfferAdditionalDataWidget(result: result),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: PersonSignBuilderWidget(
+                          onSaved: context.read<PersonSignCubit>().onSaved,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            Row(
+          ),
+          Expanded(
+            flex: 1,
+            child: Row(
+              spacing: 16.0,
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 MoonButton(
                   trailing: Icon(
@@ -73,43 +84,31 @@ class DesignOfferRootWidget extends StatelessWidget {
                       .read<DesignOfferResultController>()
                       .isCorrect,
                   builder: (context, value, child) {
-                    return Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        spacing: 16.0,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: MoonMenuItem.divideMenuItems(
-                          context: context,
-                          menuItems: [
-                            MoonButton(
-                              trailing: Text(
-                                'Сформировать КП',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: getColor(context, MoonColor.trunks),
-                                ),
-                              ),
-                              showBorder: true,
-                              label: Icon(MoonIcons.generic_download_16_light),
-                              onTap: value
-                                  ? () {
-                                      context
-                                          .read<DesignOfferCubit>()
-                                          .saveToFile();
-                                    }
-                                  : null,
-                            ),
-                          ],
-                        ).toList(),
+                    return MoonButton(
+                      trailing: Text(
+                        'Сформировать КП',
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: getColor(context, MoonColor.trunks),
+                        ),
                       ),
+                      showBorder: true,
+                      label: Icon(MoonIcons.generic_download_16_light),
+                      onTap: value
+                          ? () {
+                        context
+                            .read<DesignOfferCubit>()
+                            .saveToFile();
+                      }
+                          : null,
                     );
                   },
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
