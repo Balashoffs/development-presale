@@ -119,10 +119,17 @@ class InputDataBuilder {
     return this;
   }
 
-  InputDataMV build() {
-    if (_objectName == null ||
+  bool _check() {
+    return _objectName == null ||
+        _objectName!.isEmpty ||
         _objectAddress == null ||
-        _divisionType == null ) {
+        _objectAddress!.isEmpty ||
+        _divisionType == null ||
+        _divisionType!.isEmpty;
+  }
+
+  InputDataMV build() {
+    if (_check()) {
       throw ArgumentError(
         'All fields must be set before building ObjectDataDTO',
       );

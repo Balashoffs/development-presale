@@ -30,6 +30,8 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
 
   final DesignPresaleDataSourceLocal _dataSourceLocal;
 
+  final ValueNotifier<bool> isValid = ValueNotifier(false);
+
   bool isPercents = false;
 
   double _percentConvertor(double inputValue) {
@@ -52,17 +54,18 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
 
   //Данные объекте
   void setObjectName(String name) {
-    if (name.isEmpty) return;
     _objectDataBuilder.setObjectName(name);
+    _checkNecessaryInputs();
   }
 
   void setObjectLocation(String address) {
-    if (address.isEmpty) return;
     _objectDataBuilder.setObjectAddress(address);
+    _checkNecessaryInputs();
   }
 
   void setResultDesignDocumentations(String result) {
     _objectDataBuilder.setDivisionType(result);
+    _checkNecessaryInputs();
   }
 
   void setSquare(String value) {
@@ -106,60 +109,71 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
     }
   }
 
-  //Закончили вводить данные об объекте
-
-  void setHeightFactor(String value) {
-    double? result = _inputFactors!.factorSelectedItem(
-      InputFactorType.b.value,
-      value,
-    );
-    if (result != null) {
-      result = _percentConvertor(result);
-      _objectDataBuilder.setHeightFactor(result);
+  void _checkNecessaryInputs(){
+    try{
+      _objectDataBuilder.build();
+      isValid.value = true;
+    }catch(_){
+      isValid.value = false;
     }
   }
 
-  void setLocationFactor(String value) {
-    double? result = _inputFactors!.factorSelectedItem(
-      InputFactorType.c.value,
-      value,
-    );
-    if (result != null) {
-      result = _percentConvertor(result);
-      _objectDataBuilder.setRemotingFactor(result);
-    }
-  }
+  // //Закончили вводить данные об объекте
+  //
+  // void setHeightFactor(String value) {
+  //   double? result = _inputFactors!.factorSelectedItem(
+  //     InputFactorType.b.value,
+  //     value,
+  //   );
+  //   if (result != null) {
+  //     result = _percentConvertor(result);
+  //     _objectDataBuilder.setHeightFactor(result);
+  //   }
+  // }
+  //
+  // void setLocationFactor(String value) {
+  //   double? result = _inputFactors!.factorSelectedItem(
+  //     InputFactorType.c.value,
+  //     value,
+  //   );
+  //   if (result != null) {
+  //     result = _percentConvertor(result);
+  //     _objectDataBuilder.setRemotingFactor(result);
+  //   }
+  // }
+  //
+  // void setSquareFactor(String value) {
+  //   double? result = _inputFactors!.factorSelectedItem(
+  //     InputFactorType.d.value,
+  //     value,
+  //   );
+  //   if (result != null) {
+  //     result = _percentConvertor(result);
+  //     _objectDataBuilder.setSquareFactor(result);
+  //   }
+  // }
+  //
+  // void setSpeedFactor(String value) {
+  //   double? result = double.tryParse(value);
+  //   if (result != null) {
+  //     result = _percentConvertor(result);
+  //     _objectDataBuilder.setSpeedFactor(result);
+  //   }
+  // }
+  //
+  // void setComplexityFactor(Set<String> selected) {
+  //   double? result = 1.0;
+  //   if (selected.isNotEmpty) {
+  //     result = _inputFactors!.complexity
+  //         .where((element) => selected.contains(element.value))
+  //         .map((e) => e.factor)
+  //         .reduce((value, element) => value * element);
+  //   }
+  //   result = double.parse(_percentConvertor(result).toStringAsFixed(2));
+  //   _objectDataBuilder.setComplexityFactor(result);
+  // }
+  //
 
-  void setSquareFactor(String value) {
-    double? result = _inputFactors!.factorSelectedItem(
-      InputFactorType.d.value,
-      value,
-    );
-    if (result != null) {
-      result = _percentConvertor(result);
-      _objectDataBuilder.setSquareFactor(result);
-    }
-  }
-
-  void setSpeedFactor(String value) {
-    double? result = double.tryParse(value);
-    if (result != null) {
-      result = _percentConvertor(result);
-      _objectDataBuilder.setSpeedFactor(result);
-    }
-  }
-
-  void setComplexityFactor(Set<String> selected) {
-    double? result = 1.0;
-    if (selected.isNotEmpty) {
-      result = _inputFactors!.complexity
-          .where((element) => selected.contains(element.value))
-          .map((e) => e.factor)
-          .reduce((value, element) => value * element);
-    }
-    result = double.parse(_percentConvertor(result).toStringAsFixed(2));
-    _objectDataBuilder.setComplexityFactor(result);
-  }
 
   Future<void> nextPage() async {
     try {

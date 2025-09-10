@@ -32,9 +32,6 @@ class ViewerShellRoute extends StatefulShellRoute {
       if (route is ViewerNestedRoute) {
         paths.add(ViewerTabInfo(path: route.path, info: route.tab));
       }
-      // else if (route is HomeShellNestedRoute) {
-      //   paths.add(ViewerTabInfo(info: route.homeTab));
-      // }
     }
     return paths;
   }

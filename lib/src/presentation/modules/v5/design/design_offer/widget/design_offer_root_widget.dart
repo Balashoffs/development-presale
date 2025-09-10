@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
 
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
@@ -15,7 +16,7 @@ import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/d
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/divisions_results_table_widget.dart';
 
 class DesignOfferRootWidget extends StatelessWidget {
-  const DesignOfferRootWidget({super.key,});
+  const DesignOfferRootWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,42 +58,55 @@ class DesignOfferRootWidget extends StatelessWidget {
                 ),
               ],
             ),
-            ValueListenableBuilder(
-              valueListenable: context
-                  .read<DesignOfferResultController>()
-                  .isCorrect,
-              builder: (context, value, child) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    spacing: 16.0,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: MoonMenuItem.divideMenuItems(
-                      context: context,
-                      menuItems: [
-                        MoonButton(
-                          trailing: Text(
-                            'Сформировать КП',
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: getColor(context, MoonColor.trunks),
-                            ),
-                          ),
-                          width: 256,
-                          showBorder: true,
-                          label: Icon(MoonIcons.generic_download_16_light),
-                          onTap: value
-                              ? () {
-                                  context.read<DesignOfferCubit>().saveToFile();
-                                }
-                              : null,
-                        ),
-                      ],
-                    ).toList(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                MoonButton(
+                  trailing: Icon(
+                    MoonIcons.arrows_chevron_left_double_32_regular,
                   ),
-                );
-              },
+                  showBorder: true,
+                  onTap: context.pop,
+                ),
+                ValueListenableBuilder(
+                  valueListenable: context
+                      .read<DesignOfferResultController>()
+                      .isCorrect,
+                  builder: (context, value, child) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        spacing: 16.0,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: MoonMenuItem.divideMenuItems(
+                          context: context,
+                          menuItems: [
+                            MoonButton(
+                              trailing: Text(
+                                'Сформировать КП',
+                                textAlign: TextAlign.start,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: getColor(context, MoonColor.trunks),
+                                ),
+                              ),
+                              showBorder: true,
+                              label: Icon(MoonIcons.generic_download_16_light),
+                              onTap: value
+                                  ? () {
+                                      context
+                                          .read<DesignOfferCubit>()
+                                          .saveToFile();
+                                    }
+                                  : null,
+                            ),
+                          ],
+                        ).toList(),
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),

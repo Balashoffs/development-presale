@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 
-class NextPageWidget extends StatelessWidget {
-  const NextPageWidget({super.key, required this.onTap});
+class CustomButtonWidget extends StatelessWidget {
+  const CustomButtonWidget({
+    super.key,
+    required this.onTap,
+    required this.iconData,
+    this.text,
+  });
 
-  final String text = "Далее";
+  final String? text;
   final VoidCallback? onTap;
+  final IconData iconData;
 
   @override
   Widget build(BuildContext context) {
@@ -17,16 +23,15 @@ class NextPageWidget extends StatelessWidget {
           MoonButton(
             buttonSize: MoonButtonSize.md,
             onTap: onTap,
-            trailing:
-            Icon(MoonIcons.arrows_chevron_right_double_32_regular),
+            trailing: Icon(iconData),
             showBorder: true,
-            label: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
+            label: text != null
+                ? Text(
+                    text!,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16),
+                  )
+                : null,
           ),
         ],
       ),

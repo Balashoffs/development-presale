@@ -281,7 +281,6 @@ class _CustomMoonGroupTextWidgetState extends State<CustomMoonGroupTextWidget> {
 
   @override
   void dispose() {
-    context.read<PersonSignCubit>().textGroupController.dispose();
     super.dispose();
 
     //

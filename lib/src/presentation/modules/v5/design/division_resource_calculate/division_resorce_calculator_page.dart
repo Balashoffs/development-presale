@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/widget_action_type.dart';
@@ -78,7 +79,7 @@ class DivisionResourceCalculateConsumer extends StatelessWidget {
       },
       listener: (context, state) {
         if (state.stateEnum == StateEnum.nextPage) {
-          context.push(designDivisionsRoute);
+          context.go(designDivisionsRoute);
         }
       },
     );
@@ -172,20 +173,31 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
         ),
         Expanded(
           flex: 2,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ValueListenableBuilder<bool>(
-              valueListenable: controller.isValid,
-              builder: (context, value, child) {
-                return NextPageWidget(
-                  onTap: value == true
-                      ? context
-                            .read<DivisionResourceCalculateCubit>()
-                            .onNextPage
-                      : null,
-                );
-              },
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButtonWidget(
+                iconData: MoonIcons.arrows_chevron_left_double_32_regular,
+                onTap: context.pop,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ValueListenableBuilder<bool>(
+                  valueListenable: controller.isValid,
+                  builder: (context, value, child) {
+                    return CustomButtonWidget(
+                      iconData:
+                          MoonIcons.arrows_chevron_right_double_32_regular,
+                      onTap: value == true
+                          ? context
+                                .read<DivisionResourceCalculateCubit>()
+                                .onNextPage
+                          : null,
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ],

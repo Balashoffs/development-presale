@@ -82,6 +82,11 @@ class _CustomTextInputState extends State<CustomTextInput> {
   }
 
   @override
+  void didUpdateWidget(covariant CustomTextInput oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: widget.width,
@@ -112,6 +117,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
           if(isEntered){
             isEntered = !isEntered;
             _textController.clear();
+            widget.onChanged!('');
           }
         },
         leading: widget.leading != null ? Icon(widget.leading, size: 24) : null,

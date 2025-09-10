@@ -18,7 +18,7 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
         actions: [
           MoonButton.icon(
             icon: Icon(MoonIcons.controls_close_16_light),

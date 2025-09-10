@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:moon_design/moon_design.dart';
 
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_summary_viewmodel.dart';
@@ -61,18 +62,18 @@ class DivisionsMarginCalculateConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<
-        DivisionsMarginCalculateCubit,
-        DivisionsMarginCalculateState
+      DivisionsMarginCalculateCubit,
+      DivisionsMarginCalculateState
     >(
       builder: (context, state) {
-        if(state.stateEnum == StateEnum.loading){
+        if (state.stateEnum == StateEnum.loading) {
           return CustomCircleLoader();
         }
-        return  DivisionsMarginCalculateWidget();
+        return DivisionsMarginCalculateWidget();
       },
       listener: (context, state) {
-        if(state.stateEnum == StateEnum.nextPage){
-          context.push(designOfferRoute);
+        if (state.stateEnum == StateEnum.nextPage) {
+          context.go(designOfferRoute);
         }
       },
     );
@@ -90,17 +91,23 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
           flex: 9,
           child: DivisionsMarginTableWidget(
             rowAttributes: divisionMarginTableAttributes,
-            tableDataRows: context
-                .read<DivisionsViewController>()
-                .rows,
+            tableDataRows: context.read<DivisionsViewController>().rows,
           ),
         ),
         Expanded(
           flex: 1,
-          child: NextPageWidget(
-            onTap: context
-                .read<DivisionsMarginCalculateCubit>()
-                .onNextPage,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CustomButtonWidget(
+                iconData: MoonIcons.arrows_chevron_left_double_32_regular,
+                onTap: context.pop,
+              ),
+              CustomButtonWidget(
+                iconData: MoonIcons.arrows_chevron_right_double_32_regular,
+                onTap: context.read<DivisionsMarginCalculateCubit>().onNextPage,
+              ),
+            ],
           ),
         ),
       ],
