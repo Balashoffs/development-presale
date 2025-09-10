@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -30,7 +32,7 @@ class _DivisionsMarginTableWidgetState
 
   MoonTableHeader _generateTableHeader() {
     return MoonTableHeader(
-      height: 48,
+      height: 56,
       columns: List.generate(widget.rowAttributes.length, (int index) {
         return MoonTableColumn(
           width: widget.rowAttributes[index].width,
@@ -79,11 +81,9 @@ class _DivisionsMarginTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
-              onChanged: (context, value) async{
+              onChanged: (context, value) async {
                 controller.onOverPriceFactor(row.id, value);
-                setState(() {
-
-                });
+                setState(() {});
               },
               defaultValue: row.overPriceFactor,
             ),
@@ -91,11 +91,9 @@ class _DivisionsMarginTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
-              onChanged: (context, value) async{
+              onChanged: (context, value) async {
                 controller.onMarginFactor(row.id, value);
-                setState(() {
-
-                });
+                setState(() {});
               },
               defaultValue: row.marginFactor,
             ),
@@ -103,11 +101,9 @@ class _DivisionsMarginTableWidgetState
           CellDecorationWidget(
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
-              onChanged: (context, value) async{
+              onChanged: (context, value) async {
                 controller.onClientFactor(row.id, value);
-                setState(() {
-                  
-                });
+                setState(() {});
               },
               defaultValue: row.clientFactor,
             ),
@@ -162,7 +158,7 @@ class _DivisionsMarginTableWidgetState
           child: SizedBox(child: Center(child: Text(''))),
         );
       }),
-      height: 48,
+      height: 56,
     );
   }
 
@@ -178,6 +174,7 @@ class _DivisionsMarginTableWidgetState
         scrollBehaviour: MaterialScrollBehavior().copyWith(
           scrollbars: true,
           overscroll: true,
+          dragDevices: {PointerDeviceKind.mouse},
         ),
         rowSize: MoonTableRowSize.md,
         header: _generateTableHeader(),

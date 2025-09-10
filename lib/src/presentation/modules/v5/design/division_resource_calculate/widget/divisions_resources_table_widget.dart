@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +53,7 @@ class _DivisionsResourceTableWidgetState
 
   MoonTableHeader _generateTableHeader() {
     return MoonTableHeader(
-      height: 48,
+      height: 56,
       columns: List.generate(widget.rowAttributes.length, (int index) {
         return MoonTableColumn(
           width: widget.rowAttributes[index].width,
@@ -201,10 +203,10 @@ class _DivisionsResourceTableWidgetState
 
         return CellDecorationWidget(
           isFistCell: index != 12,
-          child: SizedBox(child: Center(child: Text(''))),
+          child: Center(child: Text(''))
         );
       }),
-      height: 48,
+      height: 56,
     );
   }
 
@@ -224,6 +226,9 @@ class _DivisionsResourceTableWidgetState
         scrollBehaviour: MaterialScrollBehavior().copyWith(
           scrollbars: true,
           overscroll: true,
+          dragDevices: {
+            PointerDeviceKind.mouse,
+          }
         ),
         tablePadding: const EdgeInsets.symmetric(horizontal: 16),
         cellPadding: const EdgeInsets.symmetric(vertical: 8),
