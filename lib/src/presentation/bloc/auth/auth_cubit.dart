@@ -20,8 +20,8 @@ class AuthCubit extends Cubit<AuthState> {
       return;
     }
     emit(state.copyWith(formStage: FormStage.loading));
-
-    if (state.password == di.dartDefineModel.user){
+String pass = di.dartDefineModel.user.split('@')[0];
+    if (pass == state.password){
       emit(state.copyWith(
         formStage: FormStage.common,
         formError: null,

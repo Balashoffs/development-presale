@@ -14,6 +14,7 @@ abstract class CommercialOfferResult with _$CommercialOfferResult {
     required List<DivisionResult> divisionResults,
     required double designOfferSummaryCost,
     required double designOfferSummaryTax,
+    required double designOfferTax,
     required FooterData footerData,
   }) = _CommercialOfferResult;
 

@@ -41,21 +41,46 @@ class DesignOfferRootWidget extends StatelessWidget {
                       .read<DesignOfferResultController>()
                       .isCorrect,
                   builder: (context, value, child) {
-                    return MoonButton(
-                      trailing: Text(
-                        'Сформировать КП',
-                        textAlign: TextAlign.start,
-                        style: context.moonTypography?.body.text14.copyWith(
-                          color: context.moonColors?.trunks,
+                    return Row(
+                      spacing: 8.0,
+                      children: [
+                        MoonButton(
+                          trailing: Text(
+                            'Без НДС',
+                            textAlign: TextAlign.start,
+                            style: context.moonTypography?.body.text14.copyWith(
+                              color: context.moonColors?.trunks,
+                            ),
+                          ),
+                          showBorder: true,
+                          label: Icon(MoonIcons.generic_download_16_light),
+                          onTap: value
+                              ? () {
+                                  context
+                                      .read<DesignOfferCubit>()
+                                      .saveRawToExcelFile();
+                                }
+                              : null,
                         ),
-                      ),
-                      showBorder: true,
-                      label: Icon(MoonIcons.generic_download_16_light),
-                      onTap: value
-                          ? () {
-                              context.read<DesignOfferCubit>().saveToFile();
-                            }
-                          : null,
+                        MoonButton(
+                          trailing: Text(
+                            'С НДС',
+                            textAlign: TextAlign.start,
+                            style: context.moonTypography?.body.text14.copyWith(
+                              color: context.moonColors?.trunks,
+                            ),
+                          ),
+                          showBorder: true,
+                          label: Icon(MoonIcons.generic_download_16_light),
+                          onTap: value
+                              ? () {
+                                  context
+                                      .read<DesignOfferCubit>()
+                                      .saveToClearExcelFile();
+                                }
+                              : null,
+                        ),
+                      ],
                     );
                   },
                 ),
@@ -94,4 +119,3 @@ class OfferHeadWidget extends StatelessWidget {
     );
   }
 }
-

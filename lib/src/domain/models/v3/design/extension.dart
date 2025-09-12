@@ -13,7 +13,8 @@ extension DesignOfferResultExt on DesignOfferResultVM {
       divisionResults: divisionRows.map((e) => e.toPojo()).toList(),
       inputDataDesign: inputDataDesign,
       designOfferSummaryCost: summary,
-      designOfferSummaryTax: tax,
+      designOfferSummaryTax: summaryWithTax,
+      designOfferTax: tax,
       footerData: FooterData(
         workCompletionTime: totalDays.toString(),
         prepayment: avance.toStringAsFixed(2),

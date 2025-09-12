@@ -12,7 +12,7 @@ class NavigationCubit extends HydratedCubit<NavigationMode> {
   NavigationCubit(
     UserRepository userRepository,
     this._goRouter,
-  ) : super(NavigationMode.authorized) {
+  ) : super(NavigationMode.unauthorized) {
     userRepository.stream
         .distinct((previous, next) => previous.runtimeType == next.runtimeType)
         .listen((state) => _handleUserState(state, userRepository.fromPath));

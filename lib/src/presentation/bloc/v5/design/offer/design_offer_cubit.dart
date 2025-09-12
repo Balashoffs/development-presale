@@ -43,13 +43,37 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     }
   }
 
-  // void _saveOnCorrect()async{
-  //   if(_designOfferController.isCorrect.value){
-  //
-  //   }
-  // }
 
-  void saveToFile() async {
+  void saveRawToExcelFile() async {
+    DesignPresalePojo designPresalePojo = await _dataSourceLocal.read(
+      DesignPresaleDataSourceLocal.key,
+    );
+    CommercialOfferResult? commercialOfferResult = _designOfferController
+        .designOfferResultVM
+        ?.toPojo(
+      designPresalePojo.inputDataDesign,
+      _designOfferController.personSign,
+    );
+    if (commercialOfferResult != null) {
+      int total = designPresalePojo.divisions?.rows.length ?? 0;
+      if (total != 0) {
+        final Workbook workbook = Workbook(total);
+        final Worksheet sheet = workbook.worksheets[0];
+        ITemplateBuilder builder = DesignOfferNoTaxTemplateBuilder(
+          offerResult: commercialOfferResult,
+          worksheet: sheet,
+        );
+        await builder.fillRows();
+        List<int> fileBytes = builder.saveToBytes();
+        DateTime dateTime = designPresalePojo.inputDataDesign.created!;
+        String offerId =
+            'исх. №${dateTime.day}${dateTime.month}${dateTime.year}';
+        saveAndLaunchFile(fileBytes, '${offerId}_без_НДС_.xlsx');
+      }
+    }
+  }
+
+  void saveToClearExcelFile() async {
     DesignPresalePojo designPresalePojo = await _dataSourceLocal.read(
       DesignPresaleDataSourceLocal.key,
     );
@@ -64,7 +88,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
       if (total != 0) {
         final Workbook workbook = Workbook(total);
         final Worksheet sheet = workbook.worksheets[0];
-        DesignOfferTemplateBuilder builder = DesignOfferTemplateBuilder(
+        ITemplateBuilder builder = DesignOfferWithTaxTemplateBuilder(
           offerResult: commercialOfferResult,
           worksheet: sheet,
         );
@@ -73,8 +97,10 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
         DateTime dateTime = designPresalePojo.inputDataDesign.created!;
         String offerId =
             'исх. №${dateTime.day}${dateTime.month}${dateTime.year}';
-        saveAndLaunchFile(fileBytes, '$offerId.xlsx');
+        saveAndLaunchFile(fileBytes, '${offerId}_с_НДС_.xlsx');
       }
     }
   }
+
+
 }

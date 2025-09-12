@@ -72,7 +72,7 @@ class ResourcesDTO {
     for (var value in divisionsFromCsv) {
       List<ResourceDTO> resources = resourcesFromCsv
           .where(
-            (element) => element.resourceCode == value.resourceCode,
+            (element) => element.resourceCode.toUpperCase() == value.resourceCode.toUpperCase(),
           )
           .map((e) => e.from())
           .toList();

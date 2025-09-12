@@ -13,7 +13,6 @@ import 'package:presale/src/domain/models/v3/design/division_type/division_type.
 import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/object_input_data_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
-import 'package:presale/src/presentation/modules/v5/design/common/custom_toast_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/drop_down_text_controller.dart';
 import 'package:presale/src/presentation/modules/v5/design/object_data_input/widget/custon_text_input.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
@@ -58,7 +57,7 @@ class ObjectInputDataConsumerWidget extends StatelessWidget {
     return BlocConsumer<ObjectDataCubit, ObjectInputDataState>(
       listener: (context, state) {
         if (state.stateEnum == StateEnum.nextPage) {
-          context.push(designResourcesRoute);
+          context.go(designResourcesRoute);
         }
       },
       builder: (context, state) {
@@ -74,10 +73,15 @@ class ObjectInputDataConsumerWidget extends StatelessWidget {
 class LoadedWidget extends StatelessWidget {
   const LoadedWidget({super.key});
 
+
+
+
   @override
   Widget build(BuildContext context) {
-    ObjectDataCubit cubit = context.read<ObjectDataCubit>();
+    print("LoadedWidget::build");
 
+    ObjectDataCubit cubit = context.read<ObjectDataCubit>();
+    print("${cubit.state}");
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,5 +1,5 @@
 {
-  "email": "123",
+  "email": "simple@liis.su",
   "type": "dev",
   "ui": "false",
   "design": "{\"resources\": \"assets/calculator_data/design/debug/resources.csv\",\"job_divisions\": \"assets/calculator_data/design/debug/job_divisions.csv\",\"project_divisions\": \"assets/calculator_data/design/debug/project_divisions.csv\",\"sign\": \"assets/calculator_data/design/debug/sign_person.csv\" }"
