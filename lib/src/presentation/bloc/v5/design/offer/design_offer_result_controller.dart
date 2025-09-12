@@ -44,7 +44,7 @@ class DesignOfferResultController {
     print(result);
     if (result != null) {
       if (designOfferResultVM != null) {
-        designOfferResultVM!.avance = result;
+        designOfferResultVM!.avance = designOfferResultVM!.summary * result / 100;
       }
     } else {
       designOfferResultVM!.avance = 0;

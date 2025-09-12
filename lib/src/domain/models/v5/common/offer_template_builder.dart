@@ -318,7 +318,7 @@ class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
     if (_offerResult.footerData.prepayment.isNotEmpty) {
       _increment(1);
       _buildCell(
-        'Авансирование',
+        'Авансирование, руб',
         'B$_rowPos:D$_rowPos',
         isMerge: true,
         alignType: HAlignType.left,
@@ -327,7 +327,7 @@ class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
       );
       _increment(1);
       _buildCell(
-        '${_offerResult.footerData.prepayment} руб.',
+        _offerResult.footerData.prepayment,
         'B$_rowPos:D$_rowPos',
         isMerge: true,
         fontSize: 14,

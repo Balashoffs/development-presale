@@ -24,7 +24,7 @@ class DesignOfferResultVM{
   }
 
   int objectSquare;
-  int avance = 0;
+  double avance;
 
    String get overPriceS => convertToString(overPrice, 0);
    String get marginS => convertToString(margin, 0);
@@ -47,5 +47,5 @@ class DesignOfferResultVM{
     required this.tax,
     int totalDays = 0,
     this.objectSquare = 0,
-  }):_totalDays = totalDays;
+  }):_totalDays = totalDays, avance = summary * 30 / 100;
 }

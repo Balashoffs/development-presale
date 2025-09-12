@@ -50,7 +50,7 @@ class DesignOfferHeaderWidget extends StatelessWidget {
             value: '${result.totalDays}',
           ),
           DesignOfferHeaderRowWithTextInputHeaderWidget(
-            type: 'Авансирование, руб',
+            type: 'Авансирование, %',
             onChanged: controller.onAvance,
             validator: onlyInfiniteNumberValidator,
           ),
@@ -137,10 +137,10 @@ class DesignOfferHeaderRowWithTextInputHeaderWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 96,
+          width: 80,
           child: CustomTextInput(
             hasFloatingLabel: false,
-            hintText: '0',
+            hintText: '30',
             onChanged: onChanged,
             styleFontSize: 16,
             helpStyleFontSize: 12,

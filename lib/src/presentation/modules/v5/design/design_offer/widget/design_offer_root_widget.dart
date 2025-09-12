@@ -46,14 +46,14 @@ class DesignOfferRootWidget extends StatelessWidget {
                       children: [
                         MoonButton(
                           trailing: Text(
-                            'Без НДС',
+                            'без НДС',
                             textAlign: TextAlign.start,
                             style: context.moonTypography?.body.text14.copyWith(
                               color: context.moonColors?.trunks,
                             ),
                           ),
                           showBorder: true,
-                          label: Icon(MoonIcons.generic_download_16_light),
+                          // label: Icon(MoonIcons.generic_download_16_light),
                           onTap: value
                               ? () {
                                   context
@@ -64,14 +64,14 @@ class DesignOfferRootWidget extends StatelessWidget {
                         ),
                         MoonButton(
                           trailing: Text(
-                            'С НДС',
+                            '   c НДС   ',
                             textAlign: TextAlign.start,
                             style: context.moonTypography?.body.text14.copyWith(
                               color: context.moonColors?.trunks,
                             ),
                           ),
                           showBorder: true,
-                          label: Icon(MoonIcons.generic_download_16_light),
+                          // label: Icon(MoonIcons.generic_download_16_light),
                           onTap: value
                               ? () {
                                   context

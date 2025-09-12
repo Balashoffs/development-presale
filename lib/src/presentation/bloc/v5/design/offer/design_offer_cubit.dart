@@ -37,7 +37,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
       DesignPresaleDataSourceLocal.key,
     );
     bool isBuild = _designOfferController.buildModel(designPresalePojo);
-    // _designOfferController.isCorrect.addListener(_saveOnCorrect);
+
     if (isBuild) {
       emit(DesignOfferState(stateEnum: StateEnum.showing));
     }

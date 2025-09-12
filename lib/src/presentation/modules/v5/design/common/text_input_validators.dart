@@ -46,6 +46,15 @@ FormFieldValidator<String>? onlyInfiniteNumberValidator = (value) {
   return null;
 };
 
+FormFieldValidator<String>? persontValidator = (value) {
+  if (value == null) {
+    return 'Начните вводить';
+  } else if (!RegExp(r'^\d{1,3}$').hasMatch(value)) {
+    return 'от 1%';
+  }
+  return null;
+};
+
 FormFieldValidator<String>? onlyIntValidator = (value) {
   if (value == null) {
     return '???';
