@@ -76,10 +76,8 @@ class LoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("LoadedWidget::build");
 
     ObjectDataCubit cubit = context.read<ObjectDataCubit>();
-    print("${cubit.state}");
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
