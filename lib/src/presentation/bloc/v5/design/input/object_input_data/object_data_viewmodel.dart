@@ -2,6 +2,7 @@
 import 'package:presale/src/domain/models/v3/design/input_data/input_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_data/object_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
+import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 
 class InputDataMV {
   final String objectName;
@@ -41,6 +42,7 @@ class InputDataMV {
 // Builder class for ObjectDataDTO
 class InputDataBuilder {
   String? _objectName;
+
   String? _objectAddress;
   String? _divisionType;
   int _objectSquare = 0;
@@ -53,6 +55,7 @@ class InputDataBuilder {
   double _remotingFactor = 1.0;
   double _complexityFactor = 1.0;
   double _squareFactor = 1.0;
+
 
   InputDataBuilder setObjectName(String objectName) {
     _objectName = objectName;

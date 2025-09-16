@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$OfferDayCounterPojo {
 
- String get today; int get point;
+ int get timestamp; int get point;
 /// Create a copy of OfferDayCounterPojo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $OfferDayCounterPojoCopyWith<OfferDayCounterPojo> get copyWith => _$OfferDayCoun
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OfferDayCounterPojo&&(identical(other.today, today) || other.today == today)&&(identical(other.point, point) || other.point == point));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OfferDayCounterPojo&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.point, point) || other.point == point));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,today,point);
+int get hashCode => Object.hash(runtimeType,timestamp,point);
 
 @override
 String toString() {
-  return 'OfferDayCounterPojo(today: $today, point: $point)';
+  return 'OfferDayCounterPojo(timestamp: $timestamp, point: $point)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $OfferDayCounterPojoCopyWith<$Res>  {
   factory $OfferDayCounterPojoCopyWith(OfferDayCounterPojo value, $Res Function(OfferDayCounterPojo) _then) = _$OfferDayCounterPojoCopyWithImpl;
 @useResult
 $Res call({
- String today, int point
+ int timestamp, int point
 });
 
 
@@ -65,10 +65,10 @@ class _$OfferDayCounterPojoCopyWithImpl<$Res>
 
 /// Create a copy of OfferDayCounterPojo
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? today = null,Object? point = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? timestamp = null,Object? point = null,}) {
   return _then(_self.copyWith(
-today: null == today ? _self.today : today // ignore: cast_nullable_to_non_nullable
-as String,point: null == point ? _self.point : point // ignore: cast_nullable_to_non_nullable
+timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
+as int,point: null == point ? _self.point : point // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }
@@ -154,10 +154,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String today,  int point)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int timestamp,  int point)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OfferDayCounterPojo() when $default != null:
-return $default(_that.today,_that.point);case _:
+return $default(_that.timestamp,_that.point);case _:
   return orElse();
 
 }
@@ -175,10 +175,10 @@ return $default(_that.today,_that.point);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String today,  int point)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int timestamp,  int point)  $default,) {final _that = this;
 switch (_that) {
 case _OfferDayCounterPojo():
-return $default(_that.today,_that.point);case _:
+return $default(_that.timestamp,_that.point);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -195,10 +195,10 @@ return $default(_that.today,_that.point);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String today,  int point)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int timestamp,  int point)?  $default,) {final _that = this;
 switch (_that) {
 case _OfferDayCounterPojo() when $default != null:
-return $default(_that.today,_that.point);case _:
+return $default(_that.timestamp,_that.point);case _:
   return null;
 
 }
@@ -210,10 +210,10 @@ return $default(_that.today,_that.point);case _:
 @JsonSerializable()
 
 class _OfferDayCounterPojo implements OfferDayCounterPojo {
-  const _OfferDayCounterPojo({required this.today, required this.point});
+  const _OfferDayCounterPojo({required this.timestamp, required this.point});
   factory _OfferDayCounterPojo.fromJson(Map<String, dynamic> json) => _$OfferDayCounterPojoFromJson(json);
 
-@override final  String today;
+@override final  int timestamp;
 @override final  int point;
 
 /// Create a copy of OfferDayCounterPojo
@@ -229,16 +229,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OfferDayCounterPojo&&(identical(other.today, today) || other.today == today)&&(identical(other.point, point) || other.point == point));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _OfferDayCounterPojo&&(identical(other.timestamp, timestamp) || other.timestamp == timestamp)&&(identical(other.point, point) || other.point == point));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,today,point);
+int get hashCode => Object.hash(runtimeType,timestamp,point);
 
 @override
 String toString() {
-  return 'OfferDayCounterPojo(today: $today, point: $point)';
+  return 'OfferDayCounterPojo(timestamp: $timestamp, point: $point)';
 }
 
 
@@ -249,7 +249,7 @@ abstract mixin class _$OfferDayCounterPojoCopyWith<$Res> implements $OfferDayCou
   factory _$OfferDayCounterPojoCopyWith(_OfferDayCounterPojo value, $Res Function(_OfferDayCounterPojo) _then) = __$OfferDayCounterPojoCopyWithImpl;
 @override @useResult
 $Res call({
- String today, int point
+ int timestamp, int point
 });
 
 
@@ -266,10 +266,10 @@ class __$OfferDayCounterPojoCopyWithImpl<$Res>
 
 /// Create a copy of OfferDayCounterPojo
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? today = null,Object? point = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? timestamp = null,Object? point = null,}) {
   return _then(_OfferDayCounterPojo(
-today: null == today ? _self.today : today // ignore: cast_nullable_to_non_nullable
-as String,point: null == point ? _self.point : point // ignore: cast_nullable_to_non_nullable
+timestamp: null == timestamp ? _self.timestamp : timestamp // ignore: cast_nullable_to_non_nullable
+as int,point: null == point ? _self.point : point // ignore: cast_nullable_to_non_nullable
 as int,
   ));
 }

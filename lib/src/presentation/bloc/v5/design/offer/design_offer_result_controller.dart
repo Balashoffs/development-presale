@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
 import 'package:presale/src/domain/models/v4/design/division_resource_table/divisions_margin_table_with_type_pojo.dart';
+import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/domain/models/v5/common/offer_counter/extension.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/extension.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_pojo.dart';
@@ -106,14 +108,13 @@ class DesignOfferResultController {
           0.0;
       summary = double.parse(summary.toStringAsFixed(0));
       double tax = (summaryWithTax - summaryWithTax * RussianTax).abs();
+      OfferDayCounterDto counterDto = designPresalePojo.inputDataDesign.offerCounter.toDto();
 
       return DesignOfferResultVM(
         summaryWithTax: summaryWithTax,
         divisionType: designPresalePojo.inputDataDesign.divisionType.text,
-        createdDesignOffer: designPresalePojo.inputDataDesign.created!
-            .toLocal()
-            .toString()
-            .split(' ')[0],
+        createdDate: counterDto.localDate,
+        id: counterDto.getOfferUniqueNumber(),
         objectName: designPresalePojo.inputDataDesign.objectData.name,
         objectLocation: designPresalePojo.inputDataDesign.objectData.address,
         divisionRows: divisionRows,

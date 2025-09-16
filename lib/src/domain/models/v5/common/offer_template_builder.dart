@@ -7,6 +7,7 @@ import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/domain/models/v3/design/commercial_offer/commercial_offer.dart';
 import 'package:presale/src/domain/models/v3/design/division_result/division_result.dart';
 import 'package:presale/src/domain/models/v3/design/extension.dart';
+import 'package:presale/src/domain/models/v5/common/offer_counter/extension.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 abstract class ITemplateBuilder {
@@ -101,25 +102,19 @@ class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
   }
 
   void _addOfferId() {
-    DateTime? dateTime = _offerResult.inputDataDesign.created;
-    if (dateTime != null) {
-      String offerId =
-          'исх. №${dateTime.day}${dateTime.month}${dateTime.year}____';
-      _buildCell(offerId, "B$_rowPos");
-    }
+    String id = _offerResult.inputDataDesign.offerCounter
+        .toDto()
+        .getOfferUniqueNumber();
+    String offerId = 'исх. №${id}';
+    _buildCell(offerId, "B$_rowPos");
   }
 
   void _addDate() {
-    DateTime? dateTime = _offerResult.inputDataDesign.created;
-    if (dateTime != null) {
-      String shortMonthName = shortMonthDay[dateTime.month];
-      String dayName = dateTime.day < 10
-          ? "0${dateTime.day}"
-          : "${dateTime.day}";
-      String yearName = '${dateTime.year} г.';
-      String dateAsText = 'Дата: $dayName $shortMonthName $yearName';
-      _buildCell(dateAsText, "G$_rowPos");
-    }
+    String created = _offerResult.inputDataDesign.offerCounter
+        .toDto()
+        .localDate;
+    String dateAsText = 'Дата: $created г.';
+    _buildCell(dateAsText, "G$_rowPos");
   }
 
   void _addTitle() {
@@ -497,25 +492,19 @@ class DesignOfferWithTaxTemplateBuilder implements ITemplateBuilder {
   }
 
   void _addOfferId() {
-    DateTime? dateTime = _offerResult.inputDataDesign.created;
-    if (dateTime != null) {
-      String offerId =
-          'исх. №${dateTime.day}${dateTime.month}${dateTime.year}____';
-      _buildCell(offerId, "B$_rowPos");
-    }
+    String id = _offerResult.inputDataDesign.offerCounter
+        .toDto()
+        .getOfferUniqueNumber();
+    String offerId = 'исх. №${id}';
+    _buildCell(offerId, "B$_rowPos");
   }
 
   void _addDate() {
-    DateTime? dateTime = _offerResult.inputDataDesign.created;
-    if (dateTime != null) {
-      String shortMonthName = shortMonthDay[dateTime.month];
-      String dayName = dateTime.day < 10
-          ? "0${dateTime.day}"
-          : "${dateTime.day}";
-      String yearName = '${dateTime.year} г.';
-      String dateAsText = 'Дата: $dayName $shortMonthName $yearName';
-      _buildCell(dateAsText, "G$_rowPos");
-    }
+    String created = _offerResult.inputDataDesign.offerCounter
+        .toDto()
+        .localDate;
+    String dateAsText = 'Дата: $created г.';
+    _buildCell(dateAsText, "G$_rowPos");
   }
 
   void _addTitle() {

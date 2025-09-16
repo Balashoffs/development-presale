@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/result_sum_widget.dart';
 import 'package:provider/provider.dart';
 
 import 'package:presale/src/presentation/modules/v5/design/common/next_page_widget.dart';
@@ -73,9 +74,6 @@ class ObjectInputDataConsumerWidget extends StatelessWidget {
 class LoadedWidget extends StatelessWidget {
   const LoadedWidget({super.key});
 
-
-
-
   @override
   Widget build(BuildContext context) {
     print("LoadedWidget::build");
@@ -101,6 +99,20 @@ class LoadedWidget extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         spacing: 16.0,
                         children: [
+                          ValueListenableBuilder(
+                            valueListenable: cubit.counterDtoVN,
+                            builder: (context, value, child) {
+                              if (value != null) {
+                                return RowTextWidgets(
+                                  values: [
+                                    value.localDate,
+                                    '№ ${value.getOfferUniqueNumber()}',
+                                  ],
+                                );
+                              }
+                              return Center();
+                            },
+                          ),
                           CustomTextInput(
                             width: 500,
                             hintText: 'Наименование объекта*',
@@ -223,10 +235,11 @@ class LoadedWidget extends StatelessWidget {
                   valueListenable: context.read<ObjectDataCubit>().isValid,
                   builder: (context, value, child) {
                     return CustomButtonWidget(
-                      iconData: MoonIcons.arrows_chevron_right_double_32_regular,
+                      iconData:
+                          MoonIcons.arrows_chevron_right_double_32_regular,
                       onTap: value ? cubit.nextPage : null,
                     );
-                  }
+                  },
                 ),
               ],
             ),

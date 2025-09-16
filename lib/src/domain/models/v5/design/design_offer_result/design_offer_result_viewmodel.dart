@@ -4,7 +4,8 @@ import 'package:presale/src/domain/models/v5/design/design_offer_result/design_o
 
 class DesignOfferResultVM{
   final String divisionType;
-  final String createdDesignOffer;
+  final String createdDate;
+  final String id;
   final String objectName;
   final String objectLocation;
   final List<DesignOfferResultRowVM> divisionRows;
@@ -35,7 +36,8 @@ class DesignOfferResultVM{
 
   DesignOfferResultVM({
     required this.divisionType,
-    required this.createdDesignOffer,
+    required this.createdDate,
+    required this.id,
     required this.objectName,
     required this.objectLocation,
     required this.divisionRows,

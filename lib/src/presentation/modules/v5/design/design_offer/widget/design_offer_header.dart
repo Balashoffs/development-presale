@@ -26,7 +26,11 @@ class DesignOfferHeaderWidget extends StatelessWidget {
         children: [
           DesignOfferHeaderRowHeaderWidget(
             type: "Дата создания КП",
-            value: result.createdDesignOffer,
+            value: result.createdDate,
+          ),
+          DesignOfferHeaderRowHeaderWidget(
+            type: "№ КП",
+            value: result.id,
           ),
           DesignOfferHeaderRowHeaderWidget(
             type: "Тип документации",

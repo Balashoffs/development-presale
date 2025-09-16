@@ -6,7 +6,7 @@ part 'offer_day_counter.g.dart';
 @freezed
 abstract class OfferDayCounterPojo with _$OfferDayCounterPojo {
   const factory OfferDayCounterPojo({
-    required String today,
+    required int timestamp,
     required int point,
   }) = _OfferDayCounterPojo;
 

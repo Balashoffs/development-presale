@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 mixin _$InputDataDesign {
 
 // Дата и время создание КП
- DateTime? get created;// Данные об объекте
+ OfferDayCounterPojo get offerCounter;// Данные об объекте
  ObjectDataDesign get objectData; InputFactorsPojo get inputFactors;// Тип проектной документации на выходе
  DivisionType get divisionType;
 /// Create a copy of InputDataDesign
@@ -31,16 +31,16 @@ $InputDataDesignCopyWith<InputDataDesign> get copyWith => _$InputDataDesignCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InputDataDesign&&(identical(other.created, created) || other.created == created)&&(identical(other.objectData, objectData) || other.objectData == objectData)&&(identical(other.inputFactors, inputFactors) || other.inputFactors == inputFactors)&&(identical(other.divisionType, divisionType) || other.divisionType == divisionType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is InputDataDesign&&(identical(other.offerCounter, offerCounter) || other.offerCounter == offerCounter)&&(identical(other.objectData, objectData) || other.objectData == objectData)&&(identical(other.inputFactors, inputFactors) || other.inputFactors == inputFactors)&&(identical(other.divisionType, divisionType) || other.divisionType == divisionType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,created,objectData,inputFactors,divisionType);
+int get hashCode => Object.hash(runtimeType,offerCounter,objectData,inputFactors,divisionType);
 
 @override
 String toString() {
-  return 'InputDataDesign(created: $created, objectData: $objectData, inputFactors: $inputFactors, divisionType: $divisionType)';
+  return 'InputDataDesign(offerCounter: $offerCounter, objectData: $objectData, inputFactors: $inputFactors, divisionType: $divisionType)';
 }
 
 
@@ -51,11 +51,11 @@ abstract mixin class $InputDataDesignCopyWith<$Res>  {
   factory $InputDataDesignCopyWith(InputDataDesign value, $Res Function(InputDataDesign) _then) = _$InputDataDesignCopyWithImpl;
 @useResult
 $Res call({
- DateTime? created, ObjectDataDesign objectData, InputFactorsPojo inputFactors, DivisionType divisionType
+ OfferDayCounterPojo offerCounter, ObjectDataDesign objectData, InputFactorsPojo inputFactors, DivisionType divisionType
 });
 
 
-$ObjectDataDesignCopyWith<$Res> get objectData;$InputFactorsPojoCopyWith<$Res> get inputFactors;
+$OfferDayCounterPojoCopyWith<$Res> get offerCounter;$ObjectDataDesignCopyWith<$Res> get objectData;$InputFactorsPojoCopyWith<$Res> get inputFactors;
 
 }
 /// @nodoc
@@ -68,16 +68,25 @@ class _$InputDataDesignCopyWithImpl<$Res>
 
 /// Create a copy of InputDataDesign
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? created = freezed,Object? objectData = null,Object? inputFactors = null,Object? divisionType = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? offerCounter = null,Object? objectData = null,Object? inputFactors = null,Object? divisionType = null,}) {
   return _then(_self.copyWith(
-created: freezed == created ? _self.created : created // ignore: cast_nullable_to_non_nullable
-as DateTime?,objectData: null == objectData ? _self.objectData : objectData // ignore: cast_nullable_to_non_nullable
+offerCounter: null == offerCounter ? _self.offerCounter : offerCounter // ignore: cast_nullable_to_non_nullable
+as OfferDayCounterPojo,objectData: null == objectData ? _self.objectData : objectData // ignore: cast_nullable_to_non_nullable
 as ObjectDataDesign,inputFactors: null == inputFactors ? _self.inputFactors : inputFactors // ignore: cast_nullable_to_non_nullable
 as InputFactorsPojo,divisionType: null == divisionType ? _self.divisionType : divisionType // ignore: cast_nullable_to_non_nullable
 as DivisionType,
   ));
 }
 /// Create a copy of InputDataDesign
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$OfferDayCounterPojoCopyWith<$Res> get offerCounter {
+  
+  return $OfferDayCounterPojoCopyWith<$Res>(_self.offerCounter, (value) {
+    return _then(_self.copyWith(offerCounter: value));
+  });
+}/// Create a copy of InputDataDesign
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -177,10 +186,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( DateTime? created,  ObjectDataDesign objectData,  InputFactorsPojo inputFactors,  DivisionType divisionType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OfferDayCounterPojo offerCounter,  ObjectDataDesign objectData,  InputFactorsPojo inputFactors,  DivisionType divisionType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _InputDataDesign() when $default != null:
-return $default(_that.created,_that.objectData,_that.inputFactors,_that.divisionType);case _:
+return $default(_that.offerCounter,_that.objectData,_that.inputFactors,_that.divisionType);case _:
   return orElse();
 
 }
@@ -198,10 +207,10 @@ return $default(_that.created,_that.objectData,_that.inputFactors,_that.division
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( DateTime? created,  ObjectDataDesign objectData,  InputFactorsPojo inputFactors,  DivisionType divisionType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OfferDayCounterPojo offerCounter,  ObjectDataDesign objectData,  InputFactorsPojo inputFactors,  DivisionType divisionType)  $default,) {final _that = this;
 switch (_that) {
 case _InputDataDesign():
-return $default(_that.created,_that.objectData,_that.inputFactors,_that.divisionType);case _:
+return $default(_that.offerCounter,_that.objectData,_that.inputFactors,_that.divisionType);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -218,10 +227,10 @@ return $default(_that.created,_that.objectData,_that.inputFactors,_that.division
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( DateTime? created,  ObjectDataDesign objectData,  InputFactorsPojo inputFactors,  DivisionType divisionType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OfferDayCounterPojo offerCounter,  ObjectDataDesign objectData,  InputFactorsPojo inputFactors,  DivisionType divisionType)?  $default,) {final _that = this;
 switch (_that) {
 case _InputDataDesign() when $default != null:
-return $default(_that.created,_that.objectData,_that.inputFactors,_that.divisionType);case _:
+return $default(_that.offerCounter,_that.objectData,_that.inputFactors,_that.divisionType);case _:
   return null;
 
 }
@@ -233,11 +242,11 @@ return $default(_that.created,_that.objectData,_that.inputFactors,_that.division
 @JsonSerializable()
 
 class _InputDataDesign implements InputDataDesign {
-  const _InputDataDesign({required this.created, required this.objectData, required this.inputFactors, required this.divisionType});
+  const _InputDataDesign({required this.offerCounter, required this.objectData, required this.inputFactors, required this.divisionType});
   factory _InputDataDesign.fromJson(Map<String, dynamic> json) => _$InputDataDesignFromJson(json);
 
 // Дата и время создание КП
-@override final  DateTime? created;
+@override final  OfferDayCounterPojo offerCounter;
 // Данные об объекте
 @override final  ObjectDataDesign objectData;
 @override final  InputFactorsPojo inputFactors;
@@ -257,16 +266,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InputDataDesign&&(identical(other.created, created) || other.created == created)&&(identical(other.objectData, objectData) || other.objectData == objectData)&&(identical(other.inputFactors, inputFactors) || other.inputFactors == inputFactors)&&(identical(other.divisionType, divisionType) || other.divisionType == divisionType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _InputDataDesign&&(identical(other.offerCounter, offerCounter) || other.offerCounter == offerCounter)&&(identical(other.objectData, objectData) || other.objectData == objectData)&&(identical(other.inputFactors, inputFactors) || other.inputFactors == inputFactors)&&(identical(other.divisionType, divisionType) || other.divisionType == divisionType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,created,objectData,inputFactors,divisionType);
+int get hashCode => Object.hash(runtimeType,offerCounter,objectData,inputFactors,divisionType);
 
 @override
 String toString() {
-  return 'InputDataDesign(created: $created, objectData: $objectData, inputFactors: $inputFactors, divisionType: $divisionType)';
+  return 'InputDataDesign(offerCounter: $offerCounter, objectData: $objectData, inputFactors: $inputFactors, divisionType: $divisionType)';
 }
 
 
@@ -277,11 +286,11 @@ abstract mixin class _$InputDataDesignCopyWith<$Res> implements $InputDataDesign
   factory _$InputDataDesignCopyWith(_InputDataDesign value, $Res Function(_InputDataDesign) _then) = __$InputDataDesignCopyWithImpl;
 @override @useResult
 $Res call({
- DateTime? created, ObjectDataDesign objectData, InputFactorsPojo inputFactors, DivisionType divisionType
+ OfferDayCounterPojo offerCounter, ObjectDataDesign objectData, InputFactorsPojo inputFactors, DivisionType divisionType
 });
 
 
-@override $ObjectDataDesignCopyWith<$Res> get objectData;@override $InputFactorsPojoCopyWith<$Res> get inputFactors;
+@override $OfferDayCounterPojoCopyWith<$Res> get offerCounter;@override $ObjectDataDesignCopyWith<$Res> get objectData;@override $InputFactorsPojoCopyWith<$Res> get inputFactors;
 
 }
 /// @nodoc
@@ -294,10 +303,10 @@ class __$InputDataDesignCopyWithImpl<$Res>
 
 /// Create a copy of InputDataDesign
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? created = freezed,Object? objectData = null,Object? inputFactors = null,Object? divisionType = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? offerCounter = null,Object? objectData = null,Object? inputFactors = null,Object? divisionType = null,}) {
   return _then(_InputDataDesign(
-created: freezed == created ? _self.created : created // ignore: cast_nullable_to_non_nullable
-as DateTime?,objectData: null == objectData ? _self.objectData : objectData // ignore: cast_nullable_to_non_nullable
+offerCounter: null == offerCounter ? _self.offerCounter : offerCounter // ignore: cast_nullable_to_non_nullable
+as OfferDayCounterPojo,objectData: null == objectData ? _self.objectData : objectData // ignore: cast_nullable_to_non_nullable
 as ObjectDataDesign,inputFactors: null == inputFactors ? _self.inputFactors : inputFactors // ignore: cast_nullable_to_non_nullable
 as InputFactorsPojo,divisionType: null == divisionType ? _self.divisionType : divisionType // ignore: cast_nullable_to_non_nullable
 as DivisionType,
@@ -305,6 +314,15 @@ as DivisionType,
 }
 
 /// Create a copy of InputDataDesign
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$OfferDayCounterPojoCopyWith<$Res> get offerCounter {
+  
+  return $OfferDayCounterPojoCopyWith<$Res>(_self.offerCounter, (value) {
+    return _then(_self.copyWith(offerCounter: value));
+  });
+}/// Create a copy of InputDataDesign
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')

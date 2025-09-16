@@ -1,7 +1,6 @@
 import 'package:presale/src/data/core/db_client.dart';
 import 'package:presale/src/data/data_sources/input_result_data_source.dart';
-import 'package:presale/src/domain/models/v6/offer_counter/pojo/offer_day_counter.dart';
-
+import 'package:presale/src/domain/models/v5/common/offer_counter/pojo/offer_day_counter.dart';
 
 class OfferCounterSourceLocal
     implements AbstractDataSource<OfferDayCounterPojo> {
@@ -13,6 +12,7 @@ class OfferCounterSourceLocal
   @override
   Future<bool> add(OfferDayCounterPojo result) async {
     _client.write(key, result);
+    print('add:: $result');
     return true;
   }
 
@@ -23,8 +23,11 @@ class OfferCounterSourceLocal
   }
 
   @override
-  Future<OfferDayCounterPojo> read(String id) {
-    return _client.read(key);
+  Future<OfferDayCounterPojo> read(String id) async {
+    print('tyr to read');
+    Map<String, dynamic> pojoMap = await _client.read(key);
+    
+    return OfferDayCounterPojo.fromJson(pojoMap);
   }
 
 }

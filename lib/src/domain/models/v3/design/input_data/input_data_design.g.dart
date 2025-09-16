@@ -8,9 +8,9 @@ part of 'input_data_design.dart';
 
 _InputDataDesign _$InputDataDesignFromJson(Map<String, dynamic> json) =>
     _InputDataDesign(
-      created: json['created'] == null
-          ? null
-          : DateTime.parse(json['created'] as String),
+      offerCounter: OfferDayCounterPojo.fromJson(
+        json['offerCounter'] as Map<String, dynamic>,
+      ),
       objectData: ObjectDataDesign.fromJson(
         json['objectData'] as Map<String, dynamic>,
       ),
@@ -22,7 +22,7 @@ _InputDataDesign _$InputDataDesignFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$InputDataDesignToJson(_InputDataDesign instance) =>
     <String, dynamic>{
-      'created': instance.created?.toIso8601String(),
+      'offerCounter': instance.offerCounter,
       'objectData': instance.objectData,
       'inputFactors': instance.inputFactors,
       'divisionType': _$DivisionTypeEnumMap[instance.divisionType]!,

@@ -45,6 +45,7 @@ dependencies:
   package_info_plus: ^8.3.1
   dart_seq_http_client: ^1.0.0
   flutter_fullscreen: ^1.2.0
+  date_format: ^2.0.9
 dependency_overrides:
   go_router: ^12.1.1
   pointer_interceptor: ^0.9.3+7

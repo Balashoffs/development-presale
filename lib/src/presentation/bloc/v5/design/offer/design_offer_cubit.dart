@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:presale/src/domain/models/v5/common/offer_counter/extension.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
@@ -65,10 +66,9 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
         );
         await builder.fillRows();
         List<int> fileBytes = builder.saveToBytes();
-        DateTime dateTime = designPresalePojo.inputDataDesign.created!;
-        String offerId =
-            'исх. №${dateTime.day}${dateTime.month}${dateTime.year}';
-        saveAndLaunchFile(fileBytes, '${offerId}_без_НДС_.xlsx');
+        String id = designPresalePojo.inputDataDesign.offerCounter.toDto().getOfferUniqueNumber();
+
+        saveAndLaunchFile(fileBytes, '${id}_без_НДС_.xlsx');
       }
     }
   }
@@ -94,10 +94,8 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
         );
         await builder.fillRows();
         List<int> fileBytes = builder.saveToBytes();
-        DateTime dateTime = designPresalePojo.inputDataDesign.created!;
-        String offerId =
-            'исх. №${dateTime.day}${dateTime.month}${dateTime.year}';
-        saveAndLaunchFile(fileBytes, '${offerId}_с_НДС_.xlsx');
+        String id = designPresalePojo.inputDataDesign.offerCounter.toDto().getOfferUniqueNumber();
+        saveAndLaunchFile(fileBytes, '${id}_с_НДС_.xlsx');
       }
     }
   }

@@ -1,17 +1,18 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:presale/src/data/clients/v5/offer_counter_client.dart';
 import 'package:presale/src/data/core/db_client.dart';
 import 'package:presale/src/data/data_sources/v3/input_result_design_source.dart';
+import 'package:presale/src/data/data_sources/v5/dient_offer_counter_source.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/input/input_repository.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v3/design/input_data/input_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_data/object_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
 import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
+import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/domain/models/v5/common/offer_counter/extension.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/object_data_viewmodel.dart';
 
@@ -20,8 +21,6 @@ part 'object_input_data_state.dart';
 part 'object_input_data_cubit.freezed.dart';
 
 class ObjectDataCubit extends Cubit<ObjectInputDataState> {
-
-
   late final InputFactorsViewModel? _inputFactors;
 
   final InputDataBuilder _objectDataBuilder;
@@ -29,8 +28,10 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   InputDataBuilder get objectDataBuilder => _objectDataBuilder;
 
   final DesignPresaleDataSourceLocal _dataSourceLocal;
+  final OfferCountClientImpl _countClientImpl;
 
   final ValueNotifier<bool> isValid = ValueNotifier(false);
+  final ValueNotifier<OfferDayCounterDto?> counterDtoVN = ValueNotifier(null);
 
   bool isPercents = false;
 
@@ -41,15 +42,26 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
     return inputValue;
   }
 
-  void init() async {
-    emit(ObjectInputDataState(stateEnum: StateEnum.showing));
-  }
-
   ObjectDataCubit(DBClient dbClient)
     : _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
+      _countClientImpl = OfferCountClientImpl(
+        OfferCounterSourceLocal(dbClient),
+      ),
       _objectDataBuilder = InputDataBuilder(),
-      super(ObjectInputDataState()){
-    init();
+      super(ObjectInputDataState()) {
+    _init();
+  }
+
+  void _init() async {
+    print('ObjectDataCubit::_init');
+    OfferDayCounterDto? counterDto = await _countClientImpl.initialize().then(
+          (value) => value.fold((l) => null, (r) => r),
+    );
+    if (counterDto != null) {
+      print(counterDto);
+      counterDtoVN.value = counterDto;
+      emit(ObjectInputDataState(stateEnum: StateEnum.showing));
+    }
   }
 
   //Данные объекте
@@ -109,11 +121,11 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
     }
   }
 
-  void _checkNecessaryInputs(){
-    try{
+  void _checkNecessaryInputs() {
+    try {
       _objectDataBuilder.build();
       isValid.value = true;
-    }catch(_){
+    } catch (_) {
       isValid.value = false;
     }
   }
@@ -174,17 +186,16 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   // }
   //
 
-
   Future<void> nextPage() async {
     try {
-      if(state.stateEnum == StateEnum.nextPage){
+      if (state.stateEnum == StateEnum.nextPage) {
         emit(ObjectInputDataState(stateEnum: StateEnum.showing));
       }
       InputDataMV inputDataMv = _objectDataBuilder.build();
       ObjectDataDesign objectDataData = inputDataMv.toObject();
       InputFactorsPojo inputFactorsPojo = inputDataMv.toFactors();
       InputDataDesign inputDataDesign = InputDataDesign(
-        created: DateTime.now(),
+        offerCounter: counterDtoVN.value!.toPojo(),
         objectData: objectDataData,
         inputFactors: inputFactorsPojo,
         divisionType: DivisionType.fromText(inputDataMv.divisionType),

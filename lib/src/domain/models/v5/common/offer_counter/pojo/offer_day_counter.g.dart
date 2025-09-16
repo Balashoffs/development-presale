@@ -8,10 +8,13 @@ part of 'offer_day_counter.dart';
 
 _OfferDayCounterPojo _$OfferDayCounterPojoFromJson(Map<String, dynamic> json) =>
     _OfferDayCounterPojo(
-      today: json['today'] as String,
+      timestamp: (json['timestamp'] as num).toInt(),
       point: (json['point'] as num).toInt(),
     );
 
 Map<String, dynamic> _$OfferDayCounterPojoToJson(
   _OfferDayCounterPojo instance,
-) => <String, dynamic>{'today': instance.today, 'point': instance.point};
+) => <String, dynamic>{
+  'timestamp': instance.timestamp,
+  'point': instance.point,
+};
