@@ -19,6 +19,7 @@ class ResourcesWithUnselectedViewController {
 
   final ValueNotifier<double> summaryVN = ValueNotifier(0.0);
   final ValueNotifier<bool> isValid = ValueNotifier(false);
+  final ValueNotifier<bool> isAllRow = ValueNotifier(false);
 
   final DesignOfferCalculator _designOfferCalculator = DesignOfferCalculator();
 
@@ -65,6 +66,9 @@ class ResourcesWithUnselectedViewController {
       List<DivisionWithResourceRowVM> updated = [...selectedRows.value, found];
       updated.sort((a, b) => a.resourceId.compareTo(b.resourceId));
       selectedRows.value = [...updated];
+    }
+    if(isAllRow.value){
+      isAllRow.value = false;
     }
   }
 
@@ -234,6 +238,7 @@ class ResourcesWithUnselectedViewController {
     isValid.value = false;
     List<DivisionWithResourceRowVM> rows;
     if (value) {
+      isAllRow.value = true;
       rows = _loadedDivisions
           .where((element) => !element.divisionShortName.contains('ИД'))
           .map((e) => _buildById(e.id))
@@ -241,6 +246,7 @@ class ResourcesWithUnselectedViewController {
       rows.sorted((a, b) => a.resourceId.compareTo(b.resourceId));
     } else {
       rows = [];
+      isAllRow.value = false;
     }
     selectedRows.value = [...rows];
   }

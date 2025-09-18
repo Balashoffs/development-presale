@@ -126,16 +126,22 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
         ),
         Expanded(
           flex: 10,
-          child: ValueListenableBuilder<List<DivisionWithResourceRowVM>>(
-            valueListenable: controller.selectedRows,
-            builder: (context, value, child) {
-              return Center(
-                child: DivisionsResourceTableWidget(
-                  rowAttributes: divisionResourceTableAttributes,
-                  tableDataRows: value,
-                ),
+          child: ValueListenableBuilder(
+            valueListenable: controller.isAllRow,
+            builder: (context, allRow, child) {
+              return ValueListenableBuilder<List<DivisionWithResourceRowVM>>(
+                valueListenable: controller.selectedRows,
+                builder: (context, value, child) {
+                  return Center(
+                    child: DivisionsResourceTableWidget(
+                      rowAttributes: divisionResourceTableAttributes,
+                      tableDataRows: value,
+                      isAll: allRow,
+                    ),
+                  );
+                },
               );
-            },
+            }
           ),
         ),
         Expanded(

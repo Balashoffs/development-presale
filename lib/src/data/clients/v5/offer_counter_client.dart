@@ -25,7 +25,11 @@ class OfferCountClientImpl with BaseClient implements OfferCountClient {
       (value) => value.fold((l) => null, (r) => r),
     );
     if (dto != null) {
-      dto.updatePoint();
+      if(!dto.isDayEqual()){
+        dto = OfferDayCounterDto.now();
+      }else{
+        dto.updatePoint();
+      }
       print('Updated: ${dto}');
     } else {
       dto = OfferDayCounterDto.now();

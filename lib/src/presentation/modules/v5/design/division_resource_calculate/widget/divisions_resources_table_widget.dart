@@ -16,10 +16,12 @@ class DivisionsResourceTableWidget extends StatefulWidget {
     super.key,
     required this.rowAttributes,
     required this.tableDataRows,
+    this.isAll = false,
   });
 
   final List<CollumAttribute> rowAttributes;
   final List<DivisionWithResourceRowVM> tableDataRows;
+  final bool isAll;
 
   @override
   State<DivisionsResourceTableWidget> createState() =>
@@ -30,24 +32,38 @@ class _DivisionsResourceTableWidgetState
     extends State<DivisionsResourceTableWidget> {
   late final ScrollController? _verticalScrollController;
   bool _isRemoveAction = false;
+  bool _isAll = false;
 
   void _scrollListener(ScrollController verticalScrollController) {
     _verticalScrollController = verticalScrollController;
   }
 
   @override
+  void initState() {
+    super.initState();
+    _isAll = widget.isAll;
+  }
+
+  @override
   void didUpdateWidget(DivisionsResourceTableWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (!_isRemoveAction) {
+    if (_isAll) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        _verticalScrollController?.animateTo(
-          _verticalScrollController.position.maxScrollExtent,
-          duration: Duration(milliseconds: 300),
-          curve: Curves.easeOut,
-        );
+        _verticalScrollController?.jumpTo(0.0);
       });
+      _isAll = !_isAll;
     } else {
-      _isRemoveAction = !_isRemoveAction;
+      if (!_isRemoveAction) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          _verticalScrollController?.animateTo(
+            _verticalScrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 300),
+            curve: Curves.easeOut,
+          );
+        });
+      } else {
+        _isRemoveAction = !_isRemoveAction;
+      }
     }
   }
 
@@ -203,7 +219,7 @@ class _DivisionsResourceTableWidgetState
 
         return CellDecorationWidget(
           isFistCell: index != 12,
-          child: Center(child: Text(''))
+          child: Center(child: Text('')),
         );
       }),
       height: 56,
@@ -226,9 +242,7 @@ class _DivisionsResourceTableWidgetState
         scrollBehaviour: MaterialScrollBehavior().copyWith(
           scrollbars: true,
           overscroll: true,
-          dragDevices: {
-            PointerDeviceKind.mouse,
-          }
+          dragDevices: {PointerDeviceKind.mouse},
         ),
         tablePadding: const EdgeInsets.symmetric(horizontal: 16),
         cellPadding: const EdgeInsets.symmetric(vertical: 8),
