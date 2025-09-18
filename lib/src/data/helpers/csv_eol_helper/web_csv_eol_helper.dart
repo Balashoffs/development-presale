@@ -1,1 +1,1 @@
-String get eol =>  "\r";
+String get eol =>  "\n";
