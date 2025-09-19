@@ -42,7 +42,7 @@ class DesignOfferRootWidget extends StatelessWidget {
                       .isCorrect,
                   builder: (context, value, child) {
                     return Row(
-                      spacing: 8.0,
+                      spacing: 16.0,
                       children: [
                         MoonButton(
                           trailing: Text(

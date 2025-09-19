@@ -97,6 +97,7 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Row(
+            spacing: 16.0,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButtonWidget(

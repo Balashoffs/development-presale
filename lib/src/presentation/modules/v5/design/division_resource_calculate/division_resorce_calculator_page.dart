@@ -147,6 +147,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Row(
+            spacing: 8.0,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButtonWidget(

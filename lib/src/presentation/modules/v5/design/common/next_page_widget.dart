@@ -15,26 +15,18 @@ class CustomButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0, right: 16.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          MoonButton(
-            buttonSize: MoonButtonSize.md,
-            onTap: onTap,
-            trailing: Icon(iconData),
-            showBorder: true,
-            label: text != null
-                ? Text(
-                    text!,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16),
-                  )
-                : null,
-          ),
-        ],
-      ),
+    return MoonButton(
+      buttonSize: MoonButtonSize.lg,
+      onTap: onTap,
+      trailing: Icon(iconData),
+      showBorder: true,
+      label: text != null
+          ? Text(
+              text!,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
+            )
+          : null,
     );
   }
 }

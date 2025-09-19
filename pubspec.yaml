@@ -1,7 +1,7 @@
 name: presale
 description: "A new Flutter project."
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 0.5.13
+version: 0.5.14
 
 environment:
   sdk: ^3.9.0
