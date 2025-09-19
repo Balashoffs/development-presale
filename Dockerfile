@@ -32,7 +32,7 @@ WORKDIR $APP
 # Run build: 1 - clean, 2 - pub get, 3 - build web
 RUN flutter clean
 RUN flutter pub get
-RUN flutter build web --release --dart-define-from-file=.env/production.json --no-wasm-dry-run
+RUN flutter build web --release --dart-define-from-file=.env/production.json
 
 # once heare the app will be compiled and ready to deploy
 

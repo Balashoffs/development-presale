@@ -2,5 +2,9 @@
   "email": "luuc@liis.su",
   "type": "prod",
   "ui": "false",
-  "design": "{\"resources\": \"assets/calculator_data/design/debug/resources.csv\",\"job_divisions\": \"assets/calculator_data/design/debug/job_divisions.csv\",\"project_divisions\": \"assets/calculator_data/design/debug/project_divisions.csv\" }"
+  "design": "{\"resources\": \"assets/calculator_data/design/debug/resources.csv\",\"job_divisions\": \"assets/calculator_data/design/debug/job_divisions.csv\",\"project_divisions\": \"assets/calculator_data/design/debug/project_divisions.csv\" }",
+  "version": "0.5.13",
+  "appName": "presale",
+  "ya": "bau@liis.su",
+  "tg": "@alexbeard"
 }

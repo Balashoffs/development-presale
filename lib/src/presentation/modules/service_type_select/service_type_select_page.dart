@@ -1,11 +1,13 @@
-
 import 'package:dart_seq/dart_seq.dart';
+import 'package:date_format/date_format.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:presale/src/di/di.dart';
+import 'package:presale/src/presentation/common/color_options.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
 
 import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
 
@@ -20,7 +22,21 @@ class _ServiceTypeSelectPageState extends State<ServiceTypeSelectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: MoonButton.icon(
+              onTap: () async {
+                modalBuilder(context);
+              },
+              icon: Icon(
+                MoonIcons.chat_comment_bubble_question_mark_32_regular,
+              ),
+            ),
+          ),
+        ],
+      ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -33,8 +49,11 @@ class _ServiceTypeSelectPageState extends State<ServiceTypeSelectPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
-                  'Выберите тип задачи для рассчета', style: TextStyle(
-                  fontSize: 16, decoration: TextDecoration.underline,),
+                  'Выберите тип задачи для рассчета',
+                  style: TextStyle(
+                    fontSize: 16,
+                    decoration: TextDecoration.underline,
+                  ),
                   textAlign: TextAlign.start,
                 ),
                 MoonButton(
@@ -71,5 +90,128 @@ class _ServiceTypeSelectPageState extends State<ServiceTypeSelectPage> {
   void initState() {
     super.initState();
   }
+
+  Future<void> modalBuilder(BuildContext context) {
+    return showMoonModal<void>(
+      context: context,
+      useRootNavigator: false,
+      // barrierColor: getColor(context, MoonColor.cell),
+      builder: (BuildContext context) {
+        return Directionality(
+          textDirection: Directionality.of(context),
+          child: MoonModal(
+            // backgroundColor: getColor(context, MoonColor.cell),
+            borderRadius: BorderRadius.circular(8.toDouble()),
+            child: SizedBox(
+              width: 300,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+                    child: Text(
+                      "О приложении",
+                      style: context.moonTypography!.heading.text18.copyWith(
+                        color: getColor(context, MoonColor.popo),
+                      ),
+                    ),
+                  ),
+                  Divider(height: 1, color: context.moonColors!.popo),
+                  AboutWidget(),
+                  Divider(height: 1, color: context.moonColors!.popo),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+                    child: Text(
+                      "Тех. поддержка",
+                      style: context.moonTypography!.heading.text18.copyWith(
+                        color: getColor(context, MoonColor.popo),
+                      ),
+                    ),
+                  ),
+                  Divider(height: 1, color: context.moonColors!.popo),
+                  TechSupplier(),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
+                    child: MoonFilledButton(
+                      backgroundColor: context.moonColors!.zeno,
+                      label: const Text("Закрыть"),
+                      isFullWidth: true,
+                      onTap: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
+class TechSupplier extends StatelessWidget {
+  const TechSupplier({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ddm = di.dartDefineModel;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+      child: Column(
+        spacing: 4.0,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SelectableText(
+            "email: ${ddm.ya}",
+            style: context.moonTypography!.body.text14.copyWith(
+              color: getColor(context, MoonColor.popo),
+            ),
+          ),
+          SelectableText(
+            "telegram: ${ddm.tg}",
+            style: context.moonTypography!.body.text14.copyWith(
+              color: getColor(context, MoonColor.popo),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class AboutWidget extends StatelessWidget {
+  const AboutWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final ddm = di.dartDefineModel;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+      child: Column(
+        spacing: 4.0,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            ddm.appName,
+            style: context.moonTypography!.body.text14.copyWith(
+              color: getColor(context, MoonColor.popo),
+            ),
+          ),
+          Text(
+            "Версия: ${ddm.version}",
+            style: context.moonTypography!.body.text14.copyWith(
+              color: getColor(context, MoonColor.popo),
+            ),
+          ),
+          Text(
+            "Дата релиза: ${ddm.createdDate}",
+            style: context.moonTypography!.body.text14.copyWith(
+              color: getColor(context, MoonColor.popo),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
