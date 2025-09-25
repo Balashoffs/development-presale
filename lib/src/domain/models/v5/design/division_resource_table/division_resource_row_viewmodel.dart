@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class DivisionWithResourceRowVM {
+class DivisionWithResourceViewModel {
   final int id;
   final int resourceId;
   final int resourcesQnt;
@@ -70,7 +70,7 @@ class DivisionWithResourceRowVM {
   // Стоимость задествия должности по конкретному разделу
   final ValueNotifier<double> totalResourceRowCostVN;
 
-  DivisionWithResourceRowVM({
+  DivisionWithResourceViewModel({
     required this.id,
     required this.resourceId,
     required this.resourcesQnt,

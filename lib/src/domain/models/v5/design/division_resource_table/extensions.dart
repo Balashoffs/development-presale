@@ -30,12 +30,12 @@ extension ResourceCsvExt on ResourceCSV {
 }
 
 extension DivisionDtoExt on DivisionDTO {
-  DivisionWithResourceRowVM toDivisionResourceRowVM(
+  DivisionWithResourceViewModel toDivisionResourceRowVM(
     int resourceId, int resourcesQnt,{
     String resourceName = '',
     double resourceCostPerDay = 0.0,
   }) {
-    return DivisionWithResourceRowVM(
+    return DivisionWithResourceViewModel(
       id: id,
       resourceId: resourceId,
       resourcesQnt: resourcesQnt,
@@ -48,7 +48,8 @@ extension DivisionDtoExt on DivisionDTO {
   }
 }
 
-extension DivisionWithResourceRowExt on DivisionWithResourceRowVM {
+
+extension DivisionWithResourceRowExt on DivisionWithResourceViewModel {
   DivisionResourceRowPojo toPojo({
     double overPriceFactor = 1.0,
     double marginFactor = 1.0,

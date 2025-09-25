@@ -107,7 +107,7 @@ class DesignOfferResultController {
               .reduce((value, element) => value + element) ??
           0.0;
       summary = double.parse(summary.toStringAsFixed(0));
-      double tax = (summaryWithTax - summaryWithTax * RussianTax).abs();
+      double tax = (summaryWithTax - summaryWithTax * Russian_Tax_Factor).abs();
       OfferDayCounterDto counterDto = designPresalePojo.inputDataDesign.offerCounter.toDto();
 
       return DesignOfferResultVM(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/result_sum_widget.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +45,7 @@ class ObjectInputDataBlocBuilderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ObjectDataCubit(di.dbClientImpl),
+      create: (context) => ObjectDataCubit(di),
       child: ObjectInputDataConsumerWidget(),
     );
   }
@@ -55,12 +56,7 @@ class ObjectInputDataConsumerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ObjectDataCubit, ObjectInputDataState>(
-      listener: (context, state) {
-        if (state.stateEnum == StateEnum.nextPage) {
-          context.go(designResourcesRoute);
-        }
-      },
+    return BlocBuilder<ObjectDataCubit, ObjectInputDataState>(
       builder: (context, state) {
         if (state.stateEnum == StateEnum.loading) {
           return CustomCircleLoader();
@@ -98,20 +94,19 @@ class LoadedWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           spacing: 16.0,
                           children: [
-                            ValueListenableBuilder(
-                              valueListenable: cubit.counterDtoVN,
-                              builder: (context, value, child) {
-                                if (value != null) {
-                                  return RowTextWidgets(
-                                    values: [
-                                      value.localDate,
-                                      '№ ${value.getOfferUniqueNumber()}',
-                                    ],
-                                  );
-                                }
-                                return Center();
-                              },
-                            ),
+                            FutureBuilder(future: cubit.counterFuture, builder: (context, snapshot) {
+                              OfferDayCounterDto? counter = snapshot.data;
+                              if(counter != null){
+                                cubit.setCounter(counter);
+                               return RowTextWidgets(
+                                  values: [
+                                    counter.localDate,
+                                    '№ ${counter.getOfferUniqueNumber()}',
+                                  ],
+                                );
+                              }
+                              return CustomCircleLoader();
+                            },),
                             CustomTextInput(
                               width: 500,
                               hintText: 'Наименование объекта*',
@@ -239,7 +234,10 @@ class LoadedWidget extends StatelessWidget {
                     return CustomButtonWidget(
                       iconData:
                           MoonIcons.arrows_chevron_right_double_32_regular,
-                      onTap: value ? cubit.nextPage : null,
+                      onTap: value ? (){
+                        cubit.save();
+                        context.go(designResourcesRoute);
+                      } : null,
                     );
                   },
                 ),

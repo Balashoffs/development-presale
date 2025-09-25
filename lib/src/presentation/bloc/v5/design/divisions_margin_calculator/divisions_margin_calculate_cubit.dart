@@ -50,9 +50,6 @@ class DivisionsMarginCalculateCubit
   }
 
   void onNextPage() async {
-    if (state.stateEnum == StateEnum.nextPage) {
-      emit(DivisionsMarginCalculateState(stateEnum: StateEnum.showing));
-    }
     List<DivisionsMarginRowPojo> rows = _divisionsViewController.rows
         .map((e) => e.toRowPojo())
         .toList();
@@ -71,8 +68,5 @@ class DivisionsMarginCalculateCubit
     );
 
     bool isSaves = await _dataSourceLocal.add(updated);
-    if (isSaves) {
-      emit(DivisionsMarginCalculateState(stateEnum: StateEnum.nextPage));
-    }
   }
 }

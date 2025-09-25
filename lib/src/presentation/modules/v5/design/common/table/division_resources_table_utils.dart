@@ -253,18 +253,19 @@ class CellWithMultiLineWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Row(
+        spacing: 4.0,
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Flexible(
-            flex: 2,
+            flex: 4,
             child: Text(
               label,
               maxLines: 3,
               textAlign: TextAlign.center,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
-              style: context.moonTypography?.body.text14.copyWith(
+              style: context.moonTypography?.body.text16.copyWith(
                 color: context.moonColors?.popo,
               ),
             ),

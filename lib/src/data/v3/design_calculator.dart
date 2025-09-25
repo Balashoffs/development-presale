@@ -19,7 +19,7 @@ class DesignOfferCalculator {
      Итого =  Себестоимость *  Накладные расходы *  Норма прибыли * 1.2
      */
 
-  double calcResourceCost(DivisionWithResourceRowVM divisionResourceViewModel) {
+  double calcResourceCost(DivisionWithResourceViewModel divisionResourceViewModel) {
     return divisionResourceViewModel.resourceCostPerDayVN.value *
         divisionResourceViewModel.resourceUsingFactor *
         divisionResourceViewModel.squareFactor *
@@ -44,9 +44,9 @@ class DesignOfferCalculator {
         model.marginValue +
         model.clientValue;
 
-    double withTax = total * RussianTax;
+    double withTax = total * Russian_Tax_Factor;
     model.summaryCostWithMarginVN.value = total;
     model.summaryCostWithTaxVN.value = withTax;
-    model.taxValue = withTax * 20 / 120;
+    model.taxValue = withTax * Russian_Tax_Factor_Reverce;
   }
 }

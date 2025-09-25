@@ -6,6 +6,7 @@ import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:presale/src/data/core/db_client.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_memory_source.dart';
 import 'package:presale/src/presentation/bloc/auth/auth_cubit.dart';
 import 'package:presale/src/presentation/bloc/core/core/global_bloc_observer.dart';
 import 'package:presale/src/presentation/bloc/core/navigation/navigation_cubit.dart';
@@ -69,6 +70,8 @@ class DependencyInjector {
     _getItInstance.registerLazySingleton<DBClient>(
       () => DBClientImpl(preferences),
     );
+
+    _getItInstance.registerLazySingleton<DesignOfferMemorySource>(() => DesignOfferMemorySource(),);
   }
 
   Future<void> _setupStorageAndObserver() async {
@@ -108,6 +111,7 @@ class DependencyInjector {
   SeqLogger get segLogger => _getItInstance<SeqLogger>();
 
   DBClient get dbClientImpl => _getItInstance<DBClient>();
+  DesignOfferMemorySource get inMemoryImpl => _getItInstance<DesignOfferMemorySource>();
 
   DartDefineModel get dartDefineModel => _getItInstance<DartDefineModel>();
 

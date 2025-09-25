@@ -28,18 +28,6 @@ class DivisionResourceCalculatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomAppBar(
       title: ResourceAppBarTitle(),
-      child: DivisionResourceCalculateRepository(),
-    );
-  }
-}
-
-class DivisionResourceCalculateRepository extends StatelessWidget {
-  const DivisionResourceCalculateRepository({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => ResourcesWithUnselectedViewController(),
       child: DivisionResourceCalculateProvider(),
     );
   }
@@ -52,11 +40,7 @@ class DivisionResourceCalculateProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<DivisionResourceCalculateCubit>(
       create: (context) {
-        return DivisionResourceCalculateCubit(
-          dbClient: di.dbClientImpl,
-          resourcesViewController: context
-              .read<ResourcesWithUnselectedViewController>(),
-        );
+        return DivisionResourceCalculateCubit(di: di);
       },
       child: DivisionResourceCalculateConsumer(),
     );
@@ -68,7 +52,7 @@ class DivisionResourceCalculateConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<
+    return BlocBuilder<
       DivisionResourceCalculateCubit,
       DivisionResourceCalculateState
     >(
@@ -77,11 +61,6 @@ class DivisionResourceCalculateConsumer extends StatelessWidget {
           return CustomCircleLoader();
         }
         return DivisionResourceCalculateWidget();
-      },
-      listener: (context, state) {
-        if (state.stateEnum == StateEnum.nextPage) {
-          context.go(designDivisionsRoute);
-        }
       },
     );
   }
@@ -92,7 +71,9 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<ResourcesWithUnselectedViewController>();
+    final cubit = context.read<DivisionResourceCalculateCubit>();
+    final controller = cubit.controller;
+    final isAll = context.watch<DivisionResourceCalculateCubit>().state.isAllResourcesShow;
     return Column(
       children: [
         Expanded(
@@ -111,9 +92,10 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                     enabled: true,
                     divisions: controller.divisionsVM,
                     onSelected: (p0) =>
-                        controller.onRowAction(p0.id, WidgetActionType.add),
+                        cubit.onRowAction(p0.id, WidgetActionType.add),
                   ),
                   CustomCheckBox(
+                    isCheck: isAll,
                     labelText: 'Отображать все разделы (кроме ИД)',
                     onChanged: context
                         .read<DivisionResourceCalculateCubit>()
@@ -129,7 +111,9 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
           child: ValueListenableBuilder(
             valueListenable: controller.isAllRow,
             builder: (context, allRow, child) {
-              return ValueListenableBuilder<List<DivisionWithResourceRowVM>>(
+              return ValueListenableBuilder<
+                List<DivisionWithResourceViewModel>
+              >(
                 valueListenable: controller.selectedRows,
                 builder: (context, value, child) {
                   return Center(
@@ -141,7 +125,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                   );
                 },
               );
-            }
+            },
           ),
         ),
         Expanded(
@@ -163,9 +147,10 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                       iconData:
                           MoonIcons.arrows_chevron_right_double_32_regular,
                       onTap: value == true
-                          ? context
-                                .read<DivisionResourceCalculateCubit>()
-                                .onNextPage
+                          ? () {
+                              cubit.updateCashed();
+                              context.go(designDivisionsRoute);
+                            }
                           : null,
                     );
                   },

@@ -1,4 +1,5 @@
 // ObjectDataDTO class with Builder pattern
+import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v3/design/input_data/input_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_data/object_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
@@ -55,7 +56,6 @@ class InputDataBuilder {
   double _remotingFactor = 1.0;
   double _complexityFactor = 1.0;
   double _squareFactor = 1.0;
-
 
   InputDataBuilder setObjectName(String objectName) {
     _objectName = objectName;
@@ -157,7 +157,7 @@ class InputDataBuilder {
 }
 
 extension InputDataMVExt on InputDataMV {
-  ObjectDataDesign toObject() {
+  ObjectDataDesign toPojo() {
     return ObjectDataDesign(
       name: objectName,
       address: objectAddress,
@@ -166,8 +166,30 @@ extension InputDataMVExt on InputDataMV {
     );
   }
 
-  InputFactorsPojo toFactors() {
+  ObjectDataDesignDTO toDto() {
+    return ObjectDataDesignDTO(
+      name: objectName,
+      address: objectAddress,
+      square: objectSquare,
+      deadlineValue: deadlineValue,
+    );
+  }
+
+  InputFactorsPojo toFactorsPojo() {
     return InputFactorsPojo(
+      overPriceFactor: overPriceFactor,
+      customerFactor: customerFactor,
+      speedFactor: speedFactor,
+      heightFactor: heightFactor,
+      remotingFactor: remotingFactor,
+      complexityFactor: complexityFactor,
+      squareFactor: squareFactor,
+      marginFactor: marginFactor,
+    );
+  }
+
+  InputFactorsDTO toFactorsDto() {
+    return InputFactorsDTO(
       overPriceFactor: overPriceFactor,
       customerFactor: customerFactor,
       speedFactor: speedFactor,

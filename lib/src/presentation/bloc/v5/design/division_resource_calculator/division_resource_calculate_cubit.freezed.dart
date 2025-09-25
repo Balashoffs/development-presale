@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DivisionResourceCalculateState implements DiagnosticableTreeMixin {
 
- StateEnum get stateEnum;
+ StateEnum get stateEnum; bool get isAllResourcesShow;
 /// Create a copy of DivisionResourceCalculateState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,21 +26,21 @@ $DivisionResourceCalculateStateCopyWith<DivisionResourceCalculateState> get copy
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'DivisionResourceCalculateState'))
-    ..add(DiagnosticsProperty('stateEnum', stateEnum));
+    ..add(DiagnosticsProperty('stateEnum', stateEnum))..add(DiagnosticsProperty('isAllResourcesShow', isAllResourcesShow));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DivisionResourceCalculateState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DivisionResourceCalculateState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum)&&(identical(other.isAllResourcesShow, isAllResourcesShow) || other.isAllResourcesShow == isAllResourcesShow));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,stateEnum);
+int get hashCode => Object.hash(runtimeType,stateEnum,isAllResourcesShow);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionResourceCalculateState(stateEnum: $stateEnum)';
+  return 'DivisionResourceCalculateState(stateEnum: $stateEnum, isAllResourcesShow: $isAllResourcesShow)';
 }
 
 
@@ -51,7 +51,7 @@ abstract mixin class $DivisionResourceCalculateStateCopyWith<$Res>  {
   factory $DivisionResourceCalculateStateCopyWith(DivisionResourceCalculateState value, $Res Function(DivisionResourceCalculateState) _then) = _$DivisionResourceCalculateStateCopyWithImpl;
 @useResult
 $Res call({
- StateEnum stateEnum
+ StateEnum stateEnum, bool isAllResourcesShow
 });
 
 
@@ -68,10 +68,11 @@ class _$DivisionResourceCalculateStateCopyWithImpl<$Res>
 
 /// Create a copy of DivisionResourceCalculateState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? stateEnum = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? stateEnum = null,Object? isAllResourcesShow = null,}) {
   return _then(_self.copyWith(
 stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
-as StateEnum,
+as StateEnum,isAllResourcesShow: null == isAllResourcesShow ? _self.isAllResourcesShow : isAllResourcesShow // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StateEnum stateEnum)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( StateEnum stateEnum,  bool isAllResourcesShow)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DivisionResourceCalculateState() when $default != null:
-return $default(_that.stateEnum);case _:
+return $default(_that.stateEnum,_that.isAllResourcesShow);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.stateEnum);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StateEnum stateEnum)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( StateEnum stateEnum,  bool isAllResourcesShow)  $default,) {final _that = this;
 switch (_that) {
 case _DivisionResourceCalculateState():
-return $default(_that.stateEnum);case _:
+return $default(_that.stateEnum,_that.isAllResourcesShow);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.stateEnum);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StateEnum stateEnum)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( StateEnum stateEnum,  bool isAllResourcesShow)?  $default,) {final _that = this;
 switch (_that) {
 case _DivisionResourceCalculateState() when $default != null:
-return $default(_that.stateEnum);case _:
+return $default(_that.stateEnum,_that.isAllResourcesShow);case _:
   return null;
 
 }
@@ -212,10 +213,11 @@ return $default(_that.stateEnum);case _:
 
 
 class _DivisionResourceCalculateState with DiagnosticableTreeMixin implements DivisionResourceCalculateState {
-  const _DivisionResourceCalculateState({this.stateEnum = StateEnum.loading});
+  const _DivisionResourceCalculateState({this.stateEnum = StateEnum.loading, this.isAllResourcesShow = false});
   
 
 @override@JsonKey() final  StateEnum stateEnum;
+@override@JsonKey() final  bool isAllResourcesShow;
 
 /// Create a copy of DivisionResourceCalculateState
 /// with the given fields replaced by the non-null parameter values.
@@ -228,21 +230,21 @@ _$DivisionResourceCalculateStateCopyWith<_DivisionResourceCalculateState> get co
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'DivisionResourceCalculateState'))
-    ..add(DiagnosticsProperty('stateEnum', stateEnum));
+    ..add(DiagnosticsProperty('stateEnum', stateEnum))..add(DiagnosticsProperty('isAllResourcesShow', isAllResourcesShow));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DivisionResourceCalculateState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DivisionResourceCalculateState&&(identical(other.stateEnum, stateEnum) || other.stateEnum == stateEnum)&&(identical(other.isAllResourcesShow, isAllResourcesShow) || other.isAllResourcesShow == isAllResourcesShow));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,stateEnum);
+int get hashCode => Object.hash(runtimeType,stateEnum,isAllResourcesShow);
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'DivisionResourceCalculateState(stateEnum: $stateEnum)';
+  return 'DivisionResourceCalculateState(stateEnum: $stateEnum, isAllResourcesShow: $isAllResourcesShow)';
 }
 
 
@@ -253,7 +255,7 @@ abstract mixin class _$DivisionResourceCalculateStateCopyWith<$Res> implements $
   factory _$DivisionResourceCalculateStateCopyWith(_DivisionResourceCalculateState value, $Res Function(_DivisionResourceCalculateState) _then) = __$DivisionResourceCalculateStateCopyWithImpl;
 @override @useResult
 $Res call({
- StateEnum stateEnum
+ StateEnum stateEnum, bool isAllResourcesShow
 });
 
 
@@ -270,10 +272,11 @@ class __$DivisionResourceCalculateStateCopyWithImpl<$Res>
 
 /// Create a copy of DivisionResourceCalculateState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? stateEnum = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? stateEnum = null,Object? isAllResourcesShow = null,}) {
   return _then(_DivisionResourceCalculateState(
 stateEnum: null == stateEnum ? _self.stateEnum : stateEnum // ignore: cast_nullable_to_non_nullable
-as StateEnum,
+as StateEnum,isAllResourcesShow: null == isAllResourcesShow ? _self.isAllResourcesShow : isAllResourcesShow // ignore: cast_nullable_to_non_nullable
+as bool,
   ));
 }
 

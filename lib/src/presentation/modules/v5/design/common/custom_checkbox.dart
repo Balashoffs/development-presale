@@ -8,11 +8,13 @@ class CustomCheckBox extends StatefulWidget {
     required this.onChanged,
     required this.labelText,
     this.width = 250,
+    this.isCheck = false,
   });
 
   final ValueChanged<bool> onChanged;
   final String labelText;
   final double width;
+  final bool isCheck;
 
   @override
   State<CustomCheckBox> createState() => _CustomCheckBoxState();
@@ -20,6 +22,12 @@ class CustomCheckBox extends StatefulWidget {
 
 class _CustomCheckBoxState extends State<CustomCheckBox> {
   bool _checkboxWithLabelValue = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkboxWithLabelValue = widget.isCheck;
+  }
 
   @override
   Widget build(BuildContext context) {

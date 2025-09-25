@@ -61,7 +61,7 @@ class DivisionsMarginCalculateConsumer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<
+    return BlocBuilder<
       DivisionsMarginCalculateCubit,
       DivisionsMarginCalculateState
     >(
@@ -70,11 +70,6 @@ class DivisionsMarginCalculateConsumer extends StatelessWidget {
           return CustomCircleLoader();
         }
         return DivisionsMarginCalculateWidget();
-      },
-      listener: (context, state) {
-        if (state.stateEnum == StateEnum.nextPage) {
-          context.go(designOfferRoute);
-        }
       },
     );
   }
@@ -106,6 +101,7 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
               ),
               CustomButtonWidget(
                 iconData: MoonIcons.arrows_chevron_right_double_32_regular,
+                //context.go(designOfferRoute);
                 onTap: context.read<DivisionsMarginCalculateCubit>().onNextPage,
               ),
             ],

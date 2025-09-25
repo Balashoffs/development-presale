@@ -8,6 +8,7 @@ import 'package:presale/src/domain/models/v4/design/division_resource_table/widg
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_with_unselected_vc.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
+import 'package:presale/src/presentation/bloc/v5/design/division_resource_calculator/division_resource_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/table/division_resources_table_utils.dart';
 
@@ -20,7 +21,7 @@ class DivisionsResourceTableWidget extends StatefulWidget {
   });
 
   final List<CollumAttribute> rowAttributes;
-  final List<DivisionWithResourceRowVM> tableDataRows;
+  final List<DivisionWithResourceViewModel> tableDataRows;
   final bool isAll;
 
   @override
@@ -83,7 +84,8 @@ class _DivisionsResourceTableWidgetState
   }
 
   List<MoonTableRow> _generateTableRows() {
-    final controller = context.read<ResourcesWithUnselectedViewController>();
+    final cubit = context.read<DivisionResourceCalculateCubit>();
+    final controller = cubit.controller;
     return List.generate(widget.tableDataRows.length, (int index) {
       final row = widget.tableDataRows[index];
       List<ResourceDTO> resources = controller.resourcesByDivisionShortName(
@@ -101,7 +103,7 @@ class _DivisionsResourceTableWidgetState
               key: Key(key),
               iconData: MoonIcons.controls_close_16_light,
               onTap: () async {
-                controller.onRowAction(row.resourceId, WidgetActionType.delete);
+                cubit.onRowAction(row.resourceId, WidgetActionType.delete);
                 setState(() {
                   _isRemoveAction = true;
                 });
@@ -128,7 +130,7 @@ class _DivisionsResourceTableWidgetState
                   child: ResourcesDropdownWidget(
                     key: Key(key),
                     onChanged: (context, value) async {
-                      controller.onResourceName(row.resourceId, value);
+                      cubit.onResourceName(row.resourceId, value);
                       setState(() {});
                     },
                     resources: resources,
@@ -150,7 +152,7 @@ class _DivisionsResourceTableWidgetState
             child: IntInputCellWidget(
               key: Key(row.resourceId.toString()),
               onChanged: (context, value) async {
-                controller.onResourceQnt(row.resourceId, value);
+                cubit.onResourceQnt(row.resourceId, value);
                 setState(() {});
               },
               defaultValue: row.resourceQnt,
@@ -160,7 +162,7 @@ class _DivisionsResourceTableWidgetState
             child: IntInputCellWidget(
               key: Key(key),
               onChanged: (context, value) async {
-                controller.onWorkDays(row.resourceId, value);
+                cubit.onWorkDays(row.resourceId, value);
                 setState(() {});
               },
               defaultValue: row.workDays,
@@ -170,7 +172,7 @@ class _DivisionsResourceTableWidgetState
             child: FloatInputCellWidget(
               key: Key(key),
               onChanged: (context, value) async {
-                controller.onComplexFactor(row.resourceId, value);
+                cubit.onComplexFactor(row.resourceId, value);
                 setState(() {});
               },
               defaultValue: row.complexFactor,
@@ -180,7 +182,7 @@ class _DivisionsResourceTableWidgetState
             child: FloatInputCellWidget(
               key: Key(key),
               onChanged: (context, value) async {
-                controller.onSquareFactor(row.resourceId, value);
+                cubit.onSquareFactor(row.resourceId, value);
                 setState(() {});
               },
               defaultValue: row.squareFactor,
@@ -190,7 +192,7 @@ class _DivisionsResourceTableWidgetState
             child: FloatInputCellWidget(
               key: Key(key),
               onChanged: (context, value) async {
-                controller.onResourceUsingFactor(row.resourceId, value);
+                cubit.onResourceUsingFactor(row.resourceId, value);
                 setState(() {});
               },
               defaultValue: row.resourceUsingFactor,
@@ -206,7 +208,7 @@ class _DivisionsResourceTableWidgetState
   }
 
   MoonTableFooter _generateTableFooter() {
-    final controller = context.read<ResourcesWithUnselectedViewController>();
+    final controller = context.read<DivisionResourceCalculateCubit>().controller;
     return MoonTableFooter(
       cells: List.generate(widget.rowAttributes.length, (int index) {
         final row = widget.rowAttributes[index];
