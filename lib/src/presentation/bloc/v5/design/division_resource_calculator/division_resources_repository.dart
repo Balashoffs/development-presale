@@ -10,8 +10,8 @@ class DivisionRepository {
   final DesignClass _designClass;
 
   DivisionRepository(DependencyInjector di)
-      : _designOfferMemorySource = di.inMemoryImpl,
-        _designClass = di.dartDefineModel.design;
+    : _designOfferMemorySource = di.inMemoryImpl,
+      _designClass = di.dartDefineModel.design;
 
   Future<Map<String, DivisionDTO>> load() async {
     return await ResourcesDTO.build(
@@ -24,6 +24,7 @@ class DivisionRepository {
       _designOfferMemorySource.divisionResources;
 
   bool get isAllResources => _designOfferMemorySource.isAll;
+
   set isAllResources(bool value) {
     _designOfferMemorySource.isAll = value;
   }
@@ -40,8 +41,23 @@ class DivisionRepository {
     _designOfferMemorySource.updateDivisionResource(dto);
   }
 
-  void updateDivisionMargins() {
-    //TODO Fix calculation
-    _designOfferMemorySource.fillDivisionsMargin();
+  void updateDivisionMargins(List<DivisionResourceDTO> added) {
+    final keys =
+        _designOfferMemorySource.designPresaleDTO?.divisionResources.keys
+            .toSet() ??
+        {};
+    if (keys.isNotEmpty) {
+      final filtered = added
+          .where((element) => !keys.contains(element.resourceId))
+          .toList();
+      if (filtered.isNotEmpty) {
+        for (var element in filtered) {
+          _designOfferMemorySource
+              .designPresaleDTO
+              ?.divisionResources
+              .putIfAbsent(element.resourceId, () => element);
+        }
+      }
+    }
   }
 }

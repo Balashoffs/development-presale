@@ -54,10 +54,16 @@ class DivisionsWithMarginRowVM {
     required this.overPriceFactor,
     required this.marginFactor,
     required this.clientFactor,
-  }) : _taxValue = 0.0,
-       _marginValue = 0.0,
-       _clientValue = 0.0,
-       _overPriceValue = 0.0,
-       summaryCostWithMarginVN = ValueNotifier(0.0),
-       summaryCostWithTaxVN = ValueNotifier(0.0);
+    double taxValue = 0.0,
+    double marginValue = 0.0,
+    double clientValue = 0.0,
+    double overPriceValue = 0.0,
+    double summaryCostWithMargin = 0.0,
+    double summaryCostWithTax = 0.0,
+  }) : _taxValue = taxValue,
+       _marginValue = marginValue,
+       _clientValue = clientValue,
+       _overPriceValue = overPriceValue,
+       summaryCostWithMarginVN = ValueNotifier(summaryCostWithMargin),
+       summaryCostWithTaxVN = ValueNotifier(summaryCostWithTax);
 }

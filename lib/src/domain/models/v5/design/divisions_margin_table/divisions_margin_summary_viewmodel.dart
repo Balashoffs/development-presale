@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
 import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/domain/models/v3/design/input_data/input_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
@@ -17,41 +19,13 @@ class DivisionsViewController {
       rows.where((element) => element.id == id).firstOrNull;
 
   void fill(
-    InputFactorsPojo inputFactors,
-    List<DivisionResourceRowPojo> divisionsByType,
+    List<DivisionsMarginDTO> divisions,
   ) {
-    List<String> divisionShortNames = divisionsByType
-        .map((e) => e.divisionShortName)
-        .toSet()
-        .toList();
-    for (int i = 0; i < divisionShortNames.length; i++) {
-      double summary = divisionsByType
-          .where(
-            (element) => element.divisionShortName == divisionShortNames[i],
-          )
-          .map((e) => e.resourceSummaryCost)
-          .reduce((value, element) => value + element);
-      if (summary.compareTo(0.0) > 0) {
-        DivisionResourceRowPojo? pojo = divisionsByType
-            .where(
-              (element) => element.divisionShortName == divisionShortNames[i],
-            )
-            .firstOrNull;
-        if (pojo != null) {
-          DivisionsWithMarginRowVM row = DivisionsWithMarginRowVM(
-            id: i + 1,
-            clientFactor: inputFactors.customerFactor,
-            marginFactor: inputFactors.marginFactor,
-            overPriceFactor: inputFactors.overPriceFactor,
-            divisionSummaryCost: summary,
-            divisionName: pojo.divisionName,
-            divisionShortName: pojo.divisionShortName,
-            divisionDescription: pojo.divisionDescription,
-          );
-          _calcRowValues(row);
-          rows.add(row);
-        }
-      }
+
+    for (var division in divisions) {
+      DivisionsWithMarginRowVM row = division.toViewModel();
+      _calcRowValues(row);
+      rows.add(row);
     }
 
     divisionClearSummaryVN.value = rows
@@ -61,31 +35,34 @@ class DivisionsViewController {
     _calcTotal();
   }
 
-  void onOverPriceFactor(int id, double value) {
+  DivisionsWithMarginRowVM? onOverPriceFactor(int id, double value) {
     DivisionsWithMarginRowVM? found = getById(id);
     if (found != null) {
       found.overPriceFactor = value;
       _calcRowValues(found);
     }
     _calcTotal();
+    return found;
   }
 
-  void onMarginFactor(int id, double value) {
+  DivisionsWithMarginRowVM?  onMarginFactor(int id, double value) {
     DivisionsWithMarginRowVM? found = getById(id);
     if (found != null) {
       found.marginFactor = value;
       _calcRowValues(found);
     }
     _calcTotal();
+    return found;
   }
 
-  void onClientFactor(int id, double value) {
+  DivisionsWithMarginRowVM? onClientFactor(int id, double value) {
     DivisionsWithMarginRowVM? found = getById(id);
     if (found != null) {
       found.clientFactor = value;
       _calcRowValues(found);
     }
     _calcTotal();
+    return found;
   }
 
   void _calcRowValues(DivisionsWithMarginRowVM value) {

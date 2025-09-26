@@ -74,7 +74,7 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
           flex: 9,
           child: DivisionsMarginTableWidget(
             rowAttributes: divisionMarginTableAttributes,
-            tableDataRows: context.read<DivisionsViewController>().rows,
+            tableDataRows: context.read<DivisionsMarginCalculateCubit>().controller.rows,
           ),
         ),
         Expanded(

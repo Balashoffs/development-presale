@@ -83,8 +83,9 @@ class ResourcesWithUnselectedViewController {
   }
 
   void updateResults() {
-    isValid.value = _isEmptyCostHas;
     summaryVN.value = summaryCost;
+    isValid.value = _isEmptyCostHas;
+
   }
 
   DivisionWithResourceViewModel? onAdd(int id) {

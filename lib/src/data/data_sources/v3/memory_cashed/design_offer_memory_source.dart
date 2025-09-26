@@ -51,24 +51,6 @@ class DesignOfferMemorySource {
     _designPresaleDTO?.divisionResources[update.resourceId] = update;
   }
 
-  Map<int, DivisionsMarginDTO> fillDivisionsMargin() {
-    InputFactorsDTO? inputFactorsDTO =
-        _designPresaleDTO?.inputDataDesignDTO?.inputFactors;
-    if (inputFactorsDTO != null) {
-      List<DivisionsMarginDTO> marginsList = _designPresaleDTO
-          ?.divisionResources
-          .values
-          .map((e) => e.toMargin(inputFactorsDTO))
-          .toList() ?? [];
-      final Map<int, DivisionsMarginDTO> margins = {
-        for (var element in marginsList) element.id: element,
-      };
-      _designPresaleDTO?.divisionMargins.addAll(margins);
-      return margins;
-    }
-    return {};
-  }
-
   void updateDivisionsMargin(DivisionsMarginDTO value) {
     _designPresaleDTO?.divisionMargins[value.id] = value;
   }
