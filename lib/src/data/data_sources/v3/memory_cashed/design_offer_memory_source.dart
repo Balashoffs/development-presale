@@ -5,6 +5,8 @@ import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
 class DesignOfferMemorySource {
   DesignPresaleDTO? _designPresaleDTO;
 
+  DesignPresaleDTO? get designPresaleDTO => _designPresaleDTO;
+
   InputDataDesignDTO? get inputDataDesignDTO =>
       _designPresaleDTO?.inputDataDesignDTO;
 
@@ -36,17 +38,17 @@ class DesignOfferMemorySource {
   }
 
   void addDivisionResource(DivisionResourceDTO add) {
-    _designPresaleDTO?.divisionResources[add.id] = add;
+    _designPresaleDTO?.divisionResources[add.resourceId] = add;
   }
 
   void removeDivisionResource(DivisionResourceDTO delete) {
     _designPresaleDTO?.divisionResources.removeWhere(
-      (key, value) => key == delete.id,
+      (key, value) => key == delete.resourceId,
     );
   }
 
   void updateDivisionResource(DivisionResourceDTO update) {
-    _designPresaleDTO?.divisionResources[update.id] = update;
+    _designPresaleDTO?.divisionResources[update.resourceId] = update;
   }
 
   Map<int, DivisionsMarginDTO> fillDivisionsMargin() {

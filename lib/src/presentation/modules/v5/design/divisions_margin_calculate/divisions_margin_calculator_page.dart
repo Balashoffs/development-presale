@@ -22,22 +22,11 @@ class DivisionsMarginCalculatePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomAppBar(
       title: DivisionAppBarTitle(),
-      child: DivisionsMarginCalculateRepository(),
-    );
-  }
-}
-
-class DivisionsMarginCalculateRepository extends StatelessWidget {
-  const DivisionsMarginCalculateRepository({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => DivisionsViewController(),
       child: DivisionsMarginCalculateProvider(),
     );
   }
 }
+
 
 class DivisionsMarginCalculateProvider extends StatelessWidget {
   const DivisionsMarginCalculateProvider({super.key});
@@ -47,8 +36,7 @@ class DivisionsMarginCalculateProvider extends StatelessWidget {
     return BlocProvider<DivisionsMarginCalculateCubit>(
       create: (context) {
         return DivisionsMarginCalculateCubit(
-          dbClient: di.dbClientImpl,
-          resourceSummaryViewModel: context.read<DivisionsViewController>(),
+          di: di,
         );
       },
       child: DivisionsMarginCalculateConsumer(),
@@ -102,7 +90,7 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
               CustomButtonWidget(
                 iconData: MoonIcons.arrows_chevron_right_double_32_regular,
                 //context.go(designOfferRoute);
-                onTap: context.read<DivisionsMarginCalculateCubit>().onNextPage,
+                onTap: context.read<DivisionsMarginCalculateCubit>().updateCashed,
               ),
             ],
           ),

@@ -7,8 +7,6 @@ import 'package:presale/src/utils/dart_define/model/design_class/design_class.da
 class DivisionRepository {
   final DesignOfferMemorySource _designOfferMemorySource;
 
-  DesignOfferMemorySource get designOfferMemorySource =>
-      _designOfferMemorySource;
   final DesignClass _designClass;
 
   DivisionRepository(DependencyInjector di)

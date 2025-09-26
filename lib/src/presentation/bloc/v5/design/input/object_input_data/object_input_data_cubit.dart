@@ -3,28 +3,22 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:presale/src/data/clients/v5/offer_counter_client.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_memory_source.dart';
-import 'package:presale/src/data/data_sources/v5/dient_offer_counter_source.dart';
 import 'package:presale/src/di/di.dart';
-import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
-import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/object_data_viewmodel.dart';
 import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/repository.dart';
 
 part 'object_input_data_state.dart';
 
 part 'object_input_data_cubit.freezed.dart';
 
-
 class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   final ValueNotifier<bool> isValid = ValueNotifier(false);
   final ValueNotifier<OfferDayCounterDto?> counterDtoVN = ValueNotifier(null);
   final ObjectRepository _objectRepository;
 
-  Future<OfferDayCounterDto?> get counterFuture => _objectRepository.dayCounterFuture;
+  Future<OfferDayCounterDto?> get counterFuture =>
+      _objectRepository.dayCounterFuture;
 
   ObjectDataCubit(DependencyInjector di)
     : _objectRepository = ObjectRepository(di),
@@ -39,28 +33,21 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
     emit(ObjectInputDataState(stateEnum: StateEnum.showing));
   }
 
-  void setCounter(OfferDayCounterDto counter)async {
+  void setCounter(OfferDayCounterDto counter) async {
     _objectRepository.counterDto = counter;
-  }
-
-  void save() {
-    _objectRepository.save();
   }
 
   //Данные объекте
   void setObjectName(String name) {
     _objectRepository.setObjectName(name);
-
   }
 
   void setObjectLocation(String address) {
     _objectRepository.setObjectLocation(address);
-
   }
 
   void setResultDesignDocumentations(String result) {
     _objectRepository.setResultDesignDocumentations(result);
-
   }
 
   void setSquare(String value) {
@@ -82,12 +69,8 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   void setOverPriceFactor(String value) {
     _objectRepository.setOverPriceFactor(value);
   }
-  
 
-  @override
-  void onChange(Change<ObjectInputDataState> change) {
-    super.onChange(change);
+  void updateCashed() {
+    _objectRepository.save();
   }
-
-
 }

@@ -21,6 +21,17 @@ class ResourceDTO implements Comparable<ResourceDTO>{
     this.resourceFactor = 1.0,
   });
 
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is ResourceDTO && runtimeType == other.runtimeType &&
+              resourceCode == other.resourceCode &&
+              resourceName == other.resourceName;
+
+  @override
+  int get hashCode => Object.hash(resourceCode, resourceName);
+
   @override
   int compareTo(ResourceDTO other) {
     return resourceCostPerDay.compareTo(other.resourceCostPerDay);

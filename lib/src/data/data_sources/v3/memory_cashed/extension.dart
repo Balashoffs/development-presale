@@ -4,7 +4,7 @@ import 'package:presale/src/domain/models/v5/design/division_resource_table/divi
 extension ResourceDivisionDtoExt on DivisionResourceDTO {
   DivisionsMarginDTO toMargin(InputFactorsDTO factors) {
     return DivisionsMarginDTO(
-      id: id,
+      id: resourceId,
       divisionName: divisionName,
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,

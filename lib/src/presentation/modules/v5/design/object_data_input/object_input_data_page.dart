@@ -235,7 +235,7 @@ class LoadedWidget extends StatelessWidget {
                       iconData:
                           MoonIcons.arrows_chevron_right_double_32_regular,
                       onTap: value ? (){
-                        cubit.save();
+                        cubit.updateCashed();
                         context.go(designResourcesRoute);
                       } : null,
                     );
