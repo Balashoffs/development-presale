@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
-import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/repository.dart';
+import 'package:presale/src/domain/repository/v5/design/input_data_repository.dart';
 
 part 'object_input_data_state.dart';
 

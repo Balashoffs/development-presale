@@ -1,6 +1,7 @@
 import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 
 class DesignPresaleDTO {
   InputDataDesignDTO? inputDataDesignDTO;
@@ -243,6 +244,8 @@ class DivisionsMarginDTO {
 }
 
 class CommercialOfferDTO {
+
+  final String id;
   final List<DivisionResultDTO> divisionResults;
   final double designOfferSummaryCost;
   final double designOfferSummaryTax;
@@ -253,6 +256,7 @@ class CommercialOfferDTO {
   late final PersonSignDTO? personSign;
 
   CommercialOfferDTO({
+    required this.id,
     required this.divisionResults,
     required this.designOfferSummaryCost,
     required this.designOfferSummaryTax,
@@ -281,27 +285,5 @@ class DivisionResultDTO {
     required this.divisionClient,
     required this.divisionSummary,
     required this.divisionSummaryWithTax,
-  });
-}
-
-class PersonSignDTO {
-  final int id;
-  final String fistName;
-  final String secondName;
-  final String lastName;
-  final String jobTitle;
-  final String companyTitle;
-  final String phoneNumber;
-  final String jobEmail;
-
-  const PersonSignDTO({
-    required this.id,
-    required this.fistName,
-    required this.secondName,
-    required this.lastName,
-    required this.jobTitle,
-    required this.companyTitle,
-    required this.phoneNumber,
-    required this.jobEmail,
   });
 }

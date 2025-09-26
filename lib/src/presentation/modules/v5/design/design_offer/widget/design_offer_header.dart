@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
+import 'package:presale/src/domain/models/v3/design/commercial_offer/commercial_offer.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
+import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/person_sign/sign_person_widget.dart';
@@ -10,15 +13,16 @@ import 'package:presale/src/presentation/modules/v5/design/common/text_input_val
 import '../../common/custom_text_input.dart';
 
 class DesignOfferHeaderWidget extends StatelessWidget {
-  const DesignOfferHeaderWidget({super.key, required this.controller});
+  const DesignOfferHeaderWidget({super.key, required this.offerResult});
 
-  final DesignOfferResultController controller;
+  final DesignOfferResultVM offerResult;
 
   @override
   Widget build(BuildContext context) {
-    final DesignOfferResultVM result = controller.designOfferResultVM!;
+    final cubit = context.read()<DesignOfferCubit>();
+
     return SizedBox(
-      width:786,
+      width: 786,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,50 +30,47 @@ class DesignOfferHeaderWidget extends StatelessWidget {
         children: [
           DesignOfferHeaderRowHeaderWidget(
             type: "Дата создания КП",
-            value: result.createdDate,
+            value: offerResult.createdDate,
           ),
-          DesignOfferHeaderRowHeaderWidget(
-            type: "№ КП",
-            value: result.id,
-          ),
+          DesignOfferHeaderRowHeaderWidget(type: "№ КП", value: offerResult.id),
           DesignOfferHeaderRowHeaderWidget(
             type: "Тип документации",
-            value: result.divisionType,
+            value: offerResult.divisionType,
           ),
           DesignOfferHeaderRowHeaderWidget(
             type: "Наименование объекта",
-            value: result.objectName,
+            value: offerResult.objectName,
           ),
           DesignOfferHeaderRowHeaderWidget(
             type: "Адрес объекта",
-            value: result.objectLocation,
+            value: offerResult.objectLocation,
           ),
           DesignOfferHeaderRowHeaderWidget(
             type: "Площадь объекта, м\u00B2",
-            value: '${result.objectSquare}',
+            value: '${offerResult.objectSquare}',
           ),
 
           DesignOfferHeaderRowHeaderWidget(
             type: "Сроки выполнения, дн.",
-            value: '${result.totalDays}',
+            value: '${offerResult.totalDays}',
           ),
           DesignOfferHeaderRowWithTextInputHeaderWidget(
             type: 'Авансирование, %',
-            onChanged: controller.onAvance,
+            onChanged: cubit.onAvance,
             validator: onlyInfiniteNumberValidator,
           ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
-          child: SizedBox(
-            width: 788,
-            child: CustomTextAreaInput(
-              helperText: 'Примечание (Поддерживает многострочность)',
-              onChanged: controller.onComments,
-              trailing: MoonIcons.controls_close_small_24_light,
-              validator: commentValidator,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: SizedBox(
+              width: 788,
+              child: CustomTextAreaInput(
+                helperText: 'Примечание (Поддерживает многострочность)',
+                onChanged: cubit.onComments,
+                trailing: MoonIcons.controls_close_small_24_light,
+                validator: commentValidator,
+              ),
             ),
           ),
-        ),
           PersonSignBuilderWidget(
             onSaved: context.read<PersonSignCubit>().onSaved,
           ),

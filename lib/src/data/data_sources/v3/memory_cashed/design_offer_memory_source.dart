@@ -22,6 +22,8 @@ class DesignOfferMemorySource {
           .toList() ??
       [];
 
+  CommercialOfferDTO? get commercialOffer => _designPresaleDTO?.commercialOfferDTO;
+
   bool get isAll => _designPresaleDTO?.isAllResources ?? false;
   set isAll(bool isAll) => _designPresaleDTO?.isAllResources = isAll;
 

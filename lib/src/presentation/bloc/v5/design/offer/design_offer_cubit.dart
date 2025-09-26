@@ -1,20 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:presale/src/domain/models/v5/common/offer_counter/extension.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
+import 'package:presale/src/data/data_sources/v3/person_sign_source.dart';
+import 'package:presale/src/di/di.dart';
+import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
+import 'package:presale/src/domain/repository/v5/design/design_offer_repository.dart';
+import 'package:presale/src/domain/service/v5/design/excel_service.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
-import 'package:syncfusion_flutter_xlsio/xlsio.dart';
-
-import 'package:presale/src/data/core/db_client.dart';
-import 'package:presale/src/data/data_sources/v3/input_result_design_source.dart';
-import 'package:presale/src/domain/models/v3/design/commercial_offer/commercial_offer.dart';
-import 'package:presale/src/domain/models/v3/design/extension.dart';
-import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
-import 'package:presale/src/domain/models/v5/common/offer_template_builder.dart';
-
-import 'package:presale/src/data/helpers/xlsx_helper/save_file_mobile.dart'
-    if (dart.library.html) 'package:presale/src/data/helpers/xlsx_helper/save_file_web.dart';
+import 'package:presale/src/presentation/bloc/v5/person_sign/person_sing_repository.dart';
 
 part 'design_offer_state.dart';
 
@@ -22,83 +17,70 @@ part 'design_offer_cubit.freezed.dart';
 
 class DesignOfferCubit extends Cubit<DesignOfferState> {
   final DesignOfferResultController _designOfferController;
-  final DesignPresaleDataSourceLocal _dataSourceLocal;
+  final PersonSingRepository _personSingRepository;
+  final DesignOfferRepository _designOfferRepository;
+  final ExcelService _excelService;
 
-  DesignOfferCubit({
-    required DesignOfferResultController controller,
-    required DBClient dbClient,
-  }) : _designOfferController = controller,
-       _dataSourceLocal = DesignPresaleDataSourceLocal(dbClient),
-       super(const DesignOfferState()) {
-    init();
+
+  DesignOfferResultVM? get designOfferVM => _designOfferController.designOfferResultVM;
+
+  final ValueNotifier<bool> _isCorrect = ValueNotifier(false);
+
+  ValueNotifier<bool> get isCorrect => _isCorrect;
+
+  DesignOfferCubit(DependencyInjector di)
+    : _designOfferController = DesignOfferResultController(),
+      _personSingRepository = PersonSingRepository(
+        PersonSignDataSourceLocal(di.dbClientImpl),
+      ),
+      _excelService = ExcelService(),
+      _designOfferRepository = DesignOfferRepository(di.inMemoryImpl),
+      super(const DesignOfferState()) {
+    _init();
   }
 
-  void init() async {
-    DesignPresalePojo designPresalePojo = await _dataSourceLocal.read(
-      DesignPresaleDataSourceLocal.key,
-    );
-    bool isBuild = _designOfferController.buildModel(designPresalePojo);
+  void _init() async {
+    _personSingRepository.personStream.listen((event) {
+      if (event == null || event.id == 0) {
+        _isCorrect.value = false;
+      } else {
+        _isCorrect.value = true;
+      }
+    });
 
-    if (isBuild) {
+    final divisions = _designOfferRepository.divisions;
+    final inputData = _designOfferRepository.inputData;
+    if (inputData != null) {
+      _designOfferController.initController(inputData, divisions);
       emit(DesignOfferState(stateEnum: StateEnum.showing));
     }
   }
 
+  void onComments(String value) {
+    DesignOfferResultVM? result = _designOfferController.onComments(value);
+    if (result != null) {
+      _designOfferRepository.updateOffer(result);
+    }
+  }
+
+  void onAvance(String value) {
+    DesignOfferResultVM? result = _designOfferController.onAvance(value);
+    if (result != null) {
+      _designOfferRepository.updateOffer(result);
+    }
+  }
 
   void saveRawToExcelFile() async {
-    DesignPresalePojo designPresalePojo = await _dataSourceLocal.read(
-      DesignPresaleDataSourceLocal.key,
-    );
-    CommercialOfferResult? commercialOfferResult = _designOfferController
-        .designOfferResultVM
-        ?.toPojo(
-      designPresalePojo.inputDataDesign,
-      _designOfferController.personSign,
-    );
-    if (commercialOfferResult != null) {
-      int total = designPresalePojo.divisions?.rows.length ?? 0;
-      if (total != 0) {
-        final Workbook workbook = Workbook(total);
-        final Worksheet sheet = workbook.worksheets[0];
-        ITemplateBuilder builder = DesignOfferNoTaxTemplateBuilder(
-          offerResult: commercialOfferResult,
-          worksheet: sheet,
-        );
-        await builder.fillRows();
-        List<int> fileBytes = builder.saveToBytes();
-        String id = designPresalePojo.inputDataDesign.offerCounter.toDto().getOfferUniqueNumber();
-
-        saveAndLaunchFile(fileBytes, '${id}_без_НДС_.xlsx');
-      }
+    final offer = _designOfferRepository.commercialOffer;
+    if (offer != null) {
+      _excelService.saveToExcel(offer, ExcelSaveType.number);
     }
   }
 
   void saveToClearExcelFile() async {
-    DesignPresalePojo designPresalePojo = await _dataSourceLocal.read(
-      DesignPresaleDataSourceLocal.key,
-    );
-    CommercialOfferResult? commercialOfferResult = _designOfferController
-        .designOfferResultVM
-        ?.toPojo(
-          designPresalePojo.inputDataDesign,
-          _designOfferController.personSign,
-        );
-    if (commercialOfferResult != null) {
-      int total = designPresalePojo.divisions?.rows.length ?? 0;
-      if (total != 0) {
-        final Workbook workbook = Workbook(total);
-        final Worksheet sheet = workbook.worksheets[0];
-        ITemplateBuilder builder = DesignOfferWithTaxTemplateBuilder(
-          offerResult: commercialOfferResult,
-          worksheet: sheet,
-        );
-        await builder.fillRows();
-        List<int> fileBytes = builder.saveToBytes();
-        String id = designPresalePojo.inputDataDesign.offerCounter.toDto().getOfferUniqueNumber();
-        saveAndLaunchFile(fileBytes, '${id}_с_НДС_.xlsx');
-      }
+    final offer = _designOfferRepository.commercialOffer;
+    if (offer != null) {
+      _excelService.saveToExcel(offer, ExcelSaveType.client);
     }
   }
-
-
 }

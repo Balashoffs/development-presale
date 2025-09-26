@@ -18,7 +18,7 @@ import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divis
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_summary_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/extensions.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
-import 'package:presale/src/presentation/bloc/v5/design/divisions_margin_calculator/divsion_margin_repository.dart';
+import 'package:presale/src/domain/repository/v5/design/divsion_margin_repository.dart';
 
 part 'divisions_margin_calculate_state.dart';
 

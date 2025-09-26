@@ -15,6 +15,7 @@ class DesignOfferRootWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<DesignOfferCubit>();
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
@@ -36,10 +37,8 @@ class DesignOfferRootWidget extends StatelessWidget {
                   showBorder: true,
                   onTap: context.pop,
                 ),
-                ValueListenableBuilder(
-                  valueListenable: context
-                      .read<DesignOfferResultController>()
-                      .isCorrect,
+                ValueListenableBuilder<bool>(
+                  valueListenable: cubit.isCorrect,
                   builder: (context, value, child) {
                     return Row(
                       spacing: 16.0,
@@ -95,15 +94,14 @@ class DesignOfferRootWidget extends StatelessWidget {
 
 class OfferHeadWidget extends StatelessWidget {
   const OfferHeadWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
-    final controller = context.read<DesignOfferResultController>();
+    final offerResult = context.watch()<DesignOfferCubit>().offerResult;
     return SingleChildScrollView(
       child: Column(
         spacing: 8.0,
         children: [
-          DesignOfferHeaderWidget(controller: controller),
+          DesignOfferHeaderWidget(offerResult: offerResult),
           TextDivider(
             text: 'Итогвые цифры для КП',
             paddingTop: 16.0,
@@ -111,8 +109,7 @@ class OfferHeadWidget extends StatelessWidget {
           ),
           DivisionsResultsTableWidget(
             rowAttributes: designOfferTableAttribute,
-            footerResult: controller.designOfferResultVM!,
-            tableDataRows: controller.designOfferResultVM!.divisionRows,
+             offerResult: offerResult,
           ),
         ],
       ),

@@ -4,28 +4,44 @@ import 'package:flutter/services.dart';
 import 'package:presale/src/data/common/extensions/date.dart';
 import 'package:presale/src/data/common/utils/date_utils.dart';
 import 'package:presale/src/data/core/string_converter.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v3/design/commercial_offer/commercial_offer.dart';
 import 'package:presale/src/domain/models/v3/design/division_result/division_result.dart';
 import 'package:presale/src/domain/models/v3/design/extension.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/extension.dart';
+import 'package:presale/src/domain/service/v5/design/excel_service.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 abstract class ITemplateBuilder {
   Future<void> fillRows();
 
   List<int> saveToBytes();
+
+  String get fileLabelTemplate;
+}
+
+ITemplateBuilder build(ExcelSaveType type, Worksheet worksheet,
+    CommercialOfferDTO offerResult,) {
+  switch (type) {
+    case ExcelSaveType.number:
+      return DesignOfferNoTaxTemplateBuilder(worksheet: worksheet, offerResult: offerResult);
+    case ExcelSaveType.client:
+      return DesignOfferWithTaxTemplateBuilder(worksheet: worksheet, offerResult: offerResult);
+  }
 }
 
 class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
-  final CommercialOfferResult _offerResult;
+  final CommercialOfferDTO _offerResult;
   final Worksheet _worksheet;
   int _rowPos = 1;
 
+
   DesignOfferNoTaxTemplateBuilder({
     required Worksheet worksheet,
-    required CommercialOfferResult offerResult,
-  }) : _offerResult = offerResult,
-       _worksheet = worksheet;
+    required CommercialOfferDTO offerResult,
+  })
+      : _offerResult = offerResult,
+        _worksheet = worksheet;
 
   @override
   Future<void> fillRows() async {
@@ -168,7 +184,8 @@ class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
     if (_offerResult.inputDataDesign.objectData.square != 0) {
       _increment();
       String objectLocation =
-          'Площадь объекта: ${_offerResult.inputDataDesign.objectData.square} м\u00B2';
+          'Площадь объекта: ${_offerResult.inputDataDesign.objectData
+          .square} м\u00B2';
       _buildCell(
         objectLocation,
         'B$_rowPos:D$_rowPos',
@@ -331,29 +348,42 @@ class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
     }
   }
 
-  _buildCell(
-    String value,
-    String range, {
-    bool isMerge = false,
-    double? width,
-    HAlignType? alignType,
-    double fontSize = 12,
-    bool isBold = false,
-  }) {
+  _buildCell(String value,
+      String range, {
+        bool isMerge = false,
+        double? width,
+        HAlignType? alignType,
+        double fontSize = 12,
+        bool isBold = false,
+      }) {
     if (isMerge) {
       _worksheet.getRangeByName(range).merge();
     }
     if (width != null) {
-      _worksheet.getRangeByName(range).columnWidth = width;
+      _worksheet
+          .getRangeByName(range)
+          .columnWidth = width;
     }
     if (isBold) {
-      _worksheet.getRangeByName(range).cellStyle.bold = true;
+      _worksheet
+          .getRangeByName(range)
+          .cellStyle
+          .bold = true;
     }
     if (alignType != null) {
-      _worksheet.getRangeByName(range).cellStyle.hAlign = alignType;
+      _worksheet
+          .getRangeByName(range)
+          .cellStyle
+          .hAlign = alignType;
     }
-    _worksheet.getRangeByName(range).cellStyle.fontSize = fontSize;
-    _worksheet.getRangeByName(range).cellStyle.fontName = 'Times New Roman';
+    _worksheet
+        .getRangeByName(range)
+        .cellStyle
+        .fontSize = fontSize;
+    _worksheet
+        .getRangeByName(range)
+        .cellStyle
+        .fontName = 'Times New Roman';
     _worksheet.getRangeByName(range).setText(value);
   }
 
@@ -361,7 +391,8 @@ class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
     if (_offerResult.inputDataDesign.objectData.deadlineValue != 0) {
       _increment();
       _buildCell(
-        'Срок выполнения работ: ${_offerResult.inputDataDesign.objectData.deadlineValue} дн.',
+        'Срок выполнения работ: ${_offerResult.inputDataDesign.objectData
+            .deadlineValue} дн.',
         'B$_rowPos',
       );
     }
@@ -373,7 +404,8 @@ class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
 
   void _addCompanyJobTitle() {
     _buildCell(
-      '${_offerResult.footerData.personSign.jobTitle} - ${_offerResult.footerData.personSign.companyTitle}',
+      '${_offerResult.footerData.personSign.jobTitle} - ${_offerResult
+          .footerData.personSign.companyTitle}',
       'B$_rowPos',
       fontSize: 14,
     );
@@ -403,6 +435,9 @@ class DesignOfferNoTaxTemplateBuilder implements ITemplateBuilder {
     headerRange.cellStyle.borders.top.lineStyle = LineStyle.thick;
     headerRange.cellStyle.borders.bottom.lineStyle = LineStyle.thick;
   }
+
+  @override
+  String get fileLabelTemplate => '_без_НДС_.xlsx';
 }
 
 class DesignOfferWithTaxTemplateBuilder implements ITemplateBuilder {
@@ -413,8 +448,9 @@ class DesignOfferWithTaxTemplateBuilder implements ITemplateBuilder {
   DesignOfferWithTaxTemplateBuilder({
     required Worksheet worksheet,
     required CommercialOfferResult offerResult,
-  }) : _offerResult = offerResult,
-       _worksheet = worksheet;
+  })
+      : _offerResult = offerResult,
+        _worksheet = worksheet;
 
   @override
   Future<void> fillRows() async {
@@ -558,7 +594,8 @@ class DesignOfferWithTaxTemplateBuilder implements ITemplateBuilder {
     if (_offerResult.inputDataDesign.objectData.square != 0) {
       _increment();
       String objectLocation =
-          'Площадь объекта: ${_offerResult.inputDataDesign.objectData.square} м\u00B2';
+          'Площадь объекта: ${_offerResult.inputDataDesign.objectData
+          .square} м\u00B2';
       _buildCell(
         objectLocation,
         'B$_rowPos:D$_rowPos',
@@ -736,29 +773,42 @@ class DesignOfferWithTaxTemplateBuilder implements ITemplateBuilder {
     }
   }
 
-  _buildCell(
-    String value,
-    String range, {
-    bool isMerge = false,
-    double? width,
-    HAlignType? alignType,
-    double fontSize = 12,
-    bool isBold = false,
-  }) {
+  _buildCell(String value,
+      String range, {
+        bool isMerge = false,
+        double? width,
+        HAlignType? alignType,
+        double fontSize = 12,
+        bool isBold = false,
+      }) {
     if (isMerge) {
       _worksheet.getRangeByName(range).merge();
     }
     if (width != null) {
-      _worksheet.getRangeByName(range).columnWidth = width;
+      _worksheet
+          .getRangeByName(range)
+          .columnWidth = width;
     }
     if (isBold) {
-      _worksheet.getRangeByName(range).cellStyle.bold = true;
+      _worksheet
+          .getRangeByName(range)
+          .cellStyle
+          .bold = true;
     }
     if (alignType != null) {
-      _worksheet.getRangeByName(range).cellStyle.hAlign = alignType;
+      _worksheet
+          .getRangeByName(range)
+          .cellStyle
+          .hAlign = alignType;
     }
-    _worksheet.getRangeByName(range).cellStyle.fontSize = fontSize;
-    _worksheet.getRangeByName(range).cellStyle.fontName = 'Times New Roman';
+    _worksheet
+        .getRangeByName(range)
+        .cellStyle
+        .fontSize = fontSize;
+    _worksheet
+        .getRangeByName(range)
+        .cellStyle
+        .fontName = 'Times New Roman';
     _worksheet.getRangeByName(range).setText(value);
   }
 
@@ -766,7 +816,8 @@ class DesignOfferWithTaxTemplateBuilder implements ITemplateBuilder {
     if (_offerResult.inputDataDesign.objectData.deadlineValue != 0) {
       _increment();
       _buildCell(
-        'Срок выполнения работ: ${_offerResult.inputDataDesign.objectData.deadlineValue} дн.',
+        'Срок выполнения работ: ${_offerResult.inputDataDesign.objectData
+            .deadlineValue} дн.',
         'B$_rowPos',
       );
     }
@@ -778,7 +829,8 @@ class DesignOfferWithTaxTemplateBuilder implements ITemplateBuilder {
 
   void _addCompanyJobTitle() {
     _buildCell(
-      '${_offerResult.footerData.personSign.jobTitle} - ${_offerResult.footerData.personSign.companyTitle}',
+      '${_offerResult.footerData.personSign.jobTitle} - ${_offerResult
+          .footerData.personSign.companyTitle}',
       'B$_rowPos',
       fontSize: 14,
     );
@@ -808,4 +860,8 @@ class DesignOfferWithTaxTemplateBuilder implements ITemplateBuilder {
     headerRange.cellStyle.borders.top.lineStyle = LineStyle.thick;
     headerRange.cellStyle.borders.bottom.lineStyle = LineStyle.thick;
   }
+
+  @override
+  // TODO: implement fileLabelTemplate
+  String get fileLabelTemplate => '_с_НДС_.xlsx';
 }

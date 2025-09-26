@@ -1,5 +1,3 @@
-import 'package:presale/src/data/core/csv_parser.dart';
-
 class PersonSignDTO {
   final int id;
   final String fistName;
@@ -36,20 +34,6 @@ class PersonSignDTO {
    );
   }
 
-
-  factory PersonSignDTO.fromCsvRow(List<dynamic> row) {
-    return PersonSignDTO(
-      id: int.tryParse(row[0]) ?? 0,
-      fistName: row[1],
-      secondName: row[2],
-      lastName: row[3],
-      jobTitle: row[4],
-      companyTitle: row[5],
-      phoneNumber: row[6],
-      jobEmail: row[7],
-    );
-  }
-
   PersonSignDTO copyWith({
     int? id,
     String? fistName,
@@ -73,19 +57,7 @@ class PersonSignDTO {
   }
 }
 
-typedef DivisionCSVParser =
-    List<PersonSignDTO> Function(List<List<dynamic>> rows);
 
-const path = 'assets/calculator_data/v5/sign_person.csv';
 
-class DivisionCostDtoBuilder extends CsvParser<PersonSignDTO> {
-  DivisionCostDtoBuilder(super.path);
 
-  DivisionCSVParser get _parser =>
-      (rows) => rows.skip(1).map((row) => PersonSignDTO.fromCsvRow(row)).toList();
 
-  @override
-  Future<List<PersonSignDTO>> build() async {
-    return await parse(_parser);
-  }
-}

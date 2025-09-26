@@ -73,7 +73,10 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<DivisionResourceCalculateCubit>();
     final controller = cubit.controller;
-    final isAll = context.watch<DivisionResourceCalculateCubit>().state.isAllResourcesShow;
+    final isAll = context
+        .watch<DivisionResourceCalculateCubit>()
+        .state
+        .isAllResourcesShow;
     return Column(
       children: [
         Expanded(

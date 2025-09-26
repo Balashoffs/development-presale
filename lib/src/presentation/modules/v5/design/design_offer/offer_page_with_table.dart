@@ -15,21 +15,10 @@ class DesignOfferPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppBar(child: DesignOfferRepository());
+    return CustomAppBar(child: DesignOfferBlocProviderWidget());
   }
 }
 
-class DesignOfferRepository extends StatelessWidget {
-  const DesignOfferRepository({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) => DesignOfferResultController(),
-      child: DesignOfferBlocProviderWidget(),
-    );
-  }
-}
 
 class DesignOfferBlocProviderWidget extends StatelessWidget {
   const DesignOfferBlocProviderWidget({super.key});
@@ -40,17 +29,13 @@ class DesignOfferBlocProviderWidget extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => DesignOfferCubit(
-            dbClient: di.dbClientImpl,
-            controller: context.read<DesignOfferResultController>(),
+            di,
           ),
         ),
         BlocProvider(
           create: (context) => PersonSignCubit(
-            client: di.dbClientImpl,
-            sinkPersonSign: context
-                .read<DesignOfferResultController>()
-                .personSignSink,
-          )..init(),
+            di: di,
+          ),
         ),
       ],
       child: DesignOfferBlocConsumerWidget(),
