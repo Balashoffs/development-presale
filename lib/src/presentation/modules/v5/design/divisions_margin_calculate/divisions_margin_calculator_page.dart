@@ -27,7 +27,6 @@ class DivisionsMarginCalculatePage extends StatelessWidget {
   }
 }
 
-
 class DivisionsMarginCalculateProvider extends StatelessWidget {
   const DivisionsMarginCalculateProvider({super.key});
 
@@ -35,9 +34,7 @@ class DivisionsMarginCalculateProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<DivisionsMarginCalculateCubit>(
       create: (context) {
-        return DivisionsMarginCalculateCubit(
-          di: di,
-        );
+        return DivisionsMarginCalculateCubit(di: di);
       },
       child: DivisionsMarginCalculateConsumer(),
     );
@@ -74,7 +71,10 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
           flex: 9,
           child: DivisionsMarginTableWidget(
             rowAttributes: divisionMarginTableAttributes,
-            tableDataRows: context.read<DivisionsMarginCalculateCubit>().controller.rows,
+            tableDataRows: context
+                .read<DivisionsMarginCalculateCubit>()
+                .controller
+                .rows,
           ),
         ),
         Expanded(
@@ -89,8 +89,10 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
               ),
               CustomButtonWidget(
                 iconData: MoonIcons.arrows_chevron_right_double_32_regular,
-                //context.go(designOfferRoute);
-                onTap: context.read<DivisionsMarginCalculateCubit>().updateCashed,
+                onTap: () {
+                  context.read<DivisionsMarginCalculateCubit>().updateCashed();
+                  context.go(designOfferRoute);
+                },
               ),
             ],
           ),

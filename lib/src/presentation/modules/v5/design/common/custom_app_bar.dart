@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/di/di.dart';
 
 import 'package:presale/src/presentation/modules/service_type_select/navi/service_navi.dart';
 
@@ -23,6 +24,7 @@ class CustomAppBar extends StatelessWidget {
           MoonButton.icon(
             icon: Icon(MoonIcons.controls_close_16_light),
             onTap: () {
+              di.inMemoryImpl.clear();
               context.go(serviceTypeRoutePath);
             },
           ),

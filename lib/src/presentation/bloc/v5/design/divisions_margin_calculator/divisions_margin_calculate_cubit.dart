@@ -85,7 +85,7 @@ class DivisionsMarginCalculateCubit
     }
   }
 
-  void updateCashed() async {
+  void updateCashed() {
 
   }
 }
