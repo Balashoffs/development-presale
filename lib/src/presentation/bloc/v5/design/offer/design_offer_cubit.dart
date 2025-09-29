@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
 import 'package:presale/src/data/data_sources/v3/person_sign_source.dart';
 import 'package:presale/src/di/di.dart';
+import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 import 'package:presale/src/domain/repository/v5/design/design_offer_repository.dart';
 import 'package:presale/src/domain/service/v5/design/excel_service.dart';
@@ -16,25 +18,24 @@ part 'design_offer_state.dart';
 part 'design_offer_cubit.freezed.dart';
 
 class DesignOfferCubit extends Cubit<DesignOfferState> {
-  final DesignOfferResultController _designOfferController;
+
+  final DesignOfferResultController _resultController;
+  DesignOfferResultController get designOfferController => _resultController;
   final PersonSingRepository _personSingRepository;
   final DesignOfferRepository _designOfferRepository;
   final ExcelService _excelService;
-
-
-  DesignOfferResultVM? get designOfferVM => _designOfferController.designOfferResultVM;
 
   final ValueNotifier<bool> _isCorrect = ValueNotifier(false);
 
   ValueNotifier<bool> get isCorrect => _isCorrect;
 
   DesignOfferCubit(DependencyInjector di)
-    : _designOfferController = DesignOfferResultController(),
+    : _designOfferRepository = DesignOfferRepository(di.inMemoryImpl),
+      _excelService = ExcelService(),
+      _resultController = DesignOfferResultController(),
       _personSingRepository = PersonSingRepository(
         PersonSignDataSourceLocal(di.dbClientImpl),
       ),
-      _excelService = ExcelService(),
-      _designOfferRepository = DesignOfferRepository(di.inMemoryImpl),
       super(const DesignOfferState()) {
     _init();
   }
@@ -47,27 +48,29 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
         _isCorrect.value = true;
       }
     });
-
-    final divisions = _designOfferRepository.divisions;
-    final inputData = _designOfferRepository.inputData;
-    if (inputData != null) {
-      _designOfferController.initController(inputData, divisions);
+    if(_designOfferRepository.commercialOffer != null){
+      CommercialOfferDTO co = _designOfferRepository.commercialOffer!;
+      _resultController.setViewModel(co.toViewModel());
+      _resultController.setAvanveValue(co.summaryWithTax);
       emit(DesignOfferState(stateEnum: StateEnum.showing));
     }
+
   }
 
   void onComments(String value) {
-    DesignOfferResultVM? result = _designOfferController.onComments(value);
-    if (result != null) {
-      _designOfferRepository.updateOffer(result);
-    }
+    _designOfferRepository.updateNotes(value);
   }
 
   void onAvance(String value) {
-    DesignOfferResultVM? result = _designOfferController.onAvance(value);
-    if (result != null) {
-      _designOfferRepository.updateOffer(result);
+    if(value.isNotEmpty){
+      double? result = double.tryParse(value);
+      if(result != null){
+        double factor = result / 100;
+        _designOfferRepository.updateAvance(factor);
+        _resultController.setAvanveValue(_designOfferRepository.commercialOffer!.summaryWithTax, factor);
+      }
     }
+
   }
 
   void saveRawToExcelFile() async {

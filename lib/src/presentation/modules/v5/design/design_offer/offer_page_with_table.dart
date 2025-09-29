@@ -19,7 +19,6 @@ class DesignOfferPage extends StatelessWidget {
   }
 }
 
-
 class DesignOfferBlocProviderWidget extends StatelessWidget {
   const DesignOfferBlocProviderWidget({super.key});
 
@@ -27,16 +26,8 @@ class DesignOfferBlocProviderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => DesignOfferCubit(
-            di,
-          ),
-        ),
-        BlocProvider(
-          create: (context) => PersonSignCubit(
-            di: di,
-          ),
-        ),
+        BlocProvider(create: (context) => DesignOfferCubit(di)),
+        BlocProvider(create: (context) => PersonSignCubit(di: di)),
       ],
       child: DesignOfferBlocConsumerWidget(),
     );

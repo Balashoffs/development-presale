@@ -9,6 +9,7 @@ import 'package:presale/src/data/data_sources/v3/input_result_design_source.dart
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_memory_source.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
+import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
 import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
@@ -47,13 +48,17 @@ class DivisionsMarginCalculateCubit
     }
     InputFactorsDTO? inputFactorsDTO = _repository.inputFactorsDTO;
     if (inputFactorsDTO != null) {
+      DesignOfferCalculator calculator = DesignOfferCalculator();
       final divisions = map.values.map((e) {
         double total = e
             .map((e) => e.totalResourceRowCost)
             .reduce((value, element) => value + element);
         DivisionResourceDTO dto = e.first;
-        return dto.toMargin(inputFactorsDTO, total);
+        DivisionsMarginDTO margin = calculator.calcDivisionMarginDTOCost(dto.toMargin(inputFactorsDTO, total));
+        return margin;
       }).toList();
+
+
       _repository.fill(divisions);
       _divisionsViewController.fill(divisions);
       emit(DivisionsMarginCalculateState(stateEnum: StateEnum.showing));

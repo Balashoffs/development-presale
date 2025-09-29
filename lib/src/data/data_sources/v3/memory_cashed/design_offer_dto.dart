@@ -36,13 +36,13 @@ class ObjectDataDesignDTO {
   final int square;
 
   // Сроки работ
-  final int deadlineValue;
+  final int deadline;
 
   const ObjectDataDesignDTO({
     required this.name,
     required this.address,
     required this.square,
-    required this.deadlineValue,
+    required this.deadline,
   });
 }
 
@@ -171,7 +171,7 @@ class DivisionResourceDTO {
     );
   }
 
-  //</editor-fold>
+//</editor-fold>
 }
 
 class DivisionsMarginDTO {
@@ -228,7 +228,8 @@ class DivisionsMarginDTO {
       divisionName: divisionName ?? this.divisionName,
       divisionShortName: divisionShortName ?? this.divisionShortName,
       divisionDescription: divisionDescription ?? this.divisionDescription,
-      resourceDivisionSummaryCost: divisionSummaryCost ?? this.resourceDivisionSummaryCost,
+      resourceDivisionSummaryCost:
+      divisionSummaryCost ?? this.resourceDivisionSummaryCost,
       overPriceFactor: overPriceFactor ?? this.overPriceFactor,
       marginFactor: marginFactor ?? this.marginFactor,
       clientFactor: clientFactor ?? this.clientFactor,
@@ -236,7 +237,7 @@ class DivisionsMarginDTO {
       marginValue: marginValue ?? this.marginValue,
       clientValue: clientValue ?? this.clientValue,
       summaryCostWithMargin:
-          summaryCostWithMargin ?? this.summaryCostWithMargin,
+      summaryCostWithMargin ?? this.summaryCostWithMargin,
       summaryCostWithTax: summaryCostWithTax ?? this.summaryCostWithTax,
       taxValue: taxValue ?? this.taxValue,
     );
@@ -244,35 +245,107 @@ class DivisionsMarginDTO {
 }
 
 class CommercialOfferDTO {
-
   final String id;
+  final String created;
+  final String objectAddress;
+  final String objectLocation;
+  final String divisionType;
+  final int deadline;
+  final int objectSquare;
   final List<DivisionResultDTO> divisionResults;
-  final double designOfferSummaryCost;
-  final double designOfferSummaryTax;
-  final double designOfferTax;
-  String noteText;
-  String workCompletionTime;
-  double prepayment;
+  final double summaryClearCost;
+  final double summaryOverPriceCost;
+  final double summaryMarginCost;
+  final double summaryClientCost;
+  final double summary;
+  final double summaryWithTax;
+  final double tax;
   late final PersonSignDTO? personSign;
+  double avanceValue;
+  double avanceFactor;
+  String noteText;
 
   CommercialOfferDTO({
     required this.id,
+    required this.created,
+    required this.objectAddress,
+    required this.objectLocation,
+    required this.divisionType,
+    required this.deadline,
+    required this.objectSquare,
     required this.divisionResults,
-    required this.designOfferSummaryCost,
-    required this.designOfferSummaryTax,
-    required this.designOfferTax,
-    required this.prepayment,
-  }) : noteText = '',
-       workCompletionTime = '';
+    required this.summaryClearCost,
+    required this.summaryOverPriceCost,
+    required this.summaryMarginCost,
+    required this.summaryClientCost,
+    required this.summary,
+    required this.summaryWithTax,
+    required this.tax,
+    this.personSign,
+    this.avanceValue = 0.0,
+    this.avanceFactor = Default_Avance_Factor,
+  }) : noteText = '';
+
+  static CommercialOfferDTO from(InputDataDesignDTO inputData,
+      List<DivisionResultDTO> divisionResults,) {
+    return CommercialOfferDTO(
+        id: inputData.dayCounter.getOfferUniqueNumber(),
+        created: inputData.dayCounter.localDate,
+        objectAddress: inputData.objectData.address,
+        objectLocation: inputData.objectData.address,
+        divisionType: inputData.divisionType.text,
+        deadline: inputData.objectData.deadline,
+        objectSquare: inputData.objectData.square,
+        divisionResults: divisionResults,
+        summaryClearCost: divisionResults
+            .map((e) => e.divisionClearCost)
+            .reduce((value, element) => value + element),
+        summaryOverPriceCost: divisionResults
+            .map((e) => e.divisionOverPriceCost)
+            .reduce((value, element) => value + element),
+        summaryMarginCost: divisionResults
+            .map((e) => e.divisionMarginCost)
+            .reduce((value, element) => value + element),
+        summaryClientCost: divisionResults
+            .map((e) => e.divisionClientCost)
+            .reduce((value, element) => value + element),
+        summary: divisionResults
+            .map((e) => e.divisionSummary)
+            .reduce((value, element) => value + element),
+        summaryWithTax:
+        divisionResults
+            .map((e) => e.divisionSummary)
+            .reduce((value, element) => value + element) *
+            Russian_Tax_Factor,
+        avanceValue:
+        divisionResults
+            .map((e) => e.divisionSummaryWithTax)
+            .reduce((value, element) => value + element) *
+            Default_Avance_Factor,
+        avanceFactor: Default_Avance_Factor,
+        tax:
+        divisionResults
+            .map((e) => e.divisionSummary)
+            .reduce((value, element) => value + element) *
+            Russian_Tax_Factor *
+            Russian_Tax_Factor_Reverce,
+    );
+  }
+
+  void updateAvanceValue(double value) {
+    avanceValue = summaryWithTax * value;
+    avanceFactor = value;
+  }
 }
 
 class DivisionResultDTO {
   final int id;
   final String divisionShortName;
   final String divisionName;
-  final double divisionOverPrice;
-  final double divisionMargin;
-  final double divisionClient;
+  final double divisionClearCost;
+  final double divisionOverPriceCost;
+  final double divisionMarginCost;
+  final double divisionClientCost;
   final double divisionSummary;
   final double divisionSummaryWithTax;
 
@@ -280,9 +353,10 @@ class DivisionResultDTO {
     required this.id,
     required this.divisionShortName,
     required this.divisionName,
-    required this.divisionOverPrice,
-    required this.divisionMargin,
-    required this.divisionClient,
+    required this.divisionClearCost,
+    required this.divisionOverPriceCost,
+    required this.divisionMarginCost,
+    required this.divisionClientCost,
     required this.divisionSummary,
     required this.divisionSummaryWithTax,
   });

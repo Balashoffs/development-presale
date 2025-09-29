@@ -1,25 +1,38 @@
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_memory_source.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 
 class DesignOfferRepository {
   final DesignOfferMemorySource _designOfferMemorySource;
 
-  InputDataDesignDTO? get inputData =>
-      _designOfferMemorySource.designPresaleDTO?.inputDataDesignDTO;
+  CommercialOfferDTO? get commercialOffer =>
+      _designOfferMemorySource.designPresaleDTO?.commercialOfferDTO;
 
-  List<DivisionsMarginDTO> get divisions =>
-      _designOfferMemorySource.divisionMargins;
+  List<DivisionResultDTO> get divisions =>
+      _designOfferMemorySource.commercialOffer?.divisionResults ?? [];
 
-  CommercialOfferDTO? get commercialOffer => _designOfferMemorySource.commercialOffer;
 
-  DesignOfferRepository(this._designOfferMemorySource);
+  DesignOfferRepository(DesignOfferMemorySource designOfferMemorySource)
+    : _designOfferMemorySource = designOfferMemorySource {
+    final divisionResults = _designOfferMemorySource.divisionMargins
+        .map((e) => e.toDto())
+        .toList();
 
-  //TODO
-  CommercialOfferDTO? buildOffer() {
+    CommercialOfferDTO commercialOffer = CommercialOfferDTO.from(
+      _designOfferMemorySource.inputDataDesignDTO!,
+      divisionResults,
+    );
 
+    _designOfferMemorySource.setCommercialOffer(commercialOffer);
   }
 
-  //TODO
-  void updateOffer(DesignOfferResultVM result) {}
+  void updateNotes(String result) {
+    commercialOffer?.noteText = result;
+  }
+
+  void updateAvance(double value) {
+    commercialOffer?.updateAvanceValue(value);
+  }
+
 }

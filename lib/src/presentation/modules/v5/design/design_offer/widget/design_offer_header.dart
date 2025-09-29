@@ -1,11 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
-import 'package:presale/src/domain/models/v3/design/commercial_offer/commercial_offer.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
-import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
-import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_result_controller.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/person_sign/sign_person_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
@@ -13,14 +10,21 @@ import 'package:presale/src/presentation/modules/v5/design/common/text_input_val
 import '../../common/custom_text_input.dart';
 
 class DesignOfferHeaderWidget extends StatelessWidget {
-  const DesignOfferHeaderWidget({super.key, required this.offerResult});
+  const DesignOfferHeaderWidget({
+    super.key,
+    required this.offerResult,
+    required this.onCommentsChange,
+    required this.onAvanceChange,
+    required this.avanceVN,
+  });
 
   final DesignOfferResultVM offerResult;
+  final Function(String value) onAvanceChange;
+  final Function(String value) onCommentsChange;
+  final ValueListenable<double> avanceVN;
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read()<DesignOfferCubit>();
-
     return SizedBox(
       width: 786,
       child: Column(
@@ -39,7 +43,7 @@ class DesignOfferHeaderWidget extends StatelessWidget {
           ),
           DesignOfferHeaderRowHeaderWidget(
             type: "Наименование объекта",
-            value: offerResult.objectName,
+            value: offerResult.objectAddress,
           ),
           DesignOfferHeaderRowHeaderWidget(
             type: "Адрес объекта",
@@ -52,12 +56,28 @@ class DesignOfferHeaderWidget extends StatelessWidget {
 
           DesignOfferHeaderRowHeaderWidget(
             type: "Сроки выполнения, дн.",
-            value: '${offerResult.totalDays}',
+            value: '${offerResult.deadline}',
           ),
-          DesignOfferHeaderRowWithTextInputHeaderWidget(
-            type: 'Авансирование, %',
-            onChanged: cubit.onAvance,
-            validator: onlyInfiniteNumberValidator,
+          Row(
+            spacing: 8.0,
+            children: [
+              DesignOfferHeaderRowWithTextInputHeaderWidget(
+                type: 'Авансирование',
+                onChanged: onAvanceChange,
+                validator: onlyInfiniteNumberValidator,
+              ),
+              ValueListenableBuilder<double>(
+                valueListenable: avanceVN,
+                builder: (context, value, child) {
+                  return Text(
+                    '${value.toStringAsFixed(2)} рубл.',
+                    style: context.moonTypography?.body.text20.copyWith(
+                      color: context.moonColors?.popo,
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -65,7 +85,7 @@ class DesignOfferHeaderWidget extends StatelessWidget {
               width: 788,
               child: CustomTextAreaInput(
                 helperText: 'Примечание (Поддерживает многострочность)',
-                onChanged: cubit.onComments,
+                onChanged: onCommentsChange,
                 trailing: MoonIcons.controls_close_small_24_light,
                 validator: commentValidator,
               ),
@@ -144,6 +164,7 @@ class DesignOfferHeaderRowWithTextInputHeaderWidget extends StatelessWidget {
         SizedBox(
           width: 80,
           child: CustomTextInput(
+            valueSuffix: '%',
             hasFloatingLabel: false,
             hintText: '30',
             onChanged: onChanged,

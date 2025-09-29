@@ -8,7 +8,7 @@ class PersonSignDTO {
   final String phoneNumber;
   final String jobEmail;
 
-  String? get fullName => id == 0 ? '' : '$lastName ${fistName[0]}. ${secondName[0]}.';
+  String get fullName => id == 0 ? '' : '$lastName ${fistName[0]}. ${secondName[0]}.';
 
   PersonSignDTO({
     this.id = 0,

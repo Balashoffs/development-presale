@@ -7,6 +7,7 @@ class CustomTextInput extends StatefulWidget {
     super.key,
     required this.hintText,
     this.helperText,
+    this.valueSuffix,
     this.leading,
     this.trailing,
     this.onChanged,
@@ -22,6 +23,7 @@ class CustomTextInput extends StatefulWidget {
 
   final String hintText;
   final String? helperText;
+  final String? valueSuffix;
   final IconData? leading;
   final IconData? trailing;
   final double? width;
@@ -47,6 +49,13 @@ class _CustomTextInputState extends State<CustomTextInput> {
   @override
   void initState() {
     super.initState();
+  if(widget.valueSuffix != null){
+    _textController.addListener(() {
+      if(_textController.text.isNotEmpty && _textController.text != '0'){
+        _textController.text = _textController.text + widget.valueSuffix!;
+      }
+    },);
+  }
     _focusNode.addListener(() {
       setState(() {
         _borderColor = widget.hintText == '0' && _textController.text.isEmpty

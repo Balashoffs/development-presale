@@ -171,7 +171,7 @@ extension InputDataMVExt on InputDataMV {
       name: objectName,
       address: objectAddress,
       square: objectSquare,
-      deadlineValue: deadlineValue,
+      deadline: deadlineValue,
     );
   }
 

@@ -1,6 +1,5 @@
 import 'package:collection/collection.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
 
 class DesignOfferMemorySource {
   DesignPresaleDTO? _designPresaleDTO;
@@ -59,5 +58,9 @@ class DesignOfferMemorySource {
 
   void setAllResources(bool isAll){
     _designPresaleDTO?.isAllResources = isAll;
+  }
+
+  void setCommercialOffer(CommercialOfferDTO commercialOffer) {
+    _designPresaleDTO?.commercialOfferDTO = commercialOffer;
   }
 }

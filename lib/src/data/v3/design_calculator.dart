@@ -1,3 +1,4 @@
+import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/division_with_margin_row_viewmodel.dart';
@@ -19,7 +20,9 @@ class DesignOfferCalculator {
      Итого =  Себестоимость *  Накладные расходы *  Норма прибыли * 1.2
      */
 
-  double calcResourceCost(DivisionWithResourceViewModel divisionResourceViewModel) {
+  double calcResourceCost(
+    DivisionWithResourceViewModel divisionResourceViewModel,
+  ) {
     return divisionResourceViewModel.resourceCostPerDayVN.value *
         divisionResourceViewModel.resourceUsingFactor *
         divisionResourceViewModel.squareFactor *
@@ -48,5 +51,35 @@ class DesignOfferCalculator {
     model.summaryCostWithMarginVN.value = total;
     model.summaryCostWithTaxVN.value = withTax;
     model.taxValue = withTax * Russian_Tax_Factor_Reverce;
+  }
+
+  DivisionsMarginDTO calcDivisionMarginDTOCost(DivisionsMarginDTO dto) {
+    double tof = dto.resourceDivisionSummaryCost * dto.overPriceFactor;
+    double overPriceValue = tof - dto.resourceDivisionSummaryCost;
+
+    double mf = dto.resourceDivisionSummaryCost * dto.marginFactor;
+    double marginValue = mf - dto.resourceDivisionSummaryCost;
+
+    double cf = dto.resourceDivisionSummaryCost * dto.clientFactor;
+    double clientValue = cf - dto.resourceDivisionSummaryCost;
+
+    double summaryCostWithMargin =
+        dto.resourceDivisionSummaryCost +
+        overPriceValue +
+        marginValue +
+        clientValue;
+
+    double withTax = summaryCostWithMargin * Russian_Tax_Factor;
+
+    double taxValue = withTax * Russian_Tax_Factor_Reverce;
+    dto = dto.copyWith(
+      taxValue: taxValue,
+      overPriceValue: overPriceValue,
+      marginValue: marginValue,
+      clientValue: clientValue,
+      summaryCostWithMargin: summaryCostWithMargin,
+      summaryCostWithTax: withTax,
+    );
+    return dto;
   }
 }

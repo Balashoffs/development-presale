@@ -46,7 +46,7 @@ class _DivisionsMarginTableWidgetState
   }
 
   List<MoonTableRow> _generateTableRows() {
-    final controller = context.read<DivisionsMarginCalculateCubit>().controller;
+    final cubit = context.read<DivisionsMarginCalculateCubit>();
     return List.generate(widget.tableDataRows.length, (int index) {
       final row = widget.tableDataRows[index];
       return MoonTableRow(
@@ -82,7 +82,7 @@ class _DivisionsMarginTableWidgetState
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
               onChanged: (context, value) async {
-                controller.onOverPriceFactor(row.id, value);
+                cubit.onOverPriceFactor(row.id, value);
                 setState(() {});
               },
               defaultValue: row.overPriceFactor,
@@ -92,7 +92,7 @@ class _DivisionsMarginTableWidgetState
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
               onChanged: (context, value) async {
-                controller.onMarginFactor(row.id, value);
+                cubit.onMarginFactor(row.id, value);
                 setState(() {});
               },
               defaultValue: row.marginFactor,
@@ -102,7 +102,7 @@ class _DivisionsMarginTableWidgetState
             child: FloatInputCellWidget(
               key: Key(row.id.toString()),
               onChanged: (context, value) async {
-                controller.onClientFactor(row.id, value);
+                cubit.onClientFactor(row.id, value);
                 setState(() {});
               },
               defaultValue: row.clientFactor,

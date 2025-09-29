@@ -36,7 +36,7 @@ class PersonSignCubit extends Cubit<PersonSignState> {
         _emitNewState(personSignDTO);
       }
     });
-    _emitNewState();
+    _emitNewState(PersonSignDTO.empty());
   }
 
   void onFirstNameChange(String value) {
