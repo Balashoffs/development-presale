@@ -60,33 +60,34 @@ class ResourcesWithUnselectedViewController {
       return vm;
     }).toList();
 
-    if(isAllLoad){
+    if (isAllLoad) {
       List<DivisionWithResourceViewModel> notFilled = _loadedDivisions
           .where((element) => !element.divisionShortName.contains('ИД'))
           .map((e) => _buildById(e.id))
           .nonNulls
           .where(
             (element) => loaded
-            .where((load) => load.resourceId == element.resourceId)
-            .isEmpty,
-      )
+                .where((load) => load.resourceId == element.resourceId)
+                .isEmpty,
+          )
           .toList();
       loaded.addAll(notFilled);
     }
 
-    summaryVN.value = loaded
-        .map((e) => e.totalResourceRowCostVN.value)
-        .reduce((value, element) => value + element);
+    for (var element in loaded) {
+      _designOfferCalculator.calcResourceCost(element);
+    }
 
     loaded.sort((a, b) => a.resourceId.compareTo(b.resourceId));
 
     selectedRows.value = [...loaded];
+
+    updateResults();
   }
 
   void updateResults() {
     summaryVN.value = summaryCost;
     isValid.value = _isEmptyCostHas;
-
   }
 
   DivisionWithResourceViewModel? onAdd(int id) {
@@ -108,10 +109,10 @@ class ResourcesWithUnselectedViewController {
   DivisionWithResourceViewModel? onDelete(int id) {
     DivisionWithResourceViewModel? found = _getById(id);
     if (found != null) {
-      selectedRows.value.removeWhere((element) => element.resourceId == id);
+      _deleteResourceId(found.id, found.resourceId);
+      selectedRows.value.removeWhere((element) => element.id == id);
       selectedRows.value = [...selectedRows.value];
       summaryVN.value = summaryCost;
-      _deleteResourceId(found.id, found.resourceId);
     }
     return found;
   }
@@ -212,15 +213,43 @@ class ResourcesWithUnselectedViewController {
     }
   }
 
-  List<ResourceDTO> resourcesByDivisionShortName(String divisionShortName) =>
-      _loadedDivisions
-          .where((element) => element.divisionShortName == divisionShortName)
-          .firstOrNull
-          ?.resources
-          .sorted(
-            (a, b) => b.resourceCostPerDay.compareTo(a.resourceCostPerDay),
-          ) ??
-      [];
+  DropDownResources resourcesByDivisionShortName(
+    DivisionWithResourceViewModel row,
+    int index,
+  ) {
+    String divisionShortName = row.divisionShortName;
+    String defaultValue = row.resourceNameVN.value;
+    ResourceDTO defaultResource;
+    List<ResourceDTO> loaded =
+        _loadedDivisions
+            .where((element) => element.divisionShortName == divisionShortName)
+            .firstOrNull
+            ?.resources
+            .sorted(
+              (a, b) => b.resourceCostPerDay.compareTo(a.resourceCostPerDay),
+            ) ??
+        [];
+    if (divisionShortName.isNotEmpty) {
+      defaultResource = loaded
+          .where((element) => element.resourceName == defaultValue)
+          .first;
+      loaded.removeWhere((element) => element.resourceName == defaultValue);
+    } else {
+      defaultResource = loaded.first;
+      loaded.removeWhere(
+        (element) => element.resourceName == defaultResource.resourceName,
+      );
+    }
+
+    return DropDownResources(
+      defaultValue: defaultResource,
+      unloaded: loaded,
+      index: index,
+      row: row,
+      key: Key(row.resourceId.toString()),
+      id: row.id,
+    );
+  }
 
   int resourcesQnt(String divisionShortName) => _loadedDivisions
       .where((element) => element.divisionShortName == divisionShortName)
@@ -262,7 +291,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void _deleteResourceId(int id, int resourceId) {
-    _createdResourcedId[id]!.removeWhere((element) => element == resourceId);
+    _createdResourcedId[id]?.removeWhere((element) => element == resourceId);
     if (_createdResourcedId[id]!.isEmpty) {
       _createdResourcedId.remove(id);
     }

@@ -295,12 +295,14 @@ class _ResourceDropDownSelectorState extends State<ResourceDropDownSelector> {
 class ResourceObjectDropDownSelector extends StatefulWidget {
   const ResourceObjectDropDownSelector({
     super.key,
-    required this.resources,
+    required this.unloaded,
     required this.onSelected,
+    required this.defaultValue,
   });
 
-  final List<ResourceDTO> resources;
+  final List<ResourceDTO> unloaded;
   final Function(ResourceDTO?) onSelected;
+  final ResourceDTO defaultValue;
 
   @override
   State<ResourceObjectDropDownSelector> createState() =>
@@ -333,9 +335,8 @@ class _ResourceObjectDropDownSelectorState
   @override
   void initState() {
     super.initState();
-    _selected = widget.resources.firstOrNull;
-    _unselected = List.of(widget.resources);
-    _unselected!.removeWhere((element) => element.id == _selected!.id);
+    _selected = widget.defaultValue;
+    _unselected = widget.unloaded;
     _hintText = _selected!.resourceName;
   }
 

@@ -62,14 +62,16 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
   }
 
   void onAvance(String value) {
-    if(value.isNotEmpty){
-      double? result = double.tryParse(value);
+    double factor = 0.0;
+    if(value.isNotEmpty && value != '%'){
+      String edited = value.substring(0, value.indexOf('%')).trim();
+      double? result = double.tryParse(edited);
       if(result != null){
-        double factor = result / 100;
-        _designOfferRepository.updateAvance(factor);
-        _resultController.setAvanveValue(_designOfferRepository.commercialOffer!.summaryWithTax, factor);
+        factor = result / 100;
       }
     }
+    _designOfferRepository.updateAvance(factor);
+    _resultController.setAvanveValue(_designOfferRepository.commercialOffer!.summaryWithTax, factor);
 
   }
 

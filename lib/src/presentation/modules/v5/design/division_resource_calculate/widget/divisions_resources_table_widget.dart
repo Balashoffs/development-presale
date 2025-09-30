@@ -87,12 +87,12 @@ class _DivisionsResourceTableWidgetState
     final cubit = context.read<DivisionResourceCalculateCubit>();
     final controller = cubit.controller;
     return List.generate(widget.tableDataRows.length, (int index) {
-      final row = widget.tableDataRows[index];
-      List<ResourceDTO> resources = controller.resourcesByDivisionShortName(
-        row.divisionShortName,
+      DropDownResources resources = controller.resourcesByDivisionShortName(
+        widget.tableDataRows[index],
+        index,
       );
-      int pos = index + 1;
-      String key = row.resourceId.toString();
+      final row = resources.row;
+
       return MoonTableRow(
         height: 72,
         cells: [
@@ -100,10 +100,10 @@ class _DivisionsResourceTableWidgetState
           CellDecorationWidget(
             isFistCell: true,
             child: CellWithIconWidget(
-              key: Key(key),
+              key: resources.key,
               iconData: MoonIcons.controls_close_16_light,
               onTap: () async {
-                cubit.onRowAction(row.resourceId, WidgetActionType.delete);
+                cubit.onRowAction(resources.id, WidgetActionType.delete);
                 setState(() {
                   _isRemoveAction = true;
                 });
@@ -111,46 +111,53 @@ class _DivisionsResourceTableWidgetState
             ),
           ),
           CellDecorationWidget(
-            child: TextCellWidget(label: '$pos', key: Key(key)),
+            child: TextCellWidget(
+              label: '${resources.pos}',
+              key: resources.key,
+            ),
           ),
           //Division short name
           CellDecorationWidget(
-            child: TextCellWidget(label: row.divisionShortName, key: Key(key)),
+            child: TextCellWidget(
+              label: resources.row.divisionShortName,
+              key: resources.key,
+            ),
           ),
           //Division name
           CellDecorationWidget(
             child: CellWithMultiLineWidget(
-              key: Key(key),
+              key: resources.key,
               label: row.divisionName,
               hint: row.divisionDescription,
             ),
           ),
-          resources.length > 1
+          resources.unloaded.isNotEmpty
               ? CellDecorationWidget(
                   child: ResourcesDropdownWidget(
-                    key: Key(key),
+                    key: resources.key,
                     onChanged: (context, value) async {
                       cubit.onResourceName(row.resourceId, value);
                       setState(() {});
                     },
-                    resources: resources,
+                    resources: resources.unloaded,
+                    preloaded: resources.defaultValue,
                   ),
                 )
               : CellDecorationWidget(
                   child: TextCellWidget(
-                    key: Key(key),
+                    key: resources.key,
                     label: row.resourceNameVN.value,
                   ),
                 ),
           CellDecorationWidget(
             child: TextWithNotifier(
-              key: Key(key),
+              key: resources.key,
               vn: row.resourceCostPerDayVN,
             ),
           ),
           CellDecorationWidget(
             child: IntInputCellWidget(
-              key: Key(row.resourceId.toString()),
+              key: resources.key,
               onChanged: (context, value) async {
                 cubit.onResourceQnt(row.resourceId, value);
                 setState(() {});
@@ -160,7 +167,7 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: IntInputCellWidget(
-              key: Key(key),
+              key: resources.key,
               onChanged: (context, value) async {
                 cubit.onWorkDays(row.resourceId, value);
                 setState(() {});
@@ -170,7 +177,7 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
-              key: Key(key),
+              key: resources.key,
               onChanged: (context, value) async {
                 cubit.onComplexFactor(row.resourceId, value);
                 setState(() {});
@@ -180,7 +187,7 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
-              key: Key(key),
+              key: resources.key,
               onChanged: (context, value) async {
                 cubit.onSquareFactor(row.resourceId, value);
                 setState(() {});
@@ -190,7 +197,7 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
-              key: Key(key),
+              key: resources.key,
               onChanged: (context, value) async {
                 cubit.onResourceUsingFactor(row.resourceId, value);
                 setState(() {});
@@ -199,7 +206,7 @@ class _DivisionsResourceTableWidgetState
             ),
           ),
           CellDecorationWidget(
-            key: Key(key),
+            key: resources.key,
             child: TextWithNotifier(vn: row.totalResourceRowCostVN),
           ),
         ],
@@ -208,7 +215,9 @@ class _DivisionsResourceTableWidgetState
   }
 
   MoonTableFooter _generateTableFooter() {
-    final controller = context.read<DivisionResourceCalculateCubit>().controller;
+    final controller = context
+        .read<DivisionResourceCalculateCubit>()
+        .controller;
     return MoonTableFooter(
       cells: List.generate(widget.rowAttributes.length, (int index) {
         final row = widget.rowAttributes[index];

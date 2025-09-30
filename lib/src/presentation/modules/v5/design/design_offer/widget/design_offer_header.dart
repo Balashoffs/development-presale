@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/person_sign/sign_person_widget.dart';
@@ -59,12 +60,12 @@ class DesignOfferHeaderWidget extends StatelessWidget {
             value: '${offerResult.deadline}',
           ),
           Row(
-            spacing: 8.0,
+            spacing: 32.0,
             children: [
               DesignOfferHeaderRowWithTextInputHeaderWidget(
                 type: 'Авансирование',
                 onChanged: onAvanceChange,
-                validator: onlyInfiniteNumberValidator,
+                validator: percentValidator,
               ),
               ValueListenableBuilder<double>(
                 valueListenable: avanceVN,
@@ -166,9 +167,8 @@ class DesignOfferHeaderRowWithTextInputHeaderWidget extends StatelessWidget {
           child: CustomTextInput(
             valueSuffix: '%',
             hasFloatingLabel: false,
-            hintText: '30',
+            hintText: '${Default_Avance_Factor * 100}%',
             onChanged: onChanged,
-            styleFontSize: 16,
             helpStyleFontSize: 12,
             trailing: MoonIcons.controls_close_small_24_light,
             validator: validator,

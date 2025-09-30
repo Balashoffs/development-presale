@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 
 class DivisionWithResourceViewModel {
   final int id;
@@ -87,4 +88,22 @@ class DivisionWithResourceViewModel {
        _resourceUsingFactor = 1.0,
        _workDays = 0,
        _resourceQnt = 0;
+}
+
+class DropDownResources {
+  final DivisionWithResourceViewModel row;
+  final List<ResourceDTO> unloaded;
+  final ResourceDTO defaultValue;
+  final Key key;
+  final int pos;
+  final int id;
+
+  DropDownResources({
+    required this.row,
+    required this.id,
+    required this.key,
+    required int index,
+    required this.unloaded,
+    required this.defaultValue,
+  }) : pos = index + 1;
 }

@@ -40,7 +40,6 @@ class DivisionResourceCalculateCubit
     if (cached.isNotEmpty) {
       _resourcesViewController.findLoaded(cached, flag);
     }
-    _divisionRepository.isAllResources = flag;
     emit(
       DivisionResourceCalculateState(
         stateEnum: StateEnum.showing,
@@ -136,6 +135,9 @@ class DivisionResourceCalculateCubit
 
   void changeTableView(bool value) {
     _divisionRepository.isAllResources = value;
+    if (!value) {
+      _divisionRepository.clearResourceDivisions();
+    }
     _resourcesViewController.changeTableView(value);
   }
 

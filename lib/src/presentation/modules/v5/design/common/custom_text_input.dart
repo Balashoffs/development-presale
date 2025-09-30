@@ -18,7 +18,8 @@ class CustomTextInput extends StatefulWidget {
     this.helpStyleFontSize = 12,
     this.autofocus = false,
     required this.isEnables,
-    this.hasFloatingLabel = false, this.textInputSize = MoonTextInputSize.sm,
+    this.hasFloatingLabel = false,
+    this.textInputSize = MoonTextInputSize.sm,
   });
 
   final String hintText;
@@ -49,13 +50,19 @@ class _CustomTextInputState extends State<CustomTextInput> {
   @override
   void initState() {
     super.initState();
-  if(widget.valueSuffix != null){
-    _textController.addListener(() {
-      if(_textController.text.isNotEmpty && _textController.text != '0'){
-        _textController.text = _textController.text + widget.valueSuffix!;
-      }
-    },);
-  }
+    if(widget.valueSuffix != null){
+      _textController.addListener(() {
+        bool isNotPercent = !_textController.text.contains('%');
+        if(isNotPercent){
+          int pos = _textController.text.length;
+          final newText = _textController.text + widget.valueSuffix!;
+          _textController.value = _textController.value.copyWith(
+            text: newText,
+            selection: TextSelection.collapsed(offset: pos),
+          );
+        }
+      },);
+    }
     _focusNode.addListener(() {
       setState(() {
         _borderColor = widget.hintText == '0' && _textController.text.isEmpty
@@ -67,7 +74,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
 
   @override
   void dispose() {
-    _textController.clear();
+
     _textController.dispose();
     super.dispose(); //
   }
@@ -75,9 +82,9 @@ class _CustomTextInputState extends State<CustomTextInput> {
   @override
   void didUpdateWidget(CustomTextInput oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.key != widget.key) {
-      _textController.text = widget.hintText;
-    }
+    // if (oldWidget.key != widget.key) {
+    //   _textController.text = widget.hintText;
+    // }
   }
 
   @override
@@ -88,7 +95,6 @@ class _CustomTextInputState extends State<CustomTextInput> {
       textAlign: TextAlign.start,
       controller: _textController,
       enabled: widget.isEnables,
-      style: TextStyle(fontSize: widget.styleFontSize),
       helperTextStyle: TextStyle(fontSize: widget.helpStyleFontSize),
       textInputSize: widget.textInputSize,
       hasFloatingLabel: widget.hasFloatingLabel,

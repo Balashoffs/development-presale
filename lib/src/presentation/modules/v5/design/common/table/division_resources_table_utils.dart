@@ -206,17 +206,20 @@ class ResourcesDropdownWidget extends StatelessWidget {
     super.key,
     required this.onChanged,
     required this.resources,
+    required this.preloaded,
   });
 
   final ValueChangedWithContext<String> onChanged;
   final List<ResourceDTO> resources;
+  final ResourceDTO preloaded;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ResourceObjectDropDownSelector(
         onSelected: (p0) => onChanged(context, p0?.resourceName ?? ''),
-        resources: resources,
+        unloaded: resources,
+        defaultValue: preloaded,
       ),
     );
   }

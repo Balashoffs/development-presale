@@ -41,6 +41,10 @@ class DivisionRepository {
     _designOfferMemorySource.updateDivisionResource(dto);
   }
 
+  void clearResourceDivisions(){
+    _designOfferMemorySource.clearResourceDivisions();
+  }
+
   void updateDivisionMargins(List<DivisionResourceDTO> added) {
     final keys =
         _designOfferMemorySource.designPresaleDTO?.divisionResources.keys
