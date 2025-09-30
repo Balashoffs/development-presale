@@ -48,7 +48,7 @@ class ResourcesWithUnselectedViewController {
     divisionsVM.addAll(vms);
   }
 
-  void findLoaded(List<DivisionResourceDTO> list, bool isAllResources) {
+  void findLoaded(List<DivisionResourceDTO> list, bool isAllLoad) {
     List<DivisionWithResourceViewModel> loaded = list.map((e) {
       DivisionWithResourceViewModel vm = e.toViewModel();
       vm.complexFactor = e.complexFactor;
@@ -60,22 +60,23 @@ class ResourcesWithUnselectedViewController {
       return vm;
     }).toList();
 
-    List<DivisionWithResourceViewModel> notFilled = _loadedDivisions
-        .where((element) => !element.divisionShortName.contains('ИД'))
-        .map((e) => _buildById(e.id))
-        .nonNulls
-        .where(
-          (element) => loaded
-              .where((load) => load.resourceId == element.resourceId)
-              .isEmpty,
-        )
-        .toList();
+    if(isAllLoad){
+      List<DivisionWithResourceViewModel> notFilled = _loadedDivisions
+          .where((element) => !element.divisionShortName.contains('ИД'))
+          .map((e) => _buildById(e.id))
+          .nonNulls
+          .where(
+            (element) => loaded
+            .where((load) => load.resourceId == element.resourceId)
+            .isEmpty,
+      )
+          .toList();
+      loaded.addAll(notFilled);
+    }
 
     summaryVN.value = loaded
         .map((e) => e.totalResourceRowCostVN.value)
         .reduce((value, element) => value + element);
-
-    loaded.addAll(notFilled);
 
     loaded.sort((a, b) => a.resourceId.compareTo(b.resourceId));
 

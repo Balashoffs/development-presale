@@ -40,7 +40,7 @@ class DivisionResourceCalculateCubit
     if (cached.isNotEmpty) {
       _resourcesViewController.findLoaded(cached, flag);
     }
-
+    _divisionRepository.isAllResources = flag;
     emit(
       DivisionResourceCalculateState(
         stateEnum: StateEnum.showing,
