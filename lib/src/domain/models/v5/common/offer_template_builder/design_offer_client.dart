@@ -108,7 +108,7 @@ class DesignOfferClient extends BaseTemplateBuilder {
       title,
       'B$rowPos:D$rowPos',
       alignType: HAlignType.center,
-      fontSize: 16,
+      fontSize: 14,
       isBold: true,
       isMerge: true,
     );
@@ -320,7 +320,7 @@ class DesignOfferClient extends BaseTemplateBuilder {
     );
     _increment(1);
     _buildCell(
-      '${offerResult.avanceValue} руб.',
+      convertToString(offerResult.avanceValue, 2),
       'B$rowPos:D$rowPos',
       isMerge: true,
       fontSize: 14,

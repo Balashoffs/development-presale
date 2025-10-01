@@ -225,7 +225,7 @@ class LoadedWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 CustomButtonWidget(
-                  iconData: MoonIcons.arrows_chevron_left_double_32_regular,
+                  text: '  Выйти  ',
                   onTap: () {
                     cubit.clearCached();
                     context.pop();
@@ -235,8 +235,7 @@ class LoadedWidget extends StatelessWidget {
                   valueListenable: context.read<ObjectDataCubit>().isValid,
                   builder: (context, value, child) {
                     return CustomButtonWidget(
-                      iconData:
-                          MoonIcons.arrows_chevron_right_double_32_regular,
+                      text: ' Вперед ',
                       onTap: value ? (){
                         cubit.updateCashed();
                         context.go(designResourcesRoute);

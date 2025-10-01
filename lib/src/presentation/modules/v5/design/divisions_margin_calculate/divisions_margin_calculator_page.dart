@@ -84,11 +84,11 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButtonWidget(
-                iconData: MoonIcons.arrows_chevron_left_double_32_regular,
+                text: '  Назад  ',
                 onTap: context.pop,
               ),
               CustomButtonWidget(
-                iconData: MoonIcons.arrows_chevron_right_double_32_regular,
+                text: ' Вперед ',
                 onTap: () {
                   context.go(designOfferRoute);
                 },

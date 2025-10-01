@@ -9,6 +9,7 @@ import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit
 import 'package:presale/src/presentation/common/widget/text_divider.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/next_page_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/design_offer_header.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/divisions_results_table_widget.dart';
 
@@ -41,11 +42,8 @@ class DesignOfferRootWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                MoonButton(
-                  trailing: Icon(
-                    MoonIcons.arrows_chevron_left_double_32_regular,
-                  ),
-                  showBorder: true,
+                CustomButtonWidget(
+                  text: '  Назад  ',
                   onTap: context.pop,
                 ),
                 ValueListenableBuilder<bool>(
@@ -54,16 +52,8 @@ class DesignOfferRootWidget extends StatelessWidget {
                     return Row(
                       spacing: 16.0,
                       children: [
-                        MoonButton(
-                          trailing: Text(
-                            'без НДС',
-                            textAlign: TextAlign.start,
-                            style: context.moonTypography?.body.text14.copyWith(
-                              color: context.moonColors?.trunks,
-                            ),
-                          ),
-                          showBorder: true,
-                          // label: Icon(MoonIcons.generic_download_16_light),
+                        CustomButtonWidget(
+                          text: 'без НДС',
                           onTap: value
                               ? () {
                                   context
@@ -72,16 +62,8 @@ class DesignOfferRootWidget extends StatelessWidget {
                                 }
                               : null,
                         ),
-                        MoonButton(
-                          trailing: Text(
-                            '   c НДС   ',
-                            textAlign: TextAlign.start,
-                            style: context.moonTypography?.body.text14.copyWith(
-                              color: context.moonColors?.trunks,
-                            ),
-                          ),
-                          showBorder: true,
-                          // label: Icon(MoonIcons.generic_download_16_light),
+                        CustomButtonWidget(
+                          text: '  c НДС  ',
                           onTap: value
                               ? () {
                                   context

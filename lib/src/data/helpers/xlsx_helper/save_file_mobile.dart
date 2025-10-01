@@ -21,7 +21,9 @@ Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
       lockParentWindow: true,
       bytes: Uint8List.fromList(bytes),
     );
-
+    if(pickedSaveFilePath == null){
+      return;
+    }
     if (Platform.isAndroid || Platform.isIOS) {
       //Launch the file (used open_file package)
       await open_file.OpenFile.open('$pickedSaveFilePath');

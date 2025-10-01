@@ -99,7 +99,7 @@ class DesignOfferNumber extends BaseTemplateBuilder {
       title,
       'B$rowPos:D$rowPos',
       alignType: HAlignType.center,
-      fontSize: 16,
+      fontSize: 14,
       isBold: true,
       isMerge: true,
     );
@@ -221,7 +221,7 @@ class DesignOfferNumber extends BaseTemplateBuilder {
         alignType: HAlignType.center,
       );
       _buildCell(
-        '${result.divisionSummary}',
+        result.divisionSummary.toStringAsFixed(2),
         'G$rowPos',
         width: 25,
         alignType: HAlignType.center,
@@ -240,7 +240,7 @@ class DesignOfferNumber extends BaseTemplateBuilder {
       alignType: HAlignType.right,
     );
     _buildCell(
-      '${offerResult.summaryWithTax}',
+      offerResult.summaryWithTax.toStringAsFixed(2),
       'G$rowPos',
       width: 25,
       alignType: HAlignType.center,
