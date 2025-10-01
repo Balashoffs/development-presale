@@ -35,6 +35,7 @@ class DivisionResourceCalculateCubit
   void _init() async {
     Map<String, DivisionDTO> divisions = await _divisionRepository.load();
     _resourcesViewController.fillDivisions(divisions);
+
     List<DivisionResourceDTO> cached = _divisionRepository.cashedResources;
     bool flag = _divisionRepository.isAllResources;
     if (cached.isNotEmpty) {
@@ -134,10 +135,9 @@ class DivisionResourceCalculateCubit
   }
 
   void changeTableView(bool value) {
-    _divisionRepository.isAllResources = value;
-    if (!value) {
-      _divisionRepository.clearResourceDivisions();
-    }
-    _resourcesViewController.changeTableView(value);
+    final viewModelRows = _resourcesViewController.changeTableView(value);
+    final dtoRows = viewModelRows.map((e) => e.toDto(),).toList();
+    _divisionRepository.updateResourceDivision(dtoRows);
+
   }
 }

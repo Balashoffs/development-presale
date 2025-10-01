@@ -308,7 +308,7 @@ class ResourcesWithUnselectedViewController {
     selectedRows.value = [...sorted];
   }
 
-  void changeTableView(bool value) {
+  List<DivisionWithResourceViewModel> changeTableView(bool value) {
     selectedRows.value = [];
     summaryVN.value = 0.0;
     _createdResourcedId.clear();
@@ -327,5 +327,7 @@ class ResourcesWithUnselectedViewController {
       isAllRow.value = false;
     }
     selectedRows.value = [...rows];
+
+    return rows;
   }
 }

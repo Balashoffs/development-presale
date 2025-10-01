@@ -1,3 +1,4 @@
+import 'package:dartz/dartz_unsafe.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_memory_source.dart';
 import 'package:presale/src/di/di.dart';
@@ -41,7 +42,12 @@ class DivisionRepository {
     _designOfferMemorySource.updateDivisionResource(dto);
   }
 
-  void clearResourceDivisions(){
+  void updateResourceDivision(List<DivisionResourceDTO> rows) {
     _designOfferMemorySource.clearResource();
+    if (rows.isNotEmpty) {
+      for (var element in rows) {
+        _designOfferMemorySource.updateDivisionResource(element);
+      }
+    }
   }
 }
