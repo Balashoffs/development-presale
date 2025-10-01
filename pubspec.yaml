@@ -10,6 +10,7 @@ dependencies:
   flutter:
     sdk: flutter
   storybook_toolkit: ^1.3.2
+  msix: ^3.16.12
   csv: ^6.0.0
   go_router: ^16.2.1
   flutter_bloc: ^9.1.1
@@ -95,3 +96,9 @@ flutter_launcher_icons:
   macos:
     generate: true
     image_path: "assets/calculator_data/icon.png"
+
+msix_config:
+  display_name: presale
+  publisher_display_name: liis
+  identity_name: su.liis.presale
+  msix_version: 1.0.0.0
