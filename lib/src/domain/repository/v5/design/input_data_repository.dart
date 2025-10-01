@@ -50,6 +50,7 @@ class ObjectRepository {
 
   void setResultDesignDocumentations(String result) {
     _objectDataBuilder.setDivisionType(result);
+    _designOfferMemorySource.clearResource();
     _checkNecessaryInputs();
   }
 
