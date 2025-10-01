@@ -24,6 +24,7 @@ import 'package:presale/src/domain/repository/v5/design/divsion_margin_repositor
 part 'divisions_margin_calculate_state.dart';
 
 part 'divisions_margin_calculate_cubit.freezed.dart';
+
 class DivisionsMarginCalculateCubit
     extends Cubit<DivisionsMarginCalculateState> {
   final DivisionsViewController _divisionsViewController;
@@ -39,31 +40,11 @@ class DivisionsMarginCalculateCubit
   }
 
   void _init() async {
-    Map<String, List<DivisionResourceDTO>> map = {};
-    for (var element in _repository.divisionResources) {
-      map.putIfAbsent(element.divisionShortName, () {
-        return [];
-      });
-      map[element.divisionShortName]?.add(element);
-    }
-    InputFactorsDTO? inputFactorsDTO = _repository.inputFactorsDTO;
-    if (inputFactorsDTO != null) {
-      DesignOfferCalculator calculator = DesignOfferCalculator();
-      final divisions = map.values.map((e) {
-        double total = e
-            .map((e) => e.totalResourceRowCost)
-            .reduce((value, element) => value + element);
-        DivisionResourceDTO dto = e.first;
-        DivisionsMarginDTO margin = calculator.calcDivisionMarginDTOCost(dto.toMargin(inputFactorsDTO, total));
-        return margin;
-      }).toList();
+    List<DivisionsMarginDTO> divisions = _repository.getDivisionMargins();
 
+    _divisionsViewController.fill(divisions);
 
-      _repository.fill(divisions);
-      _divisionsViewController.fill(divisions);
-      emit(DivisionsMarginCalculateState(stateEnum: StateEnum.showing));
-    }
-
+    emit(DivisionsMarginCalculateState(stateEnum: StateEnum.showing));
   }
 
   void onOverPriceFactor(int id, double value) {
@@ -90,7 +71,5 @@ class DivisionsMarginCalculateCubit
     }
   }
 
-  void updateCashed() {
-
-  }
+  void updateCashed() {}
 }

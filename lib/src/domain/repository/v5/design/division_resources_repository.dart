@@ -42,26 +42,6 @@ class DivisionRepository {
   }
 
   void clearResourceDivisions(){
-    _designOfferMemorySource.clearResourceDivisions();
-  }
-
-  void updateDivisionMargins(List<DivisionResourceDTO> added) {
-    final keys =
-        _designOfferMemorySource.designPresaleDTO?.divisionResources.keys
-            .toSet() ??
-        {};
-    if (keys.isNotEmpty) {
-      final filtered = added
-          .where((element) => !keys.contains(element.resourceId))
-          .toList();
-      if (filtered.isNotEmpty) {
-        for (var element in filtered) {
-          _designOfferMemorySource
-              .designPresaleDTO
-              ?.divisionResources
-              .putIfAbsent(element.resourceId, () => element);
-        }
-      }
-    }
+    _designOfferMemorySource.clearResource();
   }
 }

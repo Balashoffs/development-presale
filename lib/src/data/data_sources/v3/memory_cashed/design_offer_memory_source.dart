@@ -64,7 +64,8 @@ class DesignOfferMemorySource {
     _designPresaleDTO?.commercialOfferDTO = commercialOffer;
   }
 
-  void clearResourceDivisions() {
+  void clearResource() {
     _designPresaleDTO?.divisionResources.clear();
+    _designPresaleDTO?.divisionMargins.clear();
   }
 }

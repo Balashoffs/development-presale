@@ -1,11 +1,14 @@
+import 'package:collection/collection.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
+import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
+import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/di/di.dart';
 
 class DivisionsMarginRepository {
   final DesignPresaleDTO? _designPresaleDTO;
 
   DivisionsMarginRepository(DependencyInjector di)
-      : _designPresaleDTO = di.inMemoryImpl.designPresaleDTO;
+    : _designPresaleDTO = di.inMemoryImpl.designPresaleDTO;
 
   List<DivisionResourceDTO> get divisionResources =>
       _designPresaleDTO?.divisionResources.values.toList() ?? [];
@@ -24,5 +27,50 @@ class DivisionsMarginRepository {
 
   void update(DivisionsMarginDTO updated) {
     _designPresaleDTO?.divisionMargins.update(updated.id, (value) => updated);
+  }
+
+  List<DivisionsMarginDTO> getDivisionMargins() {
+    if (divisionMargins.isEmpty) {
+      return _fillDivisionMargins();
+    }
+
+    return _designPresaleDTO?.divisionMargins.values
+            .sorted((a, b) => a.id.compareTo(b.id))
+            .toList() ??
+        [];
+  }
+
+  List<DivisionsMarginDTO> _fillDivisionMargins() {
+    Map<String, List<DivisionResourceDTO>> map = {};
+    for (var element in divisionResources) {
+      map.putIfAbsent(element.divisionShortName, () {
+        return [];
+      });
+      map[element.divisionShortName]?.add(element);
+    }
+    if (inputFactorsDTO != null) {
+      DesignOfferCalculator calculator = DesignOfferCalculator();
+      final margins = map.values.map((e) {
+        double total = e
+            .map((e) => e.totalResourceRowCost)
+            .reduce((value, element) => value + element);
+        DivisionResourceDTO dto = e.first;
+        DivisionsMarginDTO margin = calculator.calcDivisionMarginDTOCost(
+          dto.toMargin(inputFactorsDTO!, total),
+        );
+        return margin;
+      }).toList();
+
+      for (var element in margins) {
+        _designPresaleDTO?.divisionMargins.putIfAbsent(
+          element.id,
+          () => element,
+        );
+      }
+
+      return margins;
+    }
+
+    return [];
   }
 }

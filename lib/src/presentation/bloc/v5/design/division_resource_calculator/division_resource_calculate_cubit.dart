@@ -140,9 +140,4 @@ class DivisionResourceCalculateCubit
     }
     _resourcesViewController.changeTableView(value);
   }
-
-  void updateCashed() {
-    final added = controller.selectedRows.value.map((e) => e.toDto()).toList();
-    _divisionRepository.updateDivisionMargins(added);
-  }
 }

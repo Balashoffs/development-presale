@@ -90,7 +90,6 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
               CustomButtonWidget(
                 iconData: MoonIcons.arrows_chevron_right_double_32_regular,
                 onTap: () {
-                  context.read<DivisionsMarginCalculateCubit>().updateCashed();
                   context.go(designOfferRoute);
                 },
               ),

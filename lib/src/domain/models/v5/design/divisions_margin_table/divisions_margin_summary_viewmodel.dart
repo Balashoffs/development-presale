@@ -18,10 +18,7 @@ class DivisionsViewController {
   DivisionsWithMarginRowVM? getById(int id) =>
       rows.where((element) => element.id == id).firstOrNull;
 
-  void fill(
-    List<DivisionsMarginDTO> divisions,
-  ) {
-
+  void fill(List<DivisionsMarginDTO> divisions) {
     for (var division in divisions) {
       DivisionsWithMarginRowVM row = division.toViewModel();
       _calcRowValues(row);
@@ -45,7 +42,7 @@ class DivisionsViewController {
     return found;
   }
 
-  DivisionsWithMarginRowVM?  onMarginFactor(int id, double value) {
+  DivisionsWithMarginRowVM? onMarginFactor(int id, double value) {
     DivisionsWithMarginRowVM? found = getById(id);
     if (found != null) {
       found.marginFactor = value;

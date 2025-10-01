@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
@@ -71,7 +72,7 @@ class DesignOfferHeaderWidget extends StatelessWidget {
                 valueListenable: avanceVN,
                 builder: (context, value, child) {
                   return Text(
-                    '${value.toStringAsFixed(2)} рубл.',
+                    convertToString(value, 2),
                     style: context.moonTypography?.body.text20.copyWith(
                       color: context.moonColors?.popo,
                     ),

@@ -151,7 +151,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                           MoonIcons.arrows_chevron_right_double_32_regular,
                       onTap: value == true
                           ? () {
-                              cubit.updateCashed();
+
                               context.go(designDivisionsRoute);
                             }
                           : null,
