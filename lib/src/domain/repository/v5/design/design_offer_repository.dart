@@ -1,7 +1,8 @@
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_memory_source.dart';
 import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
-import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
+import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
+
 
 class DesignOfferRepository {
   final DesignOfferMemorySource _designOfferMemorySource;
@@ -33,6 +34,10 @@ class DesignOfferRepository {
 
   void updateAvance(double value) {
     commercialOffer?.updateAvanceValue(value);
+  }
+
+  void updatePersonSign(PersonSignDTO personSign){
+    commercialOffer?.personSign = personSign;
   }
 
 }

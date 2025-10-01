@@ -19,13 +19,13 @@ class PersonSignCubit extends Cubit<PersonSignState> {
   final PersonSignTextInputValidator textGroupController;
   final PersonSingRepository _personSingRepository;
 
-  PersonSignCubit({required DependencyInjector di})
-    : textGroupController = PersonSignTextInputValidator(),
-      _personSingRepository = PersonSingRepository(
-        PersonSignDataSourceLocal(di.dbClientImpl),
-      ),
+  PersonSignCubit({
+    required DependencyInjector di,
+    required PersonSingRepository personRepository,
+  }) : textGroupController = PersonSignTextInputValidator(),
+       _personSingRepository = personRepository,
 
-      super(PersonSignState(labelText: _addDataText)) {
+       super(PersonSignState(labelText: _addDataText)) {
     _init();
   }
 
@@ -67,8 +67,8 @@ class PersonSignCubit extends Cubit<PersonSignState> {
     _personSingRepository.updateJobEmail(value);
   }
 
-  void onSaved()  {
-   _personSingRepository.save();
+  void onSaved() {
+    _personSingRepository.save();
   }
 
   void _emitNewState([PersonSignDTO? dto]) {

@@ -27,7 +27,7 @@ class _DivisionsResultsTableWidgetState
   @override
   Widget build(BuildContext context) {
     double height = 48.0 * 4 * widget.offerResult.divisionRows.length;
-    height = height < 500 ? 500 : height;
+    height = height > 1000 ? 1000 : height;
     return LimitedBox(
       maxWidth: MediaQuery.sizeOf(context).width - 100,
       maxHeight: height > MediaQuery.sizeOf(context).height - 300

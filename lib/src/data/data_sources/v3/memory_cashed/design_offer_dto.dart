@@ -260,7 +260,7 @@ class CommercialOfferDTO {
   final double summary;
   final double summaryWithTax;
   final double tax;
-  late final PersonSignDTO? personSign;
+  PersonSignDTO? personSign;
   double avanceValue;
   double avanceFactor;
   String noteText;

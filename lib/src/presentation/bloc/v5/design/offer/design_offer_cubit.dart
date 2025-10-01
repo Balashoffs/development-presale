@@ -18,8 +18,8 @@ part 'design_offer_state.dart';
 part 'design_offer_cubit.freezed.dart';
 
 class DesignOfferCubit extends Cubit<DesignOfferState> {
-
   final DesignOfferResultController _resultController;
+
   DesignOfferResultController get designOfferController => _resultController;
   final PersonSingRepository _personSingRepository;
   final DesignOfferRepository _designOfferRepository;
@@ -29,32 +29,33 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
 
   ValueNotifier<bool> get isCorrect => _isCorrect;
 
-  DesignOfferCubit(DependencyInjector di)
-    : _designOfferRepository = DesignOfferRepository(di.inMemoryImpl),
-      _excelService = ExcelService(),
-      _resultController = DesignOfferResultController(),
-      _personSingRepository = PersonSingRepository(
-        PersonSignDataSourceLocal(di.dbClientImpl),
-      ),
-      super(const DesignOfferState()) {
+  DesignOfferCubit({
+    required DependencyInjector di,
+    required PersonSingRepository personRepository,
+  }) : _designOfferRepository = DesignOfferRepository(di.inMemoryImpl),
+       _excelService = ExcelService(),
+       _resultController = DesignOfferResultController(),
+       _personSingRepository = personRepository,
+       super(const DesignOfferState()) {
     _init();
   }
 
   void _init() async {
-    _personSingRepository.personStream.listen((event) {
-      if (event == null || event.id == 0) {
-        _isCorrect.value = false;
-      } else {
-        _isCorrect.value = true;
-      }
-    });
-    if(_designOfferRepository.commercialOffer != null){
+    if (_designOfferRepository.commercialOffer != null) {
       CommercialOfferDTO co = _designOfferRepository.commercialOffer!;
       _resultController.setViewModel(co.toViewModel());
       _resultController.setAvanveValue(co.summaryWithTax);
-      emit(DesignOfferState(stateEnum: StateEnum.showing));
+
     }
 
+    _personSingRepository.personStream.listen((event) {
+      _isCorrect.value = event != null && event.id != 0;
+      if (event != null) {
+        _designOfferRepository.updatePersonSign(event);
+      }
+    });
+
+    emit(DesignOfferState(stateEnum: StateEnum.showing));
   }
 
   void onComments(String value) {
@@ -63,16 +64,18 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
 
   void onAvance(String value) {
     double factor = 0.0;
-    if(value.isNotEmpty && value != '%'){
+    if (value.isNotEmpty && value != '%') {
       String edited = value.substring(0, value.indexOf('%')).trim();
       double? result = double.tryParse(edited);
-      if(result != null){
+      if (result != null) {
         factor = result / 100;
       }
     }
     _designOfferRepository.updateAvance(factor);
-    _resultController.setAvanveValue(_designOfferRepository.commercialOffer!.summaryWithTax, factor);
-
+    _resultController.setAvanveValue(
+      _designOfferRepository.commercialOffer!.summaryWithTax,
+      factor,
+    );
   }
 
   void saveRawToExcelFile() async {
