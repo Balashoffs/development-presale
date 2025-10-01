@@ -221,7 +221,7 @@ class DesignOfferNumber extends BaseTemplateBuilder {
         alignType: HAlignType.center,
       );
       _buildCell(
-        result.divisionSummary.toStringAsFixed(2),
+        result.divisionSummaryWithTax.toStringAsFixed(2),
         'G$rowPos',
         width: 25,
         alignType: HAlignType.center,
