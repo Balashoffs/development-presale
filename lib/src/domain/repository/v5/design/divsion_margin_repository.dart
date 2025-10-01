@@ -30,14 +30,8 @@ class DivisionsMarginRepository {
   }
 
   List<DivisionsMarginDTO> getDivisionMargins() {
-    if (divisionMargins.isEmpty) {
-      return _fillDivisionMargins();
-    }
-
-    return _designPresaleDTO?.divisionMargins.values
-            .sorted((a, b) => a.id.compareTo(b.id))
-            .toList() ??
-        [];
+    _designPresaleDTO?.divisionMargins.clear();
+    return _fillDivisionMargins();
   }
 
   List<DivisionsMarginDTO> _fillDivisionMargins() {

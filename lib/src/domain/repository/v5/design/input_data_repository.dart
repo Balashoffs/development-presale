@@ -117,4 +117,8 @@ class ObjectRepository {
     );
     _designOfferMemorySource.setInputData(inputDataDesignDTO);
   }
+
+  void clearCashed() {
+    _designOfferMemorySource.clearCashed();
+  }
 }

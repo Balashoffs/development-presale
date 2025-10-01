@@ -34,7 +34,7 @@ class DesignOfferMemorySource {
     _designPresaleDTO?.inputDataDesignDTO = value;
   }
 
-  void clear() {
+  void clearCashed() {
     _designPresaleDTO = null;
   }
 

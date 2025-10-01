@@ -12,6 +12,10 @@ import 'divisions_with_resources_dto.dart';
 class ResourcesWithUnselectedViewController {
   final List<DivisionDTO> _loadedDivisions = [];
   final List<DivisionViewModel> divisionsVM = [];
+  //{id, [resourceID]}
+  /*
+  Add by id, another function use resourceId
+   */
   final Map<int, List<int>> _createdResourcedId = {};
 
   final ValueNotifier<List<DivisionWithResourceViewModel>> selectedRows =
@@ -106,19 +110,19 @@ class ResourcesWithUnselectedViewController {
     return found;
   }
 
-  DivisionWithResourceViewModel? onDelete(int id) {
-    DivisionWithResourceViewModel? found = _getById(id);
+  DivisionWithResourceViewModel? onDelete(int resourceId) {
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       _deleteResourceId(found.id, found.resourceId);
-      selectedRows.value.removeWhere((element) => element.id == id);
+      selectedRows.value.removeWhere((element) => element.resourceId == resourceId);
       selectedRows.value = [...selectedRows.value];
       summaryVN.value = summaryCost;
     }
     return found;
   }
 
-  DivisionWithResourceViewModel? onResourceName(int id, String resourceName) {
-    DivisionWithResourceViewModel? found = _getById(id);
+  DivisionWithResourceViewModel? onResourceName(int resourceId, String resourceName) {
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       DivisionDTO? divisionDTO = _loadedDivisions
           .where(
@@ -141,18 +145,18 @@ class ResourcesWithUnselectedViewController {
   }
 
   DivisionWithResourceViewModel? onCustomResourceName(
-    int id,
+    int resourceId,
     String resourceName,
   ) {
-    DivisionWithResourceViewModel? found = _getById(id);
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       found.resourceNameVN.value = resourceName;
     }
     return found;
   }
 
-  DivisionWithResourceViewModel? onResourceCostPerDay(int id, double value) {
-    DivisionWithResourceViewModel? found = _getById(id);
+  DivisionWithResourceViewModel? onResourceCostPerDay(int resourceId, double value) {
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       found.resourceCostPerDayVN.value = value;
       _calcResourceTotal(found);
@@ -160,8 +164,8 @@ class ResourcesWithUnselectedViewController {
     return found;
   }
 
-  DivisionWithResourceViewModel? onResourceQnt(int id, int value) {
-    DivisionWithResourceViewModel? found = _getById(id);
+  DivisionWithResourceViewModel? onResourceQnt(int resourceId, int value) {
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       found.resourceQnt = value;
       _calcResourceTotal(found);
@@ -169,8 +173,8 @@ class ResourcesWithUnselectedViewController {
     return found;
   }
 
-  DivisionWithResourceViewModel? onWorkDays(int id, int value) {
-    DivisionWithResourceViewModel? found = _getById(id);
+  DivisionWithResourceViewModel? onWorkDays(int resourceId, int value) {
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       found.workDays = value;
       _calcResourceTotal(found);
@@ -178,8 +182,8 @@ class ResourcesWithUnselectedViewController {
     return found;
   }
 
-  DivisionWithResourceViewModel? onComplexFactor(int id, double value) {
-    DivisionWithResourceViewModel? found = _getById(id);
+  DivisionWithResourceViewModel? onComplexFactor(int resourceId, double value) {
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       found.complexFactor = value;
       _calcResourceTotal(found);
@@ -187,8 +191,8 @@ class ResourcesWithUnselectedViewController {
     return found;
   }
 
-  DivisionWithResourceViewModel? onSquareFactor(int id, double value) {
-    DivisionWithResourceViewModel? found = _getById(id);
+  DivisionWithResourceViewModel? onSquareFactor(int resourceId, double value) {
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       found.squareFactor = value;
       _calcResourceTotal(found);
@@ -196,8 +200,8 @@ class ResourcesWithUnselectedViewController {
     return found;
   }
 
-  DivisionWithResourceViewModel? onResourceUsingFactor(int id, double value) {
-    DivisionWithResourceViewModel? found = _getById(id);
+  DivisionWithResourceViewModel? onResourceUsingFactor(int resourceId, double value) {
+    DivisionWithResourceViewModel? found = _getByResourceId(resourceId);
     if (found != null) {
       found.resourceUsingFactor = value;
       _calcResourceTotal(found);
@@ -215,7 +219,6 @@ class ResourcesWithUnselectedViewController {
 
   DropDownResources resourcesByDivisionShortName(
     DivisionWithResourceViewModel row,
-    int index,
   ) {
     String divisionShortName = row.divisionShortName;
     String defaultValue = row.resourceNameVN.value;
@@ -244,10 +247,7 @@ class ResourcesWithUnselectedViewController {
     return DropDownResources(
       defaultValue: defaultResource,
       unloaded: loaded,
-      index: index,
-      row: row,
       key: Key(row.resourceId.toString()),
-      id: row.id,
     );
   }
 
@@ -297,7 +297,7 @@ class ResourcesWithUnselectedViewController {
     }
   }
 
-  DivisionWithResourceViewModel? _getById(int id) {
+  DivisionWithResourceViewModel? _getByResourceId(int id) {
     return selectedRows.value
         .where((element) => element.resourceId == id)
         .firstOrNull;

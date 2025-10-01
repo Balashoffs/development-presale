@@ -91,19 +91,14 @@ class DivisionWithResourceViewModel {
 }
 
 class DropDownResources {
-  final DivisionWithResourceViewModel row;
   final List<ResourceDTO> unloaded;
   final ResourceDTO defaultValue;
   final Key key;
-  final int pos;
-  final int id;
+
 
   DropDownResources({
-    required this.row,
-    required this.id,
     required this.key,
-    required int index,
     required this.unloaded,
     required this.defaultValue,
-  }) : pos = index + 1;
+  });
 }

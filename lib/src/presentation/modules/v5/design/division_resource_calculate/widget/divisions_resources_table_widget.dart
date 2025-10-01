@@ -89,9 +89,8 @@ class _DivisionsResourceTableWidgetState
     return List.generate(widget.tableDataRows.length, (int index) {
       DropDownResources resources = controller.resourcesByDivisionShortName(
         widget.tableDataRows[index],
-        index,
       );
-      final row = resources.row;
+      final row = widget.tableDataRows[index];
 
       return MoonTableRow(
         height: 72,
@@ -103,7 +102,7 @@ class _DivisionsResourceTableWidgetState
               key: resources.key,
               iconData: MoonIcons.controls_close_16_light,
               onTap: () async {
-                cubit.onRowAction(resources.id, WidgetActionType.delete);
+                cubit.onRemoveRow(row.resourceId);
                 setState(() {
                   _isRemoveAction = true;
                 });
@@ -112,14 +111,14 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: TextCellWidget(
-              label: '${resources.pos}',
+              label: '$index',
               key: resources.key,
             ),
           ),
           //Division short name
           CellDecorationWidget(
             child: TextCellWidget(
-              label: resources.row.divisionShortName,
+              label: row.divisionShortName,
               key: resources.key,
             ),
           ),

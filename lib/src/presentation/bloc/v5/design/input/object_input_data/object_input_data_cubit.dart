@@ -73,4 +73,8 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   void updateCashed() {
     _objectRepository.save();
   }
+
+  void clearCached() {
+    _objectRepository.clearCashed();
+  }
 }

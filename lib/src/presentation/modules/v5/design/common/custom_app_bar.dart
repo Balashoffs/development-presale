@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
           MoonButton.icon(
             icon: Icon(MoonIcons.controls_close_16_light),
             onTap: () {
-              di.inMemoryImpl.clear();
+              di.inMemoryImpl.clearCashed();
               context.go(serviceTypeRoutePath);
             },
           ),

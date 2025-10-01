@@ -226,7 +226,10 @@ class LoadedWidget extends StatelessWidget {
               children: [
                 CustomButtonWidget(
                   iconData: MoonIcons.arrows_chevron_left_double_32_regular,
-                  onTap: context.pop,
+                  onTap: () {
+                    cubit.clearCached();
+                    context.pop();
+                  },
                 ),
                 ValueListenableBuilder<bool>(
                   valueListenable: context.read<ObjectDataCubit>().isValid,

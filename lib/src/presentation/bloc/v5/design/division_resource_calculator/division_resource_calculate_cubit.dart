@@ -49,60 +49,57 @@ class DivisionResourceCalculateCubit
     );
   }
 
-  void onRowAction(int id, WidgetActionType type) {
+  void onAddRow(int id) {
     DivisionWithResourceViewModel? result;
-    switch (type) {
-      case WidgetActionType.add:
-        result = _resourcesViewController.onAdd(id);
-        if (result != null) {
-          _divisionRepository.addDivisionResourceDto(result.toDto());
-        }
-        break;
-      case WidgetActionType.delete:
-        result = _resourcesViewController.onDelete(id);
-        if (result != null) {
-          _divisionRepository.removeDivisionResourceDto(result.toDto());
-        }
-        break;
+    result = _resourcesViewController.onAdd(id);
+    if (result != null) {
+      _divisionRepository.addDivisionResourceDto(result.toDto());
     }
-    _resourcesViewController.updateResults();
   }
 
-  void onResourceName(int id, String resourceName) {
+  void onRemoveRow(int resourceId) {
+    DivisionWithResourceViewModel? result;
+    result = _resourcesViewController.onDelete(resourceId);
+    if (result != null) {
+      _divisionRepository.removeDivisionResourceDto(result.toDto());
+    }
+  }
+
+  void onResourceName(int resourceId, String resourceName) {
     DivisionWithResourceViewModel? result = _resourcesViewController
-        .onResourceName(id, resourceName);
+        .onResourceName(resourceId, resourceName);
     if (result != null) {
       _divisionRepository.updateDivisionResourceDto(result.toDto());
     }
   }
 
-  void onCustomResourceName(int id, String resourceName) {
+  void onCustomResourceName(int resourceId, String resourceName) {
     DivisionWithResourceViewModel? result = _resourcesViewController
-        .onCustomResourceName(id, resourceName);
+        .onCustomResourceName(resourceId, resourceName);
     if (result != null) {
       _divisionRepository.updateDivisionResourceDto(result.toDto());
     }
   }
 
-  void onResourceCostPerDay(int id, double value) {
+  void onResourceCostPerDay(int resourceId, double value) {
     DivisionWithResourceViewModel? result = _resourcesViewController
-        .onResourceCostPerDay(id, value);
+        .onResourceCostPerDay(resourceId, value);
     if (result != null) {
       _divisionRepository.updateDivisionResourceDto(result.toDto());
     }
   }
 
-  void onResourceQnt(int id, int value) {
+  void onResourceQnt(int resourceId, int value) {
     DivisionWithResourceViewModel? result = _resourcesViewController
-        .onResourceQnt(id, value);
+        .onResourceQnt(resourceId, value);
     if (result != null) {
       _divisionRepository.updateDivisionResourceDto(result.toDto());
     }
   }
 
-  void onWorkDays(int id, int value) {
+  void onWorkDays(int resourceId, int value) {
     DivisionWithResourceViewModel? result = _resourcesViewController.onWorkDays(
-      id,
+      resourceId,
       value,
     );
     if (result != null) {
@@ -110,25 +107,25 @@ class DivisionResourceCalculateCubit
     }
   }
 
-  void onComplexFactor(int id, double value) {
+  void onComplexFactor(int resourceId, double value) {
     DivisionWithResourceViewModel? result = _resourcesViewController
-        .onComplexFactor(id, value);
+        .onComplexFactor(resourceId, value);
     if (result != null) {
       _divisionRepository.updateDivisionResourceDto(result.toDto());
     }
   }
 
-  void onSquareFactor(int id, double value) {
+  void onSquareFactor(int resourceId, double value) {
     DivisionWithResourceViewModel? result = _resourcesViewController
-        .onSquareFactor(id, value);
+        .onSquareFactor(resourceId, value);
     if (result != null) {
       _divisionRepository.updateDivisionResourceDto(result.toDto());
     }
   }
 
-  void onResourceUsingFactor(int id, double value) {
+  void onResourceUsingFactor(int resourceId, double value) {
     DivisionWithResourceViewModel? result = _resourcesViewController
-        .onResourceUsingFactor(id, value);
+        .onResourceUsingFactor(resourceId, value);
     if (result != null) {
       _divisionRepository.updateDivisionResourceDto(result.toDto());
     }
@@ -136,8 +133,7 @@ class DivisionResourceCalculateCubit
 
   void changeTableView(bool value) {
     final viewModelRows = _resourcesViewController.changeTableView(value);
-    final dtoRows = viewModelRows.map((e) => e.toDto(),).toList();
+    final dtoRows = viewModelRows.map((e) => e.toDto()).toList();
     _divisionRepository.updateResourceDivision(dtoRows);
-
   }
 }

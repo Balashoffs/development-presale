@@ -95,7 +95,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                     enabled: true,
                     divisions: controller.divisionsVM,
                     onSelected: (p0) =>
-                        cubit.onRowAction(p0.id, WidgetActionType.add),
+                        cubit.onAddRow(p0.id),
                   ),
                   CustomCheckBox(
                     isCheck: isAll,
@@ -151,7 +151,6 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                           MoonIcons.arrows_chevron_right_double_32_regular,
                       onTap: value == true
                           ? () {
-
                               context.go(designDivisionsRoute);
                             }
                           : null,
