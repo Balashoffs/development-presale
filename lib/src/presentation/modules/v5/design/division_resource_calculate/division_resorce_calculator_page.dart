@@ -1,17 +1,11 @@
-import 'package:date_format/date_format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
 
 import 'package:presale/src/di/di.dart';
-import 'package:presale/src/domain/models/common/metadata_for_saving.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
-import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_pojo.dart';
-import 'package:presale/src/domain/models/v6/design/design_presale/dto_extension.dart';
-import 'package:presale/src/domain/models/v6/presale_exchange/presale_exchange_pojo.dart';
-import 'package:presale/src/domain/service/v6/design/encrypt_json_to_bytes.dart';
-import 'package:presale/src/domain/service/v6/design/encrypt_shared_design_offer.dart';
+import 'package:presale/src/domain/service/v6/design/share_presale.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/division_resource_calculator/division_resource_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
@@ -23,8 +17,6 @@ import 'package:presale/src/presentation/modules/v5/design/division_resource_cal
 import 'package:presale/src/presentation/modules/v5/design/division_resource_calculate/widget/divisions_resources_table_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/division_resource_calculate/widget/resource_app_bar_title.dart';
 import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
-import 'package:presale/src/data/helpers/file_saver_helper/save_file_mobile.dart'
-    if (dart.library.html) 'package:presale/src/data/helpers/file_saver_helper/save_file_web.dart';
 
 class DivisionResourceCalculatePage extends StatelessWidget {
   const DivisionResourceCalculatePage({super.key});
@@ -154,7 +146,12 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                           iconData: MoonIcons.files_share_24_light,
                           onTap: value == true
                               ? () {
-                                  _onShare(context);
+                                  final designData =
+                                      di.inMemoryImpl.designPresaleDTO;
+                                  final defineModel = di.dartDefineModel;
+                                  if (designData != null) {
+                                    onShare(designData, defineModel);
+                                  }
                                 }
                               : null,
                         ),
@@ -178,40 +175,5 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
     );
   }
 
-  void _onShare(BuildContext context) async {
-    if (di.inMemoryImpl.designPresaleDTO != null) {
-      final designDto = di.inMemoryImpl.designPresaleDTO!;
-      DesignPresalePojo designPresalePojo = designDto.toPojo();
-      int key = stringToInt(di.dartDefineModel.user);
-      String api = di.dartDefineModel.api;
-      EncryptShareDesignOfferService service = EncryptShareDesignOfferService(
-        key,
-      );
-      PresaleExchangePojo exchangePojo = PresaleExchangePojo(
-        designPresale: designPresalePojo,
-        versionApi: api,
-      );
-
-      await service
-          .encrypt(exchangePojo)
-          .then(
-            (value) => value.fold((l) => {}, (r) {
-              String id = designDto.inputDataDesignDTO!.dayCounter
-                  .getOfferUniqueNumber();
-              String end = formatDate(DateTime.now(), [
-                'HH',
-                '-',
-                'nn',
-                '-',
-                'ss',
-              ]);
-              MetadataForSaving metaData = MetadataForSaving.saveAsPresaleFile(
-                r,
-                '${id}_$end',
-              );
-              saveAndLaunchFile(metaData);
-            }),
-          );
-    }
-  }
+  void _onShare() async {}
 }

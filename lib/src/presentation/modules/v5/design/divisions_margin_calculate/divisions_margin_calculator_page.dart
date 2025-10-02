@@ -5,6 +5,7 @@ import 'package:moon_design/moon_design.dart';
 
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_summary_viewmodel.dart';
+import 'package:presale/src/domain/service/v6/design/share_presale.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/divisions_margin_calculator/divisions_margin_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
@@ -83,9 +84,17 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
             spacing: 16.0,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              CustomButtonWidget(text: '  Назад  ', onTap: context.pop),
+
               CustomButtonWidget(
-                text: '  Назад  ',
-                onTap: context.pop,
+                iconData: MoonIcons.files_share_24_light,
+                onTap: () {
+                  final designData = di.inMemoryImpl.designPresaleDTO;
+                  final defineModel = di.dartDefineModel;
+                  if (designData != null) {
+                    onShare(designData, defineModel);
+                  }
+                },
               ),
               CustomButtonWidget(
                 text: ' Вперед ',
