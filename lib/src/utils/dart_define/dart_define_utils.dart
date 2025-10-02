@@ -11,6 +11,7 @@ DartDefineModel buildFrom() {
   final password = const String.fromEnvironment('email');
   final appName = const String.fromEnvironment('appName');
   final version = const String.fromEnvironment('version');
+  final api = const String.fromEnvironment('api');
   final created = formatDate(DateTime.now(), [
     'yyyy',
     '-',
@@ -28,6 +29,7 @@ DartDefineModel buildFrom() {
   final map = json.decode(source);
   DesignClass design = DesignClass.fromJson(map);
   return DartDefineModel(
+    api: api,
     type: type,
     design: design,
     ui: ui,

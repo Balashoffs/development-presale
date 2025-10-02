@@ -16,6 +16,7 @@ abstract class DartDefineModel with _$DartDefineModel {
     required String appName,
     required String createdDate,
     required String version,
+    required String api,
 }) = _DartDefineModel;
 
   factory DartDefineModel.fromJson(Map<String, dynamic> json) =>

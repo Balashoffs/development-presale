@@ -1,15 +1,15 @@
 import 'package:dart_date/dart_date.dart';
 import 'package:date_format/date_format.dart';
 
-class OfferDayCounterDto {
+class OfferDayCounterDTO {
   final int _timeStamp;
   int _point;
 
-  OfferDayCounterDto({required int timestamp, required int point})
+  OfferDayCounterDTO({required int timestamp, required int point})
     : _timeStamp = timestamp,
       _point = point;
 
-  OfferDayCounterDto.now() : _timeStamp = DateTime.now().millisecondsSinceEpoch, _point = 1;
+  OfferDayCounterDTO.now() : _timeStamp = DateTime.now().millisecondsSinceEpoch, _point = 1;
 
   void updatePoint() {
     _point++;

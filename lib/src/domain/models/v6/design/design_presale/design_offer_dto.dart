@@ -12,15 +12,15 @@ class DesignPresaleDTO {
 
   DesignPresaleDTO({
     this.inputDataDesignDTO,
-    this.divisionResources = const {},
-    this.divisionMargins = const {},
+    required this.divisionResources ,
+    required this.divisionMargins,
     this.commercialOfferDTO,
     this.isAllResources = false,
   });
 }
 
 class InputDataDesignDTO {
-  final OfferDayCounterDto dayCounter;
+  final OfferDayCounterDTO dayCounter;
   final ObjectDataDesignDTO objectData;
   final InputFactorsDTO inputFactors;
   final DivisionType divisionType;

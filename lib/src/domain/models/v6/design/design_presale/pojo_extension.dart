@@ -181,8 +181,8 @@ extension DesignPresalePojoExt on DesignPresalePojo {
 }
 
 extension DayCounterPojoExt on OfferDayCounterPojo {
-  OfferDayCounterDto toDayCounterDto() {
-    return OfferDayCounterDto(timestamp: timeStamp, point: offerId);
+  OfferDayCounterDTO toDayCounterDto() {
+    return OfferDayCounterDTO(timestamp: timeStamp, point: offerId);
   }
 }
 

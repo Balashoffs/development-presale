@@ -17,6 +17,7 @@ _DartDefineModel _$DartDefineModelFromJson(Map<String, dynamic> json) =>
       appName: json['appName'] as String,
       createdDate: json['createdDate'] as String,
       version: json['version'] as String,
+      api: json['api'] as String,
     );
 
 Map<String, dynamic> _$DartDefineModelToJson(_DartDefineModel instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$DartDefineModelToJson(_DartDefineModel instance) =>
       'appName': instance.appName,
       'createdDate': instance.createdDate,
       'version': instance.version,
+      'api': instance.api,
     };

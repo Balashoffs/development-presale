@@ -7,11 +7,11 @@ import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_
 import 'package:presale/src/domain/models/v5/common/offer_counter/extension.dart';
 
 abstract class OfferCountClient {
-  Future<Either<Failure, OfferDayCounterDto>> initialize();
+  Future<Either<Failure, OfferDayCounterDTO>> initialize();
 
-  Future<Either<Failure, OfferDayCounterDto>> getCounter();
+  Future<Either<Failure, OfferDayCounterDTO>> getCounter();
 
-  Future<Either<Failure, bool>> updateCounter(OfferDayCounterDto counter);
+  Future<Either<Failure, bool>> updateCounter(OfferDayCounterDTO counter);
 }
 
 class OfferCountClientImpl with BaseClient implements OfferCountClient {
@@ -20,19 +20,19 @@ class OfferCountClientImpl with BaseClient implements OfferCountClient {
   OfferCountClientImpl(this._dataSource);
 
   @override
-  Future<Either<Failure, OfferDayCounterDto>> initialize() async {
-    OfferDayCounterDto? dto = await getCounter().then(
+  Future<Either<Failure, OfferDayCounterDTO>> initialize() async {
+    OfferDayCounterDTO? dto = await getCounter().then(
       (value) => value.fold((l) => null, (r) => r),
     );
     if (dto != null) {
       if(!dto.isDayEqual()){
-        dto = OfferDayCounterDto.now();
+        dto = OfferDayCounterDTO.now();
       }else{
         dto.updatePoint();
       }
       print('Updated: ${dto}');
     } else {
-      dto = OfferDayCounterDto.now();
+      dto = OfferDayCounterDTO.now();
     }
 
     await updateCounter(
@@ -42,7 +42,7 @@ class OfferCountClientImpl with BaseClient implements OfferCountClient {
   }
 
   @override
-  Future<Either<Failure, OfferDayCounterDto>> getCounter() async {
+  Future<Either<Failure, OfferDayCounterDTO>> getCounter() async {
     return await handleData(
       () => _dataSource.read(OfferCounterSourceLocal.key).then((value) {
         print('getCounter: $value');
@@ -53,7 +53,7 @@ class OfferCountClientImpl with BaseClient implements OfferCountClient {
 
   @override
   Future<Either<Failure, bool>> updateCounter(
-    OfferDayCounterDto counter,
+    OfferDayCounterDTO counter,
   ) async {
     return handleData(() => _dataSource.add(counter.toPojo()));
   }

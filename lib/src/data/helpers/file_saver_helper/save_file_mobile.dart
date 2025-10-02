@@ -4,22 +4,28 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:open_file/open_file.dart' as open_file;
 import 'package:path_provider/path_provider.dart' as path_provider;
+import 'package:presale/src/domain/models/common/metadata_for_saving.dart';
 
 ///To save the Excel file in the device
 ///To save the Excel file in the device
-Future<void> saveAndLaunchFile(List<int> bytes, String fileName) async {
+/*
+List<int> bytes, String fileName
+allowedExtensions ['.xlsx']
+dialogTitle: 'Сохранить КП в xlsx',
+ */
+Future<void> saveAndLaunchFile(MetadataForSaving meteData) async {
   String? pickedSaveFilePath;
 
   try {
     Directory w = await path_provider.getApplicationDocumentsDirectory();
     pickedSaveFilePath = await FilePicker.platform.saveFile(
-      allowedExtensions: ['.xlsx'],
+      allowedExtensions: meteData.allowedExtensions,
       type: FileType.custom,
-      dialogTitle: 'Сохранить КП в xlsx',
-      fileName: fileName,
+      dialogTitle: meteData.dialogTitle,
+      fileName:meteData.fileName,
       initialDirectory: w.path,
       lockParentWindow: true,
-      bytes: Uint8List.fromList(bytes),
+      bytes: meteData.bytes,
     );
     if(pickedSaveFilePath == null){
       return;

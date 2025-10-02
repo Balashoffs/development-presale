@@ -14,10 +14,10 @@ part 'object_input_data_cubit.freezed.dart';
 
 class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   final ValueNotifier<bool> isValid = ValueNotifier(false);
-  final ValueNotifier<OfferDayCounterDto?> counterDtoVN = ValueNotifier(null);
+  final ValueNotifier<OfferDayCounterDTO?> counterDtoVN = ValueNotifier(null);
   final ObjectRepository _objectRepository;
 
-  Future<OfferDayCounterDto?> get counterFuture =>
+  Future<OfferDayCounterDTO?> get counterFuture =>
       _objectRepository.dayCounterFuture;
 
   ObjectDataCubit(DependencyInjector di)
@@ -33,11 +33,10 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
     emit(ObjectInputDataState(stateEnum: StateEnum.showing));
   }
 
-  void setCounter(OfferDayCounterDto counter) async {
+  void setCounter(OfferDayCounterDTO counter) async {
     _objectRepository.counterDto = counter;
   }
 
-  //Данные объекте
   void setObjectName(String name) {
     _objectRepository.setObjectName(name);
   }

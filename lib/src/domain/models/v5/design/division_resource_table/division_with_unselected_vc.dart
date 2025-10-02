@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
-import 'package:presale/src/domain/models/v6/design/design_presale/extension.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';

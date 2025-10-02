@@ -95,7 +95,7 @@ class LoadedWidget extends StatelessWidget {
                           spacing: 16.0,
                           children: [
                             FutureBuilder(future: cubit.counterFuture, builder: (context, snapshot) {
-                              OfferDayCounterDto? counter = snapshot.data;
+                              OfferDayCounterDTO? counter = snapshot.data;
                               if(counter != null){
                                 cubit.setCounter(counter);
                                return RowTextWidgets(

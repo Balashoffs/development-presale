@@ -11,7 +11,7 @@ class EncryptShareDesignOfferService with BaseClient {
 
   EncryptShareDesignOfferService(this.xorKey);
 
-  Future<Either<Failure, Uint8List>> encrypt(PresaleExchangePojo input) {
+  Future<Either<Failure, Uint8List>> encrypt(PresaleExchangePojo input) async{
     return handleData(() {
       final toJson = input.toJson();
       return toXorBytes(toJson, xorKey);

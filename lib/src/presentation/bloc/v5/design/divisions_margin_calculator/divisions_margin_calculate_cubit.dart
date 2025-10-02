@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
-import 'package:presale/src/domain/models/v6/design/design_presale/extension.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_summary_viewmodel.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';

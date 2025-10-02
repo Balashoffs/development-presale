@@ -21,13 +21,18 @@ class DesignOfferMemorySource {
           .toList() ??
       [];
 
-  CommercialOfferDTO? get commercialOffer => _designPresaleDTO?.commercialOfferDTO;
+  CommercialOfferDTO? get commercialOffer =>
+      _designPresaleDTO?.commercialOfferDTO;
 
   bool get isAll => _designPresaleDTO?.isAllResources ?? false;
+
   set isAll(bool isAll) => _designPresaleDTO?.isAllResources = isAll;
 
   void init() {
-    _designPresaleDTO ??= DesignPresaleDTO();
+    _designPresaleDTO ??= DesignPresaleDTO(
+      divisionResources: {},
+      divisionMargins: {},
+    );
   }
 
   void setInputData(InputDataDesignDTO value) {
@@ -56,7 +61,7 @@ class DesignOfferMemorySource {
     _designPresaleDTO?.divisionMargins[value.id] = value;
   }
 
-  void setAllResources(bool isAll){
+  void setAllResources(bool isAll) {
     _designPresaleDTO?.isAllResources = isAll;
   }
 

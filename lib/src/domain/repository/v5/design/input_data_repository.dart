@@ -14,11 +14,11 @@ class ObjectRepository {
   final OfferCountClientImpl _countClientImpl;
   final StreamController<bool> _validStreamController = StreamController();
 
-  Future<OfferDayCounterDto?> get dayCounterFuture => _countClientImpl
+  Future<OfferDayCounterDTO?> get dayCounterFuture => _countClientImpl
       .initialize()
       .then((value) => value.fold((l) => null, (r) => r));
 
-  late final OfferDayCounterDto counterDto;
+  late final OfferDayCounterDTO counterDto;
 
   Stream<bool> get validStream => _validStreamController.stream;
 
@@ -94,7 +94,7 @@ class ObjectRepository {
     }
   }
 
-  void setCounter(OfferDayCounterDto value) {
+  void setCounter(OfferDayCounterDTO value) {
     counterDto = value;
   }
 
