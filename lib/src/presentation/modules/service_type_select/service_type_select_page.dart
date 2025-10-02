@@ -10,6 +10,7 @@ import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
 
 import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
+import 'package:presale/src/presentation/modules/v6/design/navi/service_navi.dart';
 
 class ServiceTypeSelectPage extends StatefulWidget {
   const ServiceTypeSelectPage({super.key});
@@ -59,7 +60,7 @@ class _ServiceTypeSelectPageState extends State<ServiceTypeSelectPage> {
                 MoonButton(
                   width: double.infinity,
                   onTap: () {
-                    context.push(designInputRoute);
+                    context.push(offerPreviewRoute);
                   },
                   showBorder: true,
                   label: Text(

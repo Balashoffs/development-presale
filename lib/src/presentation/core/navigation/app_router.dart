@@ -6,6 +6,7 @@ import 'package:presale/src/presentation/core/navigation/not_found_page.dart';
 import 'package:presale/src/presentation/modules/auth/navi/auth_navi.dart';
 import 'package:presale/src/presentation/modules/service_type_select/navi/service_navi.dart';
 import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
+import 'package:presale/src/presentation/modules/v6/design/navi/service_navi.dart';
 
 const String defaultUnauthorizedPath = loginRoutePath;
 const String defaultAuthorizedPath = serviceTypeRoutePath;
@@ -26,20 +27,25 @@ class AppRouter extends GoRouter {
           ServiceTypeSelectRoute(
             parentNavigatorKey: _rootNavigatorKey,
             routes: [
-              DesignInputRoute(
-                parentNavigatorKey: _rootNavigatorKey,
-                routes: [
-                  DesignResourcesRoute(
-                    parentNavigatorKey: _rootNavigatorKey,
-                    routes: [
-                      DesignDivisionsRoute(
-                        parentNavigatorKey: _rootNavigatorKey,
-                        routes: [DesignOfferRoute(routes: [])],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              OfferPreviewRoute(
+                  parentNavigatorKey: _rootNavigatorKey,
+                  routes: [
+                    DesignInputRoute(
+                      parentNavigatorKey: _rootNavigatorKey,
+                      routes: [
+                        DesignResourcesRoute(
+                          parentNavigatorKey: _rootNavigatorKey,
+                          routes: [
+                            DesignDivisionsRoute(
+                              parentNavigatorKey: _rootNavigatorKey,
+                              routes: [DesignOfferRoute(routes: [])],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+              )
             ],
           ),
         ],

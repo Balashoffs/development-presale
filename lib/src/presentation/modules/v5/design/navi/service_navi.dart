@@ -7,9 +7,10 @@ import 'package:presale/src/presentation/modules/v5/design/division_resource_cal
 import 'package:presale/src/presentation/modules/v5/design/divisions_margin_calculate/divisions_margin_calculator_page.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/offer_page_with_table.dart';
 import 'package:presale/src/presentation/modules/v5/design/object_data_input/object_input_data_page.dart';
+import 'package:presale/src/presentation/modules/v6/design/navi/service_navi.dart';
 
 const designInputRoutePath = "design-input";
-const designInputRoute = "$serviceTypeRoutePath/$designInputRoutePath";
+const designInputRoute = "$offerPreviewRoute/$designInputRoutePath";
 const designResourcesRoutePath = "design-resources";
 const designResourcesRoute = "$designInputRoute/$designResourcesRoutePath";
 const designDivisionsRoutePath = "design-divisions";
