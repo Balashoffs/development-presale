@@ -6,36 +6,31 @@ part of 'design_offer_pojo.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_DesignPresalePojo _$DesignPresalePojoFromJson(Map<String, dynamic> json) =>
-    _DesignPresalePojo(
-      dayCounter: OfferDayCounterPojo.fromJson(
-        json['dayCounter'] as Map<String, dynamic>,
-      ),
-      objectData: ObjectDataDesignPojo.fromJson(
-        json['objectData'] as Map<String, dynamic>,
-      ),
-      inputFactors: InputFactorsPojo.fromJson(
-        json['inputFactors'] as Map<String, dynamic>,
-      ),
-      divisionType: json['divisionType'] as String,
-      divisionResources:
-          (json['divisionResources'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(
-              int.parse(k),
-              DivisionResourcePojo.fromJson(e as Map<String, dynamic>),
-            ),
-          ) ??
-          const {},
-      divisionMargins:
-          (json['divisionMargins'] as Map<String, dynamic>?)?.map(
-            (k, e) => MapEntry(
-              int.parse(k),
-              DivisionsMarginPojo.fromJson(e as Map<String, dynamic>),
-            ),
-          ) ??
-          const {},
-      isAllResources: json['isAllResources'] as bool? ?? false,
-    );
+_DesignPresalePojo _$DesignPresalePojoFromJson(
+  Map<String, dynamic> json,
+) => _DesignPresalePojo(
+  dayCounter: OfferDayCounterPojo.fromJson(
+    json['dayCounter'] as Map<String, dynamic>,
+  ),
+  objectData: ObjectDataDesignPojo.fromJson(
+    json['objectData'] as Map<String, dynamic>,
+  ),
+  inputFactors: InputFactorsPojo.fromJson(
+    json['inputFactors'] as Map<String, dynamic>,
+  ),
+  divisionType: json['divisionType'] as String,
+  divisionResources:
+      (json['divisionResources'] as List<dynamic>?)
+          ?.map((e) => DivisionResourcePojo.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  divisionMargins:
+      (json['divisionMargins'] as List<dynamic>?)
+          ?.map((e) => DivisionsMarginPojo.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+      const [],
+  isAllResources: json['isAllResources'] as bool? ?? false,
+);
 
 Map<String, dynamic> _$DesignPresalePojoToJson(_DesignPresalePojo instance) =>
     <String, dynamic>{
@@ -43,19 +38,15 @@ Map<String, dynamic> _$DesignPresalePojoToJson(_DesignPresalePojo instance) =>
       'objectData': instance.objectData,
       'inputFactors': instance.inputFactors,
       'divisionType': instance.divisionType,
-      'divisionResources': instance.divisionResources.map(
-        (k, e) => MapEntry(k.toString(), e),
-      ),
-      'divisionMargins': instance.divisionMargins.map(
-        (k, e) => MapEntry(k.toString(), e),
-      ),
+      'divisionResources': instance.divisionResources,
+      'divisionMargins': instance.divisionMargins,
       'isAllResources': instance.isAllResources,
     };
 
 _OfferDayCounterPojo _$OfferDayCounterPojoFromJson(Map<String, dynamic> json) =>
     _OfferDayCounterPojo(
       timeStamp: (json['timeStamp'] as num).toInt(),
-      offerId: json['offerId'] as String,
+      offerId: (json['offerId'] as num).toInt(),
     );
 
 Map<String, dynamic> _$OfferDayCounterPojoToJson(
@@ -70,8 +61,8 @@ _ObjectDataDesignPojo _$ObjectDataDesignPojoFromJson(
 ) => _ObjectDataDesignPojo(
   name: json['name'] as String,
   address: json['address'] as String,
-  square: json['square'] as String,
-  deadline: json['deadline'] as String,
+  square: (json['square'] as num).toInt(),
+  deadline: (json['deadline'] as num).toInt(),
 );
 
 Map<String, dynamic> _$ObjectDataDesignPojoToJson(

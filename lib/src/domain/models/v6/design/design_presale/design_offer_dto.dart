@@ -5,10 +5,18 @@ import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.
 
 class DesignPresaleDTO {
   InputDataDesignDTO? inputDataDesignDTO;
-  Map<int, DivisionResourceDTO> divisionResources = {};
-  Map<int, DivisionsMarginDTO> divisionMargins = {};
+  Map<int, DivisionResourceDTO> divisionResources;
+  Map<int, DivisionsMarginDTO> divisionMargins;
   CommercialOfferDTO? commercialOfferDTO;
-  bool isAllResources = false;
+  bool isAllResources;
+
+  DesignPresaleDTO({
+    this.inputDataDesignDTO,
+    this.divisionResources = const {},
+    this.divisionMargins = const {},
+    this.commercialOfferDTO,
+    this.isAllResources = false,
+  });
 }
 
 class InputDataDesignDTO {

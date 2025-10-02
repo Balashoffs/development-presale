@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DesignPresalePojo {
 
- OfferDayCounterPojo get dayCounter; ObjectDataDesignPojo get objectData; InputFactorsPojo get inputFactors; String get divisionType; Map<int, DivisionResourcePojo> get divisionResources; Map<int, DivisionsMarginPojo> get divisionMargins; bool get isAllResources;
+ OfferDayCounterPojo get dayCounter; ObjectDataDesignPojo get objectData; InputFactorsPojo get inputFactors; String get divisionType; List<DivisionResourcePojo> get divisionResources; List<DivisionsMarginPojo> get divisionMargins; bool get isAllResources;
 /// Create a copy of DesignPresalePojo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $DesignPresalePojoCopyWith<$Res>  {
   factory $DesignPresalePojoCopyWith(DesignPresalePojo value, $Res Function(DesignPresalePojo) _then) = _$DesignPresalePojoCopyWithImpl;
 @useResult
 $Res call({
- OfferDayCounterPojo dayCounter, ObjectDataDesignPojo objectData, InputFactorsPojo inputFactors, String divisionType, Map<int, DivisionResourcePojo> divisionResources, Map<int, DivisionsMarginPojo> divisionMargins, bool isAllResources
+ OfferDayCounterPojo dayCounter, ObjectDataDesignPojo objectData, InputFactorsPojo inputFactors, String divisionType, List<DivisionResourcePojo> divisionResources, List<DivisionsMarginPojo> divisionMargins, bool isAllResources
 });
 
 
@@ -72,8 +72,8 @@ as OfferDayCounterPojo,objectData: null == objectData ? _self.objectData : objec
 as ObjectDataDesignPojo,inputFactors: null == inputFactors ? _self.inputFactors : inputFactors // ignore: cast_nullable_to_non_nullable
 as InputFactorsPojo,divisionType: null == divisionType ? _self.divisionType : divisionType // ignore: cast_nullable_to_non_nullable
 as String,divisionResources: null == divisionResources ? _self.divisionResources : divisionResources // ignore: cast_nullable_to_non_nullable
-as Map<int, DivisionResourcePojo>,divisionMargins: null == divisionMargins ? _self.divisionMargins : divisionMargins // ignore: cast_nullable_to_non_nullable
-as Map<int, DivisionsMarginPojo>,isAllResources: null == isAllResources ? _self.isAllResources : isAllResources // ignore: cast_nullable_to_non_nullable
+as List<DivisionResourcePojo>,divisionMargins: null == divisionMargins ? _self.divisionMargins : divisionMargins // ignore: cast_nullable_to_non_nullable
+as List<DivisionsMarginPojo>,isAllResources: null == isAllResources ? _self.isAllResources : isAllResources // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -186,7 +186,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  Map<int, DivisionResourcePojo> divisionResources,  Map<int, DivisionsMarginPojo> divisionMargins,  bool isAllResources)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  bool isAllResources)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DesignPresalePojo() when $default != null:
 return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.divisionResources,_that.divisionMargins,_that.isAllResources);case _:
@@ -207,7 +207,7 @@ return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divis
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  Map<int, DivisionResourcePojo> divisionResources,  Map<int, DivisionsMarginPojo> divisionMargins,  bool isAllResources)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  bool isAllResources)  $default,) {final _that = this;
 switch (_that) {
 case _DesignPresalePojo():
 return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.divisionResources,_that.divisionMargins,_that.isAllResources);case _:
@@ -227,7 +227,7 @@ return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divis
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  Map<int, DivisionResourcePojo> divisionResources,  Map<int, DivisionsMarginPojo> divisionMargins,  bool isAllResources)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  bool isAllResources)?  $default,) {final _that = this;
 switch (_that) {
 case _DesignPresalePojo() when $default != null:
 return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.divisionResources,_that.divisionMargins,_that.isAllResources);case _:
@@ -242,25 +242,25 @@ return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divis
 @JsonSerializable()
 
 class _DesignPresalePojo implements DesignPresalePojo {
-  const _DesignPresalePojo({required this.dayCounter, required this.objectData, required this.inputFactors, required this.divisionType, final  Map<int, DivisionResourcePojo> divisionResources = const {}, final  Map<int, DivisionsMarginPojo> divisionMargins = const {}, this.isAllResources = false}): _divisionResources = divisionResources,_divisionMargins = divisionMargins;
+  const _DesignPresalePojo({required this.dayCounter, required this.objectData, required this.inputFactors, required this.divisionType, final  List<DivisionResourcePojo> divisionResources = const [], final  List<DivisionsMarginPojo> divisionMargins = const [], this.isAllResources = false}): _divisionResources = divisionResources,_divisionMargins = divisionMargins;
   factory _DesignPresalePojo.fromJson(Map<String, dynamic> json) => _$DesignPresalePojoFromJson(json);
 
 @override final  OfferDayCounterPojo dayCounter;
 @override final  ObjectDataDesignPojo objectData;
 @override final  InputFactorsPojo inputFactors;
 @override final  String divisionType;
- final  Map<int, DivisionResourcePojo> _divisionResources;
-@override@JsonKey() Map<int, DivisionResourcePojo> get divisionResources {
-  if (_divisionResources is EqualUnmodifiableMapView) return _divisionResources;
+ final  List<DivisionResourcePojo> _divisionResources;
+@override@JsonKey() List<DivisionResourcePojo> get divisionResources {
+  if (_divisionResources is EqualUnmodifiableListView) return _divisionResources;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_divisionResources);
+  return EqualUnmodifiableListView(_divisionResources);
 }
 
- final  Map<int, DivisionsMarginPojo> _divisionMargins;
-@override@JsonKey() Map<int, DivisionsMarginPojo> get divisionMargins {
-  if (_divisionMargins is EqualUnmodifiableMapView) return _divisionMargins;
+ final  List<DivisionsMarginPojo> _divisionMargins;
+@override@JsonKey() List<DivisionsMarginPojo> get divisionMargins {
+  if (_divisionMargins is EqualUnmodifiableListView) return _divisionMargins;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableMapView(_divisionMargins);
+  return EqualUnmodifiableListView(_divisionMargins);
 }
 
 @override@JsonKey() final  bool isAllResources;
@@ -298,7 +298,7 @@ abstract mixin class _$DesignPresalePojoCopyWith<$Res> implements $DesignPresale
   factory _$DesignPresalePojoCopyWith(_DesignPresalePojo value, $Res Function(_DesignPresalePojo) _then) = __$DesignPresalePojoCopyWithImpl;
 @override @useResult
 $Res call({
- OfferDayCounterPojo dayCounter, ObjectDataDesignPojo objectData, InputFactorsPojo inputFactors, String divisionType, Map<int, DivisionResourcePojo> divisionResources, Map<int, DivisionsMarginPojo> divisionMargins, bool isAllResources
+ OfferDayCounterPojo dayCounter, ObjectDataDesignPojo objectData, InputFactorsPojo inputFactors, String divisionType, List<DivisionResourcePojo> divisionResources, List<DivisionsMarginPojo> divisionMargins, bool isAllResources
 });
 
 
@@ -322,8 +322,8 @@ as OfferDayCounterPojo,objectData: null == objectData ? _self.objectData : objec
 as ObjectDataDesignPojo,inputFactors: null == inputFactors ? _self.inputFactors : inputFactors // ignore: cast_nullable_to_non_nullable
 as InputFactorsPojo,divisionType: null == divisionType ? _self.divisionType : divisionType // ignore: cast_nullable_to_non_nullable
 as String,divisionResources: null == divisionResources ? _self._divisionResources : divisionResources // ignore: cast_nullable_to_non_nullable
-as Map<int, DivisionResourcePojo>,divisionMargins: null == divisionMargins ? _self._divisionMargins : divisionMargins // ignore: cast_nullable_to_non_nullable
-as Map<int, DivisionsMarginPojo>,isAllResources: null == isAllResources ? _self.isAllResources : isAllResources // ignore: cast_nullable_to_non_nullable
+as List<DivisionResourcePojo>,divisionMargins: null == divisionMargins ? _self._divisionMargins : divisionMargins // ignore: cast_nullable_to_non_nullable
+as List<DivisionsMarginPojo>,isAllResources: null == isAllResources ? _self.isAllResources : isAllResources // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -362,7 +362,7 @@ $InputFactorsPojoCopyWith<$Res> get inputFactors {
 /// @nodoc
 mixin _$OfferDayCounterPojo {
 
- int get timeStamp; String get offerId;
+ int get timeStamp; int get offerId;
 /// Create a copy of OfferDayCounterPojo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -395,7 +395,7 @@ abstract mixin class $OfferDayCounterPojoCopyWith<$Res>  {
   factory $OfferDayCounterPojoCopyWith(OfferDayCounterPojo value, $Res Function(OfferDayCounterPojo) _then) = _$OfferDayCounterPojoCopyWithImpl;
 @useResult
 $Res call({
- int timeStamp, String offerId
+ int timeStamp, int offerId
 });
 
 
@@ -416,7 +416,7 @@ class _$OfferDayCounterPojoCopyWithImpl<$Res>
   return _then(_self.copyWith(
 timeStamp: null == timeStamp ? _self.timeStamp : timeStamp // ignore: cast_nullable_to_non_nullable
 as int,offerId: null == offerId ? _self.offerId : offerId // ignore: cast_nullable_to_non_nullable
-as String,
+as int,
   ));
 }
 
@@ -501,7 +501,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int timeStamp,  String offerId)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int timeStamp,  int offerId)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _OfferDayCounterPojo() when $default != null:
 return $default(_that.timeStamp,_that.offerId);case _:
@@ -522,7 +522,7 @@ return $default(_that.timeStamp,_that.offerId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int timeStamp,  String offerId)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int timeStamp,  int offerId)  $default,) {final _that = this;
 switch (_that) {
 case _OfferDayCounterPojo():
 return $default(_that.timeStamp,_that.offerId);case _:
@@ -542,7 +542,7 @@ return $default(_that.timeStamp,_that.offerId);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int timeStamp,  String offerId)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int timeStamp,  int offerId)?  $default,) {final _that = this;
 switch (_that) {
 case _OfferDayCounterPojo() when $default != null:
 return $default(_that.timeStamp,_that.offerId);case _:
@@ -561,7 +561,7 @@ class _OfferDayCounterPojo implements OfferDayCounterPojo {
   factory _OfferDayCounterPojo.fromJson(Map<String, dynamic> json) => _$OfferDayCounterPojoFromJson(json);
 
 @override final  int timeStamp;
-@override final  String offerId;
+@override final  int offerId;
 
 /// Create a copy of OfferDayCounterPojo
 /// with the given fields replaced by the non-null parameter values.
@@ -596,7 +596,7 @@ abstract mixin class _$OfferDayCounterPojoCopyWith<$Res> implements $OfferDayCou
   factory _$OfferDayCounterPojoCopyWith(_OfferDayCounterPojo value, $Res Function(_OfferDayCounterPojo) _then) = __$OfferDayCounterPojoCopyWithImpl;
 @override @useResult
 $Res call({
- int timeStamp, String offerId
+ int timeStamp, int offerId
 });
 
 
@@ -617,7 +617,7 @@ class __$OfferDayCounterPojoCopyWithImpl<$Res>
   return _then(_OfferDayCounterPojo(
 timeStamp: null == timeStamp ? _self.timeStamp : timeStamp // ignore: cast_nullable_to_non_nullable
 as int,offerId: null == offerId ? _self.offerId : offerId // ignore: cast_nullable_to_non_nullable
-as String,
+as int,
   ));
 }
 
@@ -628,7 +628,7 @@ as String,
 /// @nodoc
 mixin _$ObjectDataDesignPojo {
 
- String get name; String get address; String get square; String get deadline;
+ String get name; String get address; int get square; int get deadline;
 /// Create a copy of ObjectDataDesignPojo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -661,7 +661,7 @@ abstract mixin class $ObjectDataDesignPojoCopyWith<$Res>  {
   factory $ObjectDataDesignPojoCopyWith(ObjectDataDesignPojo value, $Res Function(ObjectDataDesignPojo) _then) = _$ObjectDataDesignPojoCopyWithImpl;
 @useResult
 $Res call({
- String name, String address, String square, String deadline
+ String name, String address, int square, int deadline
 });
 
 
@@ -683,8 +683,8 @@ class _$ObjectDataDesignPojoCopyWithImpl<$Res>
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,square: null == square ? _self.square : square // ignore: cast_nullable_to_non_nullable
-as String,deadline: null == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
-as String,
+as int,deadline: null == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 
@@ -769,7 +769,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String address,  String square,  String deadline)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String address,  int square,  int deadline)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ObjectDataDesignPojo() when $default != null:
 return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
@@ -790,7 +790,7 @@ return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String address,  String square,  String deadline)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String address,  int square,  int deadline)  $default,) {final _that = this;
 switch (_that) {
 case _ObjectDataDesignPojo():
 return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
@@ -810,7 +810,7 @@ return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String address,  String square,  String deadline)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String address,  int square,  int deadline)?  $default,) {final _that = this;
 switch (_that) {
 case _ObjectDataDesignPojo() when $default != null:
 return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
@@ -830,8 +830,8 @@ class _ObjectDataDesignPojo implements ObjectDataDesignPojo {
 
 @override final  String name;
 @override final  String address;
-@override final  String square;
-@override final  String deadline;
+@override final  int square;
+@override final  int deadline;
 
 /// Create a copy of ObjectDataDesignPojo
 /// with the given fields replaced by the non-null parameter values.
@@ -866,7 +866,7 @@ abstract mixin class _$ObjectDataDesignPojoCopyWith<$Res> implements $ObjectData
   factory _$ObjectDataDesignPojoCopyWith(_ObjectDataDesignPojo value, $Res Function(_ObjectDataDesignPojo) _then) = __$ObjectDataDesignPojoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String address, String square, String deadline
+ String name, String address, int square, int deadline
 });
 
 
@@ -888,8 +888,8 @@ class __$ObjectDataDesignPojoCopyWithImpl<$Res>
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,square: null == square ? _self.square : square // ignore: cast_nullable_to_non_nullable
-as String,deadline: null == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
-as String,
+as int,deadline: null == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
+as int,
   ));
 }
 

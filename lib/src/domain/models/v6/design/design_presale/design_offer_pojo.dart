@@ -11,8 +11,8 @@ abstract class DesignPresalePojo with _$DesignPresalePojo {
     required ObjectDataDesignPojo objectData,
     required InputFactorsPojo inputFactors,
     required String divisionType,
-    @Default({}) Map<int, DivisionResourcePojo> divisionResources,
-    @Default({}) Map<int, DivisionsMarginPojo> divisionMargins,
+    @Default([]) List<DivisionResourcePojo> divisionResources,
+    @Default([]) List<DivisionsMarginPojo> divisionMargins,
     @Default(false) bool isAllResources,
 }) = _DesignPresalePojo;
 
@@ -24,7 +24,7 @@ abstract class DesignPresalePojo with _$DesignPresalePojo {
 abstract class OfferDayCounterPojo with _$OfferDayCounterPojo {
   const factory OfferDayCounterPojo({
     required int timeStamp,
-    required String offerId,
+    required int offerId,
 }) = _OfferDayCounterPojo;
 
   factory OfferDayCounterPojo.fromJson(Map<String, dynamic> json) =>
@@ -36,8 +36,8 @@ abstract class ObjectDataDesignPojo with _$ObjectDataDesignPojo {
   const factory ObjectDataDesignPojo({
     required String name,
     required String address,
-    required String square,
-    required String deadline,
+    required int square,
+    required int deadline,
   }) = _ObjectDataDesignPojo;
 
   factory ObjectDataDesignPojo.fromJson(Map<String, dynamic> json) =>

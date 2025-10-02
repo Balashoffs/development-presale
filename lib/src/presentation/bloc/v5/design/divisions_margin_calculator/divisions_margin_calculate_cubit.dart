@@ -58,6 +58,4 @@ class DivisionsMarginCalculateCubit
       _repository.update(dto);
     }
   }
-
-  void updateCashed() {}
 }
