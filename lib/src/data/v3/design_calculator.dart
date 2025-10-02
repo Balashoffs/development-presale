@@ -1,4 +1,4 @@
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/division_with_margin_row_viewmodel.dart';

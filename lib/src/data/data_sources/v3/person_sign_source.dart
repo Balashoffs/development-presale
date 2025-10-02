@@ -1,9 +1,5 @@
-import 'dart:convert';
-
-import 'package:flutter/services.dart';
 import 'package:presale/src/data/core/db_client.dart';
 import 'package:presale/src/data/data_sources/input_result_data_source.dart';
-import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_pojo.dart';
 
 class PersonSignDataSourceLocal
@@ -32,18 +28,3 @@ class PersonSignDataSourceLocal
   }
 }
 
-class DesignPresaleDataTest {
- static Future<DesignPresalePojo> getDevInputDesignPresale() async {
-    String devJson = await rootBundle.loadString(
-        'assets/calculator_data/test_resources/design_input.json');
-    Map<String, dynamic> json = jsonDecode(devJson);
-    return DesignPresalePojo.fromJson(json);
-  }
-
- static Future<DesignPresalePojo> getDevDivisionsDesignPresale() async {
-   String devJson = await rootBundle.loadString(
-       'assets/calculator_data/test_resources/design_divisions.json');
-   Map<String, dynamic> json = jsonDecode(devJson);
-   return DesignPresalePojo.fromJson(json);
- }
-}

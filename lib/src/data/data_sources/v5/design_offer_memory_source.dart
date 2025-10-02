@@ -1,5 +1,5 @@
 import 'package:collection/collection.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 
 class DesignOfferMemorySource {
   DesignPresaleDTO? _designPresaleDTO;

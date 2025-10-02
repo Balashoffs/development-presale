@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/extension.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_with_unselected_vc.dart';

@@ -1,23 +1,11 @@
-import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:presale/src/data/core/db_client.dart';
-import 'package:presale/src/data/data_sources/v3/input_result_design_source.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_memory_source.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/extension.dart';
-import 'package:presale/src/data/v3/design_calculator.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/extension.dart';
 import 'package:presale/src/di/di.dart';
-import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
-import 'package:presale/src/domain/models/v4/design/design_presale_pojo.dart';
-import 'package:presale/src/domain/models/v4/design/division_resource_table/division_resource_row_pojo.dart';
-import 'package:presale/src/domain/models/v4/design/division_resource_table/divisions_margin_table_with_type_pojo.dart';
-import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_row_pojo.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divisions_margin_summary_viewmodel.dart';
-import 'package:presale/src/domain/models/v5/design/divisions_margin_table/extensions.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/domain/repository/v5/design/divsion_margin_repository.dart';
 

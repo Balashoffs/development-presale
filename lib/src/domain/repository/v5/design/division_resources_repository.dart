@@ -1,6 +1,6 @@
 import 'package:dartz/dartz_unsafe.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_dto.dart';
-import 'package:presale/src/data/data_sources/v3/memory_cashed/design_offer_memory_source.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
+import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
