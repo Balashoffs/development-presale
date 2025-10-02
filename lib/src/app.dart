@@ -90,6 +90,7 @@ class ServiceCalcApp extends App {
             ),
           ],
         ),
+        themeMode: ThemeMode.light,
         routeInformationParser: di.appGoRouter.routeInformationParser,
         routeInformationProvider: di.appGoRouter.routeInformationProvider,
         routerDelegate: di.appGoRouter.routerDelegate,
