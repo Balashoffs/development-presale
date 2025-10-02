@@ -9,36 +9,26 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:presale/src/domain/models/v6/presale_exchange/presale_exchange_pojo.dart';
 
-import 'package:presale/main.dart';
-
-import 'model/presale_encrypt_service.dart';
-import 'model/test_presale_pojo.dart';
+import 'package:presale/src/domain/service/v6/design/encrypt_json_to_bytes.dart';
 
 void main() {
   test(
     'Convert to JSON -> Base64 -> XOR -> bytes -> XOR -> Base64 - JSON ',
     () async {
-      PresaleExchangePojo exchangePojo = PresaleExchangePojo(
-        schemeVer: '0.6',
-        presale: PresalePojo(id: 1),
-      );
-      File file = File('bytes.presale');
-      final inputMap = exchangePojo.toJson();
+      File file = File('/Users/bau/Documents/dev/liis/presale/assets/calculator_data/test_resources/02102025-1_15-56-26');
       String simple = 'simple';
       int key = stringToInt(simple);
       print(key);
-      Uint8List xorBytes = toXorBytes(inputMap, key);
-      file.writeAsBytesSync(xorBytes);
 
-      xorBytes = file.readAsBytesSync();
+     final  xorBytes = file.readAsBytesSync();
 
       final map = fromXorByte(xorBytes, key);
       PresaleExchangePojo exchangePojoOutput = PresaleExchangePojo.fromJson(
         map,
       );
 
-      print(exchangePojo);
       print(exchangePojoOutput);
     },
   );
