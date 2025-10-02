@@ -143,7 +143,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                       spacing: 16.0,
                       children: [
                         CustomButtonWidget(
-                          iconData: MoonIcons.files_share_24_light,
+                          text: 'Поделиться',
                           onTap: value == true
                               ? () {
                                   final designData =

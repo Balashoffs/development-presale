@@ -85,9 +85,8 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CustomButtonWidget(text: '  Назад  ', onTap: context.pop),
-
               CustomButtonWidget(
-                iconData: MoonIcons.files_share_24_light,
+                  text: 'Поделиться',
                 onTap: () {
                   final designData = di.inMemoryImpl.designPresaleDTO;
                   final defineModel = di.dartDefineModel;
