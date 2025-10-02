@@ -1,3 +1,3 @@
  import 'dart:io';
 
-String get eol => Platform.isWindows ? "\r" : "\n";
+String get eol => Platform.isWindows ? "\r" : "\r";

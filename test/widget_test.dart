@@ -5,26 +5,41 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:presale/main.dart';
 
+import 'model/presale_encrypt_service.dart';
+import 'model/test_presale_pojo.dart';
+
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  test(
+    'Convert to JSON -> Base64 -> XOR -> bytes -> XOR -> Base64 - JSON ',
+    () async {
+      PresaleExchangePojo exchangePojo = PresaleExchangePojo(
+        schemeVer: '0.6',
+        presale: PresalePojo(id: 1),
+      );
+      File file = File('bytes.presale');
+      final inputMap = exchangePojo.toJson();
+      String simple = 'simple';
+      int key = stringToInt(simple);
+      print(key);
+      Uint8List xorBytes = toXorBytes(inputMap, key);
+      file.writeAsBytesSync(xorBytes);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+      xorBytes = file.readAsBytesSync();
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+      final map = fromXorByte(xorBytes, key);
+      PresaleExchangePojo exchangePojoOutput = PresaleExchangePojo.fromJson(
+        map,
+      );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
-  });
+      print(exchangePojo);
+      print(exchangePojoOutput);
+    },
+  );
 }
