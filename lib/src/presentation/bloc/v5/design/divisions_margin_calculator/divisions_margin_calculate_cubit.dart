@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -29,7 +28,7 @@ class DivisionsMarginCalculateCubit
 
   void _init() async {
     List<DivisionsMarginDTO> divisions = _repository.getDivisionMargins();
-
+    _repository.updates(divisions);
     _divisionsViewController.fill(divisions);
 
     emit(DivisionsMarginCalculateState(stateEnum: StateEnum.showing));

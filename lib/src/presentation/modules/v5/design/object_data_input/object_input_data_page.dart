@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/result_sum_widget.dart';
 import 'package:provider/provider.dart';
@@ -73,6 +74,7 @@ class LoadedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ObjectDataCubit cubit = context.read<ObjectDataCubit>();
+    InputDataViewModel? inputDataDesign = cubit.inputDataDesign;
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -111,6 +113,7 @@ class LoadedWidget extends StatelessWidget {
                               width: 500,
                               hintText: 'Наименование объекта*',
                               onChanged: cubit.setObjectName,
+                              initValue: inputDataDesign?.name,
                               trailing: MoonIcons.controls_close_small_24_light,
                               validator: objectNameValidator,
                             ),
@@ -118,6 +121,7 @@ class LoadedWidget extends StatelessWidget {
                               width: 500,
                               hintText: 'Адрес объекта*',
                               onChanged: cubit.setObjectLocation,
+                              initValue: inputDataDesign?.address,
                               trailing: MoonIcons.controls_close_small_24_light,
                               validator: objectLocationValidator,
                             ),
@@ -134,7 +138,7 @@ class LoadedWidget extends StatelessWidget {
                                   validator: divisionTypeValidator(
                                     'Нужно выбрать',
                                   ),
-                                  initText: 'Нужно выбрать',
+                                  initText: inputDataDesign?.type ?? 'Нужно выбрать',
                                   onSelected: cubit.setResultDesignDocumentations,
                                   leadingIcon:
                                       MoonIcons.text_bullets_list_16_light,
@@ -161,7 +165,7 @@ class LoadedWidget extends StatelessWidget {
                                 onChanged: cubit.setSquare,
                                 trailing: MoonIcons.controls_close_small_24_light,
                                 validator: onlyInfiniteNumberValidator,
-                                initValue: '0',
+                                initValue: inputDataDesign?.square.toString() ?? '0',
                               ),
                             ),
                             TextWithRowHint(
@@ -172,7 +176,7 @@ class LoadedWidget extends StatelessWidget {
                                 onChanged: cubit.setDeadline,
                                 trailing: MoonIcons.controls_close_small_24_light,
                                 validator: onlyInfiniteNumberValidator,
-                                initValue: '0',
+                                initValue: inputDataDesign?.deadline.toString() ?? '0',
                               ),
                             ),
                             TextWithRowHint(
@@ -183,7 +187,7 @@ class LoadedWidget extends StatelessWidget {
                                 onChanged: cubit.setOverPriceFactor,
                                 trailing: MoonIcons.controls_close_small_24_light,
                                 validator: onlyFactorValidator,
-                                initValue: '1.0',
+                                initValue: inputDataDesign?.overPriceFactor.toString() ?? '1.2',
                               ),
                             ),
                             TextWithRowHint(
@@ -193,8 +197,7 @@ class LoadedWidget extends StatelessWidget {
                                 width: 128,
                                 onChanged: cubit.setMarginFactor,
                                 trailing: MoonIcons.controls_close_small_24_light,
-                                validator: onlyFactorValidator,
-                                initValue: '1.0',
+                                initValue: inputDataDesign?.marginFactor.toString() ?? '1.3',
                               ),
                             ),
                             TextWithRowHint(
@@ -205,7 +208,7 @@ class LoadedWidget extends StatelessWidget {
                                 onChanged: cubit.setCustomerFactor,
                                 trailing: MoonIcons.controls_close_small_24_light,
                                 validator: onlyFactorValidator,
-                                initValue: '1.0',
+                                initValue: inputDataDesign?.clientFactor.toString()  ?? '1.0',
                               ),
                             ),
                           ],

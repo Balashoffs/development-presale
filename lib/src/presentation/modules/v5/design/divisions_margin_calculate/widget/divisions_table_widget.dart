@@ -55,7 +55,7 @@ class _DivisionsMarginTableWidgetState
           CellDecorationWidget(
             isFistCell: true,
             child: TextCellWidget(
-              label: row.id.toString(),
+              label: index + 1,
               key: Key(row.id.toString()),
             ),
           ),

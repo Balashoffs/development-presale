@@ -48,8 +48,8 @@ class InputDataBuilder {
   String? _divisionType;
   int _objectSquare = 0;
   int _deadlineValue = 0;
-  double _overPriceFactor = 1.0;
-  double _marginFactor = 1.0;
+  double _overPriceFactor = 1.2;
+  double _marginFactor = 1.3;
   double _customerFactor = 1.0;
   double _speedFactor = 1.0;
   double _heightFactor = 1.0;

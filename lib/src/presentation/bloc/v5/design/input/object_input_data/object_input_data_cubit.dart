@@ -4,7 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/di/di.dart';
+import 'package:presale/src/domain/models/v3/design/input_data/input_data_design.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/domain/repository/v5/design/input_data_repository.dart';
 
@@ -16,6 +19,7 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   final ValueNotifier<bool> isValid = ValueNotifier(false);
   final ValueNotifier<OfferDayCounterDTO?> counterDtoVN = ValueNotifier(null);
   final ObjectRepository _objectRepository;
+  InputDataViewModel? inputDataDesign;
 
   Future<OfferDayCounterDTO?> get counterFuture =>
       _objectRepository.dayCounterFuture;
@@ -30,6 +34,9 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
     _objectRepository.validStream.listen((event) {
       isValid.value = event;
     });
+    if (_objectRepository.inputDataDesign != null) {
+      inputDataDesign = _objectRepository.inputDataDesign!.toVM();
+    }
     emit(ObjectInputDataState(stateEnum: StateEnum.showing));
   }
 
@@ -76,4 +83,26 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
   void clearCached() {
     _objectRepository.clearCashed();
   }
+}
+
+class InputDataViewModel {
+  final String name;
+  final String address;
+  final String type;
+  final int square;
+  final int deadline;
+  final double overPriceFactor;
+  final double marginFactor;
+  final double clientFactor;
+
+  const InputDataViewModel({
+    required this.name,
+    required this.address,
+    required this.type,
+    this.square = 0,
+    this.deadline = 0,
+    this.overPriceFactor = 1.2,
+    this.marginFactor = 1.3,
+    this.clientFactor = 1.0,
+  });
 }

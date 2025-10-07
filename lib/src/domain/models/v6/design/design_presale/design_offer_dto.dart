@@ -12,7 +12,7 @@ class DesignPresaleDTO {
 
   DesignPresaleDTO({
     this.inputDataDesignDTO,
-    required this.divisionResources ,
+    required this.divisionResources,
     required this.divisionMargins,
     this.commercialOfferDTO,
     this.isAllResources = false,
@@ -80,13 +80,13 @@ class InputFactorsDTO {
   final double squareFactor;
 
   const InputFactorsDTO({
+    this.overPriceFactor = 1.2,
+    this.marginFactor = 1.3,
     this.speedFactor = 1.0,
     this.heightFactor = 1.0,
-    this.overPriceFactor = 1.0,
+    this.customerFactor = 1.0,
     this.remotingFactor = 1.0,
     this.complexityFactor = 1.0,
-    this.customerFactor = 1.0,
-    this.marginFactor = 1.0,
     this.squareFactor = 1.0,
   });
 }
@@ -179,7 +179,7 @@ class DivisionResourceDTO {
     );
   }
 
-//</editor-fold>
+  //</editor-fold>
 }
 
 class DivisionsMarginDTO {
@@ -220,7 +220,7 @@ class DivisionsMarginDTO {
     String? divisionName,
     String? divisionShortName,
     String? divisionDescription,
-    double? divisionSummaryCost,
+    double? resourceDivisionSummaryCost,
     double? overPriceFactor,
     double? marginFactor,
     double? clientFactor,
@@ -237,7 +237,7 @@ class DivisionsMarginDTO {
       divisionShortName: divisionShortName ?? this.divisionShortName,
       divisionDescription: divisionDescription ?? this.divisionDescription,
       resourceDivisionSummaryCost:
-      divisionSummaryCost ?? this.resourceDivisionSummaryCost,
+      resourceDivisionSummaryCost ?? this.resourceDivisionSummaryCost,
       overPriceFactor: overPriceFactor ?? this.overPriceFactor,
       marginFactor: marginFactor ?? this.marginFactor,
       clientFactor: clientFactor ?? this.clientFactor,
@@ -245,10 +245,15 @@ class DivisionsMarginDTO {
       marginValue: marginValue ?? this.marginValue,
       clientValue: clientValue ?? this.clientValue,
       summaryCostWithMargin:
-      summaryCostWithMargin ?? this.summaryCostWithMargin,
+          summaryCostWithMargin ?? this.summaryCostWithMargin,
       summaryCostWithTax: summaryCostWithTax ?? this.summaryCostWithTax,
       taxValue: taxValue ?? this.taxValue,
     );
+  }
+
+  @override
+  String toString() {
+    return 'DivisionsMarginDTO{id: $id, divisionName: $divisionName, divisionShortName: $divisionShortName, divisionDescription: $divisionDescription, resourceDivisionSummaryCost: $resourceDivisionSummaryCost, overPriceFactor: $overPriceFactor, marginFactor: $marginFactor, clientFactor: $clientFactor, overPriceValue: $overPriceValue, marginValue: $marginValue, clientValue: $clientValue, summaryCostWithMargin: $summaryCostWithMargin, summaryCostWithTax: $summaryCostWithTax, taxValue: $taxValue}';
   }
 }
 
@@ -294,49 +299,51 @@ class CommercialOfferDTO {
     this.avanceFactor = Default_Avance_Factor,
   }) : noteText = '';
 
-  static CommercialOfferDTO from(InputDataDesignDTO inputData,
-      List<DivisionResultDTO> divisionResults,) {
+  static CommercialOfferDTO from(
+    InputDataDesignDTO inputData,
+    List<DivisionResultDTO> divisionResults,
+  ) {
     return CommercialOfferDTO(
-        id: inputData.dayCounter.getOfferUniqueNumber(),
-        created: inputData.dayCounter.localDate,
-        objectAddress: inputData.objectData.address,
-        objectLocation: inputData.objectData.address,
-        divisionType: inputData.divisionType.text,
-        deadline: inputData.objectData.deadline,
-        objectSquare: inputData.objectData.square,
-        divisionResults: divisionResults,
-        summaryClearCost: divisionResults
-            .map((e) => e.divisionClearCost)
-            .reduce((value, element) => value + element),
-        summaryOverPriceCost: divisionResults
-            .map((e) => e.divisionOverPriceCost)
-            .reduce((value, element) => value + element),
-        summaryMarginCost: divisionResults
-            .map((e) => e.divisionMarginCost)
-            .reduce((value, element) => value + element),
-        summaryClientCost: divisionResults
-            .map((e) => e.divisionClientCost)
-            .reduce((value, element) => value + element),
-        summary: divisionResults
-            .map((e) => e.divisionSummary)
-            .reduce((value, element) => value + element),
-        summaryWithTax:
-        divisionResults
-            .map((e) => e.divisionSummary)
-            .reduce((value, element) => value + element) *
-            Russian_Tax_Factor,
-        avanceValue:
-        divisionResults
-            .map((e) => e.divisionSummaryWithTax)
-            .reduce((value, element) => value + element) *
-            Default_Avance_Factor,
-        avanceFactor: Default_Avance_Factor,
-        tax:
-        divisionResults
-            .map((e) => e.divisionSummary)
-            .reduce((value, element) => value + element) *
-            Russian_Tax_Factor *
-            Russian_Tax_Factor_Reverce,
+      id: inputData.dayCounter.getOfferUniqueNumber(),
+      created: inputData.dayCounter.localDate,
+      objectAddress: inputData.objectData.address,
+      objectLocation: inputData.objectData.address,
+      divisionType: inputData.divisionType.text,
+      deadline: inputData.objectData.deadline,
+      objectSquare: inputData.objectData.square,
+      divisionResults: divisionResults,
+      summaryClearCost: divisionResults
+          .map((e) => e.divisionClearCost)
+          .reduce((value, element) => value + element),
+      summaryOverPriceCost: divisionResults
+          .map((e) => e.divisionOverPriceCost)
+          .reduce((value, element) => value + element),
+      summaryMarginCost: divisionResults
+          .map((e) => e.divisionMarginCost)
+          .reduce((value, element) => value + element),
+      summaryClientCost: divisionResults
+          .map((e) => e.divisionClientCost)
+          .reduce((value, element) => value + element),
+      summary: divisionResults
+          .map((e) => e.divisionSummary)
+          .reduce((value, element) => value + element),
+      summaryWithTax:
+          divisionResults
+              .map((e) => e.divisionSummary)
+              .reduce((value, element) => value + element) *
+          Russian_Tax_Factor,
+      avanceValue:
+          divisionResults
+              .map((e) => e.divisionSummaryWithTax)
+              .reduce((value, element) => value + element) *
+          Default_Avance_Factor,
+      avanceFactor: Default_Avance_Factor,
+      tax:
+          divisionResults
+              .map((e) => e.divisionSummary)
+              .reduce((value, element) => value + element) *
+          Russian_Tax_Factor *
+          Russian_Tax_Factor_Reverce,
     );
   }
 

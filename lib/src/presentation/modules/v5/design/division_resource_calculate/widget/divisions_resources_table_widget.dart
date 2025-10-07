@@ -111,7 +111,7 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: TextCellWidget(
-              label: '$index',
+              label: '${index+1}',
               key: resources.key,
             ),
           ),

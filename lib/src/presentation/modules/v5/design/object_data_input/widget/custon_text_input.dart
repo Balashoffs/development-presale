@@ -152,7 +152,7 @@ class CustomTextAreaInput extends StatelessWidget {
   final String? helperText;
   final IconData? leading;
   final IconData? trailing;
-  final double? initValue;
+  final String? initValue;
   final double? width;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
@@ -162,6 +162,7 @@ class CustomTextAreaInput extends StatelessWidget {
     return SizedBox(
       width: width,
       child: MoonTextArea(
+        initialValue: initValue,
         enabled: true,
         expands: true,
         height: 98,

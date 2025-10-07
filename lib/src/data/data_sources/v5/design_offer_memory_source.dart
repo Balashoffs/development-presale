@@ -4,6 +4,10 @@ import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_
 class DesignOfferMemorySource {
   DesignPresaleDTO? _designPresaleDTO;
 
+  set designPresaleDTO(DesignPresaleDTO value) {
+    _designPresaleDTO = value;
+  }
+
   DesignPresaleDTO? get designPresaleDTO => _designPresaleDTO;
 
   InputDataDesignDTO? get inputDataDesignDTO =>
@@ -33,6 +37,10 @@ class DesignOfferMemorySource {
       divisionResources: {},
       divisionMargins: {},
     );
+  }
+
+  bool isFilled(){
+    return _designPresaleDTO != null &&  _designPresaleDTO?.inputDataDesignDTO != null;
   }
 
   void setInputData(InputDataDesignDTO value) {

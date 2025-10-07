@@ -107,9 +107,8 @@ class ResourcesWithUnselectedViewController {
       updated.sort((a, b) => a.resourceId.compareTo(b.resourceId));
       selectedRows.value = [...updated];
     }
-    if (isAllRow.value) {
-      isAllRow.value = false;
-    }
+    isAllRow.value = false;
+    updateResults();
     return found;
   }
 

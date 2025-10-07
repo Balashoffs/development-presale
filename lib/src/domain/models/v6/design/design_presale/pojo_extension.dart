@@ -8,6 +8,7 @@ import 'package:presale/src/domain/models/v5/design/design_offer_result/design_o
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/division_with_margin_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_pojo.dart';
+import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/object_input_data_cubit.dart';
 
 extension ResourceDivisionDtoExt on DivisionResourceDTO {
   DivisionsMarginDTO toMargin(InputFactorsDTO factors, double summary) {
@@ -152,20 +153,47 @@ extension DivisionResultDtoExt on DivisionResultDTO {
   }
 }
 
+extension InputDataDesignDtoExt on InputDataDesignDTO {
+  InputDataViewModel toVM() {
+    return InputDataViewModel(
+      name: objectData.name,
+      address: objectData.address,
+      type: divisionType.text,
+      square: objectData.square,
+      deadline: objectData.deadline,
+      marginFactor: inputFactors.marginFactor,
+      overPriceFactor: inputFactors.overPriceFactor,
+      clientFactor: inputFactors.customerFactor,
+    );
+  }
+}
+
 extension DesignPresalePojoExt on DesignPresalePojo {
   DesignPresaleDTO toDto() {
+    final resources = divisionResources
+        .map((e) => e.toResourceDto())
+        .sorted((a, b) => a.resourceId.compareTo(b.resourceId))
+        .toList();
+
+    Map<int,  DivisionResourceDTO> updatesResources = {};
+    for (var value in resources) {
+      updatesResources.putIfAbsent(value.resourceId, () => value,);
+    }
+
+    final margins = divisionMargins
+        .map((e) => e.toMarginDto())
+        .sorted((a, b) => a.id.compareTo(b.id))
+        .toList();
+
+    Map<int,  DivisionsMarginDTO> updatesMargins = {};
+    for (var value in margins) {
+      updatesMargins.putIfAbsent(value.id, () => value,);
+    }
+
     return DesignPresaleDTO(
       inputDataDesignDTO: toInputDataDto(),
-      divisionResources: divisionResources
-          .map((e) => e.toResourceDto())
-          .toList()
-          .sorted((a, b) => a.resourceId.compareTo(b.resourceId))
-          .asMap(),
-      divisionMargins: divisionMargins
-          .map((e) => e.toMarginDto())
-          .toList()
-          .sorted((a, b) => a.id.compareTo(b.id))
-          .asMap(),
+      divisionResources: updatesResources,
+      divisionMargins: updatesMargins,
       isAllResources: isAllResources,
     );
   }

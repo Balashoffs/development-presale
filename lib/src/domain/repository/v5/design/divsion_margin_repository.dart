@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/data/v3/design_calculator.dart';
@@ -19,10 +18,8 @@ class DivisionsMarginRepository {
   InputFactorsDTO? get inputFactorsDTO =>
       _designPresaleDTO?.inputDataDesignDTO?.inputFactors;
 
-  void fill(List<DivisionsMarginDTO> divisions) {
-    for (var element in divisions) {
-      _designPresaleDTO?.divisionMargins.putIfAbsent(element.id, () => element);
-    }
+  void add(DivisionsMarginDTO value) {
+    _designPresaleDTO?.divisionMargins.putIfAbsent(value.id, () => value);
   }
 
   void update(DivisionsMarginDTO updated) {
@@ -30,11 +27,6 @@ class DivisionsMarginRepository {
   }
 
   List<DivisionsMarginDTO> getDivisionMargins() {
-    _designPresaleDTO?.divisionMargins.clear();
-    return _fillDivisionMargins();
-  }
-
-  List<DivisionsMarginDTO> _fillDivisionMargins() {
     Map<String, List<DivisionResourceDTO>> map = {};
     for (var element in divisionResources) {
       map.putIfAbsent(element.divisionShortName, () {
@@ -42,6 +34,7 @@ class DivisionsMarginRepository {
       });
       map[element.divisionShortName]?.add(element);
     }
+
     if (inputFactorsDTO != null) {
       DesignOfferCalculator calculator = DesignOfferCalculator();
       final margins = map.values.map((e) {
@@ -55,16 +48,39 @@ class DivisionsMarginRepository {
         return margin;
       }).toList();
 
-      for (var element in margins) {
-        _designPresaleDTO?.divisionMargins.putIfAbsent(
-          element.id,
-          () => element,
-        );
+      final olds = _designPresaleDTO!.divisionMargins;
+      List<DivisionsMarginDTO> news = [];
+
+      if (olds.isEmpty) {
+        for (var element in margins) {
+          news.add(element);
+        }
+      } else {
+        for (var element in margins) {
+          DivisionsMarginDTO? old = olds[element.id];
+          if (old != null) {
+            if(old.resourceDivisionSummaryCost.compareTo(element.resourceDivisionSummaryCost) != 0){
+              old = old.copyWith(resourceDivisionSummaryCost: element.resourceDivisionSummaryCost);
+            }
+
+            news.add(old);
+            continue;
+          }
+
+          news.add(element);
+        }
       }
 
-      return margins;
+      return news;
     }
 
     return [];
+  }
+
+  void updates(List<DivisionsMarginDTO> divisions) {
+    _designPresaleDTO!.divisionMargins.clear();
+    for (var value in divisions) {
+      add(value);
+    }
   }
 }

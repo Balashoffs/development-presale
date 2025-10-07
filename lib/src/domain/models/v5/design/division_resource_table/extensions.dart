@@ -51,8 +51,8 @@ extension DivisionDtoExt on DivisionDTO {
 
 extension DivisionWithResourceRowExt on DivisionWithResourceViewModel {
   DivisionResourceRowPojo toPojo({
-    double overPriceFactor = 1.0,
-    double marginFactor = 1.0,
+    double overPriceFactor = 1.2,
+    double marginFactor = 1.3,
   }) {
     return DivisionResourceRowPojo(
       divisionDescription: divisionDescription,
