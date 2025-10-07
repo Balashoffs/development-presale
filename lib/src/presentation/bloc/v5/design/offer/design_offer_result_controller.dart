@@ -8,6 +8,7 @@ class DesignOfferResultController {
   late final ValueNotifier<DesignOfferResultVM>? designOfferResultVN;
   ValueNotifier<double> avanceVN = ValueNotifier(0.0);
 
+
   void setViewModel(DesignOfferResultVM value) {
     designOfferResultVN = ValueNotifier(value);
   }

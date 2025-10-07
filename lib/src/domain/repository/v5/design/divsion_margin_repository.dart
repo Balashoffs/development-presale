@@ -59,10 +59,16 @@ class DivisionsMarginRepository {
         for (var element in margins) {
           DivisionsMarginDTO? old = olds[element.id];
           if (old != null) {
-            if(old.resourceDivisionSummaryCost.compareTo(element.resourceDivisionSummaryCost) != 0){
-              old = old.copyWith(resourceDivisionSummaryCost: element.resourceDivisionSummaryCost);
+            if (old.resourceDivisionSummaryCost.compareTo(
+                  element.resourceDivisionSummaryCost,
+                ) !=
+                0) {
+              old = old.copyWith(
+                resourceDivisionSummaryCost:
+                    element.resourceDivisionSummaryCost,
+              );
             }
-
+            old = calculator.calcDivisionMarginDTOCost(old);
             news.add(old);
             continue;
           }
