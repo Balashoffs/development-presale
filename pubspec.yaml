@@ -20,6 +20,7 @@ dependencies:
   flutter_svg: ^2.2.0
   syncfusion_flutter_xlsio: ^31.1.19
   syncfusion_flutter_datagrid: ^31.1.19
+  web: ^1.1.1
   # storages
   path_provider: ^2.1.5
   open_file: ^3.5.10

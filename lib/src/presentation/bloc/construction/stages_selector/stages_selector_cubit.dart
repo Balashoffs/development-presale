@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/calculator/section_info_repository.dart';
-import 'package:presale/src/domain/models/v2/constructing/model/calculator/section_info_repository.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/calculator/stage_info_repository.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/calculator/stage_section_repository.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/input/construction_state/factors.dart';
@@ -38,7 +37,7 @@ class StagesSelectorCubit extends Cubit<StagesSelectorState> {
   void _loadFromPath() async {
     StageData? stageInfo = _infoRepository.getInfo(_path);
     if (stageInfo != null) {
-      List<BaseFactor> subFactors = await _sectionRepository.getFactors(_path);
+      List<BaseFactor> subFactors = _sectionRepository.getFactors(_path);
       if (subFactors.isNotEmpty) {
         emit(
           StagesSelectorState.stage(
@@ -53,14 +52,12 @@ class StagesSelectorCubit extends Cubit<StagesSelectorState> {
           ),
         );
       } else {
-        print('section info: ${stageInfo.isSection}');
         if (!stageInfo.isSection) {
           if (!_sectionRepository.check(_path)) {
             List<BaseFactor> factors = await _sectionRepository.loadStage(
                 _path);
             if (factors.isNotEmpty) {
               if (factors.first is StageFactor) {
-                print('stage data');
                 _sectionRepository.addFactors(_path, factors);
 
                 List<StageData> subFactors = factors
@@ -93,7 +90,6 @@ class StagesSelectorCubit extends Cubit<StagesSelectorState> {
                   ),
                 );
               } else if (factors.first is SectionFactor) {
-                print('section data');
                 _sectionRepository.addFactors(_path, factors);
                 List<StageData> subFactors = factors
                     .map(

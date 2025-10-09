@@ -7,7 +7,6 @@
  */
 
 import 'package:presale/src/data/core/csv_parser.dart';
-import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 
 class DivisionCSV {
   final String id;

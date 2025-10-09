@@ -6,13 +6,6 @@ import 'package:open_file/open_file.dart' as open_file;
 import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:presale/src/domain/models/common/metadata_for_saving.dart';
 
-///To save the Excel file in the device
-///To save the Excel file in the device
-/*
-List<int> bytes, String fileName
-allowedExtensions ['.xlsx']
-dialogTitle: 'Сохранить КП в xlsx',
- */
 Future<void> saveAndLaunchFile(MetadataForSaving meteData) async {
   String? pickedSaveFilePath;
 
@@ -22,33 +15,32 @@ Future<void> saveAndLaunchFile(MetadataForSaving meteData) async {
       allowedExtensions: meteData.allowedExtensions,
       type: FileType.custom,
       dialogTitle: meteData.dialogTitle,
-      fileName:meteData.fileName,
+      fileName: meteData.fileName,
       initialDirectory: w.path,
       lockParentWindow: true,
       bytes: meteData.bytes,
     );
-    if(pickedSaveFilePath == null){
+    if (pickedSaveFilePath == null) {
       return;
     }
-    if (Platform.isAndroid || Platform.isIOS) {
-      //Launch the file (used open_file package)
-      await open_file.OpenFile.open('$pickedSaveFilePath');
-    } else if (Platform.isWindows) {
-      await Process.run('start', <String>[
-        '$pickedSaveFilePath',
-      ], runInShell: true);
-    } else if (Platform.isMacOS) {
-      await Process.run('open', <String>[
-        '$pickedSaveFilePath',
-      ], runInShell: true);
-    } else if (Platform.isLinux) {
-      await Process.run('xdg-open', <String>[
-        '$pickedSaveFilePath',
-      ], runInShell: true);
+    if (meteData.isOpen) {
+      if (Platform.isAndroid || Platform.isIOS) {
+        //Launch the file (used open_file package)
+        await open_file.OpenFile.open(pickedSaveFilePath);
+      } else if (Platform.isWindows) {
+        await Process.run('start', <String>[
+          pickedSaveFilePath,
+        ], runInShell: true);
+      } else if (Platform.isMacOS) {
+        await Process.run('open', <String>[
+          pickedSaveFilePath,
+        ], runInShell: true);
+      } else if (Platform.isLinux) {
+        await Process.run('xdg-open', <String>[
+          pickedSaveFilePath,
+        ], runInShell: true);
+      }
     }
-  } on PlatformException catch (e) {
-    ;
-  } catch (e) {
-    ;
-  }
+  } on PlatformException catch (_) {
+  } catch (_) {}
 }

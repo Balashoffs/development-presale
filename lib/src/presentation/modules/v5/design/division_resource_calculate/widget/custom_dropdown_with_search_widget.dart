@@ -204,10 +204,8 @@ class _ResourceDropDownSelectorState extends State<ResourceDropDownSelector> {
   void _getPosition() {
     final RenderBox? renderBox =
         _dropWidgetKey.currentContext?.findRenderObject() as RenderBox?;
-    print('find render: ${renderBox.toString()}');
     if (renderBox != null) {
       final Offset globalPosition = renderBox.localToGlobal(Offset.zero);
-      ;
       final height = MediaQuery.of(context).size.height;
       setState(() {
         _isUpper = globalPosition.dy.compareTo(height / 2) > 0;
@@ -313,7 +311,6 @@ class _ResourceObjectDropDownSelectorState
   void _getPosition() {
     final RenderBox? renderBox =
         _dropWidgetKey.currentContext?.findRenderObject() as RenderBox?;
-    print('find render: ${renderBox.toString()}');
     if (renderBox != null) {
       final Offset globalPosition = renderBox.localToGlobal(Offset.zero);
       final height = MediaQuery.of(context).size.height;

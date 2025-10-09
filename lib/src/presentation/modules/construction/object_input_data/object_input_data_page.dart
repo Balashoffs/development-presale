@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
+
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/input/input_repository.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/common/typography_page_options.dart';
 import 'package:presale/src/presentation/bloc/construction/object_input_data/object_input_data_cubit.dart';
 import 'package:presale/src/presentation/bloc/construction/provider/provider.dart';
@@ -87,7 +87,6 @@ class LoadedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40];
     final BorderRadiusGeometry borderRadius = BorderRadius.circular(4.0);
     ObjectDataCubit cubit = context.read<ObjectDataCubit>();
     return Column(
@@ -190,7 +189,6 @@ class LoadedWidget extends StatelessWidget {
                     MoonMenuItem(
                       width: 48,
                       borderRadius: borderRadius,
-                      backgroundColor: backgroundColor,
                       menuItemCrossAxisAlignment: CrossAxisAlignment.center,
                       label: Text(
                         "F",
@@ -205,7 +203,6 @@ class LoadedWidget extends StatelessWidget {
                             MoonMenuItem(
                               width: 256,
                               borderRadius: borderRadius,
-                              backgroundColor: backgroundColor,
                               menuItemCrossAxisAlignment:
                                   CrossAxisAlignment.center,
                               label: Text(
@@ -235,7 +232,6 @@ class LoadedWidget extends StatelessWidget {
                             MoonMenuItem(
                               width: 256,
                               borderRadius: borderRadius,
-                              backgroundColor: backgroundColor,
                               menuItemCrossAxisAlignment:
                                   CrossAxisAlignment.center,
                               label: Text(
@@ -288,7 +284,6 @@ class LoadedWidget extends StatelessWidget {
                     buttonSize: MoonButtonSize.xl,
                     isFullWidth: false,
                     showPulseEffect: true,
-                    borderColor: colorTable(context)[40],
                     trailing: Icon(Icons.arrow_forward_outlined),
                     label: Text('Выбрать стади и работы'),
                   ),
@@ -307,7 +302,6 @@ class ResultWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40];
 
     final BorderRadiusGeometry borderRadius = BorderRadius.circular(4.0);
     return Consumer<InputFactorsValueNotifier>(
@@ -315,7 +309,6 @@ class ResultWidget extends StatelessWidget {
         menuItemPadding: EdgeInsets.all(12),
         width: 1000,
         borderRadius: borderRadius,
-        backgroundColor: backgroundColor,
         menuItemCrossAxisAlignment: CrossAxisAlignment.center,
         label: Center(
           child: Text(
@@ -344,7 +337,6 @@ class RowInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40];
     final BorderRadiusGeometry borderRadius = BorderRadius.circular(4.0);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -352,7 +344,6 @@ class RowInputWidget extends StatelessWidget {
         MoonMenuItem(
           width: 48,
           borderRadius: borderRadius,
-          backgroundColor: backgroundColor,
           menuItemCrossAxisAlignment: CrossAxisAlignment.center,
           label: Text(
             firstRowLabel,
@@ -362,7 +353,6 @@ class RowInputWidget extends StatelessWidget {
         MoonMenuItem(
           width: 256,
           borderRadius: borderRadius,
-          backgroundColor: backgroundColor,
           menuItemCrossAxisAlignment: CrossAxisAlignment.center,
           label: Text(
             secondRowLabel,
@@ -393,15 +383,11 @@ class CustomMoonDropDown extends StatefulWidget {
 class _CustomMoonDropDownState extends State<CustomMoonDropDown> {
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40]?.withAlpha(100);
-    final borderColor = colorTable(context)[40]?.withAlpha(50);
     return Consumer<ValueNotifierDropDown>(
       builder: (context, value, child) {
         return MoonDropdown(
           show: value.showMenu,
           maxWidth: 256,
-          borderColor: borderColor ?? Colors.transparent,
-          backgroundColor: backgroundColor,
           constrainWidthToChild: true,
           distanceToTarget: 8.0,
           dropdownAnchorPosition: MoonDropdownAnchorPosition.bottom,

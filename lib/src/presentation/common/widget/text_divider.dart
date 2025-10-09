@@ -26,10 +26,7 @@ class TextDivider extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              text,
-              style: context.moonTypography?.body.text18
-                  .copyWith(color: context.moonColors?.trunks),
-            ),
+              text,),
           ),
           const Expanded(
             child: Divider(indent: 12, endIndent: 512,),

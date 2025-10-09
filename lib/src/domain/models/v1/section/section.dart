@@ -1,5 +1,4 @@
 
-import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/domain/models/v1/employee/employee.dart';
 import 'package:presale/src/domain/models/v1/service_stage/service_stage.dart';

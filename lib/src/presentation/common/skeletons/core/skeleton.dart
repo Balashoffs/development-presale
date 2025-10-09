@@ -9,13 +9,13 @@ class Skeleton extends StatefulWidget {
   final bool sameWidget;
 
   const Skeleton({
-    Key? key,
+    super.key,
     required this.isLoading,
     this.skeleton,
     required this.child,
     this.swapDuration = const Duration(milliseconds: 250),
     this.sameWidget = false,
-  }) : super(key: key);
+  });
 
   @override
   State<Skeleton> createState() => _SkeletonState();
@@ -69,10 +69,9 @@ class _SkeletonState extends State<Skeleton> {
 
 class _SkeletonWidget extends StatefulWidget {
   const _SkeletonWidget({
-    Key? key,
     required this.isLoading,
     required this.skeleton,
-  }) : super(key: key);
+  });
 
   final bool isLoading;
   final Widget skeleton;

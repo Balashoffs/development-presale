@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/bloc/construction/provider/provider.dart';
 import 'package:provider/provider.dart';
 
@@ -25,9 +24,7 @@ class _StagesSelectorMultiCustomMoonDropDownState
     extends State<StagesSelectorMultiCustomMoonDropDown> {
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40];
     final BorderRadiusGeometry borderRadius = BorderRadius.circular(4.0);
-    final borderColor = colorTable(context)[40]?.withAlpha(50);
 
     return Consumer<MultiValueNotifierDropDown>(
       builder: (context, value, child) {
@@ -35,8 +32,6 @@ class _StagesSelectorMultiCustomMoonDropDownState
           targetAnchor: Alignment.topLeft,
           dropdownAnchorPosition: MoonDropdownAnchorPosition.topLeft,
           show: value.showChoices,
-          borderColor: borderColor ?? Colors.transparent,
-          backgroundColor: backgroundColor,
           constrainWidthToChild: false,
           distanceToTarget: 8.0,
           dropdownShadows: null,

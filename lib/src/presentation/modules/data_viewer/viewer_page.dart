@@ -1,15 +1,13 @@
-
-
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
-import 'package:presale/src/presentation/common/typography_page_options.dart';
-import 'package:presale/src/presentation/core/navigation/app_router.dart';
-
-import 'package:presale/src/presentation/core/navigation/nested_route.dart';
-import 'package:presale/src/presentation/modules/data_viewer/viewer_info.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import 'package:presale/src/presentation/common/typography_page_options.dart';
+import 'package:presale/src/presentation/core/navigation/app_router.dart';
+import 'package:presale/src/presentation/core/navigation/nested_route.dart';
+import 'package:presale/src/presentation/modules/data_viewer/viewer_info.dart';
+
 
 class ViewerPage extends StatefulWidget {
   final List<ViewerTabInfo> tabs;
@@ -29,12 +27,8 @@ class ViewerPage extends StatefulWidget {
 }
 
 class _ViewerPageState extends State<ViewerPage> with SingleTickerProviderStateMixin {
-  // late List<_TabNavigator> _tabs;
   late int _tabIndex;
-  final ValueNotifier<bool> _hoverLogo = ValueNotifier(false);
-
   late List<ViewerTab> _tabs;
-  final ValueNotifier<int> _tabsIndex = ValueNotifier(0);
 
   void _updateForCurrentTab() {
     _tabIndex = widget.shell.currentIndex;
@@ -137,15 +131,12 @@ class _BottomNavigation extends StatefulWidget {
 
 class _BottomNavigationState extends State<_BottomNavigation> with TickerProviderStateMixin {
   late int _currentIndex;
-  late List<GlobalKey> _tabsKeys;
-  final ScrollController _scrollController = ScrollController();
   TabController? _controller;
-  final double _padding = 0;
+
 
   @override
   void initState() {
     _currentIndex = widget.initialIndex;
-    _tabsKeys = widget.tabs.map((e) => LabeledGlobalKey(e.index.toString())).toList();
     _controller = TabController(length: widget.tabs.length, vsync: this);
     _controller?.addListener(() {
 
@@ -154,18 +145,13 @@ class _BottomNavigationState extends State<_BottomNavigation> with TickerProvide
         widget.tabIndexChanged(_controller!.index);
       }
     });
-    // _scrollToCurrentTab();
     super.initState();
   }
 
   @override
   void didUpdateWidget(_BottomNavigation oldWidget) {
-    _tabsKeys = widget.tabs.map((e) => LabeledGlobalKey(e.index.toString())).toList();
-    // _controller = TabController(length: widget.tabs.length, vsync: this);
     _currentIndex = widget.initialIndex;
     _controller?.index = _currentIndex;
-
-    // _scrollToCurrentTab();
     super.didUpdateWidget(oldWidget);
   }
 
@@ -177,8 +163,6 @@ class _BottomNavigationState extends State<_BottomNavigation> with TickerProvide
       controller: _controller,
       tabAlignment: TabAlignment.start,
       isScrollable: true,
-      labelColor: getColor(context, MoonColor.popo),
-      unselectedLabelColor: getColor(context, MoonColor.trunks),
       dividerColor: Colors.transparent,
       splashBorderRadius: BorderRadius.all(Radius.circular(8)),
       tabs: [

@@ -99,7 +99,7 @@ class SuccessState<T> extends RepositoryState<T> {
 }
 
 class CompletedState<T> extends SuccessState<T> {
-  const CompletedState(T model, [int timestamp = 0]) : super(model, timestamp);
+  const CompletedState(super.model, [super.timestamp]);
 }
 
 /// TODO: Add other models at _handleList, _handleMap

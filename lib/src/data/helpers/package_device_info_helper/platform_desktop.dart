@@ -14,18 +14,18 @@ void getPackageDeviceInfo(SeqLogger seqLogger) async {
   String deviceInfoS = '';
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
   if (Platform.isAndroid) {
-    deviceInfoS = await deviceInfo.androidInfo.toString();
+    deviceInfoS =  deviceInfo.androidInfo.toString();
   } else if (Platform.isMacOS) {
     MacOsDeviceInfo macOsDeviceInfo = await deviceInfo.macOsInfo;
     deviceInfoS = macOsDeviceInfo.data.entries
         .map((e) => '${e.key}: ${e.value}')
         .join(',');
   } else if (Platform.isIOS) {
-    deviceInfoS = await deviceInfo.iosInfo.toString();
+    deviceInfoS =  deviceInfo.iosInfo.toString();
   } else if (Platform.isWindows) {
-    deviceInfoS = await deviceInfo.windowsInfo.toString();
+    deviceInfoS =  deviceInfo.windowsInfo.toString();
   } else {
-    deviceInfoS = await deviceInfo.webBrowserInfo.toString();
+    deviceInfoS =  deviceInfo.webBrowserInfo.toString();
   }
 
   await di.segLogger.log(SeqLogLevel.information, deviceInfoS, null, {

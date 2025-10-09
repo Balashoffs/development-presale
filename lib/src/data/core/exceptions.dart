@@ -20,23 +20,23 @@ abstract class _Exception implements Exception {
 }
 
 class DataBaseException extends _Exception {
-  const DataBaseException([String? message]) : super(message);
+  const DataBaseException([super.message]);
 }
 
 class ServerException extends _Exception {
-  const ServerException([String? message, dynamic error])
-      : super(message, error: error);
+  const ServerException([super.message, dynamic error])
+      : super(error: error);
 }
 
 class NetworkException extends _Exception {
-  const NetworkException([String? message]) : super(message);
+  const NetworkException([super.message]);
 }
 
 class UnauthorizedException extends _Exception {
-  const UnauthorizedException([String? message]) : super(message);
+  const UnauthorizedException([super.message]);
 }
 
 class ResponseException extends _Exception {
-  const ResponseException([String? message, dynamic error])
-      : super(message, error: error);
+  const ResponseException([super.message, dynamic error])
+      : super(error: error);
 }

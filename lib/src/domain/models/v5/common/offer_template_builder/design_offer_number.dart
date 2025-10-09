@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v5/common/offer_template_builder/offer_template_builder.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
@@ -82,7 +81,7 @@ class DesignOfferNumber extends BaseTemplateBuilder {
 
   void _addOfferId() {
     String id = offerResult.id;
-    String offerId = 'исх. №${id}';
+    String offerId = 'исх. №$id';
     _buildCell(offerId, "B$rowPos");
   }
 

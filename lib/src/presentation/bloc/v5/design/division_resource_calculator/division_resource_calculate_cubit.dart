@@ -10,7 +10,6 @@ import 'package:presale/src/domain/models/v5/design/division_resource_table/divi
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/domain/repository/v5/design/division_resources_repository.dart';
-import 'package:presale/src/domain/models/v4/design/division_resource_table/widget_action_type.dart';
 
 part 'division_resource_calculate_state.dart';
 

@@ -60,7 +60,6 @@ class _SimpleDropdownInputState<T> extends State<SimpleDropdownInput<T>> with Ti
   late ValueNotifier<T?> _currentValue;
 
   AnimationController? _animationController;
-  Animation<double>? _animation;
   late GlobalKey titleKey;
   final FocusNode _focusNode = FocusNode();
   final TextEditingController _textEditingController = TextEditingController();
@@ -82,10 +81,6 @@ class _SimpleDropdownInputState<T> extends State<SimpleDropdownInput<T>> with Ti
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 200),
       vsync: this,
-    );
-    _animation = CurvedAnimation(
-      parent: _animationController!,
-      curve: Curves.easeInOutCubic,
     );
     _focusNode.addListener(() {
       if (_focusNode.hasFocus) {
@@ -128,7 +123,9 @@ class _SimpleDropdownInputState<T> extends State<SimpleDropdownInput<T>> with Ti
     if (widget.menuAnchor != Alignment.topRight &&
         widget.menuAnchor != Alignment.topLeft &&
         widget.childAnchor != Alignment.bottomRight &&
-        widget.childAnchor != Alignment.bottomLeft) return 0;
+        widget.childAnchor != Alignment.bottomLeft) {
+      return 0;
+    }
     BuildContext? context = titleKey.currentContext;
     if (context == null) return 0;
     RenderBox renderBox = context.findRenderObject() as RenderBox;
@@ -137,8 +134,6 @@ class _SimpleDropdownInputState<T> extends State<SimpleDropdownInput<T>> with Ti
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
-
     return ValueListenableBuilder(
       builder: (context, opened, _) {
         return ValueListenableBuilder(

@@ -1,15 +1,8 @@
-import 'package:dart_seq/dart_seq.dart';
-import 'package:date_format/date_format.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:package_info_plus/package_info_plus.dart';
-import 'package:presale/src/di/di.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
-import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
 
-import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
+import 'package:presale/src/di/di.dart';
 import 'package:presale/src/presentation/modules/v6/design/navi/service_navi.dart';
 
 class ServiceTypeSelectPage extends StatefulWidget {
@@ -113,9 +106,7 @@ class _ServiceTypeSelectPageState extends State<ServiceTypeSelectPage> {
                     padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
                     child: Text(
                       "О приложении",
-                      style: context.moonTypography!.heading.text18.copyWith(
-                        color: getColor(context, MoonColor.popo),
-                      ),
+                      style: context.moonTypography!.heading.text18,
                     ),
                   ),
                   Divider(height: 1, color: context.moonColors!.popo),
@@ -125,9 +116,7 @@ class _ServiceTypeSelectPageState extends State<ServiceTypeSelectPage> {
                     padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
                     child: Text(
                       "Тех. поддержка",
-                      style: context.moonTypography!.heading.text18.copyWith(
-                        color: getColor(context, MoonColor.popo),
-                      ),
+                      style: context.moonTypography!.heading.text18,
                     ),
                   ),
                   Divider(height: 1, color: context.moonColors!.popo),
@@ -165,15 +154,11 @@ class TechSupplier extends StatelessWidget {
         children: [
           SelectableText(
             "email: ${ddm.ya}",
-            style: context.moonTypography!.body.text14.copyWith(
-              color: getColor(context, MoonColor.popo),
-            ),
+            style: context.moonTypography!.body.text14,
           ),
           SelectableText(
             "telegram: ${ddm.tg}",
-            style: context.moonTypography!.body.text14.copyWith(
-              color: getColor(context, MoonColor.popo),
-            ),
+            style: context.moonTypography!.body.text14,
           ),
         ],
       ),
@@ -195,21 +180,15 @@ class AboutWidget extends StatelessWidget {
         children: [
           Text(
             ddm.appName,
-            style: context.moonTypography!.body.text14.copyWith(
-              color: getColor(context, MoonColor.popo),
-            ),
+            style: context.moonTypography!.body.text14,
           ),
           Text(
             "Версия: ${ddm.version}",
-            style: context.moonTypography!.body.text14.copyWith(
-              color: getColor(context, MoonColor.popo),
-            ),
+            style: context.moonTypography!.body.text14,
           ),
           Text(
             "Дата релиза: ${ddm.createdDate}",
-            style: context.moonTypography!.body.text14.copyWith(
-              color: getColor(context, MoonColor.popo),
-            ),
+            style: context.moonTypography!.body.text14,
           ),
         ],
       ),

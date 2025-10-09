@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
-import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
-import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
-import 'package:presale/src/presentation/modules/v5/design/common/result_sum_widget.dart';
 import 'package:provider/provider.dart';
 
+import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/result_sum_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/next_page_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/navi/service_navi.dart';
 import 'package:presale/src/di/di.dart';

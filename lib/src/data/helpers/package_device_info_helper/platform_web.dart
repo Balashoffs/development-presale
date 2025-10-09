@@ -11,7 +11,7 @@ void getPackageDeviceInfo(SeqLogger seqLogger) async {
 
   String deviceInfoS = '';
   DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-  deviceInfoS = await deviceInfo.webBrowserInfo.toString();
+  deviceInfoS =  deviceInfo.webBrowserInfo.toString();
 
   await di.segLogger.log(SeqLogLevel.information, deviceInfoS, null, {
     'Timestamp': DateTime.now().toUtc().toIso8601String(),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/bloc/construction/provider/provider.dart';
 import 'package:presale/src/presentation/bloc/construction/sections_table_cubit.dart';
 import 'package:presale/src/presentation/modules/construction/selected_stage_as_table/widget/section_info_table.dart';
@@ -84,7 +83,6 @@ class CalcTable extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       'Всего $value рублей',
-                      style: TextStyle(color: colorTable(context)[40]),
                     ),
                   );
                 },

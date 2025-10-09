@@ -147,7 +147,7 @@ class ObjectDataCubit extends Cubit<ObjectDataState> {
     double totalPlannedCost =
         totalFactor * costPerMeter * _inputResult.plannedSquare;
     totalPlannedCost = totalPlannedCost.roundToDouble();
-    print('totalPlannedCost\t=${_inputDataCalculator.toString()} * $costPerMeter');
+
     _inputResult = _inputResult.copyWith(
       totalPlannedCost: totalPlannedCost,
       totalFactor: totalFactor,

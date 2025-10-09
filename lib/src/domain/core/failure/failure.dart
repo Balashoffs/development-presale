@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
+
 
 part 'failure.freezed.dart';
 
@@ -17,7 +17,7 @@ abstract class Failure with _$Failure {
   ) = _Failure;
 
   @override
-  String toString() => describeEnum(failureType);
+  String toString() => failureType.name;
 
   factory Failure.fromJson(Map<String, dynamic> json) =>
       _$FailureFromJson(json);

@@ -3,10 +3,9 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 import 'package:presale/src/di/di.dart';
-import 'package:presale/src/domain/models/v3/design/input_data/input_data_design.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
-import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/domain/repository/v5/design/input_data_repository.dart';

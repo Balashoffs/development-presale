@@ -1,8 +1,3 @@
-import 'dart:async';
-
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-//
 import 'package:presale/src/presentation/core/navigation/validation_routes.dart';
 
 enum ViewerTab {
@@ -25,21 +20,13 @@ class ViewerNestedRoute extends AuthNeedRoute {
   final ViewerTab tab;
 
   ViewerNestedRoute({
-    required String path,
-    String? name,
-    Widget Function(BuildContext, GoRouterState)? builder,
-    Page Function(BuildContext, GoRouterState)? pageBuilder,
-    GlobalKey<NavigatorState>? parentNavigatorKey,
-    FutureOr<String?> Function(BuildContext, GoRouterState)? redirect,
-    List<RouteBase> routes = const [],
+    required super.path,
+    super.name,
+    super.builder,
+    super.pageBuilder,
+    super.parentNavigatorKey,
+    super.redirect,
+    super.routes,
     required this.tab,
-  }) : super(
-          path: path,
-          name: name,
-          builder: builder,
-          pageBuilder: pageBuilder,
-          parentNavigatorKey: parentNavigatorKey,
-          redirect: redirect,
-          routes: routes,
-        );
+  });
 }

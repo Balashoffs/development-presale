@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/bloc/construction/provider/provider.dart';
 import 'package:presale/src/presentation/modules/construction/stages_selector/model/selected_item/selected_item.dart';
 import 'package:presale/src/presentation/modules/construction/stages_selector/model/stage_view_model/stage_view_model.dart';
@@ -25,23 +24,20 @@ class StageDataWidget extends StatefulWidget {
 class _StageDataWidgetState extends State<StageDataWidget> {
   @override
   Widget build(BuildContext context) {
-    final leadingColor = colorTable(context)[40];
-    final labelTextColor = colorTable(context)[40];
-    final trailingColor = colorTable(context)[40];
-    final backgroundColor = colorTable(context)[40];
     final BorderRadiusGeometry borderRadius = BorderRadius.circular(8);
     return MoonAccordion<StageDataViewModel>(
       identityValue: widget.stageViewModel,
       showDivider: true,
       trailing: ChangeNotifierProvider(
-        create: (context) => MultiValueNotifierDropDown(
-          infos: widget.stageViewModel.subStages
-              .map(
-                (value) =>
+        create: (context) =>
+            MultiValueNotifierDropDown(
+              infos: widget.stageViewModel.subStages
+                  .map(
+                    (value) =>
                     StagesSelectorSelectedItem(id: value.id, name: value.name),
               )
-              .toList(),
-        ),
+                  .toList(),
+            ),
         child: StagesSelectorMultiCustomMoonDropDown(
           hintText: widget.stageViewModel.stageInfo.type,
           hintWidth: 256,
@@ -57,19 +53,14 @@ class _StageDataWidgetState extends State<StageDataWidget> {
       borderRadius: borderRadius,
       accordionSize: MoonAccordionSize.xl,
       showBorder: true,
-      iconColor: trailingColor,
-      backgroundColor: backgroundColor,
-      expandedBackgroundColor: backgroundColor,
       label: Text(
-        '${widget.stageViewModel.stageInfo.name}, цена: ${widget.stageViewModel.stageInfo.value} руб. (${widget.stageViewModel.stageInfo.factor * 100}%)',
-        style: context.moonTypography!.body.textDefault.copyWith(
-          color: labelTextColor,
-          fontWeight: FontWeight.w400,
-        ),
+        '${widget.stageViewModel.stageInfo.name}, цена: ${widget.stageViewModel
+            .stageInfo.value} руб. (${widget.stageViewModel.stageInfo.factor *
+            100}%)',
+        style: context.moonTypography!.body.textDefault,
       ),
       leading: Icon(
         Icons.school,
-        color: leadingColor,
       ),
       childrenPadding: const EdgeInsets.only(top: 8, bottom: 8, left: 24),
       children: [StagesSelectorMenuItemsWidget()],
@@ -85,6 +76,7 @@ class SectionDataWidget extends StatefulWidget {
 
   final SectionDataVewModel stageViewModel;
   final Function(Set<String> itemsId) onSelected;
+
   @override
   State<SectionDataWidget> createState() => _SectionDataWidgetState();
 }
@@ -92,21 +84,20 @@ class SectionDataWidget extends StatefulWidget {
 class _SectionDataWidgetState extends State<SectionDataWidget> {
   @override
   Widget build(BuildContext context) {
-    final leadingColor = colorTable(context)[40];
-    final labelTextColor = colorTable(context)[40];
-    final backgroundColor = colorTable(context)[40];
     final BorderRadiusGeometry borderRadius = BorderRadius.circular(8);
     return MoonMenuItem(
       trailing: ChangeNotifierProvider(
-        create: (context) => MultiValueNotifierDropDown(
-          infos: widget.stageViewModel.subStages
-              .map(
-                (value) => StagesSelectorSelectedItem(
-                    id: value.id,
-                    name: '${value.typeName}-${value.subtypeName}'),
+        create: (context) =>
+            MultiValueNotifierDropDown(
+              infos: widget.stageViewModel.subStages
+                  .map(
+                    (value) =>
+                    StagesSelectorSelectedItem(
+                        id: value.id,
+                        name: '${value.typeName}-${value.subtypeName}'),
               )
-              .toList(),
-        ),
+                  .toList(),
+            ),
         child: StagesSelectorMultiCustomMoonDropDown(
           hintText: widget.stageViewModel.stageInfo.type,
           hintWidth: 256,
@@ -114,22 +105,17 @@ class _SectionDataWidgetState extends State<SectionDataWidget> {
         ),
       ),
       borderRadius: borderRadius,
-      backgroundColor: backgroundColor ?? Colors.transparent,
       label: Text(
         widget.stageViewModel.stageInfo.name,
-        style: context.moonTypography!.body.textDefault.copyWith(
-          color: labelTextColor,
-          fontWeight: FontWeight.w400,
-        ),
+        style: context.moonTypography!.body.textDefault,
       ),
       content: Text(
-        'цена: ${widget.stageViewModel.stageInfo.value} рублей (${widget.stageViewModel.stageInfo.factor *100}%)',
-        style: TextStyle(color: colorTable(context)[40]),
+        'цена: ${widget.stageViewModel.stageInfo.value} рублей (${widget
+            .stageViewModel.stageInfo.factor * 100}%)',
       ),
       onTap: () {},
       leading: Icon(
         Icons.school,
-        color: leadingColor,
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:presale/src/domain/models/v6/presale_exchange/presale_exchange_pojo.dart';
 
@@ -11,7 +12,6 @@ void main() {
       File file = File('./assets/calculator_data/test_resources/02102025-1_15-56-26');
       String simple = 'simple';
       int key = stringToInt(simple);
-      print(key);
 
      final  xorBytes = file.readAsBytesSync();
 
@@ -19,8 +19,9 @@ void main() {
       PresaleExchangePojo exchangePojoOutput = PresaleExchangePojo.fromJson(
         map,
       );
-
-      print(exchangePojoOutput);
+      if (kDebugMode) {
+        print(exchangePojoOutput);
+      }
     },
   );
 }

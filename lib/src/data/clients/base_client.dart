@@ -21,7 +21,6 @@ mixin BaseClient {
     } on DataBaseException catch (error) {
       return Left(Failure(FailureType.database, error.message));
     } catch (e) {
-      print(e);
       return const Left(Failure(FailureType.unknown, null));
     }
   }

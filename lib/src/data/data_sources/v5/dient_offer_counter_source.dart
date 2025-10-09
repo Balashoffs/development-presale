@@ -12,7 +12,6 @@ class OfferCounterSourceLocal
   @override
   Future<bool> add(OfferDayCounterPojo result) async {
     _client.write(key, result);
-    print('add:: $result');
     return true;
   }
 
@@ -24,9 +23,7 @@ class OfferCounterSourceLocal
 
   @override
   Future<OfferDayCounterPojo> read(String id) async {
-    print('tyr to read');
     Map<String, dynamic> pojoMap = await _client.read(key);
-    
     return OfferDayCounterPojo.fromJson(pojoMap);
   }
 

@@ -1,9 +1,6 @@
-// ObjectDataDTO class with Builder pattern
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
-import 'package:presale/src/domain/models/v3/design/input_data/input_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_data/object_data_design.dart';
 import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
-import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 
 class InputDataMV {
   final String objectName;

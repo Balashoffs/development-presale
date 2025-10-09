@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/calculator/section_info_repository.dart';
 
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/bloc/construction/provider/provider.dart';
 import 'package:presale/src/presentation/bloc/construction/stages_selector/stages_selector_cubit.dart';
 import 'package:provider/provider.dart';
@@ -26,8 +25,6 @@ class StagesSelectorBuilderMoonAccordion extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: 64.0, horizontal: 16.0),
               child: MoonCircularLoader(
-                color: colorTable(context)[40],
-                backgroundColor: colorTable(context)[40],
                 circularLoaderSize: MoonCircularLoaderSize.x2s,
                 strokeCap: StrokeCap.round,
               ),

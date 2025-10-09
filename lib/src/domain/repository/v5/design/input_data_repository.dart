@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:date_format/date_format.dart';
 import 'package:presale/src/data/clients/v5/offer_counter_client.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';

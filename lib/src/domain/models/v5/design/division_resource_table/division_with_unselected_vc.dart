@@ -299,7 +299,6 @@ class ResourcesWithUnselectedViewController {
       resourceId = _createdResourcedId[id]!.last + 1;
     }
     _createdResourcedId[id]!.add(resourceId);
-    print('id: $id, resourceId: $resourceId');
     return resourceId;
   }
 

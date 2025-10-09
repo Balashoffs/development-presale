@@ -13,7 +13,6 @@ DartDefineModel buildFrom() {
   final version = const String.fromEnvironment('version');
   final api = const String.fromEnvironment('api');
   final timestamps = const String.fromEnvironment('timestamp');
-  print('$timestamps');
   final date = DateTime.fromMillisecondsSinceEpoch(int.parse(timestamps) * 1000);
   final created = formatDate(date, [
     'yyyy',

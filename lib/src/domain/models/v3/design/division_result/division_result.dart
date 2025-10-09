@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:presale/src/domain/models/v3/design/divison/division.dart';
 
 part 'division_result.freezed.dart';
 part 'division_result.g.dart';

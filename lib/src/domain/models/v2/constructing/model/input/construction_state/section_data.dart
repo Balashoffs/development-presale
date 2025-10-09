@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:uuid/v4.dart';
 
 import 'cost_struct.dart';
 

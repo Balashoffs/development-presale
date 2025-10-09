@@ -30,7 +30,6 @@ class OfferCountClientImpl with BaseClient implements OfferCountClient {
       }else{
         dto.updatePoint();
       }
-      print('Updated: ${dto}');
     } else {
       dto = OfferDayCounterDTO.now();
     }
@@ -45,7 +44,6 @@ class OfferCountClientImpl with BaseClient implements OfferCountClient {
   Future<Either<Failure, OfferDayCounterDTO>> getCounter() async {
     return await handleData(
       () => _dataSource.read(OfferCounterSourceLocal.key).then((value) {
-        print('getCounter: $value');
         return value.toDto();
       }),
     );

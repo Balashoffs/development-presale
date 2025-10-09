@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:presale/src/domain/models/v2/constructing/model/input/factors/base_factor/input_base_factor.dart';
 
 class DropDownTextController extends ChangeNotifier {
   bool _showMenu;

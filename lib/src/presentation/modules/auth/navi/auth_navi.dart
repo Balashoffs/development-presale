@@ -4,7 +4,6 @@ import 'package:presale/src/presentation/core/navigation/validation_routes.dart'
 import 'package:presale/src/presentation/modules/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 const loginRoutePath = "/login";
 
@@ -18,7 +17,7 @@ class LoginRoute extends NoAuthNeedRoute {
   }) : super(
           path: path ?? loginRoutePath,
           name: name ?? (path ?? loginRoutePath).toUpperCase(),
-          builder: (context, __) => AuthPage(
+          builder: (context, _) => AuthPage(
             onPasswordChanged: (value) => _authCubit(context).changePassword(value),
             onConfirmed: () => _authCubit(context).confirm(
               () {

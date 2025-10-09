@@ -1,12 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
+import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
-import 'package:presale/src/data/data_sources/v3/person_sign_source.dart';
-import 'package:presale/src/di/di.dart';
-import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
-import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 import 'package:presale/src/domain/repository/v5/design/design_offer_repository.dart';
 import 'package:presale/src/domain/service/v5/design/excel_service.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';

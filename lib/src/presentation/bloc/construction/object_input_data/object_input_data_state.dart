@@ -5,6 +5,7 @@ sealed class ObjectDataState extends Equatable {
 }
 
 final class InitialState extends ObjectDataState {
+  @override
   List<Object> get props => [];
 }
 
@@ -20,6 +21,7 @@ final class LoadedState extends ObjectDataState {
 final class SavedState extends ObjectDataState {
   final String id;
 
+  @override
   List<Object> get props => [];
 
   const SavedState({
@@ -32,6 +34,7 @@ final class ErrorState extends ObjectDataState {
 
   const ErrorState({required this.errorText});
 
+  @override
   List<Object> get props => [errorText];
 }
 

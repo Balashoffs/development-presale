@@ -15,8 +15,6 @@ class SectionDataNotifier extends ChangeNotifier {
   }) : _sectionInfoRepository = sectionInfoRepository;
 
   void addSectionData(String id, Set<String> forAdding) {
-    print('Key: $id');
-    print('Ids for adding: $forAdding');
     List<SectionData> added = _sectionInfoRepository.selectOn(id, forAdding);
     _sectionDataList.addAll(added);
     notifyListeners();

@@ -10,12 +10,9 @@ class ViewerShellRoute extends StatefulShellRoute {
   }) : super.indexedStack(
     builder: (context, state, shell) {
       return ViewerPage(
-        // key: ValueKey(state.model),
         tabs: _routesToPaths(
           routes: nestedRoutes,
         ),
-        // tabStack: _navigatorPagesFromWidget(child),
-        // onChangeTab: (location) => context.go(location),
         getLocationOfContext: () => state.matchedLocation,
         shell: shell,
       );
@@ -46,20 +43,11 @@ class ViewerShellRoute extends StatefulShellRoute {
         paths.add(StatefulShellBranch(
           routes: [route],
           navigatorKey: LabeledGlobalKey(route.tab.index.toString()),
-          // restorationScopeId: route.tab.index.toString(),
         ));
       }
-      // else if (route is HomeShellNestedRoute) {
-      //   paths.add(StatefulShellBranch(
-      //     routes: [route],
-      //     navigatorKey: LabeledGlobalKey(route.homeTab.index.toString()),
-      //     // restorationScopeId: route.tab.index.toString(),
-      //   ));
-      // }
+
     }
     return paths;
   }
 
-  static List<Page<dynamic>> _navigatorPagesFromWidget(Widget widget) =>
-      ((widget as HeroControllerScope).child as Navigator).pages;
 }

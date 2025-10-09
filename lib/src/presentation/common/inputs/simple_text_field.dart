@@ -29,7 +29,7 @@ class SimpleTextField extends StatefulWidget {
   final bool changeAfterSubmit;
 
   const SimpleTextField({
-    Key? key,
+    super.key,
     this.initialValue,
     this.labelText,
     this.errorText,
@@ -53,7 +53,7 @@ class SimpleTextField extends StatefulWidget {
     this.phoneInput = false,
     this.labelInput = false,
     this.changeAfterSubmit = false,
-  }) : super(key: key);
+  });
 
   @override
   State<SimpleTextField> createState() => _SimpleTextFieldState();
@@ -97,7 +97,7 @@ class _SimpleTextFieldState extends State<SimpleTextField> {
   @override
   Widget build(BuildContext context) {
     assert(!widget.multiline || widget.multiline && widget.maxHeight != double.infinity);
-    ThemeData theme = Theme.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,

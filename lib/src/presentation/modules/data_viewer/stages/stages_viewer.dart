@@ -1,14 +1,6 @@
-import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/data/common/extensions/double.dart';
-import 'package:presale/src/domain/models/v1/employee/employee.dart';
 import 'package:presale/src/domain/models/v1/section/section.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/common/typography_page_options.dart';
-
-import 'package:presale/src/presentation/common/inputs/simple_text_field.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 
 class SectionsViewer extends StatefulWidget {
   final List<Section> sections;
@@ -41,19 +33,19 @@ class _SectionsViewerState extends State<SectionsViewer> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             DecoratedBox(
-              decoration: BoxDecoration(
-                  border: Border(bottom: BorderSide(color: getColor(context,  MoonColor.trunks)),)
-              ),
+              decoration: BoxDecoration(),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
-
                   children: [
                     Flexible(
                       flex: 1,
                       fit: FlexFit.tight,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
                         child: Text(
                           'Тип',
                           style: getBodyTextStyle(context, MoonTextSize.size14),
@@ -65,7 +57,10 @@ class _SectionsViewerState extends State<SectionsViewer> {
                       flex: 10,
                       fit: FlexFit.tight,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
                         child: Text(
                           'Расшифровка',
                           style: getBodyTextStyle(context, MoonTextSize.size14),
@@ -77,7 +72,10 @@ class _SectionsViewerState extends State<SectionsViewer> {
                       flex: 1,
                       fit: FlexFit.tight,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
                         child: Text(
                           'Шифр',
                           style: getBodyTextStyle(context, MoonTextSize.size14),
@@ -89,7 +87,10 @@ class _SectionsViewerState extends State<SectionsViewer> {
                       flex: 5,
                       fit: FlexFit.tight,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
                         child: Text(
                           'Соответствие направлению по штатке',
                           style: getBodyTextStyle(context, MoonTextSize.size14),
@@ -101,7 +102,10 @@ class _SectionsViewerState extends State<SectionsViewer> {
                       flex: 2,
                       fit: FlexFit.tight,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
                         child: Text(
                           'Ставка в месяц',
                           style: getBodyTextStyle(context, MoonTextSize.size14),
@@ -113,7 +117,10 @@ class _SectionsViewerState extends State<SectionsViewer> {
                       flex: 2,
                       fit: FlexFit.tight,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
                         child: Text(
                           'Ставка в день',
                           style: getBodyTextStyle(context, MoonTextSize.size14),
@@ -125,7 +132,10 @@ class _SectionsViewerState extends State<SectionsViewer> {
                       flex: 2,
                       fit: FlexFit.tight,
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 4,
+                          vertical: 4,
+                        ),
                         child: Text(
                           'Ставка в час',
                           style: getBodyTextStyle(context, MoonTextSize.size14),
@@ -145,20 +155,23 @@ class _SectionsViewerState extends State<SectionsViewer> {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: DecoratedBox(
-                      decoration: BoxDecoration(
-                          border: Border(bottom: BorderSide(color: getColor(context,  MoonColor.trunks)),)
-                      ),
+                      decoration: BoxDecoration(border: Border()),
                       child: Row(
-
                         children: [
                           Flexible(
                             flex: 1,
                             fit: FlexFit.tight,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                                vertical: 4,
+                              ),
                               child: Text(
                                 section.stage.shortText,
-                                style: getBodyTextStyle(context, MoonTextSize.size12),
+                                style: getBodyTextStyle(
+                                  context,
+                                  MoonTextSize.size12,
+                                ),
                                 textAlign: TextAlign.start,
                               ),
                             ),
@@ -167,10 +180,16 @@ class _SectionsViewerState extends State<SectionsViewer> {
                             flex: 10,
                             fit: FlexFit.tight,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                                vertical: 4,
+                              ),
                               child: Text(
                                 section.name,
-                                style: getBodyTextStyle(context, MoonTextSize.size12),
+                                style: getBodyTextStyle(
+                                  context,
+                                  MoonTextSize.size12,
+                                ),
                                 textAlign: TextAlign.left,
                               ),
                             ),
@@ -179,10 +198,16 @@ class _SectionsViewerState extends State<SectionsViewer> {
                             flex: 1,
                             fit: FlexFit.tight,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                                vertical: 4,
+                              ),
                               child: Text(
                                 section.shortName ?? '',
-                                style: getBodyTextStyle(context, MoonTextSize.size12),
+                                style: getBodyTextStyle(
+                                  context,
+                                  MoonTextSize.size12,
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -191,10 +216,16 @@ class _SectionsViewerState extends State<SectionsViewer> {
                             flex: 5,
                             fit: FlexFit.tight,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                                vertical: 4,
+                              ),
                               child: Text(
                                 section.employee?.name ?? '',
-                                style: getBodyTextStyle(context, MoonTextSize.size12),
+                                style: getBodyTextStyle(
+                                  context,
+                                  MoonTextSize.size12,
+                                ),
                                 textAlign: TextAlign.left,
                               ),
                             ),
@@ -203,10 +234,16 @@ class _SectionsViewerState extends State<SectionsViewer> {
                             flex: 2,
                             fit: FlexFit.tight,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                                vertical: 4,
+                              ),
                               child: Text(
-                                '${section.employee?.salary.toCurrency}₽',
-                                style: getBodyTextStyle(context, MoonTextSize.size12),
+                                '₽',
+                                style: getBodyTextStyle(
+                                  context,
+                                  MoonTextSize.size12,
+                                ),
                                 textAlign: TextAlign.right,
                               ),
                             ),
@@ -215,10 +252,16 @@ class _SectionsViewerState extends State<SectionsViewer> {
                             flex: 2,
                             fit: FlexFit.tight,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                                vertical: 4,
+                              ),
                               child: Text(
-                                '${section.employee?.salaryInDay.toCurrency}₽',
-                                style: getBodyTextStyle(context, MoonTextSize.size12),
+                                '₽',
+                                style: getBodyTextStyle(
+                                  context,
+                                  MoonTextSize.size12,
+                                ),
                                 textAlign: TextAlign.right,
                               ),
                             ),
@@ -227,10 +270,16 @@ class _SectionsViewerState extends State<SectionsViewer> {
                             flex: 2,
                             fit: FlexFit.tight,
                             child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 4,
+                                vertical: 4,
+                              ),
                               child: Text(
-                                '${section.employee?.salaryInHour.toCurrency}₽',
-                                style: getBodyTextStyle(context, MoonTextSize.size12),
+                                '₽',
+                                style: getBodyTextStyle(
+                                  context,
+                                  MoonTextSize.size12,
+                                ),
                                 textAlign: TextAlign.right,
                               ),
                             ),

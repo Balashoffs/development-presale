@@ -10,12 +10,13 @@ class MetadataForSaving {
   final String fileName;
   final List<String> allowedExtensions;
   final String dialogTitle;
+  final bool isOpen;
 
-  MetadataForSaving.saveAsExcel(this.bytes, this.fileName)
+  MetadataForSaving.saveAsExcel(this.bytes, this.fileName, [this.isOpen = false])
     : allowedExtensions = ['.xlsx'],
       dialogTitle = 'Сохранить КП в xlsx';
 
-  MetadataForSaving.saveAsPresaleFile(this.bytes, this.fileName)
+  MetadataForSaving.saveAsPresaleFile(this.bytes, this.fileName, [this.isOpen = false])
       : allowedExtensions = ['.presale'],
         dialogTitle = 'Сохранить расчет КП';
 }

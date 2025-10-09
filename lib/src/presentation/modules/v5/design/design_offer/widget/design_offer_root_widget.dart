@@ -2,9 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 
+import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
 import 'package:presale/src/presentation/common/widget/text_divider.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
@@ -111,7 +110,7 @@ class OfferHeadWidget extends StatelessWidget {
                 avanceVN: avanceVN,
               ),
               TextDivider(
-                text: 'Итогвые цифры для КП',
+                text: 'Итоговые цифры для КП',
                 paddingTop: 16.0,
                 paddingBottom: 32.0,
               ),

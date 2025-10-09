@@ -11,7 +11,7 @@ class ShimmerWidget extends StatefulWidget {
   final ThemeMode? themeMode;
 
   const ShimmerWidget({
-    Key? key,
+    super.key,
     this.child,
     this.duration,
     this.lightColorTween,
@@ -19,7 +19,7 @@ class ShimmerWidget extends StatefulWidget {
     this.shimmerGradient,
     this.darkShimmerGradient,
     this.themeMode,
-  }) : super(key: key);
+  });
 
   @override
   State<ShimmerWidget> createState() => ShimmerWidgetState();
@@ -42,8 +42,8 @@ class ShimmerWidgetState extends State<ShimmerWidget> with TickerProviderStateMi
     SkeletonColorTween? colorTween = light
         ? SkeletonTheme.of(context)?.light ?? widget.lightColorTween
         : SkeletonTheme.of(context)?.dark ?? widget.darkColorTween;
-    Color first = colorTween?.firstColor ?? Theme.of(context).colorScheme.background;
-    Color second = colorTween?.secondColor ?? Theme.of(context).colorScheme.onBackground;
+    Color first = colorTween?.firstColor ?? Theme.of(context).colorScheme.surface;
+    Color second = colorTween?.secondColor ?? Theme.of(context).colorScheme.onSurface;
 
     if (!mounted) {
       return;
@@ -147,10 +147,10 @@ class Shimmer extends InheritedWidget {
   final ShimmerWidgetState shimmer;
 
   const Shimmer({
-    Key? key,
-    required Widget child,
+    super.key,
+    required super.child,
     required this.shimmer,
-  }) : super(key: key, child: child);
+  });
 
   static ShimmerWidgetState? of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<Shimmer>()?.shimmer;
 

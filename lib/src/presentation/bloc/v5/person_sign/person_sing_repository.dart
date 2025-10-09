@@ -67,7 +67,9 @@ class PersonSingRepository {
     PersonSignPojo? personSignPojo = _personSignDTO?.toPojo();
     if (personSignPojo != null) {
       bool isAdd = await _dataSourceLocal.add(personSignPojo);
-      _streamController.sink.add(_personSignDTO);
+      if (isAdd) {
+        _streamController.sink.add(_personSignDTO);
+      }
     }
   }
 

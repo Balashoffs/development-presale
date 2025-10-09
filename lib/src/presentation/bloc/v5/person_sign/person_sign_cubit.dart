@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:presale/src/data/data_sources/v3/person_sign_source.dart';
+
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sing_repository.dart';

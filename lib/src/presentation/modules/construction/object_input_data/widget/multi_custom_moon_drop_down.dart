@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:provider/provider.dart';
 
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/bloc/construction/provider/provider.dart';
 
 
@@ -23,24 +22,17 @@ class _ObjectInputDataMultiCustomMoonDropDownState
     extends State<ObjectInputDataMultiCustomMoonDropDown> {
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40];
-    final BorderRadiusGeometry borderRadius = BorderRadius.circular(4.0);
-    final borderColor = colorTable(context)[40]?.withAlpha(50);
-
     return Consumer<MultiCustomValueNotifierDropDown>(
       builder: (context, value, child) {
         return MoonDropdown(
           maxWidth: 700,
           show: value.showChoices,
-          borderColor: borderColor ?? Colors.transparent,
-          backgroundColor: backgroundColor,
           constrainWidthToChild: false,
           distanceToTarget: 8.0,
           dropdownAnchorPosition: MoonDropdownAnchorPosition.bottom,
           dropdownShadows: null,
           onTapOutside: () => value.tapOutside(),
           content: ClipRRect(
-            borderRadius: borderRadius,
             child: Column(children: _generateItems(value)),
           ),
           child: MoonTextInput(

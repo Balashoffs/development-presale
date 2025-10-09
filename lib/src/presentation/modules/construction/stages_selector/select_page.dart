@@ -7,7 +7,7 @@ import 'package:presale/src/domain/models/v2/constructing/model/calculator/secti
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/calculator/stage_info_repository.dart';
 import 'package:presale/src/domain/models/v2/constructing/model/calculator/stage_section_repository.dart';
-import 'package:presale/src/presentation/common/typography_page_options.dart';import 'package:presale/src/presentation/bloc/construction/stages_selector/stage_selector_root_cubit/stage_selector_root_cubit.dart';
+import 'package:presale/src/presentation/bloc/construction/stages_selector/stage_selector_root_cubit/stage_selector_root_cubit.dart';
 import 'package:presale/src/presentation/common/widget/text_divider.dart';
 import 'package:presale/src/presentation/modules/construction/navi/construction_navi.dart';
 import 'package:presale/src/presentation/modules/construction/stages_selector/widget/result_button.dart';

@@ -55,14 +55,14 @@ class SkeletonTheme extends InheritedWidget {
   final ThemeMode? themeMode;
 
   const SkeletonTheme({
-    Key? key,
+    super.key,
     this.light,
     this.dark,
     this.shimmerGradient,
     this.darkShimmerGradient,
     this.themeMode,
-    required Widget child,
-  }) : super(key: key, child: child);
+    required super.child,
+  });
 
   static SkeletonTheme? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<SkeletonTheme>();

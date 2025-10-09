@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:presale/src/presentation/core/navigation/app_page.dart';
 import 'package:presale/src/presentation/core/navigation/validation_routes.dart';
-import 'package:presale/src/presentation/modules/service_type_select/navi/service_navi.dart';
 import 'package:presale/src/presentation/modules/v5/design/division_resource_calculate/division_resorce_calculator_page.dart';
 import 'package:presale/src/presentation/modules/v5/design/divisions_margin_calculate/divisions_margin_calculator_page.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/offer_page_with_table.dart';
