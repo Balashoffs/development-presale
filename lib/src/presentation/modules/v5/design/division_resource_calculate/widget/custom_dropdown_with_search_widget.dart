@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/modules/v5/design/division_resource_calculate/viewmodel/division_viewmodel.dart';
 import 'package:uuid/uuid.dart';
 
@@ -103,10 +102,8 @@ class _CustomDropdownWithSearchWidgetState
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: MoonDropdown(
-        borderColor: getColor(context, MoonColor.trunks),
         show: _showDropdown,
         constrainWidthToChild: true,
-        backgroundColor: colorTable(context)[40],
         borderRadius: BorderRadius.circular(8.0),
         distanceToTarget: 8,
         dropdownShadows: [],
@@ -151,10 +148,6 @@ class _CustomDropdownWithSearchWidgetState
           hasFloatingLabel: false,
           width: 500,
           focusNode: _focusNode,
-          activeBorderColor: getColor(context, MoonColor.trunks),
-          inactiveBorderColor: colorTable(context)[40],
-          backgroundColor: colorTable(context)[40],
-          hoverBorderColor: colorTable(context)[40],
           borderRadius: BorderRadius.circular(8.0),
           textInputSize: MoonTextInputSize.md,
           hintText: "Выбор разделов",
@@ -229,7 +222,6 @@ class _ResourceDropDownSelectorState extends State<ResourceDropDownSelector> {
       show: _showMenu,
       groupId: Uuid().v4(),
       maxWidth: 196,
-      borderColor: getColor(context, MoonColor.trunks),
       constrainWidthToChild: true,
       distanceToTarget: 8.0,
       dropdownAnchorPosition: _isUpper
@@ -254,7 +246,6 @@ class _ResourceDropDownSelectorState extends State<ResourceDropDownSelector> {
         }),
       ),
       child: MoonTextInput(
-        activeBorderColor: getColor(context, MoonColor.trunks),
         width: 256,
         readOnly: true,
         canRequestFocus: false,
@@ -347,7 +338,6 @@ class _ResourceObjectDropDownSelectorState
       show: _showMenu,
       groupId: Uuid().v4(),
       maxWidth: 196,
-      borderColor: getColor(context, MoonColor.trunks),
       constrainWidthToChild: true,
       distanceToTarget: 8.0,
       dropdownAnchorPosition: _isUpper
@@ -376,7 +366,6 @@ class _ResourceObjectDropDownSelectorState
         }),
       ),
       child: MoonTextInput(
-        activeBorderColor: getColor(context, MoonColor.trunks),
         width: 256,
         readOnly: true,
         canRequestFocus: false,

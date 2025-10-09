@@ -55,7 +55,7 @@ class ServiceCalcApp extends App {
           extensions: <ThemeExtension<dynamic>>[
             MoonTheme(
               tokens: MoonTokens.light.copyWith(
-                colors: mdsLightColors,
+                colors: payIoLightColors,
                 typography: MoonTypography.typography.copyWith(
                   heading: MoonTypography.typography.heading.apply(
                     fontFamily: "DMSans",
@@ -75,7 +75,7 @@ class ServiceCalcApp extends App {
           extensions: <ThemeExtension<dynamic>>[
             MoonTheme(
               tokens: MoonTokens.dark.copyWith(
-                colors: mdsDarkColors,
+                colors: payIoDarkColors,
                 typography: MoonTypography.typography.copyWith(
                   heading: MoonTypography.typography.heading.apply(
                     fontFamily: "DMSans",
@@ -90,7 +90,7 @@ class ServiceCalcApp extends App {
             ),
           ],
         ),
-        themeMode: ThemeMode.light,
+        // themeMode: ThemeMode.light,
         routeInformationParser: di.appGoRouter.routeInformationParser,
         routeInformationProvider: di.appGoRouter.routeInformationProvider,
         routerDelegate: di.appGoRouter.routerDelegate,

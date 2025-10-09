@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 import 'package:presale/src/presentation/common/typography_page_options.dart';
 
 
@@ -20,7 +19,6 @@ class RowMultiInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40];
     final BorderRadiusGeometry borderRadius = BorderRadius.circular(4.0);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +26,6 @@ class RowMultiInputWidget extends StatelessWidget {
         MoonMenuItem(
           width: 48,
           borderRadius: borderRadius,
-          backgroundColor: backgroundColor,
           menuItemCrossAxisAlignment: CrossAxisAlignment.center,
           label: Text(
             firstRowLabel,
@@ -38,7 +35,6 @@ class RowMultiInputWidget extends StatelessWidget {
         MoonMenuItem(
           width: 256,
           borderRadius: borderRadius,
-          backgroundColor: backgroundColor,
           menuItemCrossAxisAlignment: CrossAxisAlignment.center,
           label: Text(
             secondRowLabel,

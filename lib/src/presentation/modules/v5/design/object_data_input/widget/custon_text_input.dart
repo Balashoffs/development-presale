@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/presentation/common/color_options.dart';
 
 class TextWithRowHint extends StatelessWidget {
   const TextWithRowHint({
@@ -98,13 +97,6 @@ class _CustomTextInputState extends State<CustomTextInput> {
         textInputSize: MoonTextInputSize.md,
         hasFloatingLabel: false,
         onChanged: widget.onChanged,
-        textColor: colorTable(context)[40],
-        hintTextColor: colorTable(context)[40],
-        backgroundColor: colorTable(context)[40],
-        activeBorderColor: getColor(context, MoonColor.trunks),
-        inactiveBorderColor: colorTable(context)[40],
-        hoverBorderColor: colorTable(context)[40],
-        errorColor: colorTable(context)[40],
         borderRadius: BorderRadius.circular(8.toDouble()),
         autovalidateMode: AutovalidateMode.onUserInteraction,
         hintText: widget.hintText,
@@ -167,7 +159,6 @@ class CustomTextAreaInput extends StatelessWidget {
         expands: true,
         height: 98,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        activeBorderColor: getColor(context, MoonColor.trunks),
         borderRadius: BorderRadius.circular(8.toDouble()),
         hintText: hintText,
         validator: validator,

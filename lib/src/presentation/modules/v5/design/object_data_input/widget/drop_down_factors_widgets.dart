@@ -24,8 +24,6 @@ class InputFactorMoonDropDown extends StatefulWidget {
 class _InputFactorMoonDropDownState extends State<InputFactorMoonDropDown> {
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40]?.withAlpha(100);
-    final borderColor = colorTable(context)[40]?.withAlpha(50);
     return Consumer<SingleObjectValueNotifierDropDown>(
       builder: (context, value, child) {
         return Padding(
@@ -33,8 +31,6 @@ class _InputFactorMoonDropDownState extends State<InputFactorMoonDropDown> {
           child: MoonDropdown(
             maxWidth: 312,
             show: value.showMenu,
-            borderColor: borderColor ?? Colors.transparent,
-            backgroundColor: backgroundColor,
             constrainWidthToChild: true,
             distanceToTarget: 8.0,
             dropdownAnchorPosition: MoonDropdownAnchorPosition.bottom,

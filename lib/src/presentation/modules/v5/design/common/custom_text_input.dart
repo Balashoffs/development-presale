@@ -44,16 +44,15 @@ class CustomTextInput extends StatefulWidget {
 
 class _CustomTextInputState extends State<CustomTextInput> {
   final TextEditingController _textController = TextEditingController();
-  Color? _borderColor;
   final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
-    if(widget.valueSuffix != null){
+    if (widget.valueSuffix != null) {
       _textController.addListener(() {
         bool isNotPercent = !_textController.text.contains('%');
-        if(isNotPercent){
+        if (isNotPercent) {
           int pos = _textController.text.length;
           final newText = _textController.text + widget.valueSuffix!;
           _textController.value = _textController.value.copyWith(
@@ -61,20 +60,12 @@ class _CustomTextInputState extends State<CustomTextInput> {
             selection: TextSelection.collapsed(offset: pos),
           );
         }
-      },);
-    }
-    _focusNode.addListener(() {
-      setState(() {
-        _borderColor = widget.hintText == '0' && _textController.text.isEmpty
-            ? getColor(context, MoonColor.chichi)
-            : getColor(context, MoonColor.whis10);
       });
-    });
+    }
   }
 
   @override
   void dispose() {
-
     _textController.dispose();
     super.dispose(); //
   }
@@ -82,9 +73,6 @@ class _CustomTextInputState extends State<CustomTextInput> {
   @override
   void didUpdateWidget(CustomTextInput oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // if (oldWidget.key != widget.key) {
-    //   _textController.text = widget.hintText;
-    // }
   }
 
   @override
@@ -98,9 +86,6 @@ class _CustomTextInputState extends State<CustomTextInput> {
       helperTextStyle: TextStyle(fontSize: widget.helpStyleFontSize),
       textInputSize: widget.textInputSize,
       hasFloatingLabel: widget.hasFloatingLabel,
-      activeBorderColor: getColor(context, MoonColor.zeno),
-      inactiveBorderColor: _borderColor ?? getColor(context, MoonColor.whis10),
-      errorColor: colorTable(context)[MoonColor.chichi.index]!,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       hintText: widget.hintText,
       validator: widget.validator,
@@ -138,9 +123,6 @@ class CustomTextAreaInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MoonTextArea(
-      activeBorderColor: getColor(context, MoonColor.zeno),
-      inactiveBorderColor: getColor(context, MoonColor.whis10),
-      errorColor: colorTable(context)[MoonColor.chichi.index]!,
       height: null,
       enabled: true,
       expands: true,

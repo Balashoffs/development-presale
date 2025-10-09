@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:moon_design/moon_design.dart';
 
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
@@ -174,6 +173,4 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
       ],
     );
   }
-
-  void _onShare() async {}
 }

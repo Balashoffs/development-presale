@@ -24,17 +24,13 @@ class _ObjectInputDataMultiCustomMoonDropDownState
     extends State<ObjectInputDataMultiCustomMoonDropDown> {
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40];
     final BorderRadiusGeometry borderRadius = BorderRadius.circular(4.0);
-    final borderColor = colorTable(context)[40]?.withAlpha(50);
 
     return Consumer<MultiObjectValueNotifierDropDown>(
       builder: (context, value, child) {
         return MoonDropdown(
           maxWidth: 700,
           show: value.showChoices,
-          borderColor: borderColor ?? Colors.transparent,
-          backgroundColor: backgroundColor,
           constrainWidthToChild: false,
           distanceToTarget: 8.0,
           dropdownAnchorPosition: MoonDropdownAnchorPosition.bottom,
@@ -57,15 +53,12 @@ class _ObjectInputDataMultiCustomMoonDropDownState
                 ? Center(
                     child: MoonTag(
                       tagSize: MoonTagSize.xs,
-                      backgroundColor: context.moonColors!.bulma,
                       onTap: () => value.clearAllSelected(),
                       label: Text(
                         "${value.totalSelected}",
-                        style: TextStyle(color: context.moonColors!.gohan),
                       ),
                       trailing: Icon(
                         MoonIcons.controls_close_small_16_light,
-                        color: context.moonColors!.gohan,
                       ),
                     ),
                   )

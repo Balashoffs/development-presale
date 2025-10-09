@@ -45,13 +45,10 @@ class _CustomMoonDropDownState extends State<CustomMoonDropDown> {
 
   @override
   Widget build(BuildContext context) {
-    final backgroundColor = colorTable(context)[40]?.withAlpha(100);
     return Consumer<DropDownTextController>(
       builder: (context, value, child) {
         return MoonDropdown(
           show: value.showMenu,
-          borderColor:  getColor(context, MoonColor.trunks),
-          backgroundColor: backgroundColor,
           constrainWidthToChild: true,
           dropdownAnchorPosition: MoonDropdownAnchorPosition.bottom,
           dropdownShadows: null,
@@ -59,7 +56,6 @@ class _CustomMoonDropDownState extends State<CustomMoonDropDown> {
           content: Column(children: _generateItems(value, widget.onSelected)),
           child: MoonFormTextInput(
             width: widget.width,
-            activeBorderColor:  getColor(context, MoonColor.trunks),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             focusNode: _focusNode,
             validator: widget.validator,

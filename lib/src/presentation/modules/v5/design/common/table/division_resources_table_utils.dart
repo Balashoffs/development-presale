@@ -31,14 +31,12 @@ class CellDecorationWidget extends StatelessWidget {
                 left: Directionality.of(context) == TextDirection.ltr
                     ? Divider.createBorderSide(
                         context,
-                        color: context.moonColors!.beerus,
                         width: 1,
                       )
                     : BorderSide.none,
                 right: Directionality.of(context) == TextDirection.rtl
                     ? Divider.createBorderSide(
                         context,
-                        color: context.moonColors!.beerus,
                         width: 1,
                       )
                     : BorderSide.none,
@@ -62,9 +60,7 @@ class HeaderCellWidget extends StatelessWidget {
         Text(
           textAlign: TextAlign.center,
           attribute.name,
-          style: context.moonTypography?.body.text14.copyWith(
-            color: context.moonColors?.popo,
-          ),
+          // style: context.moonTypography?.body.text14
         ),
         if (attribute.tooltip.isNotEmpty)
           InkWell(
@@ -90,9 +86,7 @@ class TextCellWidget extends StatelessWidget {
       child: Text(
         textAlign: TextAlign.center,
         label.toString(),
-        style: context.moonTypography?.body.text16.copyWith(
-          color: context.moonColors?.popo,
-        ),
+        // style: context.moonTypography?.body.text16
       ),
     );
   }
@@ -113,15 +107,10 @@ class TextWithNotifier extends StatelessWidget {
           child: ValueListenableBuilder<double>(
             valueListenable: vn,
             builder: (context, value, child) {
-              Color textColor = vn.value.compareTo(0.0) > 0
-                  ? colorTable(context)[MoonColor.zeno.index]!
-                  : colorTable(context)[MoonColor.chichi.index]!;
               return Text(
                 textAlign: TextAlign.center,
                 convertToString(value, 0),
-                style: context.moonTypography?.body.text16.copyWith(
-                  color: textColor,
-                ),
+                // style: context.moonTypography?.body.text16
               );
             },
           ),
@@ -268,9 +257,7 @@ class CellWithMultiLineWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               softWrap: true,
               overflow: TextOverflow.ellipsis,
-              style: context.moonTypography?.body.text16.copyWith(
-                color: context.moonColors?.popo,
-              ),
+              // style: context.moonTypography?.body.text16
             ),
           ),
           Flexible(

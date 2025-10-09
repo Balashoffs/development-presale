@@ -8,8 +8,9 @@ import 'package:presale/src/domain/models/v5/design/design_offer_result/design_o
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/person_sign/sign_person_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/custom_text_input.dart';
 
-import '../../common/custom_text_input.dart';
+
 
 class DesignOfferHeaderWidget extends StatelessWidget {
   const DesignOfferHeaderWidget({
@@ -73,9 +74,7 @@ class DesignOfferHeaderWidget extends StatelessWidget {
                 builder: (context, value, child) {
                   return Text(
                     convertToString(value, 2),
-                    style: context.moonTypography?.body.text20.copyWith(
-                      color: context.moonColors?.popo,
-                    ),
+                    // style: context.moonTypography?.body.text20
                   );
                 },
               ),
@@ -121,16 +120,12 @@ class DesignOfferHeaderRowHeaderWidget extends StatelessWidget {
           width: 212,
           child: Text(
             type,
-            style: context.moonTypography?.body.text16.copyWith(
-              color: context.moonColors?.popo,
-            ),
+            // style: context.moonTypography?.body.text16
           ),
         ),
         Text(
           value,
-          style: context.moonTypography?.body.text20.copyWith(
-            color: context.moonColors?.popo,
-          ),
+          // style: context.moonTypography?.body.text20
         ),
       ],
     );
@@ -158,9 +153,7 @@ class DesignOfferHeaderRowWithTextInputHeaderWidget extends StatelessWidget {
           width: 196,
           child: Text(
             type,
-            style: context.moonTypography?.body.text16.copyWith(
-              color: context.moonColors?.popo,
-            ),
+            // style: context.moonTypography?.body.text16
           ),
         ),
         SizedBox(

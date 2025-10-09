@@ -41,9 +41,6 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
       },
       label: Text(widget.labelText),
       trailing: MoonCheckbox(
-        checkColor: getColor(context, MoonColor.zeno),
-        activeColor: getColor(context, MoonColor.goku),
-        borderColor: getColor(context, MoonColor.trunks),
         tristate: false,
         value: _checkboxWithLabelValue,
         tapAreaSizeValue: 0,
