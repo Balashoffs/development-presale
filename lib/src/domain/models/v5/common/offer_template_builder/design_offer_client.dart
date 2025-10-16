@@ -8,18 +8,14 @@ import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 class DesignOfferClient extends BaseTemplateBuilder {
-
-  DesignOfferClient({
-    required super.worksheet,
-    required super.offerResult,
-  });
+  DesignOfferClient({required super.worksheet, required super.offerResult});
 
   @override
   Future<void> fillRows() async {
     increment();
-    await _addLogoImg();
+    // await _addLogoImg();
     await _addHeaderImg();
-    increment(2);
+    increment(3);
     _addOfferId();
     _addDate();
     increment(2);
@@ -47,6 +43,7 @@ class DesignOfferClient extends BaseTemplateBuilder {
 
   @override
   String get fileLabelTemplate => '_с_НДС_.xlsx';
+
   void _addSignRows(PersonSignDTO personSign) {
     _addCompanySignHeader();
     _increment();
@@ -73,20 +70,25 @@ class DesignOfferClient extends BaseTemplateBuilder {
     rowPos += i;
   }
 
-  Future<Picture> _addLogoImg() async {
-    final imageBytes = await rootBundle
-        .load('assets/calculator_data/template/logo.png')
-        .then((value) => value.buffer);
-    var m = base64.encode(Uint8List.view(imageBytes));
-    return worksheet.pictures.addBase64(rowPos, 2, m);
-  }
+  // Future<Picture> _addLogoImg() async {
+  //   final imageBytes = await rootBundle
+  //       .load('assets/calculator_data/template/logo.png')
+  //       .then((value) => value.buffer);
+  //   var m = base64.encode(Uint8List.view(imageBytes));
+  //   return worksheet.pictures.addBase64(rowPos, 2, m);
+  // }
 
   Future<Picture> _addHeaderImg() async {
     final imageBytes = await rootBundle
         .load('assets/calculator_data/template/header.png')
         .then((value) => value.buffer);
     var m = base64.encode(Uint8List.view(imageBytes));
-    return worksheet.pictures.addBase64(rowPos, 4, m);
+    return worksheet.pictures.addBase64(rowPos, 2, m);
+  }
+
+  Future<List<int>> _readImageData(String name) async {
+    final ByteData data = await rootBundle.load('images/xlsio/$name');
+    return data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
   }
 
   void _addOfferId() {
@@ -164,7 +166,7 @@ class DesignOfferClient extends BaseTemplateBuilder {
   }
 
   void _addTableTitle() {
-    String title = 'Рассчет стоимости';
+    String title = 'Расчет стоимости';
     _buildCell(
       title,
       'B$rowPos:E$rowPos',
@@ -329,14 +331,14 @@ class DesignOfferClient extends BaseTemplateBuilder {
   }
 
   void _buildCell(
-      String value,
-      String range, {
-        bool isMerge = false,
-        double? width,
-        HAlignType? alignType,
-        double fontSize = 12,
-        bool isBold = false,
-      }) {
+    String value,
+    String range, {
+    bool isMerge = false,
+    double? width,
+    HAlignType? alignType,
+    double fontSize = 12,
+    bool isBold = false,
+  }) {
     if (isMerge) {
       worksheet.getRangeByName(range).merge();
     }
@@ -369,11 +371,7 @@ class DesignOfferClient extends BaseTemplateBuilder {
   }
 
   void _addCompanyJobTitle(String jobTitle, String companyTitle) {
-    _buildCell(
-      '$jobTitle - $companyTitle',
-      'B$rowPos',
-      fontSize: 14,
-    );
+    _buildCell('$jobTitle - $companyTitle', 'B$rowPos', fontSize: 14);
   }
 
   void _addCreatorName(String fullName) {

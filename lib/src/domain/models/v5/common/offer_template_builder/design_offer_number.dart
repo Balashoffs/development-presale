@@ -12,7 +12,7 @@ class DesignOfferNumber extends BaseTemplateBuilder {
   @override
   Future<void> fillRows() async {
     increment();
-    await _addLogoImg();
+    // await _addLogoImg();
     await _addHeaderImg();
     increment(2);
     _addOfferId();
@@ -56,7 +56,7 @@ class DesignOfferNumber extends BaseTemplateBuilder {
         .load('assets/calculator_data/template/header.png')
         .then((value) => value.buffer);
     var m = base64.encode(Uint8List.view(imageBytes));
-    return worksheet.pictures.addBase64(rowPos, 4, m);
+    return worksheet.pictures.addBase64(rowPos, 2, m);
   }
 
   void _addSignRows(PersonSignDTO sign) {
@@ -154,7 +154,7 @@ class DesignOfferNumber extends BaseTemplateBuilder {
   }
 
   void _addTableTitle() {
-    String title = 'Рассчет стоимости';
+    String title = 'Расчет стоимости';
     _buildCell(
       title,
       'B$rowPos:E$rowPos',
