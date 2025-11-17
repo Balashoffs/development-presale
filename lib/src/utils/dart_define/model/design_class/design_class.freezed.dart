@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DesignClass {
 
- String get resources;@JsonKey(name: 'job_divisions') String get workDivisions;@JsonKey(name: 'project_divisions') String get projectDivisions; String? get sign;
+@JsonKey(name: 'job_divisions') String get workDivisions;@JsonKey(name: 'project_divisions') String get projectDivisions; String? get sign; String get resources;
 /// Create a copy of DesignClass
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $DesignClassCopyWith<DesignClass> get copyWith => _$DesignClassCopyWithImpl<Desi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DesignClass&&(identical(other.resources, resources) || other.resources == resources)&&(identical(other.workDivisions, workDivisions) || other.workDivisions == workDivisions)&&(identical(other.projectDivisions, projectDivisions) || other.projectDivisions == projectDivisions)&&(identical(other.sign, sign) || other.sign == sign));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DesignClass&&(identical(other.workDivisions, workDivisions) || other.workDivisions == workDivisions)&&(identical(other.projectDivisions, projectDivisions) || other.projectDivisions == projectDivisions)&&(identical(other.sign, sign) || other.sign == sign)&&(identical(other.resources, resources) || other.resources == resources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,resources,workDivisions,projectDivisions,sign);
+int get hashCode => Object.hash(runtimeType,workDivisions,projectDivisions,sign,resources);
 
 @override
 String toString() {
-  return 'DesignClass(resources: $resources, workDivisions: $workDivisions, projectDivisions: $projectDivisions, sign: $sign)';
+  return 'DesignClass(workDivisions: $workDivisions, projectDivisions: $projectDivisions, sign: $sign, resources: $resources)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $DesignClassCopyWith<$Res>  {
   factory $DesignClassCopyWith(DesignClass value, $Res Function(DesignClass) _then) = _$DesignClassCopyWithImpl;
 @useResult
 $Res call({
- String resources,@JsonKey(name: 'job_divisions') String workDivisions,@JsonKey(name: 'project_divisions') String projectDivisions, String? sign
+@JsonKey(name: 'job_divisions') String workDivisions,@JsonKey(name: 'project_divisions') String projectDivisions, String? sign, String resources
 });
 
 
@@ -65,13 +65,13 @@ class _$DesignClassCopyWithImpl<$Res>
 
 /// Create a copy of DesignClass
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? resources = null,Object? workDivisions = null,Object? projectDivisions = null,Object? sign = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? workDivisions = null,Object? projectDivisions = null,Object? sign = freezed,Object? resources = null,}) {
   return _then(_self.copyWith(
-resources: null == resources ? _self.resources : resources // ignore: cast_nullable_to_non_nullable
-as String,workDivisions: null == workDivisions ? _self.workDivisions : workDivisions // ignore: cast_nullable_to_non_nullable
+workDivisions: null == workDivisions ? _self.workDivisions : workDivisions // ignore: cast_nullable_to_non_nullable
 as String,projectDivisions: null == projectDivisions ? _self.projectDivisions : projectDivisions // ignore: cast_nullable_to_non_nullable
 as String,sign: freezed == sign ? _self.sign : sign // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,resources: null == resources ? _self.resources : resources // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
@@ -156,10 +156,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String resources, @JsonKey(name: 'job_divisions')  String workDivisions, @JsonKey(name: 'project_divisions')  String projectDivisions,  String? sign)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: 'job_divisions')  String workDivisions, @JsonKey(name: 'project_divisions')  String projectDivisions,  String? sign,  String resources)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DesignClass() when $default != null:
-return $default(_that.resources,_that.workDivisions,_that.projectDivisions,_that.sign);case _:
+return $default(_that.workDivisions,_that.projectDivisions,_that.sign,_that.resources);case _:
   return orElse();
 
 }
@@ -177,10 +177,10 @@ return $default(_that.resources,_that.workDivisions,_that.projectDivisions,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String resources, @JsonKey(name: 'job_divisions')  String workDivisions, @JsonKey(name: 'project_divisions')  String projectDivisions,  String? sign)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: 'job_divisions')  String workDivisions, @JsonKey(name: 'project_divisions')  String projectDivisions,  String? sign,  String resources)  $default,) {final _that = this;
 switch (_that) {
 case _DesignClass():
-return $default(_that.resources,_that.workDivisions,_that.projectDivisions,_that.sign);case _:
+return $default(_that.workDivisions,_that.projectDivisions,_that.sign,_that.resources);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +197,10 @@ return $default(_that.resources,_that.workDivisions,_that.projectDivisions,_that
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String resources, @JsonKey(name: 'job_divisions')  String workDivisions, @JsonKey(name: 'project_divisions')  String projectDivisions,  String? sign)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: 'job_divisions')  String workDivisions, @JsonKey(name: 'project_divisions')  String projectDivisions,  String? sign,  String resources)?  $default,) {final _that = this;
 switch (_that) {
 case _DesignClass() when $default != null:
-return $default(_that.resources,_that.workDivisions,_that.projectDivisions,_that.sign);case _:
+return $default(_that.workDivisions,_that.projectDivisions,_that.sign,_that.resources);case _:
   return null;
 
 }
@@ -212,13 +212,13 @@ return $default(_that.resources,_that.workDivisions,_that.projectDivisions,_that
 @JsonSerializable()
 
 class _DesignClass implements DesignClass {
-  const _DesignClass({required this.resources, @JsonKey(name: 'job_divisions') required this.workDivisions, @JsonKey(name: 'project_divisions') required this.projectDivisions, this.sign});
+  const _DesignClass({@JsonKey(name: 'job_divisions') required this.workDivisions, @JsonKey(name: 'project_divisions') required this.projectDivisions, this.sign, required this.resources});
   factory _DesignClass.fromJson(Map<String, dynamic> json) => _$DesignClassFromJson(json);
 
-@override final  String resources;
 @override@JsonKey(name: 'job_divisions') final  String workDivisions;
 @override@JsonKey(name: 'project_divisions') final  String projectDivisions;
 @override final  String? sign;
+@override final  String resources;
 
 /// Create a copy of DesignClass
 /// with the given fields replaced by the non-null parameter values.
@@ -233,16 +233,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DesignClass&&(identical(other.resources, resources) || other.resources == resources)&&(identical(other.workDivisions, workDivisions) || other.workDivisions == workDivisions)&&(identical(other.projectDivisions, projectDivisions) || other.projectDivisions == projectDivisions)&&(identical(other.sign, sign) || other.sign == sign));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DesignClass&&(identical(other.workDivisions, workDivisions) || other.workDivisions == workDivisions)&&(identical(other.projectDivisions, projectDivisions) || other.projectDivisions == projectDivisions)&&(identical(other.sign, sign) || other.sign == sign)&&(identical(other.resources, resources) || other.resources == resources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,resources,workDivisions,projectDivisions,sign);
+int get hashCode => Object.hash(runtimeType,workDivisions,projectDivisions,sign,resources);
 
 @override
 String toString() {
-  return 'DesignClass(resources: $resources, workDivisions: $workDivisions, projectDivisions: $projectDivisions, sign: $sign)';
+  return 'DesignClass(workDivisions: $workDivisions, projectDivisions: $projectDivisions, sign: $sign, resources: $resources)';
 }
 
 
@@ -253,7 +253,7 @@ abstract mixin class _$DesignClassCopyWith<$Res> implements $DesignClassCopyWith
   factory _$DesignClassCopyWith(_DesignClass value, $Res Function(_DesignClass) _then) = __$DesignClassCopyWithImpl;
 @override @useResult
 $Res call({
- String resources,@JsonKey(name: 'job_divisions') String workDivisions,@JsonKey(name: 'project_divisions') String projectDivisions, String? sign
+@JsonKey(name: 'job_divisions') String workDivisions,@JsonKey(name: 'project_divisions') String projectDivisions, String? sign, String resources
 });
 
 
@@ -270,13 +270,13 @@ class __$DesignClassCopyWithImpl<$Res>
 
 /// Create a copy of DesignClass
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? resources = null,Object? workDivisions = null,Object? projectDivisions = null,Object? sign = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? workDivisions = null,Object? projectDivisions = null,Object? sign = freezed,Object? resources = null,}) {
   return _then(_DesignClass(
-resources: null == resources ? _self.resources : resources // ignore: cast_nullable_to_non_nullable
-as String,workDivisions: null == workDivisions ? _self.workDivisions : workDivisions // ignore: cast_nullable_to_non_nullable
+workDivisions: null == workDivisions ? _self.workDivisions : workDivisions // ignore: cast_nullable_to_non_nullable
 as String,projectDivisions: null == projectDivisions ? _self.projectDivisions : projectDivisions // ignore: cast_nullable_to_non_nullable
 as String,sign: freezed == sign ? _self.sign : sign // ignore: cast_nullable_to_non_nullable
-as String?,
+as String?,resources: null == resources ? _self.resources : resources // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 

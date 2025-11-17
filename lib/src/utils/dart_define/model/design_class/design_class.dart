@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'design_class.g.dart';
-
 part 'design_class.freezed.dart';
+part 'design_class.g.dart';
 
 /*
 "resources",
@@ -13,11 +12,13 @@ part 'design_class.freezed.dart';
 @freezed
 abstract class DesignClass with _$DesignClass {
   const factory DesignClass({
-    required String resources,
-    @JsonKey(name: 'job_divisions')required String workDivisions,
+    @JsonKey(name: 'job_divisions') required String workDivisions,
     @JsonKey(name: 'project_divisions') required String projectDivisions,
     String? sign,
-}) = _DesignClass;
+    required String resources,
+  }) = _DesignClass;
+
+
 
   factory DesignClass.fromJson(Map<String, dynamic> json) =>
       _$DesignClassFromJson(json);

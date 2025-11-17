@@ -1,13 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_row_viewmodel.dart';
 
-import '../../../v3/design/custom_factors/custom_factors.dart';
-
-class DesignOfferResultVM {
+class DesignOfferResultViewController {
   final String id;
   final String divisionType;
   final String createdDate;
+  final String objectName;
   final String objectAddress;
-  final String objectLocation;
   final int deadline;
   final int objectSquare;
 
@@ -19,14 +18,15 @@ class DesignOfferResultVM {
   final String summaryWithTax;
   final String tax;
   String notes;
-  double avancePercent;
+  double factors;
+  final ValueNotifier<double> presaleCostVN;
 
-  DesignOfferResultVM({
+  DesignOfferResultViewController({
     required this.divisionType,
     required this.createdDate,
     required this.id,
+    required this.objectName,
     required this.objectAddress,
-    required this.objectLocation,
     required this.divisionRows,
     required this.overPriceSummary,
     required this.marginSummary,
@@ -36,6 +36,10 @@ class DesignOfferResultVM {
     required this.tax,
     required this.deadline,
     required this.objectSquare,
-    this.notes = '',
-  }) : avancePercent = Default_Avance_Factor * 100;
+    String inputNotes = '',
+    required double presaleFactor,
+    required double presaleCost,
+  }) : notes = inputNotes,
+       factors = presaleFactor,
+       presaleCostVN = ValueNotifier(presaleCost);
 }

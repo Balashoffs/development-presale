@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-String objectNameTemplate = '^[а-яА-ЯёЁa-zA-Z0-9\\s.,/-№\\"\'()]+\$';
-String locationTemplate = '^[а-яА-ЯёЁa-zA-Z0-9\\s.,/-№\\"\'()]+\$';
+String objectNameTemplate = '^[а-яА-ЯёЁa-zAZ0-9\\:\\s\\.,/\\-№\\"\'\\(\\)]+\$';
+String locationTemplate =   '^[а-яА-ЯёЁa-zAZ0-9\\s\\:\\.,/\\-№\\"\'\\(\\)]+\$';
 
 FormFieldValidator<String>? commentValidator = (value) {
   if (value == null) {
@@ -96,7 +96,7 @@ FormFieldValidator<String>? onlyFactorValidator = (value) {
   return null;
 };
 
-FormFieldValidator<String>? ananceValidator = (value) {
+FormFieldValidator<String>? presalePercentValidator = (value) {
   if (value == null) {
     return 'ошибка';
   } else if (!RegExp(r'^[1-9]$|^[1-9]\d+$').hasMatch(value)) {

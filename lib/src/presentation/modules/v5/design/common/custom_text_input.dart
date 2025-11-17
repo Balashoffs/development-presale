@@ -116,7 +116,7 @@ class CustomTextAreaInput extends StatelessWidget {
   final IconData? leading;
   final IconData? trailing;
   final double? width;
-  final double? initValue;
+  final String? initValue;
   final ValueChanged<String>? onChanged;
   final FormFieldValidator<String>? validator;
 
@@ -130,9 +130,8 @@ class CustomTextAreaInput extends StatelessWidget {
       borderRadius: BorderRadius.circular(8.toDouble()),
       hintText: hintText,
       validator: validator,
-      onTapOutside: (PointerDownEvent _) =>
-          FocusManager.instance.primaryFocus?.unfocus(),
       onChanged: onChanged,
+      initialValue: initValue,
       helper: helperText != null ? Text(helperText!) : null,
     );
   }

@@ -1,7 +1,9 @@
+import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 
 class DesignPresaleDTO {
   InputDataDesignDTO? inputDataDesignDTO;
@@ -260,8 +262,8 @@ class DivisionsMarginDTO {
 class CommercialOfferDTO {
   final String id;
   final String created;
+  final String objectName;
   final String objectAddress;
-  final String objectLocation;
   final String divisionType;
   final int deadline;
   final int objectSquare;
@@ -270,19 +272,19 @@ class CommercialOfferDTO {
   final double summaryOverPriceCost;
   final double summaryMarginCost;
   final double summaryClientCost;
-  final double summary;
+  final double divisionSummary;
   final double summaryWithTax;
   final double tax;
   PersonSignDTO? personSign;
-  double avanceValue;
-  double avanceFactor;
+  double presaleCostValue;
+  double presaleCostFactor;
   String noteText;
 
   CommercialOfferDTO({
     required this.id,
     required this.created,
+    required this.objectName,
     required this.objectAddress,
-    required this.objectLocation,
     required this.divisionType,
     required this.deadline,
     required this.objectSquare,
@@ -291,26 +293,32 @@ class CommercialOfferDTO {
     required this.summaryOverPriceCost,
     required this.summaryMarginCost,
     required this.summaryClientCost,
-    required this.summary,
+    required this.divisionSummary,
     required this.summaryWithTax,
     required this.tax,
     this.personSign,
-    this.avanceValue = 0.0,
-    this.avanceFactor = Default_Avance_Factor,
-  }) : noteText = '';
+    this.presaleCostValue = 0.0,
+    this.presaleCostFactor = Default_Presale_Factor,
+    required this.noteText,
+  });
 
   static CommercialOfferDTO from(
-    InputDataDesignDTO inputData,
-    List<DivisionResultDTO> divisionResults,
+      DesignOfferMemorySource memory,
   ) {
+    final divisionResults = memory.divisionMargins
+        .map((e) => e.toDto())
+        .toList();
+    final inputData = memory.inputDataDesignDTO!;
+    double presaleCostFactor = memory.commercialOffer?.presaleCostFactor ?? Default_Presale_Factor;
     return CommercialOfferDTO(
       id: inputData.dayCounter.getOfferUniqueNumber(),
       created: inputData.dayCounter.localDate,
+      objectName: inputData.objectData.name,
       objectAddress: inputData.objectData.address,
-      objectLocation: inputData.objectData.address,
       divisionType: inputData.divisionType.text,
       deadline: inputData.objectData.deadline,
       objectSquare: inputData.objectData.square,
+      noteText: memory.commercialOffer?.noteText ?? '',
       divisionResults: divisionResults,
       summaryClearCost: divisionResults
           .map((e) => e.divisionClearCost)
@@ -324,7 +332,7 @@ class CommercialOfferDTO {
       summaryClientCost: divisionResults
           .map((e) => e.divisionClientCost)
           .reduce((value, element) => value + element),
-      summary: divisionResults
+      divisionSummary: divisionResults
           .map((e) => e.divisionSummary)
           .reduce((value, element) => value + element),
       summaryWithTax:
@@ -332,12 +340,12 @@ class CommercialOfferDTO {
               .map((e) => e.divisionSummary)
               .reduce((value, element) => value + element) *
           Russian_Tax_Factor,
-      avanceValue:
+      presaleCostValue:
           divisionResults
               .map((e) => e.divisionSummaryWithTax)
               .reduce((value, element) => value + element) *
-          Default_Avance_Factor,
-      avanceFactor: Default_Avance_Factor,
+              presaleCostFactor,
+      presaleCostFactor: presaleCostFactor,
       tax:
           divisionResults
               .map((e) => e.divisionSummary)
@@ -347,9 +355,10 @@ class CommercialOfferDTO {
     );
   }
 
-  void updateAvanceValue(double value) {
-    avanceValue = summaryWithTax * value;
-    avanceFactor = value;
+  void updatePresaleCost(double value) {
+    presaleCostFactor = value;
+    presaleCostValue = summaryWithTax * presaleCostFactor;
+
   }
 }
 

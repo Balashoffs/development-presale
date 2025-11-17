@@ -3,7 +3,7 @@
   "type": "prod",
   "ui": "false",
   "design": "{\"resources\": \"assets/calculator_data/design/release/resources.csv\",\"job_divisions\": \"assets/calculator_data/design/release/job_divisions.csv\",\"project_divisions\": \"assets/calculator_data/design/release/project_divisions.csv\" }",
-  "version": "0.6.3",
+  "version": "0.6.6",
   "appName": "presale",
   "ya": "bau@liis.su",
   "tg": "@alexbeard",

@@ -28,7 +28,7 @@ class StageInfoRepository {
               factor: 1.0,
               value: r.totalPlannedCost,
               name:
-                  'Объект: "${r.objectAddress}", площадь: ${r.plannedSquare} м кв.',
+                  'Объект: "${r.objectName}", площадь: ${r.plannedSquare} м кв.',
               id: buildingPath,
             );
             infos.putIfAbsent(

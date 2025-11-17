@@ -14,7 +14,7 @@ class DivisionsResultsTableWidget extends StatefulWidget {
   });
 
   final List<CollumAttribute> rowAttributes;
-  final DesignOfferResultVM offerResult;
+  final DesignOfferResultViewController offerResult;
 
   @override
   State<DivisionsResultsTableWidget> createState() =>

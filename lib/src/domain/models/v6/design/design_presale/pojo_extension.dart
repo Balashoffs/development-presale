@@ -117,22 +117,25 @@ extension DivisionMarginsDtoExt on DivisionsMarginDTO {
 }
 
 extension CommercialOfferDtoExt on CommercialOfferDTO {
-  DesignOfferResultVM toViewModel() {
-    return DesignOfferResultVM(
+  DesignOfferResultViewController toViewModel() {
+    return DesignOfferResultViewController(
+      id: id,
       divisionType: divisionType,
       createdDate: created,
-      id: id,
+      objectName: objectName,
       objectAddress: objectAddress,
-      objectLocation: objectLocation,
       divisionRows: divisionResults.map((e) => e.toViewModel()).toList(),
       overPriceSummary: convertToString(summaryOverPriceCost, 2),
       marginSummary: convertToString(summaryMarginCost, 2),
       clientSummary: convertToString(summaryClientCost, 2),
-      summary: convertToString(summary, 2),
+      summary: convertToString(divisionSummary, 2),
       summaryWithTax: convertToString(summaryWithTax, 2),
       tax: convertToString(tax, 2),
       deadline: deadline,
       objectSquare: objectSquare,
+      inputNotes: noteText,
+      presaleFactor: presaleCostFactor,
+      presaleCost: presaleCostFactor * summaryWithTax,
     );
   }
 }
@@ -175,9 +178,9 @@ extension DesignPresalePojoExt on DesignPresalePojo {
         .sorted((a, b) => a.resourceId.compareTo(b.resourceId))
         .toList();
 
-    Map<int,  DivisionResourceDTO> updatesResources = {};
+    Map<int, DivisionResourceDTO> updatesResources = {};
     for (var value in resources) {
-      updatesResources.putIfAbsent(value.resourceId, () => value,);
+      updatesResources.putIfAbsent(value.resourceId, () => value);
     }
 
     final margins = divisionMargins
@@ -185,9 +188,9 @@ extension DesignPresalePojoExt on DesignPresalePojo {
         .sorted((a, b) => a.id.compareTo(b.id))
         .toList();
 
-    Map<int,  DivisionsMarginDTO> updatesMargins = {};
+    Map<int, DivisionsMarginDTO> updatesMargins = {};
     for (var value in margins) {
-      updatesMargins.putIfAbsent(value.id, () => value,);
+      updatesMargins.putIfAbsent(value.id, () => value);
     }
 
     return DesignPresaleDTO(
