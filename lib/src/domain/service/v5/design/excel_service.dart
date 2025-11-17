@@ -18,9 +18,6 @@ class ExcelService {
   void saveToExcel(CommercialOfferDTO dto, ExcelSaveType type) async {
     final Workbook workbook = Workbook(1);
     final Worksheet sheet = workbook.worksheets[0];
-    final Style style = workbook.styles.add('style1');
-    style.fontName = 'Times New Roman';
-    style.hAlign = HAlignType.center;
 
 
     OfferDTO offerDTO = OfferDTOBuilder.build(type, dto);

@@ -17,9 +17,7 @@ class OfferDTOBuilder {
             return OfferRowDTO(
               id: pos.toString(),
               divisionName: dr.divisionName,
-              divisionSummaryWithTax: dr.divisionSummaryWithTax.toStringAsFixed(
-                2,
-              ),
+              value: dr.divisionSummary,
             );
           },
         );
@@ -35,10 +33,10 @@ class OfferDTOBuilder {
           objectSquare: commercialOffer.objectSquare == 0
               ? ''
               : '${commercialOffer.objectSquare}',
-          summaryWithTax: commercialOffer.divisionSummary.toStringAsFixed(2),
+          summaryWithTax: commercialOffer.divisionSummary,
           rows: rows,
-          tax: '',
-          presaleCostValue: commercialOffer.presaleCostValue.toStringAsFixed(2),
+          tax: 0.0,
+          presaleCostValue: commercialOffer.presaleCostValue,
           noteText: commercialOffer.noteText,
           companyTitle: commercialOffer.personSign?.companyTitle ?? '',
           jobTitle: commercialOffer.personSign?.jobTitle ?? '',
@@ -54,9 +52,9 @@ class OfferDTOBuilder {
             return OfferRowDTO(
               id: pos.toString(),
               divisionName: dr.divisionName,
-              divisionSummaryWithTax: convertToString(
+              value: convertToString(
                 dr.divisionSummaryWithTax,
-                2,
+                0,
               ),
             );
           },
@@ -73,12 +71,12 @@ class OfferDTOBuilder {
           objectSquare: commercialOffer.objectSquare == 0
               ? ''
               : '${commercialOffer.objectSquare}',
-          summaryWithTax: convertToString(commercialOffer.summaryWithTax, 2),
+          summaryWithTax: convertToString(commercialOffer.summaryWithTax, 0),
           rows: rows,
-          tax: convertToString(commercialOffer.tax, 2),
+          tax: convertToString(commercialOffer.tax, 0),
           presaleCostValue: convertToString(
             commercialOffer.presaleCostValue,
-            2,
+            0,
           ),
           noteText: commercialOffer.noteText,
           companyTitle: commercialOffer.personSign?.companyTitle ?? '',
@@ -103,13 +101,13 @@ class OfferDTO {
 
   final List<OfferRowDTO> rows;
 
-  final String summaryWithTax;
+  final Object summaryWithTax;
 
-  final String tax;
+  final Object tax;
 
   final String objectSquare;
 
-  final String presaleCostValue;
+  final Object presaleCostValue;
 
   final String noteText;
 
@@ -145,11 +143,11 @@ class OfferRowDTO {
 
   final String divisionName;
 
-  final String divisionSummaryWithTax;
+  final Object value;
 
   OfferRowDTO({
     required this.id,
     required this.divisionName,
-    required this.divisionSummaryWithTax,
+    required this.value,
   });
 }

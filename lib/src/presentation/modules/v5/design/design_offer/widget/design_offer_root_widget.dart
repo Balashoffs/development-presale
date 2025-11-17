@@ -210,7 +210,7 @@ class OfferPresaleCostFactor extends StatelessWidget {
         ValueListenableBuilder<double>(
           valueListenable: presaleCostVN,
           builder: (context, value, child) {
-            return Text(convertToString(value, 2));
+            return Text(convertToString(value, 0));
           },
         ),
       ],

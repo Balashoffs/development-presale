@@ -337,7 +337,7 @@ class CommercialOfferDTO {
           .reduce((value, element) => value + element),
       summaryWithTax:
           divisionResults
-              .map((e) => e.divisionSummary)
+              .map((e) => e.divisionSummaryWithTax)
               .reduce((value, element) => value + element) *
           Russian_Tax_Factor,
       presaleCostValue:

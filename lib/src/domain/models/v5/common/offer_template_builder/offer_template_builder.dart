@@ -41,7 +41,7 @@ class OfferBase {
     );
   }
 
-  void addKey1Value(String key, String value) {
+  void addKey1Value(String key, Object value) {
     buildCell(
       key,
       '$startCell${rowPos.Pos}',
@@ -58,7 +58,7 @@ class OfferBase {
     );
   }
 
-  void addKey2Value(String key, String value) {
+  void addKey2Value(String key, Object value) {
     buildCell(
       key,
       'B${rowPos.Pos}:C${rowPos.Pos}',
@@ -77,7 +77,7 @@ class OfferBase {
   }
 
   void buildCell(
-    String value,
+    Object value,
     String range, {
     bool isMerge = false,
     double? width,
@@ -103,7 +103,12 @@ class OfferBase {
     worksheet.getRangeByName(range).cellStyle.fontSize = fontSize;
     worksheet.getRangeByName(range).rowHeight = height;
     worksheet.getRangeByName(range).cellStyle.fontName = 'Times New Roman';
-    worksheet.getRangeByName(range).setText(value);
+    if(value is double){
+      worksheet.getRangeByName(range).setNumber(value);
+    }else if(value is String){
+      worksheet.getRangeByName(range).setText(value);
+    }
+
   }
 }
 
@@ -136,18 +141,18 @@ class OfferTable extends OfferBase {
 
   void addTable(
     List<OfferRowDTO> rows, {
-    String summary = '',
-    String tax = '',
+    Object? summary,
+    Object? tax,
   }) {
     int start = rowPos.Pos;
     addTableHeader();
     rowPos.increment();
     addTableRows(rows);
-    if (summary.isNotEmpty) {
+    if (summary != null) {
       rowPos.increment();
-      addTableFooter(tax.isEmpty ?'ИТОГО: ' : 'ИТОГО с НДС 20%: ', summary);
+      addTableFooter(summary is double ?'ИТОГО: ' : 'ИТОГО с НДС 20%: ', summary);
     }
-    if (tax.isNotEmpty) {
+    if (tax != null) {
       rowPos.increment();
       addTableFooter('НДС, 20%: ', tax);
     }
@@ -210,7 +215,7 @@ class OfferTable extends OfferBase {
         alignType: HAlignType.center,
       );
       buildCell(
-        result.divisionSummaryWithTax,
+        result.value,
         '$endCell${rowPos.Pos}',
         width: 25,
         alignType: HAlignType.center,
@@ -223,7 +228,7 @@ class OfferTable extends OfferBase {
   }
 
   //offerResult.summaryWithTax.toStringAsFixed(2),
-  void addTableFooter(String head, String value) {
+  void addTableFooter(String head, Object value) {
     buildCell(
       head,
       '$startCell${rowPos.Pos}:F${rowPos.Pos}',
