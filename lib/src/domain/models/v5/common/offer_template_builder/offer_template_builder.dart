@@ -21,8 +21,7 @@ class OfferBase {
   final RowPos rowPos;
   final String startCell = 'B';
   final String endCell = 'G';
-  final String logoImage = 'assets/calculator_data/template/logo.png';
-  final String headerImage = 'assets/calculator_data/template/header.png';
+  final String headerImagePath = 'assets/calculator_data/template/header_logo.png';
 
   String get _fullRange => '$startCell${rowPos.Pos}:$endCell${rowPos.Pos}';
 
@@ -115,14 +114,9 @@ class OfferBase {
 class OfferHeader extends OfferBase {
   OfferHeader({required super.worksheet, required super.rowPos});
 
-  Future<Picture> addLogoImg() async {
-    final baseData = await WorksheetUtil.fromImage(logoImage);
-    return worksheet.pictures.addBase64(rowPos.Pos, 2, baseData);
-  }
-
   Future<Picture> addHeaderImg() async {
-    final baseData = await WorksheetUtil.fromImage(headerImage);
-    return worksheet.pictures.addBase64(rowPos.Pos, 2, baseData);
+    final baseData = await WorksheetUtil.fromImage(headerImagePath);
+    return worksheet.pictures.addBase64(rowPos.Pos, 3, baseData);
   }
 
   void addOfferId(String id) {
