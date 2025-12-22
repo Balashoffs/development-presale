@@ -628,7 +628,7 @@ as int,
 /// @nodoc
 mixin _$ObjectDataDesignPojo {
 
- String get name; String get address; int get square; int get deadline;
+ String get customer; String get name; String get address; int get square; int get deadline;
 /// Create a copy of ObjectDataDesignPojo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -641,16 +641,16 @@ $ObjectDataDesignPojoCopyWith<ObjectDataDesignPojo> get copyWith => _$ObjectData
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ObjectDataDesignPojo&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.square, square) || other.square == square)&&(identical(other.deadline, deadline) || other.deadline == deadline));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ObjectDataDesignPojo&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.square, square) || other.square == square)&&(identical(other.deadline, deadline) || other.deadline == deadline));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,address,square,deadline);
+int get hashCode => Object.hash(runtimeType,customer,name,address,square,deadline);
 
 @override
 String toString() {
-  return 'ObjectDataDesignPojo(name: $name, address: $address, square: $square, deadline: $deadline)';
+  return 'ObjectDataDesignPojo(customer: $customer, name: $name, address: $address, square: $square, deadline: $deadline)';
 }
 
 
@@ -661,7 +661,7 @@ abstract mixin class $ObjectDataDesignPojoCopyWith<$Res>  {
   factory $ObjectDataDesignPojoCopyWith(ObjectDataDesignPojo value, $Res Function(ObjectDataDesignPojo) _then) = _$ObjectDataDesignPojoCopyWithImpl;
 @useResult
 $Res call({
- String name, String address, int square, int deadline
+ String customer, String name, String address, int square, int deadline
 });
 
 
@@ -678,9 +678,10 @@ class _$ObjectDataDesignPojoCopyWithImpl<$Res>
 
 /// Create a copy of ObjectDataDesignPojo
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? address = null,Object? square = null,Object? deadline = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? customer = null,Object? name = null,Object? address = null,Object? square = null,Object? deadline = null,}) {
   return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+customer: null == customer ? _self.customer : customer // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,square: null == square ? _self.square : square // ignore: cast_nullable_to_non_nullable
 as int,deadline: null == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable
@@ -769,10 +770,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String address,  int square,  int deadline)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String customer,  String name,  String address,  int square,  int deadline)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ObjectDataDesignPojo() when $default != null:
-return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
+return $default(_that.customer,_that.name,_that.address,_that.square,_that.deadline);case _:
   return orElse();
 
 }
@@ -790,10 +791,10 @@ return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String address,  int square,  int deadline)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String customer,  String name,  String address,  int square,  int deadline)  $default,) {final _that = this;
 switch (_that) {
 case _ObjectDataDesignPojo():
-return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
+return $default(_that.customer,_that.name,_that.address,_that.square,_that.deadline);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -810,10 +811,10 @@ return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String address,  int square,  int deadline)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String customer,  String name,  String address,  int square,  int deadline)?  $default,) {final _that = this;
 switch (_that) {
 case _ObjectDataDesignPojo() when $default != null:
-return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
+return $default(_that.customer,_that.name,_that.address,_that.square,_that.deadline);case _:
   return null;
 
 }
@@ -825,9 +826,10 @@ return $default(_that.name,_that.address,_that.square,_that.deadline);case _:
 @JsonSerializable()
 
 class _ObjectDataDesignPojo implements ObjectDataDesignPojo {
-  const _ObjectDataDesignPojo({required this.name, required this.address, required this.square, required this.deadline});
+  const _ObjectDataDesignPojo({required this.customer, required this.name, required this.address, required this.square, required this.deadline});
   factory _ObjectDataDesignPojo.fromJson(Map<String, dynamic> json) => _$ObjectDataDesignPojoFromJson(json);
 
+@override final  String customer;
 @override final  String name;
 @override final  String address;
 @override final  int square;
@@ -846,16 +848,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ObjectDataDesignPojo&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.square, square) || other.square == square)&&(identical(other.deadline, deadline) || other.deadline == deadline));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ObjectDataDesignPojo&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.square, square) || other.square == square)&&(identical(other.deadline, deadline) || other.deadline == deadline));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,address,square,deadline);
+int get hashCode => Object.hash(runtimeType,customer,name,address,square,deadline);
 
 @override
 String toString() {
-  return 'ObjectDataDesignPojo(name: $name, address: $address, square: $square, deadline: $deadline)';
+  return 'ObjectDataDesignPojo(customer: $customer, name: $name, address: $address, square: $square, deadline: $deadline)';
 }
 
 
@@ -866,7 +868,7 @@ abstract mixin class _$ObjectDataDesignPojoCopyWith<$Res> implements $ObjectData
   factory _$ObjectDataDesignPojoCopyWith(_ObjectDataDesignPojo value, $Res Function(_ObjectDataDesignPojo) _then) = __$ObjectDataDesignPojoCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String address, int square, int deadline
+ String customer, String name, String address, int square, int deadline
 });
 
 
@@ -883,9 +885,10 @@ class __$ObjectDataDesignPojoCopyWithImpl<$Res>
 
 /// Create a copy of ObjectDataDesignPojo
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? address = null,Object? square = null,Object? deadline = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? customer = null,Object? name = null,Object? address = null,Object? square = null,Object? deadline = null,}) {
   return _then(_ObjectDataDesignPojo(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+customer: null == customer ? _self.customer : customer // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,square: null == square ? _self.square : square // ignore: cast_nullable_to_non_nullable
 as int,deadline: null == deadline ? _self.deadline : deadline // ignore: cast_nullable_to_non_nullable

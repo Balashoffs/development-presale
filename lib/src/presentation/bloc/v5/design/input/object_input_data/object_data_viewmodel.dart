@@ -3,6 +3,7 @@ import 'package:presale/src/domain/models/v3/design/input_data/object_data_desig
 import 'package:presale/src/domain/models/v3/design/input_factors/input_factors_pojo.dart';
 
 class InputDataMV {
+  final String objectCustomer;
   final String objectName;
   final String objectAddress;
   final String divisionType;
@@ -18,6 +19,7 @@ class InputDataMV {
   final double squareFactor;
 
   InputDataMV._({
+    required this.objectCustomer,
     required this.objectName,
     required this.objectAddress,
     required this.objectSquare,
@@ -39,8 +41,8 @@ class InputDataMV {
 
 // Builder class for ObjectDataDTO
 class InputDataBuilder {
+  String? _objectCustomer;
   String? _objectName;
-
   String? _objectAddress;
   String? _divisionType;
   int _objectSquare = 0;
@@ -53,6 +55,11 @@ class InputDataBuilder {
   double _remotingFactor = 1.0;
   double _complexityFactor = 1.0;
   double _squareFactor = 1.0;
+
+  InputDataBuilder setObjectCustomer(String objectCustomer) {
+    _objectCustomer = objectCustomer;
+    return this;
+  }
 
   InputDataBuilder setObjectName(String objectName) {
     _objectName = objectName;
@@ -120,7 +127,8 @@ class InputDataBuilder {
   }
 
   bool _check() {
-    return _objectName == null ||
+    return _objectCustomer == null ||
+        _objectName == null ||
         _objectName!.isEmpty ||
         _objectAddress == null ||
         _objectAddress!.isEmpty ||
@@ -136,6 +144,7 @@ class InputDataBuilder {
     }
 
     return InputDataMV._(
+      objectCustomer: _objectCustomer!,
       objectName: _objectName!,
       objectAddress: _objectAddress!,
       objectSquare: _objectSquare,
@@ -160,11 +169,13 @@ extension InputDataMVExt on InputDataMV {
       address: objectAddress,
       square: objectSquare,
       deadlineValue: deadlineValue,
+      customer: objectCustomer,
     );
   }
 
   ObjectDataDesignDTO toDto() {
     return ObjectDataDesignDTO(
+      customer: objectCustomer,
       name: objectName,
       address: objectAddress,
       square: objectSquare,

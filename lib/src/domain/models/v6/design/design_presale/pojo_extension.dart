@@ -220,6 +220,7 @@ extension DayCounterPojoExt on OfferDayCounterPojo {
 extension ObjectDataDesignPojoExt on ObjectDataDesignPojo {
   ObjectDataDesignDTO toObjectDataDto() {
     return ObjectDataDesignDTO(
+      customer: customer,
       name: name,
       address: address,
       square: square,

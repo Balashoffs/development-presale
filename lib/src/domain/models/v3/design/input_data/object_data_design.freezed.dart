@@ -15,7 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ObjectDataDesign {
 
-//Имя объекта
+//Заказчик
+ String get customer;//Имя объекта
  String get name;// Адрес объекта
  String get address;// Площадь объекта
  int get square;// Сроки работ
@@ -32,16 +33,16 @@ $ObjectDataDesignCopyWith<ObjectDataDesign> get copyWith => _$ObjectDataDesignCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ObjectDataDesign&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.square, square) || other.square == square)&&(identical(other.deadlineValue, deadlineValue) || other.deadlineValue == deadlineValue));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ObjectDataDesign&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.square, square) || other.square == square)&&(identical(other.deadlineValue, deadlineValue) || other.deadlineValue == deadlineValue));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,address,square,deadlineValue);
+int get hashCode => Object.hash(runtimeType,customer,name,address,square,deadlineValue);
 
 @override
 String toString() {
-  return 'ObjectDataDesign(name: $name, address: $address, square: $square, deadlineValue: $deadlineValue)';
+  return 'ObjectDataDesign(customer: $customer, name: $name, address: $address, square: $square, deadlineValue: $deadlineValue)';
 }
 
 
@@ -52,7 +53,7 @@ abstract mixin class $ObjectDataDesignCopyWith<$Res>  {
   factory $ObjectDataDesignCopyWith(ObjectDataDesign value, $Res Function(ObjectDataDesign) _then) = _$ObjectDataDesignCopyWithImpl;
 @useResult
 $Res call({
- String name, String address, int square, int deadlineValue
+ String customer, String name, String address, int square, int deadlineValue
 });
 
 
@@ -69,9 +70,10 @@ class _$ObjectDataDesignCopyWithImpl<$Res>
 
 /// Create a copy of ObjectDataDesign
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? address = null,Object? square = null,Object? deadlineValue = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? customer = null,Object? name = null,Object? address = null,Object? square = null,Object? deadlineValue = null,}) {
   return _then(_self.copyWith(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+customer: null == customer ? _self.customer : customer // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,square: null == square ? _self.square : square // ignore: cast_nullable_to_non_nullable
 as int,deadlineValue: null == deadlineValue ? _self.deadlineValue : deadlineValue // ignore: cast_nullable_to_non_nullable
@@ -160,10 +162,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String address,  int square,  int deadlineValue)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String customer,  String name,  String address,  int square,  int deadlineValue)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _ObjectDataDesign() when $default != null:
-return $default(_that.name,_that.address,_that.square,_that.deadlineValue);case _:
+return $default(_that.customer,_that.name,_that.address,_that.square,_that.deadlineValue);case _:
   return orElse();
 
 }
@@ -181,10 +183,10 @@ return $default(_that.name,_that.address,_that.square,_that.deadlineValue);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String address,  int square,  int deadlineValue)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String customer,  String name,  String address,  int square,  int deadlineValue)  $default,) {final _that = this;
 switch (_that) {
 case _ObjectDataDesign():
-return $default(_that.name,_that.address,_that.square,_that.deadlineValue);case _:
+return $default(_that.customer,_that.name,_that.address,_that.square,_that.deadlineValue);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +203,10 @@ return $default(_that.name,_that.address,_that.square,_that.deadlineValue);case 
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String address,  int square,  int deadlineValue)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String customer,  String name,  String address,  int square,  int deadlineValue)?  $default,) {final _that = this;
 switch (_that) {
 case _ObjectDataDesign() when $default != null:
-return $default(_that.name,_that.address,_that.square,_that.deadlineValue);case _:
+return $default(_that.customer,_that.name,_that.address,_that.square,_that.deadlineValue);case _:
   return null;
 
 }
@@ -216,9 +218,11 @@ return $default(_that.name,_that.address,_that.square,_that.deadlineValue);case 
 @JsonSerializable()
 
 class _ObjectDataDesign implements ObjectDataDesign {
-  const _ObjectDataDesign({required this.name, required this.address, required this.square, required this.deadlineValue});
+  const _ObjectDataDesign({required this.customer, required this.name, required this.address, required this.square, required this.deadlineValue});
   factory _ObjectDataDesign.fromJson(Map<String, dynamic> json) => _$ObjectDataDesignFromJson(json);
 
+//Заказчик
+@override final  String customer;
 //Имя объекта
 @override final  String name;
 // Адрес объекта
@@ -241,16 +245,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ObjectDataDesign&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.square, square) || other.square == square)&&(identical(other.deadlineValue, deadlineValue) || other.deadlineValue == deadlineValue));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ObjectDataDesign&&(identical(other.customer, customer) || other.customer == customer)&&(identical(other.name, name) || other.name == name)&&(identical(other.address, address) || other.address == address)&&(identical(other.square, square) || other.square == square)&&(identical(other.deadlineValue, deadlineValue) || other.deadlineValue == deadlineValue));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,address,square,deadlineValue);
+int get hashCode => Object.hash(runtimeType,customer,name,address,square,deadlineValue);
 
 @override
 String toString() {
-  return 'ObjectDataDesign(name: $name, address: $address, square: $square, deadlineValue: $deadlineValue)';
+  return 'ObjectDataDesign(customer: $customer, name: $name, address: $address, square: $square, deadlineValue: $deadlineValue)';
 }
 
 
@@ -261,7 +265,7 @@ abstract mixin class _$ObjectDataDesignCopyWith<$Res> implements $ObjectDataDesi
   factory _$ObjectDataDesignCopyWith(_ObjectDataDesign value, $Res Function(_ObjectDataDesign) _then) = __$ObjectDataDesignCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String address, int square, int deadlineValue
+ String customer, String name, String address, int square, int deadlineValue
 });
 
 
@@ -278,9 +282,10 @@ class __$ObjectDataDesignCopyWithImpl<$Res>
 
 /// Create a copy of ObjectDataDesign
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? address = null,Object? square = null,Object? deadlineValue = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? customer = null,Object? name = null,Object? address = null,Object? square = null,Object? deadlineValue = null,}) {
   return _then(_ObjectDataDesign(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+customer: null == customer ? _self.customer : customer // ignore: cast_nullable_to_non_nullable
+as String,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,address: null == address ? _self.address : address // ignore: cast_nullable_to_non_nullable
 as String,square: null == square ? _self.square : square // ignore: cast_nullable_to_non_nullable
 as int,deadlineValue: null == deadlineValue ? _self.deadlineValue : deadlineValue // ignore: cast_nullable_to_non_nullable

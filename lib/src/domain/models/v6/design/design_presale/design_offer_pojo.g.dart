@@ -59,6 +59,7 @@ Map<String, dynamic> _$OfferDayCounterPojoToJson(
 _ObjectDataDesignPojo _$ObjectDataDesignPojoFromJson(
   Map<String, dynamic> json,
 ) => _ObjectDataDesignPojo(
+  customer: json['customer'] as String,
   name: json['name'] as String,
   address: json['address'] as String,
   square: (json['square'] as num).toInt(),
@@ -68,6 +69,7 @@ _ObjectDataDesignPojo _$ObjectDataDesignPojoFromJson(
 Map<String, dynamic> _$ObjectDataDesignPojoToJson(
   _ObjectDataDesignPojo instance,
 ) => <String, dynamic>{
+  'customer': instance.customer,
   'name': instance.name,
   'address': instance.address,
   'square': instance.square,

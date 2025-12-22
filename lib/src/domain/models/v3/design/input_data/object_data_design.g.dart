@@ -8,6 +8,7 @@ part of 'object_data_design.dart';
 
 _ObjectDataDesign _$ObjectDataDesignFromJson(Map<String, dynamic> json) =>
     _ObjectDataDesign(
+      customer: json['customer'] as String,
       name: json['name'] as String,
       address: json['address'] as String,
       square: (json['square'] as num).toInt(),
@@ -16,6 +17,7 @@ _ObjectDataDesign _$ObjectDataDesignFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$ObjectDataDesignToJson(_ObjectDataDesign instance) =>
     <String, dynamic>{
+      'customer': instance.customer,
       'name': instance.name,
       'address': instance.address,
       'square': instance.square,

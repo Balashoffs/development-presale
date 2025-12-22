@@ -110,6 +110,14 @@ class LoadedWidget extends StatelessWidget {
                             },),
                             CustomTextInput(
                               width: 500,
+                              hintText: 'Заказчик*',
+                              onChanged: cubit.setObjectCustomer,
+                              initValue: inputDataDesign?.name,
+                              trailing: MoonIcons.controls_close_small_24_light,
+                              validator: objectNameValidator,
+                            ),
+                            CustomTextInput(
+                              width: 500,
                               hintText: 'Наименование объекта*',
                               onChanged: cubit.setObjectName,
                               initValue: inputDataDesign?.name,

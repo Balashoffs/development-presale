@@ -34,6 +34,7 @@ abstract class OfferDayCounterPojo with _$OfferDayCounterPojo {
 @freezed
 abstract class ObjectDataDesignPojo with _$ObjectDataDesignPojo {
   const factory ObjectDataDesignPojo({
+    required String customer,
     required String name,
     required String address,
     required int square,

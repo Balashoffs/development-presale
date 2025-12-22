@@ -43,6 +43,10 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
     _objectRepository.counterDto = counter;
   }
 
+  void setObjectCustomer(String name) {
+    _objectRepository.setObjectCustomer(name);
+  }
+
   void setObjectName(String name) {
     _objectRepository.setObjectName(name);
   }

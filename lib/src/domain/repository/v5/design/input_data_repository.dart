@@ -44,6 +44,11 @@ class ObjectRepository {
   }
 
   //Данные объекте
+  void setObjectCustomer(String name) {
+    _objectDataBuilder.setObjectCustomer(name);
+    _checkNecessaryInputs();
+  }
+
   void setObjectName(String name) {
     _objectDataBuilder.setObjectName(name);
     _checkNecessaryInputs();

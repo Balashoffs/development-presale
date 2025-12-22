@@ -7,6 +7,8 @@ part 'object_data_design.freezed.dart';
 @freezed
 abstract class ObjectDataDesign with _$ObjectDataDesign {
   const factory ObjectDataDesign({
+    //Заказчик
+    required final String customer,
     //Имя объекта
     required final String name,
     // Адрес объекта

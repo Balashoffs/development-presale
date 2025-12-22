@@ -36,6 +36,8 @@ class InputDataDesignDTO {
 }
 
 class ObjectDataDesignDTO {
+  //Заказчик
+  final String customer;
   //Имя объекта
   final String name;
 
@@ -49,6 +51,7 @@ class ObjectDataDesignDTO {
   final int deadline;
 
   const ObjectDataDesignDTO({
+    required this.customer,
     required this.name,
     required this.address,
     required this.square,
