@@ -265,6 +265,7 @@ class DivisionsMarginDTO {
 class CommercialOfferDTO {
   final String id;
   final String created;
+  final String objectCustomer;
   final String objectName;
   final String objectAddress;
   final String divisionType;
@@ -286,6 +287,7 @@ class CommercialOfferDTO {
   CommercialOfferDTO({
     required this.id,
     required this.created,
+    required this.objectCustomer,
     required this.objectName,
     required this.objectAddress,
     required this.divisionType,
@@ -316,6 +318,7 @@ class CommercialOfferDTO {
     return CommercialOfferDTO(
       id: inputData.dayCounter.getOfferUniqueNumber(),
       created: inputData.dayCounter.localDate,
+      objectCustomer: inputData.objectData.customer,
       objectName: inputData.objectData.name,
       objectAddress: inputData.objectData.address,
       divisionType: inputData.divisionType.text,

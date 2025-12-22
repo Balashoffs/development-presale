@@ -23,6 +23,10 @@ class DesignOfferHeaderWidget extends StatelessWidget {
           value: offerResult.divisionType,
         ),
         DesignOfferHeaderRowHeaderWidget(
+          type: "Заказчик",
+          value: offerResult.objectCustomer,
+        ),
+        DesignOfferHeaderRowHeaderWidget(
           type: "Наименование объекта",
           value: offerResult.objectName,
         ),

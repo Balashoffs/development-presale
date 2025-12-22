@@ -122,6 +122,7 @@ extension CommercialOfferDtoExt on CommercialOfferDTO {
       id: id,
       divisionType: divisionType,
       createdDate: created,
+      objectCustomer: objectCustomer,
       objectName: objectName,
       objectAddress: objectAddress,
       divisionRows: divisionResults.map((e) => e.toViewModel()).toList(),

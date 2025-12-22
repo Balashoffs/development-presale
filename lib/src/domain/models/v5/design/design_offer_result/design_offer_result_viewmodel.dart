@@ -5,6 +5,7 @@ class DesignOfferResultViewController {
   final String id;
   final String divisionType;
   final String createdDate;
+  final String objectCustomer;
   final String objectName;
   final String objectAddress;
   final int deadline;
@@ -25,6 +26,7 @@ class DesignOfferResultViewController {
     required this.divisionType,
     required this.createdDate,
     required this.id,
+    required this.objectCustomer,
     required this.objectName,
     required this.objectAddress,
     required this.divisionRows,

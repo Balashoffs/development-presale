@@ -1,5 +1,4 @@
 import 'package:presale/src/domain/models/v5/common/offer_template_builder/utils.dart';
-import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v5/common/offer_template_builder/design_offer_client.dart';
 import 'package:presale/src/domain/models/v5/common/offer_template_builder/design_offer_template.dart';
 import 'package:presale/src/domain/service/v5/design/excel_service.dart';
