@@ -1,4 +1,6 @@
-String convertToString(double value, int digits) {
+final String zeroRubbles = '0 рубл.';
+String convertToRubleString(double value, int digits) {
+  if(value.compareTo(0.0) == 0) return zeroRubbles;
   String res = value.toStringAsFixed(digits);
   if (res.length > 3) {
     List<int> chars = res.codeUnits.reversed.toList();
@@ -24,4 +26,9 @@ String convertToString(double value, int digits) {
   }
 
   return '$res руб.';
+}
+
+String convertToPercent(double value){
+  double res = value * 100;
+  return '${res.toInt()} %';
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 
-
 class CustomTextInput extends StatefulWidget {
   const CustomTextInput({
     super.key,
@@ -20,6 +19,7 @@ class CustomTextInput extends StatefulWidget {
     required this.isEnables,
     this.hasFloatingLabel = false,
     this.textInputSize = MoonTextInputSize.sm,
+    this.onTap,
   });
 
   final String hintText;
@@ -37,6 +37,7 @@ class CustomTextInput extends StatefulWidget {
   final MoonTextInputSize textInputSize;
   final double styleFontSize;
   final double helpStyleFontSize;
+  final DateTime Function()? onTap;
 
   @override
   State<CustomTextInput> createState() => _CustomTextInputState();
@@ -93,6 +94,89 @@ class _CustomTextInputState extends State<CustomTextInput> {
       onTapOutside: (PointerDownEvent _) {
         FocusManager.instance.primaryFocus?.unfocus();
       },
+      onChanged: widget.onChanged,
+    );
+  }
+}
+
+class CustomCalendarPicker extends StatefulWidget {
+  const CustomCalendarPicker({
+    super.key,
+    required this.hintText,
+    this.onChanged,
+    this.validator,
+    this.width,
+    this.autofocus = false,
+    required this.isEnables,
+    this.textInputSize = MoonTextInputSize.sm,
+  });
+
+  final String hintText;
+  final double? width;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
+  final bool autofocus;
+  final bool isEnables;
+  final MoonTextInputSize textInputSize;
+
+  @override
+  State<CustomCalendarPicker> createState() => _CustomCalendarPickerState();
+}
+
+class _CustomCalendarPickerState extends State<CustomCalendarPicker> {
+  final TextEditingController _textController = TextEditingController();
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose(); //
+  }
+
+  @override
+  void didUpdateWidget(CustomCalendarPicker oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MoonFormTextInput(
+      key: widget.key,
+      leading: Icon(MoonIcons.time_calendar_24_light, size: 24),
+      focusNode: _focusNode,
+      controller: _textController,
+      enabled: widget.isEnables,
+      readOnly: true,
+      textInputSize: widget.textInputSize,
+      textAlign: TextAlign.center,
+      hintText: widget.hintText,
+      validator: (String? value) =>
+          value != null && value.isEmpty ? "Выберите дату" : null,
+      onTap: () async {
+        final DateTime? pickedDate = await showDatePicker(
+          locale: Locale('ru', 'RU'),
+          context: context,
+          initialDate: DateTime.now(),
+          firstDate: DateTime.now(),
+          lastDate: DateTime(2050),
+        );
+
+        if (pickedDate != null) {
+          _textController.text = "${pickedDate.toLocal()}".split(" ")[0];
+        }
+      },
+      trailing: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          child: const Icon(MoonIcons.controls_close_small_24_light, size: 24),
+          onTap: () => _textController.clear(),
+        ),
+      ),
       onChanged: widget.onChanged,
     );
   }

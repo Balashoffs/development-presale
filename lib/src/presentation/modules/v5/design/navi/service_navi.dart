@@ -85,7 +85,7 @@ class DesignOfferRoute extends AuthNeedRoute {
   }) : super(
          path: designOfferRoutePath,
          name: name ?? (path ?? designOfferRoutePath).toUpperCase(),
-         pageBuilder: (context, state) => AppPage(child: DesignOfferPage()),
+         pageBuilder: (context, state) => AppPage(child: DesignOfferPage(),),
          redirect: (context, state) {
            return null;
          },

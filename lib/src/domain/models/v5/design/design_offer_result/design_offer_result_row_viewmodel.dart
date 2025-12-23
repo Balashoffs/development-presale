@@ -1,4 +1,4 @@
-class DesignOfferResultRowVM {
+class DesignOfferResultRowViewModel {
   final int id;
   final String divisionShortName;
   final String divisionName;
@@ -9,7 +9,7 @@ class DesignOfferResultRowVM {
   final String summary;
   final String summaryWithTax;
 
-  const DesignOfferResultRowVM({
+  const DesignOfferResultRowViewModel({
     required this.id,
     required this.divisionShortName,
     required this.divisionName,

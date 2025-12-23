@@ -108,7 +108,7 @@ class TextWithNotifier extends StatelessWidget {
             builder: (context, value, child) {
               return Text(
                 textAlign: TextAlign.center,
-                convertToString(value, 0),
+                convertToRubleString(value, 0),
                 // style: context.moonTypography?.body.text16
               );
             },

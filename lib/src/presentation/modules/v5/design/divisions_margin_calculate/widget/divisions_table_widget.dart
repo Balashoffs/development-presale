@@ -74,7 +74,7 @@ class _DivisionsMarginTableWidgetState
           ),
           CellDecorationWidget(
             child: TextCellWidget(
-              label: convertToString(row.divisionSummaryCost, 0),
+              label: convertToRubleString(row.divisionSummaryCost, 0),
               key: Key(row.id.toString()),
             ),
           ),

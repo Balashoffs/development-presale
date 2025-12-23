@@ -9,29 +9,36 @@ class DesignOfferRepository {
   CommercialOfferDTO? get commercialOffer =>
       _designOfferMemorySource.designPresaleDTO?.commercialOfferDTO;
 
-  List<DivisionResultDTO> get divisions =>
-      _designOfferMemorySource.commercialOffer?.divisionResults ?? [];
+  List<RowDivisionResultDTO> get divisions =>
+      _designOfferMemorySource.commercialOffer?.resultsTable.divisionRows ?? [];
 
   DesignOfferRepository(DesignOfferMemorySource designOfferMemorySource)
     : _designOfferMemorySource = designOfferMemorySource {
+    if (_designOfferMemorySource.commercialOffer == null) {
+      _designOfferMemorySource.designPresaleDTO?.commercialOfferDTO =
+          CommercialOfferDTO.from(_designOfferMemorySource);
+    }
+  }
 
+  void updatePresaleFactor(double value) {
+    _designOfferMemorySource.commercialOffer?.payValues.presaleFactor = value;
+  }
 
-    CommercialOfferDTO commercialOffer = CommercialOfferDTO.from(
-      _designOfferMemorySource,
-    );
+  void updateAfterDayPayFactor(double value) {
+    _designOfferMemorySource.commercialOffer?.payValues.afterPayFactor = value;
+  }
 
-    _designOfferMemorySource.setCommercialOffer(commercialOffer);
+  void updateAfterPayDate(String value) {
+    _designOfferMemorySource.commercialOffer?.payValues.afterPayDate = value;
+  }
+
+  void updateAfterActsSignFactor(double value) {
+    _designOfferMemorySource.commercialOffer?.payValues.afterActsSignFactor =
+        value;
   }
 
   void updateNotes(String result) {
-    commercialOffer?.noteText = result;
-    _designOfferMemorySource.commercialOffer?.noteText = result;
-  }
-
-
-  void updatePresaleCostFactor(double value) {
-    commercialOffer?.updatePresaleCost(value);
-    _designOfferMemorySource.commercialOffer?.presaleCostFactor = value;
+    _designOfferMemorySource.commercialOffer?.notes = result;
   }
 
   void updatePersonSign(PersonSignDTO personSign) {

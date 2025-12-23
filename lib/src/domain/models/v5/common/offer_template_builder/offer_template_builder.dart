@@ -1,10 +1,9 @@
 import 'package:presale/src/domain/models/v5/common/offer_template_builder/utils.dart';
 import 'package:presale/src/domain/models/v5/common/offer_template_builder/design_offer_client.dart';
 import 'package:presale/src/domain/models/v5/common/offer_template_builder/design_offer_template.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/service/v5/design/excel_service.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
-
-import 'offer_dto.dart';
 
 class RowPos {
   int _pos = 1;
@@ -20,7 +19,8 @@ class OfferBase {
   final RowPos rowPos;
   final String startCell = 'B';
   final String endCell = 'G';
-  final String headerImagePath = 'assets/calculator_data/template/header_logo.png';
+  final String headerImagePath =
+      'assets/calculator_data/template/header_logo.png';
 
   String get _fullRange => '$startCell${rowPos.Pos}:$endCell${rowPos.Pos}';
 
@@ -101,12 +101,11 @@ class OfferBase {
     worksheet.getRangeByName(range).cellStyle.fontSize = fontSize;
     worksheet.getRangeByName(range).rowHeight = height;
     worksheet.getRangeByName(range).cellStyle.fontName = 'Times New Roman';
-    if(value is double){
+    if (value is double) {
       worksheet.getRangeByName(range).setNumber(value);
-    }else if(value is String){
+    } else if (value is String) {
       worksheet.getRangeByName(range).setText(value);
     }
-
   }
 }
 
@@ -132,25 +131,24 @@ class OfferHeader extends OfferBase {
 class OfferTable extends OfferBase {
   OfferTable({required super.worksheet, required super.rowPos});
 
-  void addTable(
-    List<OfferRowDTO> rows, {
-    Object? summary,
-    Object? tax,
-  }) {
-    int start = rowPos.Pos;
-    addTableHeader();
-    rowPos.increment();
-    addTableRows(rows);
-    if (summary != null) {
-      rowPos.increment();
-      addTableFooter(summary is double ?'ИТОГО: ' : 'ИТОГО с НДС 20%: ', summary);
-    }
-    if (tax != null) {
-      rowPos.increment();
-      addTableFooter('НДС, 20%: ', tax);
-    }
-    int end = rowPos.Pos;
-    setTableBorder(start, end);
+  void addTable(ResultsTableDTO resultTable) {
+    // int start = rowPos.Pos;
+    // addTableHeader();
+    // rowPos.increment();
+    // addTableRows(resultTable.divisionRows);
+    // if (resultTablesummary != null) {
+    //   rowPos.increment();
+    //   addTableFooter(
+    //     summary is double ? 'ИТОГО: ' : 'ИТОГО с НДС 20%: ',
+    //     summary,
+    //   );
+    // }
+    // if (resultTable. != null) {
+    //   rowPos.increment();
+    //   addTableFooter('НДС, 20%: ', tax);
+    // }
+    // int end = rowPos.Pos;
+    // setTableBorder(start, end);
   }
 
   void addTableHeader() {
@@ -185,9 +183,9 @@ class OfferTable extends OfferBase {
     );
   }
 
-  void addTableRows(List<OfferRowDTO> rows) {
+  void addTableRows(List<RowDivisionResultDTO> rows) {
     for (int i = 0; i < rows.length; i++) {
-      OfferRowDTO result = rows[i];
+      RowDivisionResultDTO result = rows[i];
       buildCell(
         result.id,
         'B${rowPos.Pos}',
@@ -208,15 +206,14 @@ class OfferTable extends OfferBase {
         alignType: HAlignType.center,
       );
       buildCell(
-        result.value,
+        result.divisionSummary,
         '$endCell${rowPos.Pos}',
         width: 25,
         alignType: HAlignType.center,
       );
-      if(i + 1 < rows.length){
+      if (i + 1 < rows.length) {
         rowPos.increment();
       }
-
     }
   }
 
@@ -318,7 +315,7 @@ class OfferFooter extends OfferBase {
             isMerge: true,
             alignType: HAlignType.left,
             isWrap: true,
-            height: 25
+            height: 25,
           );
 
           rowPos.increment(qntCarets + 1);

@@ -21,7 +21,7 @@ class TextDivider extends StatelessWidget {
       child: Row(
         children: [
           const Expanded(
-            child: Divider(indent: 512, endIndent: 12,),
+            child: Divider(indent: 376, endIndent: 12,),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -29,7 +29,7 @@ class TextDivider extends StatelessWidget {
               text,),
           ),
           const Expanded(
-            child: Divider(indent: 12, endIndent: 512,),
+            child: Divider(indent: 12, endIndent: 376,),
           ),
         ],
       ),

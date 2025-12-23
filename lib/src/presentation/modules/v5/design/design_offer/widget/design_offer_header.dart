@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
+import 'package:presale/src/presentation/common/widget/text_divider.dart';
 
 class DesignOfferHeaderWidget extends StatelessWidget {
   const DesignOfferHeaderWidget({
@@ -7,17 +8,23 @@ class DesignOfferHeaderWidget extends StatelessWidget {
     required this.offerResult,
   });
 
-  final DesignOfferResultViewController offerResult;
+  final DesignOfferResultViewModel offerResult;
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       spacing: 16.0,
       children: [
         DesignOfferHeaderRowHeaderWidget(
           type: "Дата создания КП",
           value: offerResult.createdDate,
         ),
-        DesignOfferHeaderRowHeaderWidget(type: "№ КП", value: offerResult.id),
+        DesignOfferHeaderRowHeaderWidget(type: "№ КП", value: offerResult.offerId),
+        const TextDivider(
+          text: 'Информация об объекте',
+          paddingTop: 16.0,
+          paddingBottom: 8.0,
+        ),
         DesignOfferHeaderRowHeaderWidget(
           type: "Тип документации",
           value: offerResult.divisionType,
@@ -36,11 +43,11 @@ class DesignOfferHeaderWidget extends StatelessWidget {
         ),
         DesignOfferHeaderRowHeaderWidget(
           type: "Площадь объекта, м\u00B2",
-          value: '${offerResult.objectSquare}',
+          value: offerResult.objectSquare,
         ),
         DesignOfferHeaderRowHeaderWidget(
           type: "Сроки выполнения, дн.",
-          value: '${offerResult.deadline}',
+          value: offerResult.deadline,
         ),
       ],
     );
@@ -60,18 +67,22 @@ class DesignOfferHeaderRowHeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       spacing: 32.0,
       children: [
         SizedBox(
           width: 212,
           child: Text(
             type,
-            // style: context.moonTypography?.body.text16
           ),
         ),
-        Text(
-          value,
-          // style: context.moonTypography?.body.text20
+        SizedBox(
+          width: 400,
+          child: Text(
+            value,
+            maxLines: 3,
+            softWrap: true,
+          ),
         ),
       ],
     );

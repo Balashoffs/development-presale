@@ -95,14 +95,13 @@ extension DivisionMarginsDtoExt on DivisionsMarginDTO {
       clientFactor: clientFactor,
       clientValue: resourceDivisionSummaryCost * clientFactor,
       taxValue: taxValue,
-
       summaryCostWithMargin: summaryCostWithMargin,
       summaryCostWithTax: summaryCostWithTax,
     );
   }
 
-  DivisionResultDTO toDto() {
-    return DivisionResultDTO(
+  RowDivisionResultDTO toDto() {
+    return RowDivisionResultDTO(
       id: id,
       divisionShortName: divisionShortName,
       divisionName: divisionName,
@@ -117,42 +116,54 @@ extension DivisionMarginsDtoExt on DivisionsMarginDTO {
 }
 
 extension CommercialOfferDtoExt on CommercialOfferDTO {
-  DesignOfferResultViewController toViewModel() {
-    return DesignOfferResultViewController(
-      id: id,
+  DesignOfferResultViewModel toViewModel() {
+    return DesignOfferResultViewModel(
+      offerId: id,
       divisionType: divisionType,
       createdDate: created,
       objectCustomer: objectCustomer,
       objectName: objectName,
       objectAddress: objectAddress,
-      divisionRows: divisionResults.map((e) => e.toViewModel()).toList(),
-      overPriceSummary: convertToString(summaryOverPriceCost, 0),
-      marginSummary: convertToString(summaryMarginCost, 0),
-      clientSummary: convertToString(summaryClientCost, 0),
-      summary: convertToString(divisionSummary, 0),
-      summaryWithTax: convertToString(summaryWithTax, 0),
-      tax: convertToString(tax, 0),
-      deadline: deadline,
-      objectSquare: objectSquare,
-      inputNotes: noteText,
-      presaleFactor: presaleCostFactor,
-      presaleCost: presaleCostFactor * summaryWithTax,
+      deadline: '$deadline',
+      objectSquare: '$objectSquare',
+      notes: notes,
+      defaultAfterActsSignPayPercent: payValues.afterActsSignFactor
+          .toStringAsFixed(0),
+      defaultAfterPayPercent: payValues.afterPayFactor.toStringAsFixed(0),
+      defaultDateValue: payValues.afterPayDate,
+      defaultPresalePayPercent: payValues.presaleFactor.toStringAsFixed(0),
+      resultTableViewModel: resultsTable.toViewModel(),
     );
   }
 }
 
-extension DivisionResultDtoExt on DivisionResultDTO {
-  DesignOfferResultRowVM toViewModel() {
-    return DesignOfferResultRowVM(
+extension ResultsTableDtoExt on ResultsTableDTO {
+  ResultTableViewModel toViewModel() {
+    return ResultTableViewModel(
+      divisionRows: divisionRows.map((e) => e.toViewModel()).toList(),
+      clearSummary: convertToRubleString(clearSummary, 0),
+      overPriceSummary: convertToRubleString(overPriceSummary, 0),
+      marginSummary: convertToRubleString(marginSummary, 0),
+      clientSummary: convertToRubleString(clientSummary, 0),
+      fullSummary: convertToRubleString(fullSummary, 0),
+      tax: convertToRubleString(tax, 0),
+      fullSummaryWithTax: convertToRubleString(fullSummaryWithTax, 0),
+    );
+  }
+}
+
+extension DivisionResultDtoExt on RowDivisionResultDTO {
+  DesignOfferResultRowViewModel toViewModel() {
+    return DesignOfferResultRowViewModel(
       id: id,
       divisionShortName: divisionShortName,
       divisionName: divisionName,
-      overPriceCost: convertToString(divisionOverPriceCost, 0),
-      marginCost: convertToString(divisionMarginCost, 0),
-      clientCost: convertToString(divisionClientCost, 0),
-      clearCost: convertToString(divisionClearCost, 0),
-      summary: convertToString(divisionSummary, 0),
-      summaryWithTax: convertToString(divisionSummaryWithTax, 0),
+      overPriceCost: convertToRubleString(divisionOverPriceCost, 0),
+      marginCost: convertToRubleString(divisionMarginCost, 0),
+      clientCost: convertToRubleString(divisionClientCost, 0),
+      clearCost: convertToRubleString(divisionClearCost, 0),
+      summary: convertToRubleString(divisionSummary, 0),
+      summaryWithTax: convertToRubleString(divisionSummaryWithTax, 0),
     );
   }
 }

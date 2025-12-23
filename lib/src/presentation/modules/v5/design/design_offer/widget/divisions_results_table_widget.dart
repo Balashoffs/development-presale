@@ -10,11 +10,11 @@ class DivisionsResultsTableWidget extends StatefulWidget {
   const DivisionsResultsTableWidget({
     super.key,
     required this.rowAttributes,
-    required this.offerResult,
+    required this.resultTableViewModel,
   });
 
   final List<CollumAttribute> rowAttributes;
-  final DesignOfferResultViewController offerResult;
+  final ResultTableViewModel resultTableViewModel;
 
   @override
   State<DivisionsResultsTableWidget> createState() =>
@@ -25,7 +25,7 @@ class _DivisionsResultsTableWidgetState
     extends State<DivisionsResultsTableWidget> {
   @override
   Widget build(BuildContext context) {
-    double height = 48.0 * 4 * widget.offerResult.divisionRows.length;
+    double height = 48.0 * 4 * widget.resultTableViewModel.divisionRows .length;
     height = height > 1000 ? 1000 : height;
     return LimitedBox(
       maxWidth: MediaQuery.sizeOf(context).width - 100,
@@ -79,8 +79,8 @@ class _DivisionsResultsTableWidgetState
   }
 
   List<MoonTableRow> _generateTableRows() {
-    return List.generate(widget.offerResult.divisionRows.length, (int index) {
-      final row = widget.offerResult.divisionRows[index];
+    return List.generate(widget.resultTableViewModel.divisionRows.length, (int index) {
+      final row = widget.resultTableViewModel.divisionRows[index];
       String id = '${index + 1}';
       return MoonTableRow(
         height: 72,
@@ -141,7 +141,7 @@ class _DivisionsResultsTableWidgetState
             index) {
           return CellDecorationWidget(
             child: TextCellWidget(
-              label: widget.offerResult.overPriceSummary,
+              label: widget.resultTableViewModel.overPriceSummary,
               key: Key(key),
             ),
           );
@@ -150,7 +150,7 @@ class _DivisionsResultsTableWidgetState
             index) {
           return CellDecorationWidget(
             child: TextCellWidget(
-              label: widget.offerResult.marginSummary,
+              label: widget.resultTableViewModel.marginSummary,
               key: Key(key),
             ),
           );
@@ -159,7 +159,7 @@ class _DivisionsResultsTableWidgetState
             index) {
           return CellDecorationWidget(
             child: TextCellWidget(
-              label: widget.offerResult.clientSummary,
+              label: widget.resultTableViewModel.clientSummary,
               key: Key(key),
             ),
           );
@@ -168,7 +168,7 @@ class _DivisionsResultsTableWidgetState
             index) {
           return CellDecorationWidget(
             child: TextCellWidget(
-              label: widget.offerResult.summary,
+              label: widget.resultTableViewModel.fullSummary,
               key: Key(key),
             ),
           );
@@ -177,7 +177,7 @@ class _DivisionsResultsTableWidgetState
             index) {
           return CellDecorationWidget(
             child: TextCellWidget(
-              label: widget.offerResult.summaryWithTax,
+              label: widget.resultTableViewModel.fullSummaryWithTax,
               key: Key(key),
             ),
           );

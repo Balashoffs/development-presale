@@ -6,6 +6,7 @@ import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 abstract class App extends StatelessWidget {
   const App({super.key});
@@ -49,6 +50,12 @@ class ServiceCalcApp extends App {
         BlocProvider.value(value: di.userRepository),
       ],
       child: MaterialApp.router(
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate
+        ],
+        supportedLocales: [
+          const Locale('ru'),
+        ],
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: const Color(0xFFF6F7F9), // Gohan light.

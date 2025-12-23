@@ -4,6 +4,7 @@ import 'package:presale/src/domain/models/v3/design/division_type/division_type.
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
+import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
 
 class DesignPresaleDTO {
   InputDataDesignDTO? inputDataDesignDTO;
@@ -38,6 +39,7 @@ class InputDataDesignDTO {
 class ObjectDataDesignDTO {
   //Заказчик
   final String customer;
+
   //Имя объекта
   final String name;
 
@@ -242,7 +244,7 @@ class DivisionsMarginDTO {
       divisionShortName: divisionShortName ?? this.divisionShortName,
       divisionDescription: divisionDescription ?? this.divisionDescription,
       resourceDivisionSummaryCost:
-      resourceDivisionSummaryCost ?? this.resourceDivisionSummaryCost,
+          resourceDivisionSummaryCost ?? this.resourceDivisionSummaryCost,
       overPriceFactor: overPriceFactor ?? this.overPriceFactor,
       marginFactor: marginFactor ?? this.marginFactor,
       clientFactor: clientFactor ?? this.clientFactor,
@@ -262,6 +264,74 @@ class DivisionsMarginDTO {
   }
 }
 
+class ResultsTableDTO {
+  final List<RowDivisionResultDTO> divisionRows;
+  final double clearSummary;
+  final double overPriceSummary;
+  final double marginSummary;
+  final double clientSummary;
+  final double fullSummary;
+  final double tax;
+  final double fullSummaryWithTax;
+
+  const ResultsTableDTO({
+    required this.divisionRows,
+    required this.clearSummary,
+    required this.overPriceSummary,
+    required this.marginSummary,
+    required this.clientSummary,
+    required this.fullSummary,
+    required this.tax,
+    required this.fullSummaryWithTax,
+  });
+
+  static ResultsTableDTO from(List<DivisionsMarginDTO> divisionMargins) {
+    return ResultsTableDTO(
+      divisionRows: divisionMargins.map((e) => e.toDto()).toList(),
+      clearSummary: divisionMargins
+          .map((e) => e.clientValue)
+          .reduce((value, element) => value + element),
+      overPriceSummary: divisionMargins
+          .map((e) => e.overPriceValue)
+          .reduce((value, element) => value + element),
+      marginSummary: divisionMargins
+          .map((e) => e.marginValue)
+          .reduce((value, element) => value + element),
+      clientSummary: divisionMargins
+          .map((e) => e.clientValue)
+          .reduce((value, element) => value + element),
+      fullSummary: divisionMargins
+          .map((e) => e.summaryCostWithMargin)
+          .reduce((value, element) => value + element),
+      tax:
+          divisionMargins
+              .map((e) => e.summaryCostWithMargin)
+              .reduce((value, element) => value + element) *
+          Russian_Tax_Factor *
+          Russian_Tax_Factor_Reverce,
+      fullSummaryWithTax: divisionMargins
+          .map((e) => e.summaryCostWithTax)
+          .reduce((value, element) => value + element),
+    );
+  }
+}
+
+
+
+class PayValuesDTO {
+  double presaleFactor;
+  double afterPayFactor;
+  String afterPayDate;
+  double afterActsSignFactor;
+
+  PayValuesDTO({
+    this.presaleFactor = 0.0,
+    this.afterPayFactor = 0.0,
+    this.afterPayDate = '',
+    this.afterActsSignFactor = 0.0,
+  });
+}
+
 class CommercialOfferDTO {
   final String id;
   final String created;
@@ -271,18 +341,10 @@ class CommercialOfferDTO {
   final String divisionType;
   final int deadline;
   final int objectSquare;
-  final List<DivisionResultDTO> divisionResults;
-  final double summaryClearCost;
-  final double summaryOverPriceCost;
-  final double summaryMarginCost;
-  final double summaryClientCost;
-  final double divisionSummary;
-  final double summaryWithTax;
-  final double tax;
+  final ResultsTableDTO resultsTable;
+  final PayValuesDTO payValues;
+  String notes;
   PersonSignDTO? personSign;
-  double presaleCostValue;
-  double presaleCostFactor;
-  String noteText;
 
   CommercialOfferDTO({
     required this.id,
@@ -293,28 +355,15 @@ class CommercialOfferDTO {
     required this.divisionType,
     required this.deadline,
     required this.objectSquare,
-    required this.divisionResults,
-    required this.summaryClearCost,
-    required this.summaryOverPriceCost,
-    required this.summaryMarginCost,
-    required this.summaryClientCost,
-    required this.divisionSummary,
-    required this.summaryWithTax,
-    required this.tax,
+    required this.payValues,
+    required this.resultsTable,
+    this.notes = '',
     this.personSign,
-    this.presaleCostValue = 0.0,
-    this.presaleCostFactor = Default_Presale_Factor,
-    required this.noteText,
   });
 
-  static CommercialOfferDTO from(
-      DesignOfferMemorySource memory,
-  ) {
-    final divisionResults = memory.divisionMargins
-        .map((e) => e.toDto())
-        .toList();
+  static CommercialOfferDTO from(DesignOfferMemorySource memory) {
     final inputData = memory.inputDataDesignDTO!;
-    double presaleCostFactor = memory.commercialOffer?.presaleCostFactor ?? Default_Presale_Factor;
+    ResultsTableDTO resultsTable = ResultsTableDTO.from(memory.divisionMargins);
     return CommercialOfferDTO(
       id: inputData.dayCounter.getOfferUniqueNumber(),
       created: inputData.dayCounter.localDate,
@@ -324,51 +373,14 @@ class CommercialOfferDTO {
       divisionType: inputData.divisionType.text,
       deadline: inputData.objectData.deadline,
       objectSquare: inputData.objectData.square,
-      noteText: memory.commercialOffer?.noteText ?? '',
-      divisionResults: divisionResults,
-      summaryClearCost: divisionResults
-          .map((e) => e.divisionClearCost)
-          .reduce((value, element) => value + element),
-      summaryOverPriceCost: divisionResults
-          .map((e) => e.divisionOverPriceCost)
-          .reduce((value, element) => value + element),
-      summaryMarginCost: divisionResults
-          .map((e) => e.divisionMarginCost)
-          .reduce((value, element) => value + element),
-      summaryClientCost: divisionResults
-          .map((e) => e.divisionClientCost)
-          .reduce((value, element) => value + element),
-      divisionSummary: divisionResults
-          .map((e) => e.divisionSummary)
-          .reduce((value, element) => value + element),
-      summaryWithTax:
-          divisionResults
-              .map((e) => e.divisionSummaryWithTax)
-              .reduce((value, element) => value + element) *
-          Russian_Tax_Factor,
-      presaleCostValue:
-          divisionResults
-              .map((e) => e.divisionSummaryWithTax)
-              .reduce((value, element) => value + element) *
-              presaleCostFactor,
-      presaleCostFactor: presaleCostFactor,
-      tax:
-          divisionResults
-              .map((e) => e.divisionSummary)
-              .reduce((value, element) => value + element) *
-          Russian_Tax_Factor *
-          Russian_Tax_Factor_Reverce,
+      notes: memory.commercialOffer?.notes ?? NotesService.defaultNote,
+      resultsTable: resultsTable,
+      payValues: memory.commercialOffer?.payValues ?? PayValuesDTO(),
     );
-  }
-
-  void updatePresaleCost(double value) {
-    presaleCostFactor = value;
-    presaleCostValue = summaryWithTax * presaleCostFactor;
-
   }
 }
 
-class DivisionResultDTO {
+class RowDivisionResultDTO {
   final int id;
   final String divisionShortName;
   final String divisionName;
@@ -379,7 +391,7 @@ class DivisionResultDTO {
   final double divisionSummary;
   final double divisionSummaryWithTax;
 
-  const DivisionResultDTO({
+  const RowDivisionResultDTO({
     required this.id,
     required this.divisionShortName,
     required this.divisionName,
