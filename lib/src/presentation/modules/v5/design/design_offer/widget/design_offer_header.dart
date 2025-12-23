@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
-import 'package:presale/src/presentation/common/widget/text_divider.dart';
 
-class DesignOfferHeaderWidget extends StatelessWidget {
-  const DesignOfferHeaderWidget({
-    super.key,
-    required this.offerResult,
-  });
+class DesignOfferIDWidget extends StatelessWidget {
+  const DesignOfferIDWidget({super.key, required this.offerResult});
 
   final DesignOfferResultViewModel offerResult;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,12 +16,26 @@ class DesignOfferHeaderWidget extends StatelessWidget {
           type: "Дата создания КП",
           value: offerResult.createdDate,
         ),
-        DesignOfferHeaderRowHeaderWidget(type: "№ КП", value: offerResult.offerId),
-        const TextDivider(
-          text: 'Информация об объекте',
-          paddingTop: 16.0,
-          paddingBottom: 8.0,
+        DesignOfferHeaderRowHeaderWidget(
+          type: "№ КП",
+          value: offerResult.offerId,
         ),
+      ],
+    );
+  }
+}
+
+class EstateInformationWidget extends StatelessWidget {
+  const EstateInformationWidget({super.key, required this.offerResult});
+
+  final DesignOfferResultViewModel offerResult;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      spacing: 16.0,
+      children: [
         DesignOfferHeaderRowHeaderWidget(
           type: "Тип документации",
           value: offerResult.divisionType,
@@ -70,20 +81,8 @@ class DesignOfferHeaderRowHeaderWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       spacing: 32.0,
       children: [
-        SizedBox(
-          width: 212,
-          child: Text(
-            type,
-          ),
-        ),
-        SizedBox(
-          width: 400,
-          child: Text(
-            value,
-            maxLines: 3,
-            softWrap: true,
-          ),
-        ),
+        SizedBox(width: 212, child: Text(type)),
+        SizedBox(width: 400, child: Text(value, maxLines: 3, softWrap: true)),
       ],
     );
   }

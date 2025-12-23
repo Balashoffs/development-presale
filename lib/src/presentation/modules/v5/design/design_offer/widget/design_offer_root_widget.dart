@@ -41,11 +41,13 @@ class DesignOfferRootWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  CustomButtonWidget(text: '  Назад  ', onTap: (){
-                    context
-                        .read<DesignOfferCubit>().save();
-                    context.pop();
-                  }),
+                  CustomButtonWidget(
+                    text: '  Назад  ',
+                    onTap: () {
+                      context.read<DesignOfferCubit>().save();
+                      context.pop();
+                    },
+                  ),
                   ValueListenableBuilder<bool>(
                     valueListenable: cubit.isCorrect,
                     builder: (context, value, child) {
@@ -101,12 +103,50 @@ class OfferHeadWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 8.0,
             children: [
-              DesignOfferHeaderWidget(offerResult: result),
+              DesignOfferIDWidget(offerResult: result),
+              const TextDivider(
+                text: 'Информация об объекте',
+                paddingTop: 16.0,
+                paddingBottom: 8.0,
+              ),
+              EstateInformationWidget(offerResult: result),
+              const TextDivider(
+                text: 'Предстватели комапнии',
+                paddingTop: 16.0,
+                paddingBottom: 8.0,
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                spacing: 16,
+                children: [
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(width: 212, child: Text('Ген. директор')),
+                      PersonSignBuilderWidget(
+                        onSaved: context.read<PersonSignCubit>().onSaved,
+                        onEdit: context.read<PersonSignCubit>().edit,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(width: 212, child: Text('Контактное лицо')),
+                      PersonSignBuilderWidget(
+                        onSaved: context.read<PersonSignCubit>().onSaved,
+                        onEdit: context.read<PersonSignCubit>().edit,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
               const TextDivider(
                 text: 'Условия оплаты и проведения работ',
                 paddingTop: 16.0,
                 paddingBottom: 8.0,
               ),
+
               PresaleCostWidget(offerResult: result),
               const TextDivider(
                 text: 'Примечания',
@@ -114,9 +154,6 @@ class OfferHeadWidget extends StatelessWidget {
                 paddingBottom: 8.0,
               ),
               OfferNotesWidget(initValue: result.notes),
-              PersonSignBuilderWidget(
-                onSaved: context.read<PersonSignCubit>().onSaved,
-              ),
             ],
           ),
           TextDivider(
@@ -169,7 +206,9 @@ class PresaleCostWidget extends StatelessWidget {
               onChanged: (value) {
                 cubit.onAfterPayDate(value);
               },
-              defaultDate: offerResult.defaultDateValue.isEmpty ? 'Выберите дату' : offerResult.defaultDateValue,
+              defaultDate: offerResult.defaultDateValue.isEmpty
+                  ? 'Выберите дату'
+                  : offerResult.defaultDateValue,
               comment: 'после',
             ),
           ],

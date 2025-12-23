@@ -7,7 +7,7 @@ import 'package:presale/src/presentation/modules/v5/design/common/person_sign/pe
 
 class PersonSignMenuItemWidget extends StatelessWidget {
   const PersonSignMenuItemWidget({super.key, required this.onSaved});
-  final Function() onSaved;
+  final VoidCallback onSaved;
 
   @override
   Widget build(BuildContext context) {
