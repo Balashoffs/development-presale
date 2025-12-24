@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/di/di.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
+import 'package:presale/src/presentation/bloc/v5/person_sign/person_sing_repository.dart';
 
 import 'package:presale/src/presentation/modules/v5/design/common/person_sign/person_sign_widget.dart';
 

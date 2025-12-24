@@ -5,19 +5,6 @@ import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart'
 import 'package:presale/src/presentation/modules/v5/design/common/company_info_widget/cubit/company_info_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
 
-class CompanyInfoBlocProviderWidget extends StatelessWidget {
-  const CompanyInfoBlocProviderWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) {
-        return CompanyInfoCubit();
-      },
-      child: CompanyInfoBlocBuilderWidget(),
-    );
-  }
-}
 
 class CompanyInfoBlocBuilderWidget extends StatelessWidget {
   const CompanyInfoBlocBuilderWidget({super.key});

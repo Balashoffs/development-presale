@@ -10,8 +10,8 @@ part 'person_sign_state.dart';
 
 part 'person_sign_cubit.freezed.dart';
 
-final String _addDataText = 'Ввести данные о подсписанте';
-final String _signTemplateText = 'Подписант: ';
+final String _addDataText = 'Ввести данные о контактном лице';
+final String _signTemplateText = 'Составил: ';
 
 class PersonSignCubit extends Cubit<PersonSignState> {
   final PersonSignTextInputValidator textGroupController;

@@ -7,6 +7,8 @@ import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sing_repository.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/company_info_widget/company_repository/company_repository.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/company_info_widget/cubit/company_info_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/design_offer_root_widget.dart';
@@ -16,7 +18,7 @@ class DesignOfferPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppBar(child: DesignOfferRepositoryProvider());
+    return CustomAppBar(child: DesignOfferRepositoryProvider(), title: Text('Коммерческое предложение'),);
   }
 }
 
@@ -25,9 +27,14 @@ class DesignOfferRepositoryProvider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (context) =>
-          PersonSingRepository(PersonSignDataSourceLocal(di.dbClientImpl)),
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(
+          create: (context) =>
+              PersonSingRepository(PersonSignDataSourceLocal(di.dbClientImpl)),
+        ),
+        RepositoryProvider(create: (context) => CompanyInfoRepository()),
+      ],
       child: DesignOfferBlocProviderWidget(),
     );
   }
@@ -40,8 +47,30 @@ class DesignOfferBlocProviderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => DesignOfferCubit(di: di, personRepository: context.read<PersonSingRepository>())),
-        BlocProvider(create: (context) => PersonSignCubit(di: di, personRepository: context.read<PersonSingRepository>())),
+        BlocProvider(
+          create: (context) => DesignOfferCubit(
+            di: di,
+            companyInfoStream: context
+                .read<CompanyInfoRepository>()
+                .companyStream,
+            contactPersonStream: context
+                .read<PersonSingRepository>()
+                .personStream,
+          ),
+        ),
+        BlocProvider(
+          create: (context) => PersonSignCubit(
+            di: di,
+            personRepository: context.read<PersonSingRepository>(),
+          ),
+        ),
+        BlocProvider(
+          create: (context) {
+            return CompanyInfoCubit(
+              companyRepository: context.read<CompanyInfoRepository>(),
+            );
+          },
+        ),
       ],
       child: DesignOfferBlocConsumerWidget(),
     );

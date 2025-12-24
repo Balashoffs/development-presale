@@ -4,13 +4,14 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/data/core/string_converter.dart';
 
 import 'package:presale/src/di/di.dart';
+import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
+import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/domain/repository/v5/design/design_offer_repository.dart';
 import 'package:presale/src/domain/service/v5/design/excel_service.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
-import 'package:presale/src/presentation/bloc/v5/person_sign/person_sing_repository.dart';
 
 part 'design_offer_state.dart';
 part 'design_offer_cubit.freezed.dart';
@@ -18,7 +19,8 @@ part 'design_offer_cubit.freezed.dart';
 class DesignOfferCubit extends Cubit<DesignOfferState> {
   late final DesignOfferResultViewModel _designOfferViewModel;
   DesignOfferResultViewModel get designOfferViewModel => _designOfferViewModel;
-  final PersonSingRepository _personSingRepository;
+  final Stream<PersonSignDTO?> _contactPersonStream;
+  final Stream<CompanyInfoDTO?> _companyInfoStream;
   final DesignOfferRepository _designOfferRepository;
   final ExcelService _excelService;
   late final NotesService _notesService;
@@ -28,10 +30,12 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
 
   DesignOfferCubit({
     required DependencyInjector di,
-    required PersonSingRepository personRepository,
+    required Stream<PersonSignDTO?> contactPersonStream,
+    required Stream<CompanyInfoDTO?> companyInfoStream,
   }) : _designOfferRepository = DesignOfferRepository(di.inMemoryImpl),
+      _contactPersonStream = contactPersonStream,
+        _companyInfoStream = companyInfoStream,
        _excelService = ExcelService(),
-       _personSingRepository = personRepository,
        super(const DesignOfferState()) {
     _init();
   }
@@ -43,10 +47,16 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
       _designOfferViewModel = co.toViewModel();
       _notesService = NotesService(notes: co.notes);
     }
-    _personSingRepository.personStream.listen((event) {
+    _contactPersonStream.listen((event) {
       _isCorrect.value = event != null && event.id != 0;
       if (event != null) {
         _designOfferRepository.updatePersonSign(event);
+      }
+    });
+
+    _companyInfoStream.listen((event) {
+      if (event != null) {
+        _designOfferRepository.updateCompanyInfo(event);
       }
     });
 

@@ -134,14 +134,14 @@ class OfferDesignBodyWidget extends StatelessWidget {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(width: 212, child: Text('Компания')),
-                      CompanyInfoBlocProviderWidget(),
+                      SizedBox(width: 228, child: Text('Компания')),
+                      CompanyInfoBlocBuilderWidget(),
                     ],
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(width: 212, child: Text('Контактное лицо')),
+                      SizedBox(width: 228, child: Text('Контактное лицо')),
                       PersonSignBuilderWidget(
                         onSaved: context.read<PersonSignCubit>().onSaved,
                         onEdit: context.read<PersonSignCubit>().edit,
@@ -155,7 +155,6 @@ class OfferDesignBodyWidget extends StatelessWidget {
                 paddingTop: 16.0,
                 paddingBottom: 8.0,
               ),
-
               PresaleCostWidget(offerResult: result),
               const TextDivider(
                 text: 'Примечания',
@@ -189,9 +188,10 @@ class PresaleCostWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final cubit = context.read<DesignOfferCubit>();
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
-      spacing: 16.0,
+      spacing: 24.0,
       children: [
         OfferPresaleCostFactor(
           onChanged: cubit.onPresaleFactor,
@@ -282,9 +282,12 @@ class OfferPresaleCostFactor extends StatelessWidget {
       spacing: 8.0,
       // crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          payType,
-          // style: context.moonTypography?.body.text16
+        SizedBox(
+          width: 228,
+          child: Text(
+            payType,
+            // style: context.moonTypography?.body.text16
+          ),
         ),
         SizedBox(
           width: 72,
