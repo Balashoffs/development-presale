@@ -8,16 +8,16 @@ import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit
 import 'package:presale/src/presentation/bloc/v5/person_sign/person_sign_cubit.dart';
 import 'package:presale/src/presentation/common/widget/text_divider.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/company_info_widget/company_info_dropdown_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/next_page_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/person_sign/sign_person_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/design_offer_header.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/divisions_results_table_widget.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/custom_text_input.dart';
 
-import '../../common/custom_text_input.dart';
-
-class DesignOfferRootWidget extends StatelessWidget {
-  const DesignOfferRootWidget({super.key});
+class DesignOfferMainWidget extends StatelessWidget {
+  const DesignOfferMainWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,57 +30,11 @@ class DesignOfferRootWidget extends StatelessWidget {
         children: [
           Expanded(
             flex: 9,
-            child: OfferHeadWidget(result: cubit.designOfferViewModel),
+            child: OfferDesignBodyWidget(result: cubit.designOfferViewModel),
           ),
           Expanded(
             flex: 1,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 32.0),
-              child: Row(
-                spacing: 16.0,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  CustomButtonWidget(
-                    text: '  Назад  ',
-                    onTap: () {
-                      context.read<DesignOfferCubit>().save();
-                      context.pop();
-                    },
-                  ),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: cubit.isCorrect,
-                    builder: (context, value, child) {
-                      return Row(
-                        spacing: 16.0,
-                        children: [
-                          CustomButtonWidget(
-                            text: 'без НДС',
-                            onTap: value
-                                ? () {
-                                    context
-                                        .read<DesignOfferCubit>()
-                                        .saveRawToExcelFile();
-                                  }
-                                : null,
-                          ),
-                          CustomButtonWidget(
-                            text: '  c НДС  ',
-                            onTap: value
-                                ? () {
-                                    context
-                                        .read<DesignOfferCubit>()
-                                        .saveToClearExcelFile();
-                                  }
-                                : null,
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
+            child: OfferDesignControlWidget(isCorrect: cubit.isCorrect),
           ),
         ],
       ),
@@ -88,8 +42,65 @@ class DesignOfferRootWidget extends StatelessWidget {
   }
 }
 
-class OfferHeadWidget extends StatelessWidget {
-  const OfferHeadWidget({super.key, required this.result});
+class OfferDesignControlWidget extends StatelessWidget {
+  const OfferDesignControlWidget({super.key, required this.isCorrect});
+
+  final ValueNotifier<bool> isCorrect;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 32.0),
+      child: Row(
+        spacing: 16.0,
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CustomButtonWidget(
+            text: '  Назад  ',
+            onTap: () {
+              context.read<DesignOfferCubit>().save();
+              context.pop();
+            },
+          ),
+          ValueListenableBuilder<bool>(
+            valueListenable: isCorrect,
+            builder: (context, value, child) {
+              return Row(
+                spacing: 16.0,
+                children: [
+                  CustomButtonWidget(
+                    text: 'без НДС',
+                    onTap: value
+                        ? () {
+                            context
+                                .read<DesignOfferCubit>()
+                                .saveRawToExcelFile();
+                          }
+                        : null,
+                  ),
+                  CustomButtonWidget(
+                    text: '  c НДС  ',
+                    onTap: value
+                        ? () {
+                            context
+                                .read<DesignOfferCubit>()
+                                .saveToClearExcelFile();
+                          }
+                        : null,
+                  ),
+                ],
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class OfferDesignBodyWidget extends StatelessWidget {
+  const OfferDesignBodyWidget({super.key, required this.result});
 
   final DesignOfferResultViewModel result;
 
@@ -111,22 +122,20 @@ class OfferHeadWidget extends StatelessWidget {
               ),
               EstateInformationWidget(offerResult: result),
               const TextDivider(
-                text: 'Предстватели комапнии',
+                text: 'Представители компании',
                 paddingTop: 16.0,
                 paddingBottom: 8.0,
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 16,
                 children: [
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SizedBox(width: 212, child: Text('Ген. директор')),
-                      PersonSignBuilderWidget(
-                        onSaved: context.read<PersonSignCubit>().onSaved,
-                        onEdit: context.read<PersonSignCubit>().edit,
-                      ),
+                      SizedBox(width: 212, child: Text('Компания')),
+                      CompanyInfoBlocProviderWidget(),
                     ],
                   ),
                   Row(

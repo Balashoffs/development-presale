@@ -7,6 +7,6 @@ import 'package:presale/src/domain/models/v6/company_info/extension.dart';
 
 Future<List<CompanyInfoDTO>> getCompanyInfoFromAssets()async{
   String json = await rootBundle.loadString('assets/calculator_data/template/companies.json');
-  List<Map<String, dynamic>> maps = jsonDecode(json);
-  return maps.map((e) => CompanyInfoPojo.fromJson(e),).map((e) => e.toDto(),).toList();
+  List<dynamic> maps = jsonDecode(json);
+  return maps.map((e) => e as Map<String, dynamic>,).map((e) => CompanyInfoPojo.fromJson(e),).map((e) => e.toDto(),).toList();
 }

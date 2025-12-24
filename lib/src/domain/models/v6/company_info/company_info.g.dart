@@ -11,5 +11,5 @@ _CompanyInfoPojo _$CompanyInfoPojoFromJson(Map<String, dynamic> json) =>
       companyName: json['companyName'] as String,
       CEOSurnameName: json['CEOSurnameName'] as String,
       CEOFistName: json['CEOFistName'] as String,
-      CEOSecondNam: json['CEOSecondNam'] as String,
+      CEOSecondNam: json['CEOSecondName'] as String,
     );

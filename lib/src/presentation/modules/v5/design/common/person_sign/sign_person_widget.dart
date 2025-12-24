@@ -21,7 +21,8 @@ class PersonSignBuilderWidget extends StatelessWidget {
       buildWhen: (previous, current) => previous.isFilled != current.isFilled,
       builder: (context, state) {
         return SizedBox(
-          width: state.isFilled ? 400 : 600,
+          // width: state.isFilled ? 400 : 600,
+          width: 400,
           child: state.isFilled
               ? SignMenuItem(labelText: state.labelText, onTap: onEdit)
               : SignAccordionMenuWidget(
@@ -47,10 +48,6 @@ class SignAccordionMenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MoonAccordion<MoonMenuItem>(
-      trailing: Icon(
-        MoonIcons.generic_edit_24_light,
-        color: context.moonColors!.iconPrimary,
-      ),
       shadows: const [],
       showBorder: true,
       borderColor: context.moonColors!.popo,
@@ -89,7 +86,10 @@ class SignMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MoonMenuItem(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(8.0),border: Border.all(color: context.moonColors!.popo,),),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: context.moonColors!.popo),
+      ),
       onTap: onTap,
       absorbGestures: false,
       leading: Icon(

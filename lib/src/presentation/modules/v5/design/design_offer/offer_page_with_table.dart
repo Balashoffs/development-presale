@@ -58,7 +58,7 @@ class DesignOfferBlocConsumerWidget extends StatelessWidget {
         if (state.stateEnum == StateEnum.loading) {
           return CustomCircleLoader();
         }
-        return DesignOfferRootWidget();
+        return DesignOfferMainWidget();
       },
     );
   }
