@@ -117,6 +117,7 @@ extension DivisionMarginsDtoExt on DivisionsMarginDTO {
 
 extension CommercialOfferDtoExt on CommercialOfferDTO {
   DesignOfferResultViewModel toViewModel() {
+    print('payValues.date: ${payValues.afterPayDate}');
     return DesignOfferResultViewModel(
       offerId: id,
       divisionType: divisionType,
@@ -127,11 +128,13 @@ extension CommercialOfferDtoExt on CommercialOfferDTO {
       deadline: '$deadline',
       objectSquare: '$objectSquare',
       notes: notes,
-      defaultAfterActsSignPayPercent: payValues.afterActsSignFactor
-          .toStringAsFixed(0),
-      defaultAfterPayPercent: payValues.afterPayFactor.toStringAsFixed(0),
+      defaultAfterActsSignPayPercent: (payValues.afterActsSignFactor * 100).toStringAsFixed(0),
+      defaultAfterPayPercent: (payValues.afterPayFactor  * 100).toStringAsFixed(0),
       defaultDateValue: payValues.afterPayDate,
-      defaultPresalePayPercent: payValues.presaleFactor.toStringAsFixed(0),
+      defaultPresalePayPercent: (payValues.presaleFactor * 100).toStringAsFixed(0) ,
+      defaultAfterActsSignPayValue: (payValues.afterActsSignFactor * resultsTable.fullSummaryWithTax).toStringAsFixed(0),
+      defaultAfterPayValue: (payValues.afterPayFactor * resultsTable.fullSummaryWithTax).toStringAsFixed(0),
+      defaultPresalePayValue: (payValues.presaleFactor * resultsTable.fullSummaryWithTax).toStringAsFixed(0),
       resultTableViewModel: resultsTable.toViewModel(),
     );
   }

@@ -23,6 +23,7 @@ class DesignOfferResultViewModel {
 
   final String defaultAfterActsSignPayPercent;
 
+
   DesignOfferResultViewModel({
     required this.divisionType,
     required this.createdDate,
@@ -36,12 +37,15 @@ class DesignOfferResultViewModel {
     required this.defaultPresalePayPercent,
     required this.defaultAfterPayPercent,
     required this.defaultAfterActsSignPayPercent,
+    required String defaultPresalePayValue,
+    required String defaultAfterPayValue,
+    required String defaultAfterActsSignPayValue,
     required this.defaultDateValue,
     required this.notes,
   }) : payValueViewModel = PayValueViewModel() {
-    updatePresaleResult('$defaultPresalePayPercent рубл.');
-    updateAfterPayResult('$defaultAfterPayPercent рубл.');
-    updatePayAfterActsSignResult('$defaultAfterActsSignPayPercent рубл.');
+    updatePresaleResult('$defaultPresalePayValue рубл.');
+    updateAfterPayResult('$defaultAfterPayValue рубл.');
+    updatePayAfterActsSignResult('$defaultAfterActsSignPayValue рубл.');
   }
 
   void updatePresaleResult(String value) {

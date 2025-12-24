@@ -37,4 +37,8 @@ class CompanyInfoRepository {
     _streamController.sink.add(founded);
     return founded;
   }
+
+  void clearSelected() {
+    _streamController.sink.add(CompanyInfoDTO.empty());
+  }
 }

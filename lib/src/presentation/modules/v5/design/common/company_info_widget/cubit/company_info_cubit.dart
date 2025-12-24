@@ -30,6 +30,7 @@ class CompanyInfoCubit extends Cubit<CompanyInfoState> {
   }
 
   void onChangeCompany() {
+    _companyInfoRepository.clearSelected();
     _loadingData();
   }
 

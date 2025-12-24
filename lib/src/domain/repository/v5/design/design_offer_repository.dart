@@ -19,6 +19,7 @@ class DesignOfferRepository {
       _designOfferMemorySource.designPresaleDTO?.commercialOfferDTO =
           CommercialOfferDTO.from(_designOfferMemorySource);
     }
+    print(_designOfferMemorySource.commercialOffer?.payValues);
   }
 
   void updatePresaleFactor(double value) {

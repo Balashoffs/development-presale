@@ -13,4 +13,8 @@ class CompanyInfoDTO {
     required this.CEOFistName,
     required this.CEOSecondNam,
   });
+
+  static CompanyInfoDTO empty(){
+    return CompanyInfoDTO(companyName: '', CEOSurnameName: '', CEOFistName: '', CEOSecondNam: '');
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:dart_date/dart_date.dart';
 import 'package:flutter/material.dart';
 import 'package:moon_design/moon_design.dart';
 
@@ -103,19 +104,15 @@ class CustomCalendarPicker extends StatefulWidget {
   const CustomCalendarPicker({
     super.key,
     required this.hintText,
-    this.onChanged,
-    this.validator,
+    required this.onChanged,
     this.width,
-    this.autofocus = false,
     required this.isEnables,
     this.textInputSize = MoonTextInputSize.sm,
   });
 
   final String hintText;
   final double? width;
-  final ValueChanged<String>? onChanged;
-  final FormFieldValidator<String>? validator;
-  final bool autofocus;
+  final ValueChanged<String> onChanged;
   final bool isEnables;
   final MoonTextInputSize textInputSize;
 
@@ -167,7 +164,10 @@ class _CustomCalendarPickerState extends State<CustomCalendarPicker> {
         );
 
         if (pickedDate != null) {
-          _textController.text = "${pickedDate.toLocal()}".split(" ")[0];
+          final localDT = pickedDate.toLocal();
+          final localS = '${localDT.day}-${localDT.month}-${localDT.year}';
+          _textController.text =localS;
+          widget.onChanged(localS);
         }
       },
       trailing: MouseRegion(
@@ -177,7 +177,6 @@ class _CustomCalendarPickerState extends State<CustomCalendarPicker> {
           onTap: () => _textController.clear(),
         ),
       ),
-      onChanged: widget.onChanged,
     );
   }
 }

@@ -43,7 +43,9 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
   void _init() async {
     print('Init DesignOfferCubit');
     if (_designOfferRepository.commercialOffer != null) {
+      print('init DesignOfferResultViewModel');
       CommercialOfferDTO co = _designOfferRepository.commercialOffer!;
+
       _designOfferViewModel = co.toViewModel();
       _notesService = NotesService(notes: co.notes);
     }

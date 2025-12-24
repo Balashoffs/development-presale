@@ -331,6 +331,11 @@ class PayValuesDTO {
     this.afterPayDate = '',
     this.afterActsSignFactor = 0.0,
   });
+
+  @override
+  String toString() {
+    return 'PayValuesDTO{presaleFactor: $presaleFactor, afterPayFactor: $afterPayFactor, afterPayDate: $afterPayDate, afterActsSignFactor: $afterActsSignFactor}';
+  }
 }
 
 class CommercialOfferDTO {
@@ -366,6 +371,7 @@ class CommercialOfferDTO {
   static CommercialOfferDTO from(DesignOfferMemorySource memory) {
     final inputData = memory.inputDataDesignDTO!;
     ResultsTableDTO resultsTable = ResultsTableDTO.from(memory.divisionMargins);
+    print(memory.commercialOffer?.payValues);
     return CommercialOfferDTO(
       id: inputData.dayCounter.getOfferUniqueNumber(),
       created: inputData.dayCounter.localDate,

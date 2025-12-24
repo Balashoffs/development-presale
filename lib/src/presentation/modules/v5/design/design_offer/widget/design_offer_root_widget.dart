@@ -212,9 +212,7 @@ class PresaleCostWidget extends StatelessWidget {
               payType: 'Оплата: ',
             ),
             OfferPresaleDateTime(
-              onChanged: (value) {
-                cubit.onAfterPayDate(value);
-              },
+              onChanged: cubit.onAfterPayDate,
               defaultDate: offerResult.defaultDateValue.isEmpty
                   ? 'Выберите дату'
                   : offerResult.defaultDateValue,
@@ -342,7 +340,6 @@ class OfferPresaleDateTime extends StatelessWidget {
           child: CustomCalendarPicker(
             hintText: defaultDate,
             onChanged: onChanged,
-            validator: percentValidator,
             textInputSize: MoonTextInputSize.md,
             isEnables: true,
           ),
