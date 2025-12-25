@@ -351,7 +351,7 @@ class CommercialOfferDTO {
   final PayValuesDTO payValues;
   String notes;
   late PersonSignDTO? personSign;
-  late CompanyInfoDTO? companyInfoDTO;
+  late CompanyInfoDTO companyInfoDTO;
 
   CommercialOfferDTO({
     required this.id,
@@ -366,12 +366,12 @@ class CommercialOfferDTO {
     required this.resultsTable,
     this.notes = '',
     this.personSign,
+    required this.companyInfoDTO,
   });
 
   static CommercialOfferDTO from(DesignOfferMemorySource memory) {
     final inputData = memory.inputDataDesignDTO!;
     ResultsTableDTO resultsTable = ResultsTableDTO.from(memory.divisionMargins);
-    print(memory.commercialOffer?.payValues);
     return CommercialOfferDTO(
       id: inputData.dayCounter.getOfferUniqueNumber(),
       created: inputData.dayCounter.localDate,
@@ -380,10 +380,11 @@ class CommercialOfferDTO {
       objectAddress: inputData.objectData.address,
       divisionType: inputData.divisionType.text,
       deadline: inputData.objectData.deadline,
-      objectSquare: inputData.objectData.square,
+      objectSquare: inputData.objectData.square, resultsTable: resultsTable,
       notes: memory.commercialOffer?.notes ?? NotesService.defaultNote,
-      resultsTable: resultsTable,
       payValues: memory.commercialOffer?.payValues ?? PayValuesDTO(),
+      companyInfoDTO: memory.commercialOffer?.companyInfoDTO ?? CompanyInfoDTO()
+
     );
   }
 }

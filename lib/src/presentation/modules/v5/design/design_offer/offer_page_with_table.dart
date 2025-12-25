@@ -18,7 +18,10 @@ class DesignOfferPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAppBar(child: DesignOfferRepositoryProvider(), title: Text('Коммерческое предложение'),);
+    return CustomAppBar(
+      child: DesignOfferRepositoryProvider(),
+      title: Text('Коммерческое предложение'),
+    );
   }
 }
 
@@ -33,7 +36,9 @@ class DesignOfferRepositoryProvider extends StatelessWidget {
           create: (context) =>
               PersonSingRepository(PersonSignDataSourceLocal(di.dbClientImpl)),
         ),
-        RepositoryProvider(create: (context) => CompanyInfoRepository()),
+        RepositoryProvider(
+          create: (context) => CompanyInfoRepository(di.inMemoryImpl),
+        ),
       ],
       child: DesignOfferBlocProviderWidget(),
     );

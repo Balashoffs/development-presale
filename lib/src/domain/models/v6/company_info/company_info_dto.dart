@@ -8,13 +8,9 @@ class CompanyInfoDTO {
   String get fullSign => '$CEOSurnameName $CEOFistName. $CEOSecondNam';
 
   const CompanyInfoDTO({
-    required this.companyName,
-    required this.CEOSurnameName,
-    required this.CEOFistName,
-    required this.CEOSecondNam,
+    this.companyName = '',
+    this.CEOSurnameName = '',
+    this.CEOFistName = '',
+    this.CEOSecondNam = '',
   });
-
-  static CompanyInfoDTO empty(){
-    return CompanyInfoDTO(companyName: '', CEOSurnameName: '', CEOFistName: '', CEOSecondNam: '');
-  }
 }

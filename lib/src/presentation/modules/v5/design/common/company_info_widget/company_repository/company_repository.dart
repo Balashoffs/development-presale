@@ -1,19 +1,26 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
+import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart';
 import 'package:presale/src/domain/service/v6/design/company_data_service.dart';
 
 class CompanyInfoRepository {
   final List<CompanyInfoDTO> _companiesStore = [];
+  final DesignOfferMemorySource _designOfferMemorySource;
+  late CompanyInfoDTO _current;
 
   List<String> get _companyNames =>
       _companiesStore.map((e) => e.companyName).toList();
 
-  final StreamController<CompanyInfoDTO?> _streamController =
+  final StreamController<CompanyInfoDTO> _streamController =
       StreamController.broadcast();
 
-  Stream<CompanyInfoDTO?> get companyStream => _streamController.stream;
+  CompanyInfoRepository(DesignOfferMemorySource designOfferMemorySource)
+    : _designOfferMemorySource = designOfferMemorySource {
+  }
+
+  Stream<CompanyInfoDTO> get companyStream => _streamController.stream;
 
   Future<List<String>> getCompanyNameList() async {
     if (_companiesStore.isEmpty) {
@@ -34,11 +41,14 @@ class CompanyInfoRepository {
     if (founded == null) {
       throw Error();
     }
+    _designOfferMemorySource.commercialOffer?.companyInfoDTO = founded;
     _streamController.sink.add(founded);
     return founded;
   }
 
   void clearSelected() {
-    _streamController.sink.add(CompanyInfoDTO.empty());
+    final emptyCompany = CompanyInfoDTO();
+    _designOfferMemorySource.commercialOffer?.companyInfoDTO = emptyCompany;
+    _streamController.sink.add(emptyCompany);
   }
 }

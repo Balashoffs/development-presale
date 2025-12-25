@@ -29,12 +29,12 @@ class PersonSignCubit extends Cubit<PersonSignState> {
 
   void _init() async {
     _personSingRepository.personStream.listen((personSignDTO) {
-      if (personSignDTO != null && personSignDTO.id != 0) {
+      if (personSignDTO.id != 0) {
         textGroupController.setPersonSign(personSignDTO);
         _emitNewState(personSignDTO);
       }
     });
-    _emitNewState(PersonSignDTO.empty());
+    _emitNewState(PersonSignDTO());
   }
 
   void onFirstNameChange(String value) {

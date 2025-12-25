@@ -12,27 +12,14 @@ class PersonSignDTO {
 
   PersonSignDTO({
     this.id = 0,
-    required this.fistName,
-    required this.secondName,
-    required this.lastName,
-    required this.jobTitle,
-    required this.companyTitle,
-    required this.phoneNumber,
-    required this.jobEmail,
+    this.fistName = '',
+    this.secondName = '',
+    this.lastName = '',
+    this.jobTitle = '',
+    this.companyTitle = '',
+    this.phoneNumber = '',
+    this.jobEmail = '',
   });
-
-  static PersonSignDTO empty(){
-   return PersonSignDTO(
-     id: 0,
-     fistName: '',
-     secondName: '',
-     lastName: '',
-     jobTitle: '',
-     companyTitle: '',
-     phoneNumber: '',
-     jobEmail: '',
-   );
-  }
 
   PersonSignDTO copyWith({
     int? id,

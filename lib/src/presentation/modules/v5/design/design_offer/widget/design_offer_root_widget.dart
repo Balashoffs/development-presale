@@ -122,7 +122,7 @@ class OfferDesignBodyWidget extends StatelessWidget {
               ),
               EstateInformationWidget(offerResult: result),
               const TextDivider(
-                text: 'Представители компании',
+                text: 'Выбрать представителей компании (*)',
                 paddingTop: 16.0,
                 paddingBottom: 8.0,
               ),
@@ -151,13 +151,13 @@ class OfferDesignBodyWidget extends StatelessWidget {
                 ],
               ),
               const TextDivider(
-                text: 'Условия оплаты и проведения работ',
+                text: 'Выбрать условия оплаты и проведения работ',
                 paddingTop: 16.0,
                 paddingBottom: 8.0,
               ),
               PresaleCostWidget(offerResult: result),
               const TextDivider(
-                text: 'Примечания',
+                text: 'Добавить примечания',
                 paddingTop: 16.0,
                 paddingBottom: 8.0,
               ),

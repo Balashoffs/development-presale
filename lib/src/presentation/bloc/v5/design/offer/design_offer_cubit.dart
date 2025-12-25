@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -14,27 +16,31 @@ import 'package:presale/src/domain/service/v5/design/excel_service.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 
 part 'design_offer_state.dart';
+
 part 'design_offer_cubit.freezed.dart';
 
 class DesignOfferCubit extends Cubit<DesignOfferState> {
   late final DesignOfferResultViewModel _designOfferViewModel;
+
   DesignOfferResultViewModel get designOfferViewModel => _designOfferViewModel;
-  final Stream<PersonSignDTO?> _contactPersonStream;
-  final Stream<CompanyInfoDTO?> _companyInfoStream;
+  final Stream<PersonSignDTO> _contactPersonStream;
+  final Stream<CompanyInfoDTO> _companyInfoStream;
   final DesignOfferRepository _designOfferRepository;
   final ExcelService _excelService;
   late final NotesService _notesService;
   final ValueNotifier<bool> _isCorrect = ValueNotifier(false);
 
   ValueNotifier<bool> get isCorrect => _isCorrect;
+  bool isPersonSignValid = false;
+  bool isCompanyValid = false;
 
   DesignOfferCubit({
     required DependencyInjector di,
-    required Stream<PersonSignDTO?> contactPersonStream,
-    required Stream<CompanyInfoDTO?> companyInfoStream,
+    required Stream<PersonSignDTO> contactPersonStream,
+    required Stream<CompanyInfoDTO> companyInfoStream,
   }) : _designOfferRepository = DesignOfferRepository(di.inMemoryImpl),
-      _contactPersonStream = contactPersonStream,
-        _companyInfoStream = companyInfoStream,
+       _contactPersonStream = contactPersonStream,
+       _companyInfoStream = companyInfoStream,
        _excelService = ExcelService(),
        super(const DesignOfferState()) {
     _init();
@@ -50,25 +56,37 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
       _notesService = NotesService(notes: co.notes);
     }
     _contactPersonStream.listen((event) {
-      _isCorrect.value = event != null && event.id != 0;
-      if (event != null) {
+      isPersonSignValid = event.id != 0;
+      if (isPersonSignValid) {
         _designOfferRepository.updatePersonSign(event);
       }
+      _check();
     });
 
     _companyInfoStream.listen((event) {
-      if (event != null) {
+      isCompanyValid = event.companyName.isNotEmpty;
+      if (isCompanyValid) {
         _designOfferRepository.updateCompanyInfo(event);
       }
+      _check();
     });
 
     emit(DesignOfferState(stateEnum: StateEnum.showing));
   }
 
+  void _check() {
+    bool isValid = isCompanyValid && isPersonSignValid;
+    if (_isCorrect.value != isValid) {
+      _isCorrect.value = isValid;
+    }
+  }
+
   void onPresaleFactor(String value) {
     double resD = _onParseInput(value);
     _designOfferRepository.updatePresaleFactor(resD);
-    resD = resD * _designOfferRepository.commercialOffer!.resultsTable.fullSummaryWithTax;
+    resD =
+        resD *
+        _designOfferRepository.commercialOffer!.resultsTable.fullSummaryWithTax;
     String resS = convertToRubleString(resD, 2);
     _designOfferViewModel.updatePresaleResult(resS);
   }
@@ -76,7 +94,9 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
   void onAfterDayPayFactor(String value) {
     double resD = _onParseInput(value);
     _designOfferRepository.updateAfterDayPayFactor(resD);
-    resD = resD * _designOfferRepository.commercialOffer!.resultsTable.fullSummaryWithTax;
+    resD =
+        resD *
+        _designOfferRepository.commercialOffer!.resultsTable.fullSummaryWithTax;
     String resS = convertToRubleString(resD, 2);
     _designOfferViewModel.updateAfterPayResult(resS);
   }
@@ -88,10 +108,11 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
   void onAfterActsSignFactor(String value) {
     double resD = _onParseInput(value);
     _designOfferRepository.updateAfterActsSignFactor(resD);
-    resD = resD * _designOfferRepository.commercialOffer!.resultsTable.fullSummaryWithTax;
+    resD =
+        resD *
+        _designOfferRepository.commercialOffer!.resultsTable.fullSummaryWithTax;
     String resS = convertToRubleString(resD, 2);
     _designOfferViewModel.updatePayAfterActsSignResult(resS);
-
   }
 
   void onNotesChange(String value) {
@@ -130,13 +151,11 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     print(_designOfferRepository.commercialOffer?.notes);
     _notesService.clear();
   }
-
-
 }
 
 class NotesService {
   static const String defaultNote =
-  '''Расчет стоимости носит предварительный характер.
+      '''Расчет стоимости носит предварительный характер.
 Более точная оценка производится после получения Технического задания и выпуска Рабочей документации.
 Финальные цены на оборудование и материалы зависят от актуальных сведений Поставщиков и курса валют ЦБ РФ на день оплаты.
 Срок действия настоящего предложения: 30 календарных дней.
@@ -155,7 +174,7 @@ class NotesService {
     _stringBuffer.clear();
   }
 
-  void addNote(String note){
+  void addNote(String note) {
     _stringBuffer.clear();
     _stringBuffer.write(note);
   }

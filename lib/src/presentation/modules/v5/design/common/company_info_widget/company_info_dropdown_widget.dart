@@ -104,7 +104,7 @@ class CompanyInfoSelectedWidget extends StatelessWidget {
         ),
         IconButton(
           onPressed: onChange,
-          icon: Icon(MoonIcons.generic_edit_16_light, shadows: []),
+          icon: Icon(MoonIcons.generic_close_16_light, shadows: []),
         ),
       ],
     );
