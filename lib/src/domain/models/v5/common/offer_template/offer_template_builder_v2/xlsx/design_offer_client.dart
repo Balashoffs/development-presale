@@ -1,4 +1,4 @@
-import 'package:presale/src/domain/models/v5/common/offer_template_builder/design_offer_template.dart';
+import 'package:presale/src/domain/models/v5/common/offer_template/offer_template_builder_v2/xlsx/design_offer_template.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 abstract class OfferFileBuilder {
@@ -14,15 +14,15 @@ abstract class OfferFileBuilder {
   }
 }
 
-class DesignOfferClient extends OfferFileBuilder{
-  DesignOfferClient(super.worksheet, super.offerTemplateBuilder);
+class DesignOfferOnNumbers extends OfferFileBuilder{
+  DesignOfferOnNumbers(super.worksheet, super.offerTemplateBuilder);
 
   @override
   String get fileLabelTemplate => '_с_НДС_.xlsx';
 }
 
-class DesignOfferManager extends OfferFileBuilder{
-  DesignOfferManager(super.worksheet, super.offerTemplateBuilder);
+class DesignOfferOnChars extends OfferFileBuilder{
+  DesignOfferOnChars(super.worksheet, super.offerTemplateBuilder);
 
   @override
   String get fileLabelTemplate => '_без_НДС_.xlsx';

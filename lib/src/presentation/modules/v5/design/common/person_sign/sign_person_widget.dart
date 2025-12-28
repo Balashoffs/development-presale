@@ -24,7 +24,7 @@ class PersonSignBuilderWidget extends StatelessWidget {
       builder: (context, state) {
         return SizedBox(
           // width: state.isFilled ? 400 : 600,
-          width: 400,
+          width: 600,
           child: state.isFilled
               ? SignMenuItem(labelText: state.labelText, onTap: onEdit)
               : SignAccordionMenuWidget(

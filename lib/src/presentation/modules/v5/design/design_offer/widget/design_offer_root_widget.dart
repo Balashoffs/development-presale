@@ -70,25 +70,25 @@ class OfferDesignControlWidget extends StatelessWidget {
                 spacing: 16.0,
                 children: [
                   CustomButtonWidget(
-                    text: 'без НДС',
+                    text: 'XLSx',
                     onTap: value
                         ? () {
                             context
                                 .read<DesignOfferCubit>()
-                                .saveRawToExcelFile();
+                                .saveExcelFileWithNumbers();
                           }
                         : null,
                   ),
-                  CustomButtonWidget(
-                    text: '  c НДС  ',
-                    onTap: value
-                        ? () {
-                            context
-                                .read<DesignOfferCubit>()
-                                .saveToClearExcelFile();
-                          }
-                        : null,
-                  ),
+                  // CustomButtonWidget(
+                  //   text: '  c НДС  ',
+                  //   onTap: value
+                  //       ? () {
+                  //           context
+                  //               .read<DesignOfferCubit>()
+                  //               .saveExcelFileWthString();
+                  //         }
+                  //       : null,
+                  // ),
                 ],
               );
             },

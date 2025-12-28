@@ -41,14 +41,14 @@ class CompanyInfoRepository {
     if (founded == null) {
       throw Error();
     }
-    _designOfferMemorySource.commercialOffer?.companyInfoDTO = founded;
+    _designOfferMemorySource.commercialOffer?.companyInfo = founded;
     _streamController.sink.add(founded);
     return founded;
   }
 
   void clearSelected() {
     final emptyCompany = CompanyInfoDTO();
-    _designOfferMemorySource.commercialOffer?.companyInfoDTO = emptyCompany;
+    _designOfferMemorySource.commercialOffer?.companyInfo = emptyCompany;
     _streamController.sink.add(emptyCompany);
   }
 }

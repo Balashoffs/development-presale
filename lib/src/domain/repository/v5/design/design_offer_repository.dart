@@ -47,6 +47,6 @@ class DesignOfferRepository {
   }
 
   void updateCompanyInfo(CompanyInfoDTO companyInfo) {
-    commercialOffer?.companyInfoDTO = companyInfo;
+    commercialOffer?.companyInfo = companyInfo;
   }
 }

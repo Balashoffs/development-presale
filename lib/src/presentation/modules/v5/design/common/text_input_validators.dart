@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 
-String objectNameTemplate = '^[а-яА-ЯёЁa-zAZ0-9\\:\\s\\.,/\\-№\\"\'\\(\\)]+\$';
-String locationTemplate =   '^[а-яА-ЯёЁa-zAZ0-9\\s\\:\\.,/\\-№\\"\'\\(\\)]+\$';
+String objectNameTemplate = '^[а-яА-ЯёЁa-zAZ0-9\\:\\s\\.,/\\-№\\»\\«\\"\'\\(\\)]+\$';
+String locationTemplate =   '^[а-яА-ЯёЁa-zAZ0-9\\s\\:\\.,/\\-№\\»\\«\\"\'\\(\\)]+\$';
 
 FormFieldValidator<String>? commentValidator = (value) {
   if (value == null) {

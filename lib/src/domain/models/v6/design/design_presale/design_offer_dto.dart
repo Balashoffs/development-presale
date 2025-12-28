@@ -317,8 +317,6 @@ class ResultsTableDTO {
   }
 }
 
-
-
 class PayValuesDTO {
   double presaleFactor;
   double afterPayFactor;
@@ -331,6 +329,11 @@ class PayValuesDTO {
     this.afterPayDate = '',
     this.afterActsSignFactor = 0.0,
   });
+
+  bool get isValid =>
+      presaleFactor.compareTo(0.0) > 0 ||
+      afterPayFactor.compareTo(0.0) > 0 ||
+      afterActsSignFactor.compareTo(0.0) > 0;
 
   @override
   String toString() {
@@ -351,7 +354,7 @@ class CommercialOfferDTO {
   final PayValuesDTO payValues;
   String notes;
   late PersonSignDTO? personSign;
-  late CompanyInfoDTO companyInfoDTO;
+  late CompanyInfoDTO companyInfo;
 
   CommercialOfferDTO({
     required this.id,
@@ -366,7 +369,7 @@ class CommercialOfferDTO {
     required this.resultsTable,
     this.notes = '',
     this.personSign,
-    required this.companyInfoDTO,
+    required this.companyInfo,
   });
 
   static CommercialOfferDTO from(DesignOfferMemorySource memory) {
@@ -380,11 +383,11 @@ class CommercialOfferDTO {
       objectAddress: inputData.objectData.address,
       divisionType: inputData.divisionType.text,
       deadline: inputData.objectData.deadline,
-      objectSquare: inputData.objectData.square, resultsTable: resultsTable,
+      objectSquare: inputData.objectData.square,
+      resultsTable: resultsTable,
       notes: memory.commercialOffer?.notes ?? NotesService.defaultNote,
       payValues: memory.commercialOffer?.payValues ?? PayValuesDTO(),
-      companyInfoDTO: memory.commercialOffer?.companyInfoDTO ?? CompanyInfoDTO()
-
+      companyInfo: memory.commercialOffer?.companyInfo ?? CompanyInfoDTO(),
     );
   }
 }

@@ -13,6 +13,7 @@ import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/domain/repository/v5/design/design_offer_repository.dart';
 import 'package:presale/src/domain/service/v5/design/excel_service.dart';
+import 'package:presale/src/domain/service/v5/design/excel_service_v2.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 
 part 'design_offer_state.dart';
@@ -131,17 +132,17 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     return 0.0;
   }
 
-  void saveRawToExcelFile() async {
+  void saveExcelFileWithNumbers() async {
     final offer = _designOfferRepository.commercialOffer;
     if (offer != null) {
-      _excelService.saveToExcel(offer, ExcelSaveType.manager);
+      _excelService.saveToExcel(offer, ExcelSaveType.number);
     }
   }
 
-  void saveToClearExcelFile() async {
+  void saveExcelFileWthString() async {
     final offer = _designOfferRepository.commercialOffer;
     if (offer != null) {
-      _excelService.saveToExcel(offer, ExcelSaveType.client);
+      _excelService.saveToExcel(offer, ExcelSaveType.char);
     }
   }
 
