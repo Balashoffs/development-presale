@@ -20,8 +20,9 @@ dependencies:
   collection: ^1.19.1
   dart_date: ^1.5.3
   flutter_svg: ^2.2.0
-  syncfusion_flutter_xlsio: ^31.1.19
-  syncfusion_flutter_datagrid: ^31.1.19
+  syncfusion_flutter_xlsio: ^32.1.20
+  syncfusion_flutter_datagrid: ^32.1.20
+  syncfusion_flutter_pdf: ^32.1.20
   web: ^1.1.1
   # storages
   path_provider: ^2.1.5
