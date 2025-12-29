@@ -46,7 +46,7 @@ class OfferHeader extends OfferBase {
   }
 
   void addObjectSquare(num value) {
-    String offerId = 'Площадь: $value';
+    String offerId = 'Площадь: $value м\u00B2';
     buildCell(
       offerId,
       currentRangeFromStartAndEnd,
@@ -56,7 +56,7 @@ class OfferHeader extends OfferBase {
   }
 
   void addDate(String value) {
-    String offerId = 'Дата: $value';
+    String offerId = 'Дата: $value г.';
     buildCell(
       offerId,
       currentRangeFromStartAndEnd,

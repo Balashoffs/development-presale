@@ -152,6 +152,7 @@ extension ResultsTableDtoExt on ResultsTableDTO {
       fullSummary: convertToRubleString(fullSummary, 0),
       tax: convertToRubleString(tax, 0),
       fullSummaryWithTax: convertToRubleString(fullSummaryWithTax, 0),
+      headerTitle: headerTitle,
     );
   }
 }

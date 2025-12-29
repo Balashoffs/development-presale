@@ -118,9 +118,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
     _notesService.addNote(value);
   }
 
-  void onJobTitle(String value) {
-    _designOfferRepository.updateJobTitle(value);
-  }
+
 
   double _onParseInput(String value) {
     double? percent;
@@ -162,7 +160,6 @@ class NotesService {
   static const String defaultNote =
       '''Расчет стоимости носит предварительный характер.
 Более точная оценка производится после получения Технического задания и выпуска Рабочей документации.
-Финальные цены на оборудование и материалы зависят от актуальных сведений Поставщиков и курса валют ЦБ РФ на день оплаты.
 Срок действия настоящего предложения: 30 календарных дней.
 ''';
   final StringBuffer _stringBuffer;

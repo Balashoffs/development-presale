@@ -188,7 +188,7 @@ class DivisionResourceDTO {
     );
   }
 
-  //</editor-fold>
+//</editor-fold>
 }
 
 class DivisionsMarginDTO {
@@ -246,7 +246,7 @@ class DivisionsMarginDTO {
       divisionShortName: divisionShortName ?? this.divisionShortName,
       divisionDescription: divisionDescription ?? this.divisionDescription,
       resourceDivisionSummaryCost:
-          resourceDivisionSummaryCost ?? this.resourceDivisionSummaryCost,
+      resourceDivisionSummaryCost ?? this.resourceDivisionSummaryCost,
       overPriceFactor: overPriceFactor ?? this.overPriceFactor,
       marginFactor: marginFactor ?? this.marginFactor,
       clientFactor: clientFactor ?? this.clientFactor,
@@ -254,7 +254,7 @@ class DivisionsMarginDTO {
       marginValue: marginValue ?? this.marginValue,
       clientValue: clientValue ?? this.clientValue,
       summaryCostWithMargin:
-          summaryCostWithMargin ?? this.summaryCostWithMargin,
+      summaryCostWithMargin ?? this.summaryCostWithMargin,
       summaryCostWithTax: summaryCostWithTax ?? this.summaryCostWithTax,
       taxValue: taxValue ?? this.taxValue,
     );
@@ -267,6 +267,7 @@ class DivisionsMarginDTO {
 }
 
 class ResultsTableDTO {
+  final String headerTitle;
   final List<RowDivisionResultDTO> divisionRows;
   final double clearSummary;
   final double overPriceSummary;
@@ -277,6 +278,7 @@ class ResultsTableDTO {
   final double fullSummaryWithTax;
 
   const ResultsTableDTO({
+    required this.headerTitle,
     required this.divisionRows,
     required this.clearSummary,
     required this.overPriceSummary,
@@ -287,8 +289,10 @@ class ResultsTableDTO {
     required this.fullSummaryWithTax,
   });
 
-  static ResultsTableDTO from(List<DivisionsMarginDTO> divisionMargins) {
+  static ResultsTableDTO from(List<DivisionsMarginDTO> divisionMargins,
+      String divisionType) {
     return ResultsTableDTO(
+      headerTitle: buildHeaderTitle(divisionType),
       divisionRows: divisionMargins.map((e) => e.toDto()).toList(),
       clearSummary: divisionMargins
           .map((e) => e.clientValue)
@@ -306,15 +310,26 @@ class ResultsTableDTO {
           .map((e) => e.summaryCostWithMargin)
           .reduce((value, element) => value + element),
       tax:
-          divisionMargins
-              .map((e) => e.summaryCostWithMargin)
-              .reduce((value, element) => value + element) *
+      divisionMargins
+          .map((e) => e.summaryCostWithMargin)
+          .reduce((value, element) => value + element) *
           Russian_Tax_Factor *
           Russian_Tax_Factor_Reverce,
       fullSummaryWithTax: divisionMargins
           .map((e) => e.summaryCostWithTax)
           .reduce((value, element) => value + element),
     );
+  }
+
+  static String buildHeaderTitle(String divisionType) {
+    switch (divisionType) {
+      case "Проектная документация":
+        return "Коммерческое предложение на разработку проектной документации";
+      case "Рабочая документация":
+        return "Коммерческое предложение на разработку рабочей документации";
+      default:
+        return "";
+    }
   }
 }
 
@@ -333,8 +348,8 @@ class PayValuesDTO {
 
   bool get isValid =>
       presaleFactor.compareTo(0.0) > 0 ||
-      afterPayFactor.compareTo(0.0) > 0 ||
-      afterActsSignFactor.compareTo(0.0) > 0;
+          afterPayFactor.compareTo(0.0) > 0 ||
+          afterActsSignFactor.compareTo(0.0) > 0;
 
   @override
   String toString() {
@@ -349,7 +364,6 @@ class CommercialOfferDTO {
   final String objectName;
   final String objectAddress;
   final String divisionType;
-  String jobTitle;
   final int deadline;
   final int objectSquare;
   final ResultsTableDTO resultsTable;
@@ -369,7 +383,6 @@ class CommercialOfferDTO {
     required this.objectSquare,
     required this.payValues,
     required this.resultsTable,
-    required this.jobTitle,
     this.notes = '',
     this.personSign,
     required this.companyInfo,
@@ -377,7 +390,7 @@ class CommercialOfferDTO {
 
   static CommercialOfferDTO from(DesignOfferMemorySource memory) {
     final inputData = memory.inputDataDesignDTO!;
-    ResultsTableDTO resultsTable = ResultsTableDTO.from(memory.divisionMargins);
+    ResultsTableDTO resultsTable = ResultsTableDTO.from(memory.divisionMargins, inputData.divisionType.text);
     return CommercialOfferDTO(
       id: inputData.dayCounter.getOfferUniqueNumber(),
       created: inputData.dayCounter.localDate,
@@ -388,7 +401,6 @@ class CommercialOfferDTO {
       deadline: inputData.objectData.deadline,
       objectSquare: inputData.objectData.square,
       resultsTable: resultsTable,
-      jobTitle: memory.commercialOffer?.jobTitle ?? '',
       notes: memory.commercialOffer?.notes ?? NotesService.defaultNote,
       payValues: memory.commercialOffer?.payValues ?? PayValuesDTO(),
       companyInfo: memory.commercialOffer?.companyInfo ?? SelectedCompanyDTO(),

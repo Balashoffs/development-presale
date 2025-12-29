@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:presale/src/data/core/string_converter.dart';
+import 'package:presale/src/data/helpers/excel/worksheet_util.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
@@ -9,9 +10,9 @@ import 'offer_base.dart';
 class OfferTable extends OfferBase {
   OfferTable({required super.worksheet, required super.rowPos});
 
-  void addTable(
-      ResultsTableDTO resultTable,
-      String jobTitle) {
+  void addTable(ResultsTableDTO resultTable) {
+    addHeaderTitle(resultTable.headerTitle);
+    rowPos.increment();
     int start = rowPos.Pos;
     addTableHeader();
     rowPos.increment();
@@ -19,6 +20,17 @@ class OfferTable extends OfferBase {
     addTableFooter(resultTable);
     int end = rowPos.Pos;
     setTableBorder(start, end);
+  }
+
+  void addHeaderTitle(String headerTitle) {
+    buildCell(
+      headerTitle,
+      getRangeFromStartToEnd(2, 3, rowPos.Pos, rowPos.Pos),
+      alignType: HAlignType.center,
+      isBold: true,
+      // cellColor: Color.fromARGB(255, 232, 230, 251),
+      isMerge: true,
+    );
   }
 
   void addTableHeader() {

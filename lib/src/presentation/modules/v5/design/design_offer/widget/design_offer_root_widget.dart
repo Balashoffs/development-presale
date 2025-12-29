@@ -127,12 +127,11 @@ class OfferDesignBodyWidget extends StatelessWidget {
                   );
                 },
               ),
-              const TextDivider(
-                text: 'Информация об объекте',
+              TextDivider(
+                text: result.resultTableViewModel.headerTitle,
                 paddingTop: 16.0,
-                paddingBottom: 8.0,
+                paddingBottom: 16.0,
               ),
-
               EstateInformationWidget(offerResult: result),
               const TextDivider(
                 text: 'Выбрать компанию и ее представителей (*)',
@@ -178,9 +177,9 @@ class OfferDesignBodyWidget extends StatelessWidget {
             ],
           ),
           TextDivider(
-            text: 'Итоговая сводная таблица стоимости работ',
+            text: 'Таблица итоговой стоимости разделов',
             paddingTop: 16.0,
-            paddingBottom: 32.0,
+            paddingBottom: 16.0,
           ),
           DivisionsResultsTableWidget(
             rowAttributes: designOfferTableAttribute,

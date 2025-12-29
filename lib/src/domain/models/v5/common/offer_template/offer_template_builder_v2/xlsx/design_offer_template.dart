@@ -43,8 +43,8 @@ class DesignOfferTemplate extends OfferTemplateBuilder {
     rowPos.increment();
     offerHeader.addDate(commercialOffer.created);
     rowPos.increment(3);
-    offerTable.addTable(commercialOffer.resultsTable, commercialOffer.jobTitle);
-    rowPos.increment(2);
+    offerTable.addTable(commercialOffer.resultsTable);
+    rowPos.increment();
     offerFooter.addAdditions(commercialOffer);
     rowPos.increment(2);
     worksheet.getRangeByName('A1:A${rowPos.Pos}').rowHeight = 28.0;

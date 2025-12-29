@@ -17,9 +17,7 @@ class DesignOfferResultViewModel {
   final String defaultPresalePayPercent;
   final ValueNotifier<String> colonTypeImageVn;
   final String defaultAfterPayPercent;
-
   final String defaultDateValue;
-
   final String defaultAfterActsSignPayPercent;
 
   DesignOfferResultViewModel({
@@ -85,6 +83,7 @@ class PayValueViewModel {
 }
 
 class ResultTableViewModel {
+  final String headerTitle;
   final List<DesignOfferResultRowViewModel> divisionRows;
   final String clearSummary;
   final String overPriceSummary;
@@ -95,6 +94,7 @@ class ResultTableViewModel {
   final String fullSummaryWithTax;
 
   const ResultTableViewModel({
+    required this.headerTitle,
     required this.divisionRows,
     required this.clearSummary,
     required this.overPriceSummary,

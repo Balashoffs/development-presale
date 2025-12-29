@@ -51,7 +51,4 @@ class DesignOfferRepository {
     commercialOffer?.companyInfo = companyInfo;
   }
 
-  void updateJobTitle(String value) {
-    commercialOffer?.jobTitle = value;
-  }
 }
