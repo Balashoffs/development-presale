@@ -9,7 +9,9 @@ import 'offer_base.dart';
 class OfferTable extends OfferBase {
   OfferTable({required super.worksheet, required super.rowPos});
 
-  void addTable(ResultsTableDTO resultTable) {
+  void addTable(
+      ResultsTableDTO resultTable,
+      String jobTitle) {
     int start = rowPos.Pos;
     addTableHeader();
     rowPos.increment();
@@ -50,7 +52,7 @@ class OfferTable extends OfferBase {
     for (int i = 0; i < rows.length; i++) {
       RowDivisionResultDTO result = rows[i];
       buildCell(
-       '${i+1}',
+        '${i + 1}',
         currentCell(1),
         width: 5,
         alignType: HAlignType.center,
@@ -60,7 +62,7 @@ class OfferTable extends OfferBase {
         currentCell(2),
         width: 61,
         alignType: HAlignType.left,
-        isWrap: true
+        isWrap: true,
       );
       buildCell(
         convertToRubleString(result.divisionSummary, 0),
@@ -111,7 +113,7 @@ class OfferTable extends OfferBase {
         width: 38,
         cellColor: Color.fromARGB(255, 232, 230, 251),
       );
-      if(i+1 < 3){
+      if (i + 1 < 3) {
         rowPos.increment();
       }
     }

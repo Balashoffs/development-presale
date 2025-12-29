@@ -14,15 +14,13 @@ class DesignOfferResultViewModel {
   final PayValueViewModel payValueViewModel;
   final ResultTableViewModel resultTableViewModel;
   final String notes;
-
   final String defaultPresalePayPercent;
-
+  final ValueNotifier<String> colonTypeImageVn;
   final String defaultAfterPayPercent;
 
   final String defaultDateValue;
 
   final String defaultAfterActsSignPayPercent;
-
 
   DesignOfferResultViewModel({
     required this.divisionType,
@@ -42,7 +40,9 @@ class DesignOfferResultViewModel {
     required String defaultAfterActsSignPayValue,
     required this.defaultDateValue,
     required this.notes,
-  }) : payValueViewModel = PayValueViewModel() {
+    String colonTypeImagePath = '',
+  }) : payValueViewModel = PayValueViewModel(),
+       colonTypeImageVn = ValueNotifier(colonTypeImagePath) {
     updatePresaleResult('$defaultPresalePayValue рубл.');
     updateAfterPayResult('$defaultAfterPayValue рубл.');
     updatePayAfterActsSignResult('$defaultAfterActsSignPayValue рубл.');

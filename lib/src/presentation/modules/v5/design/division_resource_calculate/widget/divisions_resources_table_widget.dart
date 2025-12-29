@@ -69,11 +69,12 @@ class _DivisionsResourceTableWidgetState
     return MoonTableHeader(
       height: 56,
       columns: List.generate(widget.rowAttributes.length, (int index) {
+        final attributes = widget.rowAttributes[index];
         return MoonTableColumn(
-          width: widget.rowAttributes[index].width,
+          width: attributes.width,
           cell: CellDecorationWidget(
             isFistCell: index == 0,
-            child: HeaderCellWidget(attribute: widget.rowAttributes[index]),
+            child: HeaderCellWidget(attribute: attributes),
           ),
         );
       }),

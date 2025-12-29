@@ -15,6 +15,7 @@ import 'package:presale/src/presentation/modules/v5/design/common/text_input_val
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/design_offer_header.dart';
 import 'package:presale/src/presentation/modules/v5/design/design_offer/widget/divisions_results_table_widget.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_text_input.dart';
+import 'package:provider/provider.dart';
 
 class DesignOfferMainWidget extends StatelessWidget {
   const DesignOfferMainWidget({super.key});
@@ -114,15 +115,27 @@ class OfferDesignBodyWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 8.0,
             children: [
-              DesignOfferIDWidget(offerResult: result),
+              ValueListenableBuilder(
+                valueListenable: result.colonTypeImageVn,
+                builder: (context, value, child) {
+                  if (value.isEmpty) {
+                    return SizedBox.shrink();
+                  }
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Image.asset(value),
+                  );
+                },
+              ),
               const TextDivider(
                 text: 'Информация об объекте',
                 paddingTop: 16.0,
                 paddingBottom: 8.0,
               ),
+
               EstateInformationWidget(offerResult: result),
               const TextDivider(
-                text: 'Выбрать представителей компании (*)',
+                text: 'Выбрать компанию и ее представителей (*)',
                 paddingTop: 16.0,
                 paddingBottom: 8.0,
               ),

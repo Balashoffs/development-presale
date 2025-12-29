@@ -18,7 +18,6 @@ class OfferFooter extends OfferBase {
     offerPays.addPays(commercialOffer.payValues);
     rowPos.increment(2);
     offerNotes.addNotes(commercialOffer.notes);
-
   }
 
   void addSigns(CommercialOfferDTO commercialOffer) {

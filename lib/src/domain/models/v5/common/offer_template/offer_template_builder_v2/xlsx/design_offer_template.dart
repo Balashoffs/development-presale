@@ -31,7 +31,7 @@ class DesignOfferTemplate extends OfferTemplateBuilder {
 
   @override
   Future<void> fillRows() async {
-    await offerHeader.addHeaderImg();
+    await offerHeader.addHeaderImg(commercialOffer.companyInfo.pathToColonType);
     rowPos.increment(5);
     offerHeader.addConsumer(commercialOffer.objectCustomer);
     rowPos.increment();
@@ -43,7 +43,7 @@ class DesignOfferTemplate extends OfferTemplateBuilder {
     rowPos.increment();
     offerHeader.addDate(commercialOffer.created);
     rowPos.increment(3);
-    offerTable.addTable(commercialOffer.resultsTable);
+    offerTable.addTable(commercialOffer.resultsTable, commercialOffer.jobTitle);
     rowPos.increment(2);
     offerFooter.addAdditions(commercialOffer);
     rowPos.increment(2);

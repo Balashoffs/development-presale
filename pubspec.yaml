@@ -72,10 +72,6 @@ flutter:
   generate: true
   assets:
     - assets/calculator_data/
-    - assets/code_snippets/
-    - assets/components/
-    - assets/images/
-    - assets/svg/
     - assets/input/
     - assets/calculator_data/factors/
     - assets/calculator_data/template/

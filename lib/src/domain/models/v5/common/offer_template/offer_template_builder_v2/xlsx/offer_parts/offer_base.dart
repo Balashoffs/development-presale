@@ -17,8 +17,6 @@ class OfferBase {
   final RowPos rowPos;
   static const String startCell = 'A';
   static const String endCell = 'E';
-  final String headerImagePath =
-      'assets/calculator_data/template/header_logo.png';
   final Worksheet worksheet;
 
   int _endMergePos = 0;

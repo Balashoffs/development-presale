@@ -1,5 +1,6 @@
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart';
+import 'package:presale/src/domain/models/v6/selected_company/selected_company_dto.dart';
 import 'package:syncfusion_flutter_xlsio/xlsio.dart';
 
 import 'offer_parts.dart';
@@ -7,12 +8,12 @@ import 'offer_parts.dart';
 class OfferCompanySign extends OfferBase {
   OfferCompanySign({required super.worksheet, required super.rowPos});
 
-  void addSign(CompanyInfoDTO companyInfo) {
+  void addSign(SelectedCompanyDTO companyInfo) {
     StringBuffer sb = StringBuffer();
     sb.writeln('С уважением,');
     sb.writeln('Генеральный директор');
     sb.writeln(companyInfo.companyName);
-    sb.writeln(companyInfo.fullSign);
+    sb.writeln(companyInfo.fullCeoName);
 
     buildCell(
       sb.toString(),

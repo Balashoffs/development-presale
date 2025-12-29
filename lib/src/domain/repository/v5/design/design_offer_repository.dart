@@ -3,6 +3,7 @@ import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_
 import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
+import 'package:presale/src/domain/models/v6/selected_company/selected_company_dto.dart';
 
 class DesignOfferRepository {
   final DesignOfferMemorySource _designOfferMemorySource;
@@ -46,7 +47,11 @@ class DesignOfferRepository {
     commercialOffer?.personSign = personSign;
   }
 
-  void updateCompanyInfo(CompanyInfoDTO companyInfo) {
+  void selectCompany(SelectedCompanyDTO companyInfo) {
     commercialOffer?.companyInfo = companyInfo;
+  }
+
+  void updateJobTitle(String value) {
+    commercialOffer?.jobTitle = value;
   }
 }

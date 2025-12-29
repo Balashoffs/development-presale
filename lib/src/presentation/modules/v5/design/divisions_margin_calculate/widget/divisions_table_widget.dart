@@ -155,7 +155,7 @@ class _DivisionsMarginTableWidgetState
         }
         return CellDecorationWidget(
           isFistCell: index == 0,
-          child: SizedBox(child: Center(child: Text(''))),
+          child: SizedBox.shrink(),
         );
       }),
       height: 56,

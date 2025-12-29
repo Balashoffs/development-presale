@@ -28,16 +28,10 @@ class CellDecorationWidget extends StatelessWidget {
           : BoxDecoration(
               border: Border(
                 left: Directionality.of(context) == TextDirection.ltr
-                    ? Divider.createBorderSide(
-                        context,
-                        width: 1,
-                      )
+                    ? Divider.createBorderSide(context, width: 1)
                     : BorderSide.none,
                 right: Directionality.of(context) == TextDirection.rtl
-                    ? Divider.createBorderSide(
-                        context,
-                        width: 1,
-                      )
+                    ? Divider.createBorderSide(context, width: 1)
                     : BorderSide.none,
               ),
             ),
@@ -53,23 +47,52 @@ class HeaderCellWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          textAlign: TextAlign.center,
-          attribute.name,
-          // style: context.moonTypography?.body.text14
-        ),
-        if (attribute.tooltip.isNotEmpty)
-          InkWell(
-            onTap: () {}, // Optional tap handler
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(textAlign: TextAlign.center, attribute.name),
+          if (attribute.tooltip.isNotEmpty)
+            InkWell(
+              child: Tooltip(
+                message: attribute.tooltip,
+                child: Icon(MoonIcons.generic_info_16_light, size: 16.0),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+class EditableHeaderCellWidget extends StatelessWidget {
+  const EditableHeaderCellWidget({
+    super.key,
+    required this.attribute,
+    required this.onChange,
+  });
+
+  final CollumAttribute attribute;
+  final ValueChanged<String> onChange;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: SizedBox(
+        width: attribute.width,
+        child: MoonTextInput(
+          onChanged: onChange,
+          hintText: attribute.name,
+          trailing: InkWell(
             child: Tooltip(
               message: attribute.tooltip,
               child: Icon(MoonIcons.generic_info_16_light, size: 16.0),
             ),
           ),
-      ],
+        ),
+      ),
     );
   }
 }

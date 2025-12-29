@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
 
-class DesignOfferIDWidget extends StatelessWidget {
-  const DesignOfferIDWidget({super.key, required this.offerResult});
+
+class EstateInformationWidget extends StatelessWidget {
+  const EstateInformationWidget({super.key, required this.offerResult});
 
   final DesignOfferResultViewModel offerResult;
 
@@ -20,22 +21,6 @@ class DesignOfferIDWidget extends StatelessWidget {
           type: "№ КП",
           value: offerResult.offerId,
         ),
-      ],
-    );
-  }
-}
-
-class EstateInformationWidget extends StatelessWidget {
-  const EstateInformationWidget({super.key, required this.offerResult});
-
-  final DesignOfferResultViewModel offerResult;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      spacing: 16.0,
-      children: [
         DesignOfferHeaderRowHeaderWidget(
           type: "Тип документации",
           value: offerResult.divisionType,
