@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
+import 'package:presale/src/domain/models/v5/design/design_offer_result/viewmodel/design_offer_result_viewmodel.dart';
 
 
 class EstateInformationWidget extends StatelessWidget {

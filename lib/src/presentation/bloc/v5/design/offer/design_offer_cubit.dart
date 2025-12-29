@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
-import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
+import 'package:presale/src/domain/models/v5/design/design_offer_result/viewmodel/design_offer_result_viewmodel.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/domain/models/v6/selected_company/selected_company_dto.dart';

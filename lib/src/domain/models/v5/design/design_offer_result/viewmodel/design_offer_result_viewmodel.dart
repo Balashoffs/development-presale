@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:presale/src/data/core/string_converter.dart';
-import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_row_viewmodel.dart';
+import 'package:presale/src/domain/models/v5/design/design_offer_result/viewmodel/design_offer_result_row_viewmodel.dart';
 
 class DesignOfferResultViewModel {
   final String offerId;

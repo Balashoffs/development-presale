@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
 
-import 'package:presale/src/domain/models/v5/design/design_offer_result/design_offer_result_viewmodel.dart';
+import 'package:presale/src/domain/models/v5/design/design_offer_result/viewmodel/design_offer_result_viewmodel.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/table/division_resources_table_utils.dart';

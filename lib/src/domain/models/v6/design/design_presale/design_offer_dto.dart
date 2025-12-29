@@ -3,7 +3,6 @@ import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factor
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
-import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/domain/models/v6/selected_company/selected_company_dto.dart';
 import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit.dart';
