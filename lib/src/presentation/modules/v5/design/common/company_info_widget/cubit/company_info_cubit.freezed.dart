@@ -128,12 +128,12 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( List<String> companies)?  selecting,TResult Function( CompanyInfoDTO info)?  selected,TResult Function()?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function( List<String> companies)?  selecting,TResult Function( SelectedCompanyDTO founded)?  selected,TResult Function()?  error,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Selecting() when selecting != null:
 return selecting(_that.companies);case _Selected() when selected != null:
-return selected(_that.info);case _Error() when error != null:
+return selected(_that.founded);case _Error() when error != null:
 return error();case _:
   return orElse();
 
@@ -152,12 +152,12 @@ return error();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( List<String> companies)  selecting,required TResult Function( CompanyInfoDTO info)  selected,required TResult Function()  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function( List<String> companies)  selecting,required TResult Function( SelectedCompanyDTO founded)  selected,required TResult Function()  error,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case _Selecting():
 return selecting(_that.companies);case _Selected():
-return selected(_that.info);case _Error():
+return selected(_that.founded);case _Error():
 return error();case _:
   throw StateError('Unexpected subclass');
 
@@ -175,12 +175,12 @@ return error();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( List<String> companies)?  selecting,TResult? Function( CompanyInfoDTO info)?  selected,TResult? Function()?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function( List<String> companies)?  selecting,TResult? Function( SelectedCompanyDTO founded)?  selected,TResult? Function()?  error,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case _Selecting() when selecting != null:
 return selecting(_that.companies);case _Selected() when selected != null:
-return selected(_that.info);case _Error() when error != null:
+return selected(_that.founded);case _Error() when error != null:
 return error();case _:
   return null;
 
@@ -297,10 +297,10 @@ as List<String>,
 
 
 class _Selected implements CompanyInfoState {
-  const _Selected(this.info);
+  const _Selected(this.founded);
   
 
- final  CompanyInfoDTO info;
+ final  SelectedCompanyDTO founded;
 
 /// Create a copy of CompanyInfoState
 /// with the given fields replaced by the non-null parameter values.
@@ -312,16 +312,16 @@ _$SelectedCopyWith<_Selected> get copyWith => __$SelectedCopyWithImpl<_Selected>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Selected&&(identical(other.info, info) || other.info == info));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Selected&&(identical(other.founded, founded) || other.founded == founded));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,info);
+int get hashCode => Object.hash(runtimeType,founded);
 
 @override
 String toString() {
-  return 'CompanyInfoState.selected(info: $info)';
+  return 'CompanyInfoState.selected(founded: $founded)';
 }
 
 
@@ -332,7 +332,7 @@ abstract mixin class _$SelectedCopyWith<$Res> implements $CompanyInfoStateCopyWi
   factory _$SelectedCopyWith(_Selected value, $Res Function(_Selected) _then) = __$SelectedCopyWithImpl;
 @useResult
 $Res call({
- CompanyInfoDTO info
+ SelectedCompanyDTO founded
 });
 
 
@@ -349,10 +349,10 @@ class __$SelectedCopyWithImpl<$Res>
 
 /// Create a copy of CompanyInfoState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? info = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? founded = null,}) {
   return _then(_Selected(
-null == info ? _self.info : info // ignore: cast_nullable_to_non_nullable
-as CompanyInfoDTO,
+null == founded ? _self.founded : founded // ignore: cast_nullable_to_non_nullable
+as SelectedCompanyDTO,
   ));
 }
 

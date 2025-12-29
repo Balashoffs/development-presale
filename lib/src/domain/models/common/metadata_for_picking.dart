@@ -7,7 +7,7 @@ class MetadataForPiking {
   final String dialogTitle;
 
   MetadataForPiking()
-    : allowedExtensions = ['.presale'],
+    : allowedExtensions = ['presale'],
       dialogTitle = 'Загрузить расчеты ПД/РД';
 }
 

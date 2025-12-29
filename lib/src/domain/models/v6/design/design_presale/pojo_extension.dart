@@ -136,6 +136,7 @@ extension CommercialOfferDtoExt on CommercialOfferDTO {
       defaultAfterPayValue: (payValues.afterPayFactor * resultsTable.fullSummaryWithTax).toStringAsFixed(0),
       defaultPresalePayValue: (payValues.presaleFactor * resultsTable.fullSummaryWithTax).toStringAsFixed(0),
       resultTableViewModel: resultsTable.toViewModel(),
+      colonTypeImagePath: companyInfo.pathToColonType,
     );
   }
 }

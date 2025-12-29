@@ -13,10 +13,10 @@ class MetadataForSaving {
   final bool isOpen;
 
   MetadataForSaving.saveAsExcel(this.bytes, this.fileName, [this.isOpen = false])
-    : allowedExtensions = ['.xlsx'],
+    : allowedExtensions = ['xlsx'],
       dialogTitle = 'Сохранить КП в xlsx';
 
   MetadataForSaving.saveAsPresaleFile(this.bytes, this.fileName, [this.isOpen = false])
-      : allowedExtensions = ['.presale'],
+      : allowedExtensions = ['presale'],
         dialogTitle = 'Сохранить расчет КП';
 }

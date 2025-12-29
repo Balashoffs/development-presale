@@ -3,12 +3,14 @@ class CollumAttribute {
   final String name;
   final double width;
   final String tooltip;
+  final bool isEdited;
 
   CollumAttribute({
     required this.pos,
     required this.name,
     required this.width,
     required this.tooltip,
+    this.isEdited = false,
   });
 }
 
@@ -106,36 +108,17 @@ final List<CollumAttribute> divisionMarginTableAttributes = [
 
 final List<CollumAttribute> designOfferTableAttribute = [
   CollumAttribute(pos: 1, name: '№', width: 64.0, tooltip: 'Порядковый номер'),
-  CollumAttribute(pos: 2, name: 'Шифр', width: 64.0, tooltip: 'Шифр Раздела'),
+  CollumAttribute(
+    pos: 2,
+    name: 'Наименование разделов проектирования',
+    width: 512,
+    tooltip: 'Наименование раздела',
+    isEdited: true,
+  ),
   CollumAttribute(
     pos: 3,
-    name: 'Наименование',
-    width: 312,
-    tooltip: 'Наименование раздела',
-  ),
-  CollumAttribute(
-    pos: 4,
-    name: 'Накладные раходы',
+    name: 'Стоимость, руб.',
     width: 212,
-    tooltip: 'Расходы на бэкофис',
-  ),
-  CollumAttribute(pos: 5, name: 'Маржа', width: 212, tooltip: 'Чистая прибиль'),
-  CollumAttribute(
-    pos: 6,
-    name: 'Клиент',
-    width: 212,
-    tooltip: 'Клиентские отчисления',
-  ),
-  CollumAttribute(
-    pos: 7,
-    name: 'Стоимость',
-    width: 212,
-    tooltip: 'Полная стоимость',
-  ),
-  CollumAttribute(
-    pos: 8,
-    name: 'Стоимость с НДС',
-    width: 212,
-    tooltip: 'Стоимость с НДС (Итог для раздела)',
+    tooltip: 'Стоимость, руб. без НДС',
   ),
 ];

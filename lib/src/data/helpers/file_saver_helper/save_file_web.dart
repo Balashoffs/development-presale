@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-// ignore: depend_on_referenced_packages
 import 'package:presale/src/domain/models/common/metadata_for_saving.dart';
 import 'package:web/web.dart';
 

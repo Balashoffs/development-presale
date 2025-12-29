@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart';
+import 'package:presale/src/domain/models/v6/selected_company/selected_company_dto.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/company_info_widget/company_repository/company_repository.dart';
 
 part 'company_info_state.dart';
@@ -22,7 +22,7 @@ class CompanyInfoCubit extends Cubit<CompanyInfoState> {
 
   void onSelected(String selected) {
     _companyInfoRepository
-        .findCompanyInfoByName(selected)
+        .selectedCompanyByName(selected)
         .then(
           (event) => emit(CompanyInfoState.selected(event)),
           onError: (error) => emit(CompanyInfoState.error()),

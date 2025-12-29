@@ -11,6 +11,7 @@ Uint8List xorWithKey(Uint8List data, int key) {
 
 Uint8List toXorBytes(Map<String, dynamic> map, int key) {
   String jsonStr = json.encode(map);
+  print(jsonStr);
   final jsonBytes = utf8.encode(jsonStr);
   final resultBytes = base64Decode(base64Encode(jsonBytes));
   return xorWithKey(resultBytes, key);

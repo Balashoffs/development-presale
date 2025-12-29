@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moon_design/moon_design.dart';
-import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart';
+import 'package:presale/src/domain/models/v6/selected_company/selected_company_dto.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/company_info_widget/cubit/company_info_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
 
@@ -43,7 +43,7 @@ class CompanyInfoSelectedWidget extends StatelessWidget {
     required this.onChange,
   });
 
-  final CompanyInfoDTO info;
+  final SelectedCompanyDTO info;
   final VoidCallback onChange;
 
   @override
@@ -96,7 +96,7 @@ class CompanyInfoSelectedWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Text(info.shortSign),
+                  Text(info.shortCeoName),
                 ],
               ),
             ],
@@ -152,7 +152,7 @@ class _CompanyInfoDropDownWidgetState extends State<CompanyInfoDropDownWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: List.generate(
-            3,
+            widget.data.length,
             (int index) => MoonMenuItem(
               width: 360,
               absorbGestures: true,
