@@ -106,7 +106,7 @@ class _CustomTextInputState extends State<CustomTextInput> {
         onTapOutside: (PointerDownEvent _) =>
             FocusManager.instance.primaryFocus?.unfocus(),
         onTap: () {
-          if(isEntered){
+          if (isEntered) {
             isEntered = !isEntered;
             _textController.clear();
             widget.onChanged!('');
@@ -119,7 +119,10 @@ class _CustomTextInputState extends State<CustomTextInput> {
             child: widget.trailing != null
                 ? Icon(widget.trailing, size: 24)
                 : null,
-            onTap: () => _textController.clear(),
+            onTap: () {
+              _textController.clear();
+              widget.onChanged!('');
+            },
           ),
         ),
       ),

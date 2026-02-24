@@ -1,6 +1,7 @@
 import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
+import 'package:presale/src/domain/models/v3/design/division_type/object_type.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 import 'package:presale/src/domain/models/v5/common/person_sign/person_sign_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
@@ -28,12 +29,14 @@ class InputDataDesignDTO {
   final ObjectDataDesignDTO objectData;
   final InputFactorsDTO inputFactors;
   final DivisionType divisionType;
+  final ObjectType objectType;
 
   const InputDataDesignDTO({
     required this.dayCounter,
     required this.objectData,
     required this.inputFactors,
     required this.divisionType,
+    required this.objectType,
   });
 }
 

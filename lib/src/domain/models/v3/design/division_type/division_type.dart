@@ -2,13 +2,14 @@ enum DivisionType {
   project(
     'design',
     'Проектная документация',
-    'П',
+    'ПД',
   ),
   working(
     'working',
     'Рабочая документация',
-    'Р',
+    'РД',
   );
+
 
   const DivisionType(
       this.urlPath,

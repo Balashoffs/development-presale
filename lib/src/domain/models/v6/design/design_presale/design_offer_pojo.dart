@@ -11,6 +11,7 @@ abstract class DesignPresalePojo with _$DesignPresalePojo {
     required ObjectDataDesignPojo objectData,
     required InputFactorsPojo inputFactors,
     required String divisionType,
+    required String objectType,
     @Default([]) List<DivisionResourcePojo> divisionResources,
     @Default([]) List<DivisionsMarginPojo> divisionMargins,
     @Default(false) bool isAllResources,

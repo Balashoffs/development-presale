@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
+import 'package:presale/src/domain/models/v3/design/division_type/object_type.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/viewmodel/design_offer_result_row_viewmodel.dart';
@@ -224,6 +225,7 @@ extension DesignPresalePojoExt on DesignPresalePojo {
       objectData: objectData.toObjectDataDto(),
       inputFactors: inputFactors.toInputFactorsDto(),
       divisionType: DivisionType.fromText(divisionType),
+      objectType: ObjectType.fromText(objectType)
     );
   }
 }

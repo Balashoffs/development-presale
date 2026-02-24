@@ -5,6 +5,7 @@ import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_
 extension DesignPresaleDtoExt on DesignPresaleDTO {
   DesignPresalePojo toPojo() {
     return DesignPresalePojo(
+      objectType: inputDataDesignDTO!.objectType.text,
       isAllResources: isAllResources,
       dayCounter: inputDataDesignDTO!.dayCounter.toDayCounterPojo(),
       divisionMargins: divisionMargins.values

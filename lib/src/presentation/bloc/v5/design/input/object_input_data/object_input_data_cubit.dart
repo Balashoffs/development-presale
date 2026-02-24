@@ -59,6 +59,10 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
     _objectRepository.setResultDesignDocumentations(result);
   }
 
+  void setResultTypeObject(String result) {
+    _objectRepository.setResultTypeObject(result);
+  }
+
   void setSquare(String value) {
     _objectRepository.setSquare(value);
   }

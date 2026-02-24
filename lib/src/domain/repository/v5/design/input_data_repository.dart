@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:presale/src/data/clients/v5/offer_counter_client.dart';
+import 'package:presale/src/domain/models/v3/design/division_type/object_type.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/data/data_sources/v5/dient_offer_counter_source.dart';
@@ -65,12 +66,27 @@ class ObjectRepository {
     _checkNecessaryInputs();
   }
 
+  void setResultTypeObject(String result) {
+    _objectDataBuilder.setObjectType(result);
+    _designOfferMemorySource.clearResource();
+    _checkNecessaryInputs();
+  }
+
   void setSquare(String value) {
-    int? result = int.tryParse(value);
-    if (result != null) {
-      _objectDataBuilder.setObjectSquare(result);
-      _checkNecessaryInputs();
+    if(value.isEmpty){
+      _objectDataBuilder.setObjectSquare(0);
+    }else{
+      print(value);
+      int? result = int.tryParse(value);
+      if (result != null) {
+        _objectDataBuilder.setObjectSquare(result);
+      }
+      else{
+        _objectDataBuilder.setObjectSquare(0);
+      }
     }
+
+    _checkNecessaryInputs();
   }
 
   void setDeadline(String value) {
@@ -128,6 +144,7 @@ class ObjectRepository {
       objectData: inputDataMv.toDto(),
       inputFactors: inputDataMv.toFactorsDto(),
       divisionType: DivisionType.fromText(inputDataMv.divisionType),
+      objectType: ObjectType.fromText(inputDataMv.objectType),
     );
     _designOfferMemorySource.setInputData(inputDataDesignDTO);
   }

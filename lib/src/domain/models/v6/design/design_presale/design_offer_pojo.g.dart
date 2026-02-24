@@ -19,6 +19,7 @@ _DesignPresalePojo _$DesignPresalePojoFromJson(
     json['inputFactors'] as Map<String, dynamic>,
   ),
   divisionType: json['divisionType'] as String,
+  objectType: json['objectType'] as String,
   divisionResources:
       (json['divisionResources'] as List<dynamic>?)
           ?.map((e) => DivisionResourcePojo.fromJson(e as Map<String, dynamic>))
@@ -38,6 +39,7 @@ Map<String, dynamic> _$DesignPresalePojoToJson(_DesignPresalePojo instance) =>
       'objectData': instance.objectData,
       'inputFactors': instance.inputFactors,
       'divisionType': instance.divisionType,
+      'objectType': instance.objectType,
       'divisionResources': instance.divisionResources,
       'divisionMargins': instance.divisionMargins,
       'isAllResources': instance.isAllResources,

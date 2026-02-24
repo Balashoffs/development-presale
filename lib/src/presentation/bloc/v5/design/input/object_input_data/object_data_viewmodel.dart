@@ -7,6 +7,7 @@ class InputDataMV {
   final String objectName;
   final String objectAddress;
   final String divisionType;
+  final String objectType;
   final int objectSquare;
   final int deadlineValue;
   final double overPriceFactor;
@@ -24,6 +25,7 @@ class InputDataMV {
     required this.objectAddress,
     required this.objectSquare,
     required this.divisionType,
+    required this.objectType,
     required this.deadlineValue,
     required this.overPriceFactor,
     required this.marginFactor,
@@ -45,6 +47,7 @@ class InputDataBuilder {
   String? _objectName;
   String? _objectAddress;
   String? _divisionType;
+  String? _objectType;
   int _objectSquare = 0;
   int _deadlineValue = 0;
   double _overPriceFactor = 1.2;
@@ -73,6 +76,11 @@ class InputDataBuilder {
 
   InputDataBuilder setDivisionType(String divisionType) {
     _divisionType = divisionType;
+    return this;
+  }
+
+  InputDataBuilder setObjectType(String objectType) {
+    _objectType = objectType;
     return this;
   }
 
@@ -133,6 +141,8 @@ class InputDataBuilder {
         _objectAddress == null ||
         _objectAddress!.isEmpty ||
         _divisionType == null ||
+        _objectType == null ||
+        _objectSquare == 0 ||
         _divisionType!.isEmpty;
   }
 
@@ -150,6 +160,7 @@ class InputDataBuilder {
       objectSquare: _objectSquare,
       deadlineValue: _deadlineValue,
       divisionType: _divisionType!,
+      objectType: _objectType!,
       overPriceFactor: _overPriceFactor,
       marginFactor: _marginFactor,
       customerFactor: _customerFactor,

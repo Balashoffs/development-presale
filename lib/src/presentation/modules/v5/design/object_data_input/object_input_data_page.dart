@@ -1,7 +1,8 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:moon_design/moon_design.dart';
+import 'package:presale/src/domain/models/v3/design/division_type/object_type.dart';
 import 'package:provider/provider.dart';
 
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
@@ -95,19 +96,22 @@ class LoadedWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           spacing: 16.0,
                           children: [
-                            FutureBuilder(future: cubit.counterFuture, builder: (context, snapshot) {
-                              OfferDayCounterDTO? counter = snapshot.data;
-                              if(counter != null){
-                                cubit.setCounter(counter);
-                               return RowTextWidgets(
-                                  values: [
-                                    counter.localDate,
-                                    '№ ${counter.getOfferUniqueNumber()}',
-                                  ],
-                                );
-                              }
-                              return CustomCircleLoader();
-                            },),
+                            FutureBuilder(
+                              future: cubit.counterFuture,
+                              builder: (context, snapshot) {
+                                OfferDayCounterDTO? counter = snapshot.data;
+                                if (counter != null) {
+                                  cubit.setCounter(counter);
+                                  return RowTextWidgets(
+                                    values: [
+                                      counter.localDate,
+                                      '№ ${counter.getOfferUniqueNumber()}',
+                                    ],
+                                  );
+                                }
+                                return CustomCircleLoader();
+                              },
+                            ),
                             CustomTextInput(
                               width: 500,
                               hintText: 'Заказчик*',
@@ -145,11 +149,47 @@ class LoadedWidget extends StatelessWidget {
                                   validator: divisionTypeValidator(
                                     'Нужно выбрать',
                                   ),
-                                  initText: inputDataDesign?.type ?? 'Нужно выбрать',
-                                  onSelected: cubit.setResultDesignDocumentations,
+                                  initText:
+                                      inputDataDesign?.type ?? 'Нужно выбрать',
+                                  onSelected:
+                                      cubit.setResultDesignDocumentations,
                                   leadingIcon:
                                       MoonIcons.text_bullets_list_16_light,
                                 ),
+                              ),
+                            ),
+                            TextWithRowHint(
+                              hintText: "Тип объекта*",
+                              textWidget: ChangeNotifierProvider(
+                                create: (context) => DropDownTextController(
+                                  inputData: ObjectType.values
+                                      .map((e) => e.text)
+                                      .toList(),
+                                ),
+                                child: CustomMoonDropDown(
+                                  width: 240,
+                                  validator: divisionTypeValidator(
+                                    'Нужно выбрать',
+                                  ),
+                                  initText:
+                                      inputDataDesign?.type ?? 'Нужно выбрать',
+                                  onSelected: cubit.setResultTypeObject,
+                                  leadingIcon:
+                                      MoonIcons.text_bullets_list_16_light,
+                                ),
+                              ),
+                            ),
+                            TextWithRowHint(
+                              leading: Icons.square_outlined,
+                              hintText: 'Площадь объекта, м2*',
+                              textWidget: CustomTextInput(
+                                width: 128,
+                                onChanged: cubit.setSquare,
+                                trailing:
+                                    MoonIcons.controls_close_small_24_light,
+                                validator: onlyInfiniteNumberValidator,
+                                initValue:
+                                    inputDataDesign?.square.toString() ?? '0',
                               ),
                             ),
                           ],
@@ -165,25 +205,16 @@ class LoadedWidget extends StatelessWidget {
                           spacing: 16.0,
                           children: [
                             TextWithRowHint(
-                              leading: Icons.square_outlined,
-                              hintText: 'Площадь объекта, м2',
-                              textWidget: CustomTextInput(
-                                width: 128,
-                                onChanged: cubit.setSquare,
-                                trailing: MoonIcons.controls_close_small_24_light,
-                                validator: onlyInfiniteNumberValidator,
-                                initValue: inputDataDesign?.square.toString() ?? '0',
-                              ),
-                            ),
-                            TextWithRowHint(
                               leading: Icons.timer,
                               hintText: 'Сроки выполнения, дн.',
                               textWidget: CustomTextInput(
                                 width: 128,
                                 onChanged: cubit.setDeadline,
-                                trailing: MoonIcons.controls_close_small_24_light,
+                                trailing:
+                                    MoonIcons.controls_close_small_24_light,
                                 validator: onlyInfiniteNumberValidator,
-                                initValue: inputDataDesign?.deadline.toString() ?? '0',
+                                initValue:
+                                    inputDataDesign?.deadline.toString() ?? '0',
                               ),
                             ),
                             TextWithRowHint(
@@ -192,9 +223,13 @@ class LoadedWidget extends StatelessWidget {
                               textWidget: CustomTextInput(
                                 width: 128,
                                 onChanged: cubit.setOverPriceFactor,
-                                trailing: MoonIcons.controls_close_small_24_light,
+                                trailing:
+                                    MoonIcons.controls_close_small_24_light,
                                 validator: onlyFactorValidator,
-                                initValue: inputDataDesign?.overPriceFactor.toString() ?? '1.2',
+                                initValue:
+                                    inputDataDesign?.overPriceFactor
+                                        .toString() ??
+                                    '1.2',
                               ),
                             ),
                             TextWithRowHint(
@@ -203,8 +238,11 @@ class LoadedWidget extends StatelessWidget {
                               textWidget: CustomTextInput(
                                 width: 128,
                                 onChanged: cubit.setMarginFactor,
-                                trailing: MoonIcons.controls_close_small_24_light,
-                                initValue: inputDataDesign?.marginFactor.toString() ?? '1.3',
+                                trailing:
+                                    MoonIcons.controls_close_small_24_light,
+                                initValue:
+                                    inputDataDesign?.marginFactor.toString() ??
+                                    '1.3',
                               ),
                             ),
                             TextWithRowHint(
@@ -213,9 +251,12 @@ class LoadedWidget extends StatelessWidget {
                               textWidget: CustomTextInput(
                                 width: 128,
                                 onChanged: cubit.setCustomerFactor,
-                                trailing: MoonIcons.controls_close_small_24_light,
+                                trailing:
+                                    MoonIcons.controls_close_small_24_light,
                                 validator: onlyFactorValidator,
-                                initValue: inputDataDesign?.clientFactor.toString()  ?? '1.0',
+                                initValue:
+                                    inputDataDesign?.clientFactor.toString() ??
+                                    '1.0',
                               ),
                             ),
                           ],
@@ -246,10 +287,12 @@ class LoadedWidget extends StatelessWidget {
                   builder: (context, value, child) {
                     return CustomButtonWidget(
                       text: ' Вперед ',
-                      onTap: value ? (){
-                        cubit.updateCashed();
-                        context.go(designResourcesRoute);
-                      } : null,
+                      onTap: value
+                          ? () {
+                              cubit.updateCashed();
+                              context.go(designResourcesRoute);
+                            }
+                          : null,
                     );
                   },
                 ),
