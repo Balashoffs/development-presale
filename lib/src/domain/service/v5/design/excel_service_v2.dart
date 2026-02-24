@@ -39,7 +39,7 @@ class ExcelService {
       designOfferTemplate,
     );
     Uint8List fileBytes = Uint8List.fromList(builder.saveToBytes());
-    String fileName = '${commercialOffer.id}${builder.fileLabelTemplate}.presale';
+    String fileName = '${commercialOffer.id}${builder.fileLabelTemplate}';
     MetadataForSaving metadataForSaving = MetadataForSaving.saveAsExcel(
       fileBytes,
       fileName,
