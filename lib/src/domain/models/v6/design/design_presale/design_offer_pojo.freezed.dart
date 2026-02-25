@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DesignPresalePojo {
 
- OfferDayCounterPojo get dayCounter; ObjectDataDesignPojo get objectData; InputFactorsPojo get inputFactors; String get divisionType; String get objectType; List<DivisionResourcePojo> get divisionResources; List<DivisionsMarginPojo> get divisionMargins; bool get isAllResources;
+ OfferDayCounterPojo get dayCounter; ObjectDataDesignPojo get objectData; InputFactorsPojo get inputFactors; String get divisionType; String get objectType; List<DivisionResourcePojo> get divisionResources; List<DivisionsMarginPojo> get divisionMargins; List<DivisionWithAnalyticPojo> get divisionsWithAnalytic; bool get isAllResources;
 /// Create a copy of DesignPresalePojo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $DesignPresalePojoCopyWith<DesignPresalePojo> get copyWith => _$DesignPresalePoj
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DesignPresalePojo&&(identical(other.dayCounter, dayCounter) || other.dayCounter == dayCounter)&&(identical(other.objectData, objectData) || other.objectData == objectData)&&(identical(other.inputFactors, inputFactors) || other.inputFactors == inputFactors)&&(identical(other.divisionType, divisionType) || other.divisionType == divisionType)&&(identical(other.objectType, objectType) || other.objectType == objectType)&&const DeepCollectionEquality().equals(other.divisionResources, divisionResources)&&const DeepCollectionEquality().equals(other.divisionMargins, divisionMargins)&&(identical(other.isAllResources, isAllResources) || other.isAllResources == isAllResources));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DesignPresalePojo&&(identical(other.dayCounter, dayCounter) || other.dayCounter == dayCounter)&&(identical(other.objectData, objectData) || other.objectData == objectData)&&(identical(other.inputFactors, inputFactors) || other.inputFactors == inputFactors)&&(identical(other.divisionType, divisionType) || other.divisionType == divisionType)&&(identical(other.objectType, objectType) || other.objectType == objectType)&&const DeepCollectionEquality().equals(other.divisionResources, divisionResources)&&const DeepCollectionEquality().equals(other.divisionMargins, divisionMargins)&&const DeepCollectionEquality().equals(other.divisionsWithAnalytic, divisionsWithAnalytic)&&(identical(other.isAllResources, isAllResources) || other.isAllResources == isAllResources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,dayCounter,objectData,inputFactors,divisionType,objectType,const DeepCollectionEquality().hash(divisionResources),const DeepCollectionEquality().hash(divisionMargins),isAllResources);
+int get hashCode => Object.hash(runtimeType,dayCounter,objectData,inputFactors,divisionType,objectType,const DeepCollectionEquality().hash(divisionResources),const DeepCollectionEquality().hash(divisionMargins),const DeepCollectionEquality().hash(divisionsWithAnalytic),isAllResources);
 
 @override
 String toString() {
-  return 'DesignPresalePojo(dayCounter: $dayCounter, objectData: $objectData, inputFactors: $inputFactors, divisionType: $divisionType, objectType: $objectType, divisionResources: $divisionResources, divisionMargins: $divisionMargins, isAllResources: $isAllResources)';
+  return 'DesignPresalePojo(dayCounter: $dayCounter, objectData: $objectData, inputFactors: $inputFactors, divisionType: $divisionType, objectType: $objectType, divisionResources: $divisionResources, divisionMargins: $divisionMargins, divisionsWithAnalytic: $divisionsWithAnalytic, isAllResources: $isAllResources)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $DesignPresalePojoCopyWith<$Res>  {
   factory $DesignPresalePojoCopyWith(DesignPresalePojo value, $Res Function(DesignPresalePojo) _then) = _$DesignPresalePojoCopyWithImpl;
 @useResult
 $Res call({
- OfferDayCounterPojo dayCounter, ObjectDataDesignPojo objectData, InputFactorsPojo inputFactors, String divisionType, String objectType, List<DivisionResourcePojo> divisionResources, List<DivisionsMarginPojo> divisionMargins, bool isAllResources
+ OfferDayCounterPojo dayCounter, ObjectDataDesignPojo objectData, InputFactorsPojo inputFactors, String divisionType, String objectType, List<DivisionResourcePojo> divisionResources, List<DivisionsMarginPojo> divisionMargins, List<DivisionWithAnalyticPojo> divisionsWithAnalytic, bool isAllResources
 });
 
 
@@ -65,7 +65,7 @@ class _$DesignPresalePojoCopyWithImpl<$Res>
 
 /// Create a copy of DesignPresalePojo
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? dayCounter = null,Object? objectData = null,Object? inputFactors = null,Object? divisionType = null,Object? objectType = null,Object? divisionResources = null,Object? divisionMargins = null,Object? isAllResources = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? dayCounter = null,Object? objectData = null,Object? inputFactors = null,Object? divisionType = null,Object? objectType = null,Object? divisionResources = null,Object? divisionMargins = null,Object? divisionsWithAnalytic = null,Object? isAllResources = null,}) {
   return _then(_self.copyWith(
 dayCounter: null == dayCounter ? _self.dayCounter : dayCounter // ignore: cast_nullable_to_non_nullable
 as OfferDayCounterPojo,objectData: null == objectData ? _self.objectData : objectData // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as InputFactorsPojo,divisionType: null == divisionType ? _self.divisionType : di
 as String,objectType: null == objectType ? _self.objectType : objectType // ignore: cast_nullable_to_non_nullable
 as String,divisionResources: null == divisionResources ? _self.divisionResources : divisionResources // ignore: cast_nullable_to_non_nullable
 as List<DivisionResourcePojo>,divisionMargins: null == divisionMargins ? _self.divisionMargins : divisionMargins // ignore: cast_nullable_to_non_nullable
-as List<DivisionsMarginPojo>,isAllResources: null == isAllResources ? _self.isAllResources : isAllResources // ignore: cast_nullable_to_non_nullable
+as List<DivisionsMarginPojo>,divisionsWithAnalytic: null == divisionsWithAnalytic ? _self.divisionsWithAnalytic : divisionsWithAnalytic // ignore: cast_nullable_to_non_nullable
+as List<DivisionWithAnalyticPojo>,isAllResources: null == isAllResources ? _self.isAllResources : isAllResources // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }
@@ -187,10 +188,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  String objectType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  bool isAllResources)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  String objectType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  List<DivisionWithAnalyticPojo> divisionsWithAnalytic,  bool isAllResources)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DesignPresalePojo() when $default != null:
-return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.objectType,_that.divisionResources,_that.divisionMargins,_that.isAllResources);case _:
+return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.objectType,_that.divisionResources,_that.divisionMargins,_that.divisionsWithAnalytic,_that.isAllResources);case _:
   return orElse();
 
 }
@@ -208,10 +209,10 @@ return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divis
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  String objectType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  bool isAllResources)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  String objectType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  List<DivisionWithAnalyticPojo> divisionsWithAnalytic,  bool isAllResources)  $default,) {final _that = this;
 switch (_that) {
 case _DesignPresalePojo():
-return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.objectType,_that.divisionResources,_that.divisionMargins,_that.isAllResources);case _:
+return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.objectType,_that.divisionResources,_that.divisionMargins,_that.divisionsWithAnalytic,_that.isAllResources);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -228,10 +229,10 @@ return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divis
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  String objectType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  bool isAllResources)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( OfferDayCounterPojo dayCounter,  ObjectDataDesignPojo objectData,  InputFactorsPojo inputFactors,  String divisionType,  String objectType,  List<DivisionResourcePojo> divisionResources,  List<DivisionsMarginPojo> divisionMargins,  List<DivisionWithAnalyticPojo> divisionsWithAnalytic,  bool isAllResources)?  $default,) {final _that = this;
 switch (_that) {
 case _DesignPresalePojo() when $default != null:
-return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.objectType,_that.divisionResources,_that.divisionMargins,_that.isAllResources);case _:
+return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divisionType,_that.objectType,_that.divisionResources,_that.divisionMargins,_that.divisionsWithAnalytic,_that.isAllResources);case _:
   return null;
 
 }
@@ -243,7 +244,7 @@ return $default(_that.dayCounter,_that.objectData,_that.inputFactors,_that.divis
 @JsonSerializable()
 
 class _DesignPresalePojo implements DesignPresalePojo {
-  const _DesignPresalePojo({required this.dayCounter, required this.objectData, required this.inputFactors, required this.divisionType, required this.objectType, final  List<DivisionResourcePojo> divisionResources = const [], final  List<DivisionsMarginPojo> divisionMargins = const [], this.isAllResources = false}): _divisionResources = divisionResources,_divisionMargins = divisionMargins;
+  const _DesignPresalePojo({required this.dayCounter, required this.objectData, required this.inputFactors, required this.divisionType, required this.objectType, final  List<DivisionResourcePojo> divisionResources = const [], final  List<DivisionsMarginPojo> divisionMargins = const [], final  List<DivisionWithAnalyticPojo> divisionsWithAnalytic = const [], this.isAllResources = false}): _divisionResources = divisionResources,_divisionMargins = divisionMargins,_divisionsWithAnalytic = divisionsWithAnalytic;
   factory _DesignPresalePojo.fromJson(Map<String, dynamic> json) => _$DesignPresalePojoFromJson(json);
 
 @override final  OfferDayCounterPojo dayCounter;
@@ -265,6 +266,13 @@ class _DesignPresalePojo implements DesignPresalePojo {
   return EqualUnmodifiableListView(_divisionMargins);
 }
 
+ final  List<DivisionWithAnalyticPojo> _divisionsWithAnalytic;
+@override@JsonKey() List<DivisionWithAnalyticPojo> get divisionsWithAnalytic {
+  if (_divisionsWithAnalytic is EqualUnmodifiableListView) return _divisionsWithAnalytic;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_divisionsWithAnalytic);
+}
+
 @override@JsonKey() final  bool isAllResources;
 
 /// Create a copy of DesignPresalePojo
@@ -280,16 +288,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DesignPresalePojo&&(identical(other.dayCounter, dayCounter) || other.dayCounter == dayCounter)&&(identical(other.objectData, objectData) || other.objectData == objectData)&&(identical(other.inputFactors, inputFactors) || other.inputFactors == inputFactors)&&(identical(other.divisionType, divisionType) || other.divisionType == divisionType)&&(identical(other.objectType, objectType) || other.objectType == objectType)&&const DeepCollectionEquality().equals(other._divisionResources, _divisionResources)&&const DeepCollectionEquality().equals(other._divisionMargins, _divisionMargins)&&(identical(other.isAllResources, isAllResources) || other.isAllResources == isAllResources));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DesignPresalePojo&&(identical(other.dayCounter, dayCounter) || other.dayCounter == dayCounter)&&(identical(other.objectData, objectData) || other.objectData == objectData)&&(identical(other.inputFactors, inputFactors) || other.inputFactors == inputFactors)&&(identical(other.divisionType, divisionType) || other.divisionType == divisionType)&&(identical(other.objectType, objectType) || other.objectType == objectType)&&const DeepCollectionEquality().equals(other._divisionResources, _divisionResources)&&const DeepCollectionEquality().equals(other._divisionMargins, _divisionMargins)&&const DeepCollectionEquality().equals(other._divisionsWithAnalytic, _divisionsWithAnalytic)&&(identical(other.isAllResources, isAllResources) || other.isAllResources == isAllResources));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,dayCounter,objectData,inputFactors,divisionType,objectType,const DeepCollectionEquality().hash(_divisionResources),const DeepCollectionEquality().hash(_divisionMargins),isAllResources);
+int get hashCode => Object.hash(runtimeType,dayCounter,objectData,inputFactors,divisionType,objectType,const DeepCollectionEquality().hash(_divisionResources),const DeepCollectionEquality().hash(_divisionMargins),const DeepCollectionEquality().hash(_divisionsWithAnalytic),isAllResources);
 
 @override
 String toString() {
-  return 'DesignPresalePojo(dayCounter: $dayCounter, objectData: $objectData, inputFactors: $inputFactors, divisionType: $divisionType, objectType: $objectType, divisionResources: $divisionResources, divisionMargins: $divisionMargins, isAllResources: $isAllResources)';
+  return 'DesignPresalePojo(dayCounter: $dayCounter, objectData: $objectData, inputFactors: $inputFactors, divisionType: $divisionType, objectType: $objectType, divisionResources: $divisionResources, divisionMargins: $divisionMargins, divisionsWithAnalytic: $divisionsWithAnalytic, isAllResources: $isAllResources)';
 }
 
 
@@ -300,7 +308,7 @@ abstract mixin class _$DesignPresalePojoCopyWith<$Res> implements $DesignPresale
   factory _$DesignPresalePojoCopyWith(_DesignPresalePojo value, $Res Function(_DesignPresalePojo) _then) = __$DesignPresalePojoCopyWithImpl;
 @override @useResult
 $Res call({
- OfferDayCounterPojo dayCounter, ObjectDataDesignPojo objectData, InputFactorsPojo inputFactors, String divisionType, String objectType, List<DivisionResourcePojo> divisionResources, List<DivisionsMarginPojo> divisionMargins, bool isAllResources
+ OfferDayCounterPojo dayCounter, ObjectDataDesignPojo objectData, InputFactorsPojo inputFactors, String divisionType, String objectType, List<DivisionResourcePojo> divisionResources, List<DivisionsMarginPojo> divisionMargins, List<DivisionWithAnalyticPojo> divisionsWithAnalytic, bool isAllResources
 });
 
 
@@ -317,7 +325,7 @@ class __$DesignPresalePojoCopyWithImpl<$Res>
 
 /// Create a copy of DesignPresalePojo
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? dayCounter = null,Object? objectData = null,Object? inputFactors = null,Object? divisionType = null,Object? objectType = null,Object? divisionResources = null,Object? divisionMargins = null,Object? isAllResources = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? dayCounter = null,Object? objectData = null,Object? inputFactors = null,Object? divisionType = null,Object? objectType = null,Object? divisionResources = null,Object? divisionMargins = null,Object? divisionsWithAnalytic = null,Object? isAllResources = null,}) {
   return _then(_DesignPresalePojo(
 dayCounter: null == dayCounter ? _self.dayCounter : dayCounter // ignore: cast_nullable_to_non_nullable
 as OfferDayCounterPojo,objectData: null == objectData ? _self.objectData : objectData // ignore: cast_nullable_to_non_nullable
@@ -326,7 +334,8 @@ as InputFactorsPojo,divisionType: null == divisionType ? _self.divisionType : di
 as String,objectType: null == objectType ? _self.objectType : objectType // ignore: cast_nullable_to_non_nullable
 as String,divisionResources: null == divisionResources ? _self._divisionResources : divisionResources // ignore: cast_nullable_to_non_nullable
 as List<DivisionResourcePojo>,divisionMargins: null == divisionMargins ? _self._divisionMargins : divisionMargins // ignore: cast_nullable_to_non_nullable
-as List<DivisionsMarginPojo>,isAllResources: null == isAllResources ? _self.isAllResources : isAllResources // ignore: cast_nullable_to_non_nullable
+as List<DivisionsMarginPojo>,divisionsWithAnalytic: null == divisionsWithAnalytic ? _self._divisionsWithAnalytic : divisionsWithAnalytic // ignore: cast_nullable_to_non_nullable
+as List<DivisionWithAnalyticPojo>,isAllResources: null == isAllResources ? _self.isAllResources : isAllResources // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

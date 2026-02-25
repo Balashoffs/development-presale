@@ -106,6 +106,36 @@ final List<CollumAttribute> divisionMarginTableAttributes = [
   ),
 ];
 
+final List<CollumAttribute> divisionTableWithAnalyticAttributes = [
+  CollumAttribute(pos: 1, name: '№', width: 64, tooltip: ''),
+  CollumAttribute(pos: 2, name: 'Шифр', width: 64, tooltip: ''),
+  CollumAttribute(pos: 3, name: 'Раздел', width: 368, tooltip: ''),
+  CollumAttribute(
+    pos: 4,
+    name: 'Ресурсный',
+    width: 196.0,
+    tooltip: 'Стоимость на основе задейстованных людей и времени',
+  ),
+  CollumAttribute(
+    pos: 5,
+    name: 'Аналитический',
+    width: 196.0,
+    tooltip: 'Стоимость на основе стоимости 1 кв.м ',
+  ),
+  CollumAttribute(
+    pos: 6,
+    name: 'Рыночный',
+    width: 196.0,
+    tooltip: 'Стоимость  по рынку за 1 кв.м',
+  ),
+  CollumAttribute(
+    pos: 7,
+    name: 'Итоговая стоимость',
+    width: 196.0,
+    tooltip: 'Ручной ввод стоимости',
+  ),
+];
+
 final List<CollumAttribute> designOfferTableAttribute = [
   CollumAttribute(pos: 1, name: '№', width: 64.0, tooltip: 'Порядковый номер'),
   CollumAttribute(

@@ -36,6 +36,7 @@ class DesignOfferMemorySource {
     _designPresaleDTO ??= DesignPresaleDTO(
       divisionResources: {},
       divisionMargins: {},
+      divisionWithAnalytic: {}
     );
   }
 
@@ -69,6 +70,10 @@ class DesignOfferMemorySource {
     _designPresaleDTO?.divisionMargins[value.id] = value;
   }
 
+  void updateDivisionsAnalytic(DivisionsWithAnalyticDTO value) {
+    _designPresaleDTO?.divisionWithAnalytic[value.id] = value;
+  }
+
   void setAllResources(bool isAll) {
     _designPresaleDTO?.isAllResources = isAll;
   }
@@ -80,5 +85,6 @@ class DesignOfferMemorySource {
   void clearResource() {
     _designPresaleDTO?.divisionResources.clear();
     _designPresaleDTO?.divisionMargins.clear();
+    _designPresaleDTO?.divisionWithAnalytic.clear();
   }
 }

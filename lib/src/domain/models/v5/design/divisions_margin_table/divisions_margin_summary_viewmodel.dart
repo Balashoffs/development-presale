@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:presale/src/data/v3/design_calculator.dart' as designOfferCalculator;
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/data/v3/design_calculator.dart';
@@ -10,7 +11,6 @@ class DivisionsViewController {
   final ValueNotifier<double> divisionsWithMarginSummaryVN = ValueNotifier(0.0);
   final ValueNotifier<double> divisionsWithTaxSummaryVN = ValueNotifier(0.0);
 
-  final DesignOfferCalculator _designOfferCalculator = DesignOfferCalculator();
 
   DivisionsWithMarginRowVM? getById(int id) =>
       rows.where((element) => element.id == id).firstOrNull;
@@ -60,7 +60,7 @@ class DivisionsViewController {
   }
 
   void _calcRowValues(DivisionsWithMarginRowVM value) {
-    _designOfferCalculator.calcDivisionCost(value);
+    designOfferCalculator.calcDivisionCost(value);
   }
 
   void _calcTotal() {

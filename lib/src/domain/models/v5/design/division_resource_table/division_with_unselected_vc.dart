@@ -26,8 +26,6 @@ class ResourcesWithUnselectedViewController {
   final ValueNotifier<bool> isValid = ValueNotifier(false);
   final ValueNotifier<bool> isAllRow = ValueNotifier(false);
 
-  final DesignOfferCalculator _designOfferCalculator = DesignOfferCalculator();
-
   double get summaryCost => selectedRows.value.isNotEmpty
       ? selectedRows.value
             .map((e) => e.totalResourceRowCostVN.value)
@@ -82,7 +80,7 @@ class ResourcesWithUnselectedViewController {
     for (var element in loaded) {
       _createdResourcedId.putIfAbsent(element.id, () => []);
       _createdResourcedId[element.id]?.add(element.resourceId);
-      _designOfferCalculator.calcResourceCost(element);
+      calcResourceCost(element);
     }
 
     loaded.sort((a, b) => a.resourceId.compareTo(b.resourceId));
@@ -223,7 +221,7 @@ class ResourcesWithUnselectedViewController {
   }
 
   void _calcResourceTotal(DivisionWithResourceViewModel value) {
-    double total = _designOfferCalculator.calcResourceCost(value);
+    double total = calcResourceCost(value);
     if (total.compareTo(0.0) > 0) {
       value.totalResourceRowCostVN.value = total;
       updateResults();

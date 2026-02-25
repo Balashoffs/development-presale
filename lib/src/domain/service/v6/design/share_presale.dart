@@ -14,9 +14,8 @@ import 'package:presale/src/data/helpers/file_saver_helper/save_file_mobile.dart
 import 'package:presale/src/utils/dart_define/model/dart_define_model.dart';
 
 void onShare(DesignPresaleDTO designData, DartDefineModel defineModel) async {
-  DesignOfferCalculator designOfferCalculator = DesignOfferCalculator();
   List<DivisionsMarginDTO> calced = designData.divisionMargins.values.map((e) {
-    return designOfferCalculator.calcDivisionMarginDTOCost(e);
+    return calcDivisionMarginDTOCost(e);
   }).toList();
 
   designData.divisionMargins.updateAll((key, value) {

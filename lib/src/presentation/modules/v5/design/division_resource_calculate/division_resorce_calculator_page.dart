@@ -158,7 +158,8 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                           text: ' Вперед ',
                           onTap: value == true
                               ? () {
-                                  context.go(designDivisionsRoute);
+                                  // context.go(designDivisionsRoute);
+                                  context.go(designAnalyticsRoute);
                                 }
                               : null,
                         ),

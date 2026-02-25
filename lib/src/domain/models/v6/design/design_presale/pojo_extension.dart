@@ -3,6 +3,8 @@ import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/object_type.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/domain/models/v5/design/divisions_table_with_analytic/division_with_analytic_row_viewmodel.dart';
+import 'package:presale/src/domain/models/v5/design/divisions_table_with_analytic/divisions_margin_row_pojo.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/viewmodel/design_offer_result_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/design_offer_result/viewmodel/design_offer_result_viewmodel.dart';
@@ -81,6 +83,19 @@ extension DivisionMarginsViewModelExt on DivisionsWithMarginRowVM {
   }
 }
 
+extension DivisionWithAnalyticDtoExt on DivisionsWithAnalyticDTO {
+  DivisionsWithAnalyticRowVM toViewModel() {
+    return DivisionsWithAnalyticRowVM(
+      id: id,
+      shifr: shifr,
+      section: section,
+      humanHours: humanHours,
+      outsideAnalytic: outsideAnalytic,
+      localAnalytic: localAnalytic,
+    );
+  }
+}
+
 extension DivisionMarginsDtoExt on DivisionsMarginDTO {
   DivisionsWithMarginRowVM toViewModel() {
     return DivisionsWithMarginRowVM(
@@ -129,13 +144,24 @@ extension CommercialOfferDtoExt on CommercialOfferDTO {
       deadline: '$deadline',
       objectSquare: '$objectSquare',
       notes: notes,
-      defaultAfterActsSignPayPercent: (payValues.afterActsSignFactor * 100).toStringAsFixed(0),
-      defaultAfterPayPercent: (payValues.afterPayFactor  * 100).toStringAsFixed(0),
+      defaultAfterActsSignPayPercent: (payValues.afterActsSignFactor * 100)
+          .toStringAsFixed(0),
+      defaultAfterPayPercent: (payValues.afterPayFactor * 100).toStringAsFixed(
+        0,
+      ),
       defaultDateValue: payValues.afterPayDate,
-      defaultPresalePayPercent: (payValues.presaleFactor * 100).toStringAsFixed(0) ,
-      defaultAfterActsSignPayValue: (payValues.afterActsSignFactor * resultsTable.fullSummaryWithTax).toStringAsFixed(0),
-      defaultAfterPayValue: (payValues.afterPayFactor * resultsTable.fullSummaryWithTax).toStringAsFixed(0),
-      defaultPresalePayValue: (payValues.presaleFactor * resultsTable.fullSummaryWithTax).toStringAsFixed(0),
+      defaultPresalePayPercent: (payValues.presaleFactor * 100).toStringAsFixed(
+        0,
+      ),
+      defaultAfterActsSignPayValue:
+          (payValues.afterActsSignFactor * resultsTable.fullSummaryWithTax)
+              .toStringAsFixed(0),
+      defaultAfterPayValue:
+          (payValues.afterPayFactor * resultsTable.fullSummaryWithTax)
+              .toStringAsFixed(0),
+      defaultPresalePayValue:
+          (payValues.presaleFactor * resultsTable.fullSummaryWithTax)
+              .toStringAsFixed(0),
       resultTableViewModel: resultsTable.toViewModel(),
       colonTypeImagePath: companyInfo.pathToColonType,
     );
@@ -206,15 +232,26 @@ extension DesignPresalePojoExt on DesignPresalePojo {
         .sorted((a, b) => a.id.compareTo(b.id))
         .toList();
 
+    final analytics = divisionsWithAnalytic
+        .map((e) => e.toAnalyticDto())
+        .sorted((a, b) => a.id.compareTo(b.id))
+        .toList();
+
     Map<int, DivisionsMarginDTO> updatesMargins = {};
     for (var value in margins) {
       updatesMargins.putIfAbsent(value.id, () => value);
+    }
+
+    Map<int, DivisionsWithAnalyticDTO> updatesAnalytics = {};
+    for (var value in analytics) {
+      updatesAnalytics.putIfAbsent(value.id, () => value);
     }
 
     return DesignPresaleDTO(
       inputDataDesignDTO: toInputDataDto(),
       divisionResources: updatesResources,
       divisionMargins: updatesMargins,
+      divisionWithAnalytic: updatesAnalytics,
       isAllResources: isAllResources,
     );
   }
@@ -225,7 +262,7 @@ extension DesignPresalePojoExt on DesignPresalePojo {
       objectData: objectData.toObjectDataDto(),
       inputFactors: inputFactors.toInputFactorsDto(),
       divisionType: DivisionType.fromText(divisionType),
-      objectType: ObjectType.fromText(objectType)
+      objectType: ObjectType.fromText(objectType),
     );
   }
 }
@@ -280,6 +317,20 @@ extension DivisionResourcePojoExt on DivisionResourcePojo {
       resourceUsingFactor: resourceUsingFactor,
       resourceCostPerDay: resourceCostPerDay,
       totalResourceRowCost: totalResourceRowCost,
+    );
+  }
+}
+
+extension DivisionsWithAnalyticPojoExt on DivisionWithAnalyticPojo {
+  DivisionsWithAnalyticDTO toAnalyticDto() {
+    return DivisionsWithAnalyticDTO(
+      id: id,
+      shifr: shifr,
+      section: section,
+      humanHours: humanHours,
+      localAnalytic: localAnalytic,
+      outsideAnalytic: outsideAnalytic,
+      result: result,
     );
   }
 }

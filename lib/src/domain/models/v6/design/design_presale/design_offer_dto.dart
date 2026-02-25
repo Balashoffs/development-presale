@@ -12,6 +12,7 @@ class DesignPresaleDTO {
   InputDataDesignDTO? inputDataDesignDTO;
   Map<int, DivisionResourceDTO> divisionResources;
   Map<int, DivisionsMarginDTO> divisionMargins;
+  Map<int, DivisionsWithAnalyticDTO> divisionWithAnalytic;
   CommercialOfferDTO? commercialOfferDTO;
   bool isAllResources;
 
@@ -19,6 +20,7 @@ class DesignPresaleDTO {
     this.inputDataDesignDTO,
     required this.divisionResources,
     required this.divisionMargins,
+    required this.divisionWithAnalytic,
     this.commercialOfferDTO,
     this.isAllResources = false,
   });
@@ -190,7 +192,106 @@ class DivisionResourceDTO {
     );
   }
 
-//</editor-fold>
+  //</editor-fold>
+}
+
+class DivisionsWithAnalyticDTO {
+  final int id;
+  final String shifr;
+  final String section;
+  final double humanHours;
+  final double localAnalytic;
+  final double outsideAnalytic;
+  final double result;
+
+  DivisionsWithAnalyticDTO({
+    required this.id,
+    required this.shifr,
+    required this.section,
+    required this.humanHours,
+    required this.localAnalytic,
+    required this.outsideAnalytic,
+    required this.result,
+  });
+
+  DivisionsWithAnalyticDTO copyWith({
+    int? id,
+    String? shifr,
+    String? section,
+    double? humanHours,
+    double? localAnalytic,
+    double? outsideAnalytic,
+    double? result,
+  }) {
+    return DivisionsWithAnalyticDTO(
+      id: id ?? this.id,
+      shifr: shifr ?? this.shifr,
+      section: section ?? this.section,
+      humanHours: humanHours ?? this.humanHours,
+      localAnalytic: localAnalytic ?? this.localAnalytic,
+      outsideAnalytic: outsideAnalytic ?? this.outsideAnalytic,
+      result: result ?? this.result,
+    );
+  }
+}
+
+class DivisionsWithAnalyticDTOBuilder {
+  // Required fields (set on initialization)
+  final int id;
+  final String shifr;
+  final String section;
+
+  // Fields filled later
+  double? _humanHours;
+  double? _localAnalytic;
+  double? _outsideAnalytic;
+  double? _result;
+
+  DivisionsWithAnalyticDTOBuilder({
+    required this.id,
+    required this.shifr,
+    required this.section,
+  });
+
+  DivisionsWithAnalyticDTOBuilder setHumanHours(double value) {
+    _humanHours = value;
+    return this;
+  }
+
+  DivisionsWithAnalyticDTOBuilder setLocalAnalytic(double value) {
+    _localAnalytic = value;
+    return this;
+  }
+
+  DivisionsWithAnalyticDTOBuilder setOutsideAnalytic(double value) {
+    _outsideAnalytic = value;
+    return this;
+  }
+
+  DivisionsWithAnalyticDTOBuilder setResult(double value) {
+    _result = value;
+    return this;
+  }
+
+  DivisionsWithAnalyticDTO build() {
+    assert(_humanHours != null, 'humanHours must be set before building');
+    assert(_localAnalytic != null, 'localAnalytic must be set before building');
+    assert(
+      _outsideAnalytic != null,
+      'outsideAnalytic must be set before building',
+    );
+    assert(_result != null, 'result must be set before building');
+
+    return DivisionsWithAnalyticDTO(
+      id: id,
+      shifr: shifr,
+      section: section,
+      humanHours: _humanHours!,
+      localAnalytic: _localAnalytic!,
+      outsideAnalytic: _outsideAnalytic!,
+      result: _result!,
+    );
+  }
 }
 
 class DivisionsMarginDTO {
@@ -248,7 +349,7 @@ class DivisionsMarginDTO {
       divisionShortName: divisionShortName ?? this.divisionShortName,
       divisionDescription: divisionDescription ?? this.divisionDescription,
       resourceDivisionSummaryCost:
-      resourceDivisionSummaryCost ?? this.resourceDivisionSummaryCost,
+          resourceDivisionSummaryCost ?? this.resourceDivisionSummaryCost,
       overPriceFactor: overPriceFactor ?? this.overPriceFactor,
       marginFactor: marginFactor ?? this.marginFactor,
       clientFactor: clientFactor ?? this.clientFactor,
@@ -256,7 +357,7 @@ class DivisionsMarginDTO {
       marginValue: marginValue ?? this.marginValue,
       clientValue: clientValue ?? this.clientValue,
       summaryCostWithMargin:
-      summaryCostWithMargin ?? this.summaryCostWithMargin,
+          summaryCostWithMargin ?? this.summaryCostWithMargin,
       summaryCostWithTax: summaryCostWithTax ?? this.summaryCostWithTax,
       taxValue: taxValue ?? this.taxValue,
     );
@@ -291,8 +392,10 @@ class ResultsTableDTO {
     required this.fullSummaryWithTax,
   });
 
-  static ResultsTableDTO from(List<DivisionsMarginDTO> divisionMargins,
-      String divisionType) {
+  static ResultsTableDTO from(
+    List<DivisionsMarginDTO> divisionMargins,
+    String divisionType,
+  ) {
     return ResultsTableDTO(
       headerTitle: buildHeaderTitle(divisionType),
       divisionRows: divisionMargins.map((e) => e.toDto()).toList(),
@@ -312,9 +415,9 @@ class ResultsTableDTO {
           .map((e) => e.summaryCostWithMargin)
           .reduce((value, element) => value + element),
       tax:
-      divisionMargins
-          .map((e) => e.summaryCostWithMargin)
-          .reduce((value, element) => value + element) *
+          divisionMargins
+              .map((e) => e.summaryCostWithMargin)
+              .reduce((value, element) => value + element) *
           Russian_Tax_Factor *
           Russian_Tax_Factor_Reverce,
       fullSummaryWithTax: divisionMargins
@@ -350,8 +453,8 @@ class PayValuesDTO {
 
   bool get isValid =>
       presaleFactor.compareTo(0.0) > 0 ||
-          afterPayFactor.compareTo(0.0) > 0 ||
-          afterActsSignFactor.compareTo(0.0) > 0;
+      afterPayFactor.compareTo(0.0) > 0 ||
+      afterActsSignFactor.compareTo(0.0) > 0;
 
   @override
   String toString() {
@@ -392,7 +495,10 @@ class CommercialOfferDTO {
 
   static CommercialOfferDTO from(DesignOfferMemorySource memory) {
     final inputData = memory.inputDataDesignDTO!;
-    ResultsTableDTO resultsTable = ResultsTableDTO.from(memory.divisionMargins, inputData.divisionType.text);
+    ResultsTableDTO resultsTable = ResultsTableDTO.from(
+      memory.divisionMargins,
+      inputData.divisionType.text,
+    );
     return CommercialOfferDTO(
       id: inputData.dayCounter.getOfferUniqueNumber(),
       created: inputData.dayCounter.localDate,

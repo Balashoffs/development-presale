@@ -36,13 +36,12 @@ class DivisionsMarginRepository {
     }
 
     if (inputFactorsDTO != null) {
-      DesignOfferCalculator calculator = DesignOfferCalculator();
       final margins = map.values.map((e) {
         double total = e
             .map((e) => e.totalResourceRowCost)
             .reduce((value, element) => value + element);
         DivisionResourceDTO dto = e.first;
-        DivisionsMarginDTO margin = calculator.calcDivisionMarginDTOCost(
+        DivisionsMarginDTO margin = calcDivisionMarginDTOCost(
           dto.toMargin(inputFactorsDTO!, total),
         );
         return margin;
@@ -68,7 +67,7 @@ class DivisionsMarginRepository {
                     element.resourceDivisionSummaryCost,
               );
             }
-            old = calculator.calcDivisionMarginDTOCost(old);
+            old = calcDivisionMarginDTOCost(old);
             news.add(old);
             continue;
           }

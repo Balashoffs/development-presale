@@ -36,10 +36,14 @@ class AppRouter extends GoRouter {
                         DesignResourcesRoute(
                           parentNavigatorKey: _rootNavigatorKey,
                           routes: [
-                            DesignDivisionsRoute(
+                            DivisionsWithAnalyticRoute(
                               parentNavigatorKey: _rootNavigatorKey,
                               routes: [DesignOfferRoute(routes: [])],
                             ),
+                            // DesignDivisionsRoute(
+                            //   parentNavigatorKey: _rootNavigatorKey,
+                            //   routes: [DesignOfferRoute(routes: [])],
+                            // ),
                           ],
                         ),
                       ],

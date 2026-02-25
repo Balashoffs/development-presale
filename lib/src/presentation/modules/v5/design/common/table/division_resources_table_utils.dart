@@ -183,17 +183,19 @@ class FloatInputCellWidget extends StatelessWidget {
     required this.defaultValue,
     required this.onChanged,
     this.autoFocus = false,
+    this.width = double.infinity,
   });
 
   final double defaultValue;
   final ValueChangedWithContext<double> onChanged;
   final bool autoFocus;
+  final double width;
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: 56,
+        width: width,
         child: CustomTextInput(
           autofocus: autoFocus,
           key: super.key,
