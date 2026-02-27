@@ -165,10 +165,8 @@ class IntInputCellWidget extends StatelessWidget {
           isEnables: true,
           hintText: '$defaultValue',
           onChanged: (input) {
-            int? parsed = onChangeIntValue(input);
-            if (parsed != null) {
-              onChanged(context, parsed);
-            }
+            int parsed = onChangeIntValue(input);
+            onChanged(context, parsed);
           },
           validator: onlyIntValidator,
         ),
@@ -184,12 +182,14 @@ class FloatInputCellWidget extends StatelessWidget {
     required this.onChanged,
     this.autoFocus = false,
     this.width = double.infinity,
+    required this.validator,
   });
 
   final double defaultValue;
   final ValueChangedWithContext<double> onChanged;
   final bool autoFocus;
   final double width;
+  final FormFieldValidator<String>? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -202,12 +202,10 @@ class FloatInputCellWidget extends StatelessWidget {
           isEnables: true,
           hintText: '$defaultValue',
           onChanged: (input) {
-            double? parsed = onChangeFactorValue(input);
-            if (parsed != null) {
-              onChanged(context, parsed);
-            }
+            double parsed = onChangeFactorValue(input);
+            onChanged(context, parsed);
           },
-          validator: onlyFactorValidator,
+          validator: validator,
         ),
       ),
     );
@@ -300,22 +298,18 @@ class CellWithMultiLineWidget extends StatelessWidget {
   }
 }
 
-double? onChangeFactorValue(String? newValue) {
-  if (newValue != null) {
-    double? tryParse = newValue.length < 4 ? double.tryParse(newValue) : 0.0;
-    if (tryParse != null) {
-      return tryParse;
-    }
-  }
-  return null;
+double onChangeFactorValue(String? newValue) {
+  return newValue == null
+      ? 0.0
+      : newValue.isEmpty
+      ? 0.0
+      : double.parse(newValue);
 }
 
-int? onChangeIntValue(String? newValue) {
-  if (newValue != null) {
-    int? tryParse = newValue.length < 4 ? int.tryParse(newValue) : null;
-    if (tryParse != null) {
-      return tryParse;
-    }
-  }
-  return null;
+int onChangeIntValue(String? newValue) {
+  return newValue == null
+      ? 0
+      : newValue.isEmpty
+      ? 0
+      : int.parse(newValue);
 }

@@ -19,6 +19,7 @@ class DivisionsWithAnalyticCalculatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(
+      title: Text('Сводная таблица стоимости разделов'),
       child: DivisionsWithAnalyticCalculateProvider(),
     );
   }
@@ -62,16 +63,14 @@ class DivisionsWithAnalyticCalculateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context.read<DivisionsWithAnalyticCalculateCubit>();
     return Column(
       children: [
         Expanded(
           flex: 9,
           child: DivisionsTableWithAnalyticWidget(
             rowAttributes: divisionTableWithAnalyticAttributes,
-            tableDataRows: context
-                .read<DivisionsWithAnalyticCalculateCubit>()
-                .controller
-                .rows,
+            tableDataRows: cubit.controller.rows,
           ),
         ),
         Expanded(
@@ -80,21 +79,39 @@ class DivisionsWithAnalyticCalculateWidget extends StatelessWidget {
             spacing: 16.0,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomButtonWidget(text: '  Назад  ', onTap: context.pop),
               CustomButtonWidget(
-                  text: 'Поделиться',
+                text: '  Назад  ',
                 onTap: () {
-                  final designData = di.inMemoryImpl.designPresaleDTO;
-                  final defineModel = di.dartDefineModel;
-                  if (designData != null) {
-                    onShare(designData, defineModel);
-                  }
+                  cubit.onBack();
+                  context.pop();
                 },
               ),
-              CustomButtonWidget(
-                text: ' Вперед ',
-                onTap: () {
-                  context.go(designOfferRoute);
+
+              ValueListenableBuilder<bool>(
+                valueListenable: cubit.controller.isValid,
+                builder: (context, value, child) {
+                  return Row(
+                    spacing: 16.0,
+                    children: [
+                      CustomButtonWidget(
+                        text: 'Поделиться',
+                        onTap: value ? () {
+                          final designData = di.inMemoryImpl.designPresaleDTO;
+                          final defineModel = di.dartDefineModel;
+                          if (designData != null) {
+                            onShare(designData, defineModel);
+                          }
+                        }:null,
+                      ),
+                      CustomButtonWidget(
+                        text: ' Вперед ',
+                        onTap: value ?() {
+                          cubit.onBack();
+                          context.go(designOfferRoute);
+                        } : null,
+                      ),
+                    ],
+                  );
                 },
               ),
             ],

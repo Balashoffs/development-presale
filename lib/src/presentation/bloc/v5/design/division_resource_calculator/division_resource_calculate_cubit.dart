@@ -74,21 +74,6 @@ class DivisionResourceCalculateCubit
     }
   }
 
-  void onCustomResourceName(int resourceId, String resourceName) {
-    DivisionWithResourceViewModel? result = _resourcesViewController
-        .onCustomResourceName(resourceId, resourceName);
-    if (result != null) {
-      _divisionRepository.updateDivisionResourceDto(result.toDto());
-    }
-  }
-
-  void onResourceCostPerDay(int resourceId, double value) {
-    DivisionWithResourceViewModel? result = _resourcesViewController
-        .onResourceCostPerDay(resourceId, value);
-    if (result != null) {
-      _divisionRepository.updateDivisionResourceDto(result.toDto());
-    }
-  }
 
   void onResourceQnt(int resourceId, int value) {
     DivisionWithResourceViewModel? result = _resourcesViewController

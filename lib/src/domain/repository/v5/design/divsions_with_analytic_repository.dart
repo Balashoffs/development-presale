@@ -11,65 +11,80 @@ class DivisionsWithAnalyticRepository {
   List<DivisionResourceDTO> get divisionResources =>
       _designPresaleDTO?.divisionResources.values.toList() ?? [];
 
+  List<DivisionsWithAnalyticDTO> get divisionWithAnalytic =>
+      _designPresaleDTO?.divisionWithAnalytic.values.toList() ?? [];
+
   InputFactorsDTO? get inputFactorsDTO =>
       _designPresaleDTO?.inputDataDesignDTO?.inputFactors;
 
   List<DivisionsWithAnalyticDTO> getDivisionsWithAnalytic() {
-    Map<String, List<DivisionResourceDTO>> map = {};
+    Map<int, List<DivisionResourceDTO>> founds = {};
+
     for (var element in divisionResources) {
-      map.putIfAbsent(element.divisionShortName, () {
-        return [];
-      });
-      map[element.divisionShortName]?.add(element);
+      founds.putIfAbsent(element.divisionShortName.hashCode, () => []);
+      founds[element.divisionShortName.hashCode]!.add(element);
     }
 
-    if (inputFactorsDTO != null) {
-      final divisionsWithAnalyticBuilders = map.values.map((e) {
-        double total = e
-            .map((e) => e.totalResourceRowCost)
-            .reduce((value, element) => value + element);
-        DivisionResourceDTO dto = e.first;
-        double result = calcHumaHoursCost(total, inputFactorsDTO!);
-        DivisionsWithAnalyticDTOBuilder builder =
-            DivisionsWithAnalyticDTOBuilder(
-              id: dto.id,
-              shifr: dto.divisionShortName,
-              section: dto.divisionName,
-            );
-        builder.setHumanHours(result);
-        return builder;
-      }).toList();
+    List<DivisionsWithAnalyticDTO> newList = [];
 
-      for (var value1 in divisionsWithAnalyticBuilders) {
-        value1.setLocalAnalytic(0.0);
-        value1.setOutsideAnalytic(0.0);
+    for (var elements in founds.values) {
+      var firstElement = elements.first;
+      DivisionsWithAnalyticDTOBuilder builder = DivisionsWithAnalyticDTOBuilder(
+        id: firstElement.divisionShortName.hashCode,
+        shifr: firstElement.divisionShortName,
+        section: firstElement.divisionName,
+      );
+
+      double sum = elements
+          .map((e) => e.totalResourceRowCost)
+          .reduce((value, element) => value + element);
+      //Calc human-hours cost for division
+      sum = calcHumaHoursCost(
+        sum,
+        _designPresaleDTO!.inputDataDesignDTO!.inputFactors,
+      );
+      builder.setHumanHours(sum);
+
+      //Calc local analytic cost for division
+      builder.setLocalAnalytic(0.0);
+
+      //Calc external analytic cost for division
+      builder.setOutsideAnalytic(0.0);
+      if (_designPresaleDTO.divisionWithAnalytic.containsKey(
+        firstElement.divisionShortName.hashCode,
+      )) {
+        var analytic = _designPresaleDTO.divisionWithAnalytic[firstElement.divisionShortName.hashCode];
+        if(analytic?.humanHours.compareTo(sum) == 0){
+          builder.setResult(analytic!.result );
+        }else{
+          builder.setResult(0.0);
+        }
+      }else{
+        builder.setResult(0.0);
       }
 
-      final olds = _designPresaleDTO!.divisionWithAnalytic;
-
-      if (olds.isEmpty) {
-        for (var value1 in divisionsWithAnalyticBuilders) {
-          value1.setResult(0.0);
-        }
-      } else {
-        for (var element in divisionsWithAnalyticBuilders) {
-          DivisionsWithAnalyticDTO? old = olds[element.id];
-          if (old != null) {
-            element.setResult(old.result);
-          }
-        }
-      }
-
-      return divisionsWithAnalyticBuilders.map((e) => e.build()).toList();
+      DivisionsWithAnalyticDTO built = builder.build();
+      newList.add(built);
     }
-    return [];
+
+    return newList;
   }
 
   void updateDivisionWithAnalytic(int id, double value) {
     var res = _designPresaleDTO!.divisionWithAnalytic[id];
     if (res != null) {
       res = res.copyWith(result: value);
-      _designPresaleDTO!.divisionWithAnalytic[id] = res;
+      _designPresaleDTO.divisionWithAnalytic[id] = res;
+    }
+  }
+
+  void save(List<DivisionsWithAnalyticDTO> updated) {
+    _designPresaleDTO!.divisionWithAnalytic.clear();
+    for (var value in updated) {
+      _designPresaleDTO.divisionWithAnalytic.putIfAbsent(
+        value.id,
+        () => value,
+      );
     }
   }
 }

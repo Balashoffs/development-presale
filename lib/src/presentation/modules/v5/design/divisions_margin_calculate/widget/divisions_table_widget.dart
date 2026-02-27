@@ -10,6 +10,7 @@ import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divis
 import 'package:presale/src/presentation/bloc/v5/design/divisions_margin_calculator/divisions_margin_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/table/division_resources_table_utils.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
 
 class DivisionsMarginTableWidget extends StatefulWidget {
   const DivisionsMarginTableWidget({
@@ -80,6 +81,7 @@ class _DivisionsMarginTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
+              validator: onlyFactorValidator,
               key: Key(row.id.toString()),
               onChanged: (context, value) async {
                 cubit.onOverPriceFactor(row.id, value);
@@ -90,6 +92,7 @@ class _DivisionsMarginTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
+              validator: onlyFactorValidator,
               key: Key(row.id.toString()),
               onChanged: (context, value) async {
                 cubit.onMarginFactor(row.id, value);
@@ -100,6 +103,7 @@ class _DivisionsMarginTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
+              validator: onlyFactorValidator,
               key: Key(row.id.toString()),
               onChanged: (context, value) async {
                 cubit.onClientFactor(row.id, value);

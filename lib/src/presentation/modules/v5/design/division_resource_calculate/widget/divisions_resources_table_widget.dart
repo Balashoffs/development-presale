@@ -8,6 +8,7 @@ import 'package:presale/src/domain/models/v5/design/division_resource_table/divi
 import 'package:presale/src/presentation/bloc/v5/design/division_resource_calculator/division_resource_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/table/division_resources_table_utils.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
 
 class DivisionsResourceTableWidget extends StatefulWidget {
   const DivisionsResourceTableWidget({
@@ -174,6 +175,8 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
+              validator: onlyFactorValidator,
+              width: 56,
               key: resources.key,
               onChanged: (context, value) async {
                 cubit.onComplexFactor(row.resourceId, value);
@@ -184,6 +187,8 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
+              validator: onlyFactorValidator,
+              width: 56,
               key: resources.key,
               onChanged: (context, value) async {
                 cubit.onSquareFactor(row.resourceId, value);
@@ -194,6 +199,8 @@ class _DivisionsResourceTableWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
+              validator: onlyFactorValidator,
+              width: 56,
               key: resources.key,
               onChanged: (context, value) async {
                 cubit.onResourceUsingFactor(row.resourceId, value);

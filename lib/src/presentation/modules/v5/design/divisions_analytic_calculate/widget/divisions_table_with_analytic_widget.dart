@@ -10,6 +10,7 @@ import 'package:presale/src/domain/models/v5/design/divisions_table_with_analyti
 import 'package:presale/src/presentation/bloc/v5/design/divisions_with_analytic_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/table/division_resources_table_utils.dart';
+import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
 
 class DivisionsTableWithAnalyticWidget extends StatefulWidget {
   const DivisionsTableWithAnalyticWidget({
@@ -92,6 +93,7 @@ class _DivisionsTableWithAnalyticWidgetState
           ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
+              validator: onlyInfiniteNumberValidator,
               key: Key(row.id.toString()),
               width: 100,
               onChanged: (context, value) async {
@@ -106,46 +108,24 @@ class _DivisionsTableWithAnalyticWidgetState
     });
   }
 
-  // MoonTableFooter _generateTableFooter() {
-  //   final controller = context.read<DivisionsWithAnalyticCalculateCubit>().controller;
-  //   return MoonTableFooter(
-  //     cells: List.generate(widget.rowAttributes.length, (int index) {
-  //       if (widget.rowAttributes.indexWhere(
-  //             (element) => element.name == 'СР',
-  //           ) ==
-  //           index) {
-  //         return CellDecorationWidget(
-  //           key: Key('clear_cost'),
-  //           child: TextWithNotifier(vn: controller.divisionSummaryVN),
-  //         );
-  //       }
-  //       if (widget.rowAttributes.indexWhere(
-  //             (element) => element.name == 'Итого',
-  //           ) ==
-  //           index) {
-  //         return CellDecorationWidget(
-  //           key: Key('total_cost'),
-  //           child: TextWithNotifier(
-  //             vn: controller.divisionsWithMarginSummaryVN,
-  //           ),
-  //         );
-  //       } else if (widget.rowAttributes.indexWhere(
-  //             (element) => element.name == 'с НДС',
-  //           ) ==
-  //           index) {
-  //         return CellDecorationWidget(
-  //           key: Key('total_cost'),
-  //           child: TextWithNotifier(vn: controller.divisionsWithTaxSummaryVN),
-  //         );
-  //       }
-  //       return CellDecorationWidget(
-  //         isFistCell: index == 0,
-  //         child: SizedBox.shrink(),
-  //       );
-  //     }),
-  //     height: 56,
-  //   );
-  // }
+  MoonTableFooter _generateTableFooter() {
+    final controller = context.read<DivisionsWithAnalyticCalculateCubit>().controller;
+    return MoonTableFooter(
+      cells: List.generate(widget.rowAttributes.length, (int index) {
+        if (widget.rowAttributes.length -1 == index) {
+          return CellDecorationWidget(
+            key: Key('clear_cost'),
+            child: TextWithNotifier(vn: controller.divisionSummaryVN),
+          );
+        }
+        return CellDecorationWidget(
+          isFistCell: index == 0,
+          child: SizedBox.shrink(),
+        );
+      }),
+      height: 56,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +144,7 @@ class _DivisionsTableWithAnalyticWidgetState
         rowSize: MoonTableRowSize.md,
         header: _generateTableHeader(),
         rows: _generateTableRows(),
-        // footer: _generateTableFooter(),
+        footer: _generateTableFooter(),
         tablePadding: const EdgeInsets.symmetric(horizontal: 16),
         cellPadding: const EdgeInsets.symmetric(vertical: 8),
         onScrollControllersReady:

@@ -15,17 +15,19 @@ class DivisionsWithAnalyticCalculateCubit
   final DivisionsWithAnalyticViewController _divisionsViewController;
   final DivisionsWithAnalyticRepository _repository;
 
-  DivisionsWithAnalyticViewController get controller => _divisionsViewController;
+  DivisionsWithAnalyticViewController get controller =>
+      _divisionsViewController;
 
   DivisionsWithAnalyticCalculateCubit({required DependencyInjector di})
-    : _divisionsViewController = DivisionsWithAnalyticViewController(),
-      _repository = DivisionsWithAnalyticRepository(di),
-      super(const DivisionsWithAnalyticCalculateState()){
+      : _divisionsViewController = DivisionsWithAnalyticViewController(),
+        _repository = DivisionsWithAnalyticRepository(di),
+        super(const DivisionsWithAnalyticCalculateState()) {
     _init();
   }
 
   void _init() async {
-    List<DivisionsWithAnalyticDTO> divisions = _repository.getDivisionsWithAnalytic();
+    List<DivisionsWithAnalyticDTO> divisions = _repository
+        .getDivisionsWithAnalytic();
     _divisionsViewController.fill(divisions);
 
     emit(DivisionsWithAnalyticCalculateState(stateEnum: StateEnum.showing));
@@ -34,5 +36,17 @@ class DivisionsWithAnalyticCalculateCubit
   void onResult(int id, double value) async {
     _divisionsViewController.onResult(id, value);
     _repository.updateDivisionWithAnalytic(id, value);
+  }
+
+  void onBack() {
+    List<DivisionsWithAnalyticDTO> forSave = _divisionsViewController.rows.map((e) =>
+        DivisionsWithAnalyticDTO(id: e.id,
+            shifr: e.shifr,
+            section: e.section,
+            humanHours: e.humanHours,
+            localAnalytic: e.localAnalytic,
+            outsideAnalytic: e.outsideAnalytic,
+            result: e.result),).toList();
+    _repository.save(forSave);
   }
 }

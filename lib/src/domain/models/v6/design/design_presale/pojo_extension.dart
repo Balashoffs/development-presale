@@ -92,6 +92,7 @@ extension DivisionWithAnalyticDtoExt on DivisionsWithAnalyticDTO {
       humanHours: humanHours,
       outsideAnalytic: outsideAnalytic,
       localAnalytic: localAnalytic,
+      result: result
     );
   }
 }

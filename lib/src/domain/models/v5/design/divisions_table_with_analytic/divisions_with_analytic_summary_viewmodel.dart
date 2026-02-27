@@ -8,7 +8,11 @@ class DivisionsWithAnalyticViewController {
   final ValueNotifier<double> divisionSummaryVN = ValueNotifier(0.0);
 
   DivisionsWithAnalyticRowVM? getById(int id) =>
-      rows.where((element) => element.id == id).firstOrNull;
+      rows
+          .where((element) => element.id == id)
+          .firstOrNull;
+
+  final ValueNotifier<bool> isValid = ValueNotifier(false);
 
   void fill(List<DivisionsWithAnalyticDTO> divisions) {
     for (var division in divisions) {
@@ -16,26 +20,28 @@ class DivisionsWithAnalyticViewController {
       rows.add(row);
     }
 
-    divisionSummaryVN.value = rows
-        .map((e) => e.result)
-        .reduce((value, element) => value + element);
-
     _calcTotal();
+    _allowNext();
   }
 
-  DivisionsWithAnalyticRowVM? onResult(int id, double value) {
+  void onResult(int id, double value) {
     DivisionsWithAnalyticRowVM? found = getById(id);
     if (found != null) {
       found.result = value;
     }
     _calcTotal();
-    return found;
+    _allowNext();
   }
-
 
   void _calcTotal() {
     divisionSummaryVN.value = rows
         .map((e) => e.result)
         .reduce((value, element) => value + element);
+  }
+
+  void _allowNext() {
+    bool isAllow = rows
+        .where((element) => element.result.compareTo(0.0) == 0,).isEmpty;
+    isValid.value = isAllow;
   }
 }
