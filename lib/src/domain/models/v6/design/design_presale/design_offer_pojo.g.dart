@@ -25,8 +25,8 @@ _DesignPresalePojo _$DesignPresalePojoFromJson(
           ?.map((e) => DivisionResourcePojo.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
-  divisionMargins:
-      (json['divisionMargins'] as List<dynamic>?)
+  divisionResourceMargins:
+      (json['divisionResourceMargins'] as List<dynamic>?)
           ?.map((e) => DivisionsMarginPojo.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
@@ -35,6 +35,11 @@ _DesignPresalePojo _$DesignPresalePojoFromJson(
           ?.map(
             (e) => DivisionWithAnalyticPojo.fromJson(e as Map<String, dynamic>),
           )
+          .toList() ??
+      const [],
+  divisionsAnalyticMargin:
+      (json['divisionsAnalyticMargin'] as List<dynamic>?)
+          ?.map((e) => DivisionsMarginPojo.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
   isAllResources: json['isAllResources'] as bool? ?? false,
@@ -48,8 +53,9 @@ Map<String, dynamic> _$DesignPresalePojoToJson(_DesignPresalePojo instance) =>
       'divisionType': instance.divisionType,
       'objectType': instance.objectType,
       'divisionResources': instance.divisionResources,
-      'divisionMargins': instance.divisionMargins,
+      'divisionResourceMargins': instance.divisionResourceMargins,
       'divisionsWithAnalytic': instance.divisionsWithAnalytic,
+      'divisionsAnalyticMargin': instance.divisionsAnalyticMargin,
       'isAllResources': instance.isAllResources,
     };
 
@@ -156,9 +162,6 @@ _DivisionsMarginPojo _$DivisionsMarginPojoFromJson(Map<String, dynamic> json) =>
       divisionDescription: json['divisionDescription'] as String,
       resourceDivisionSummaryCost: (json['resourceDivisionSummaryCost'] as num)
           .toDouble(),
-      overPriceFactor: (json['overPriceFactor'] as num).toDouble(),
-      marginFactor: (json['marginFactor'] as num).toDouble(),
-      clientFactor: (json['clientFactor'] as num).toDouble(),
       overPriceValue: (json['overPriceValue'] as num?)?.toDouble() ?? 0.0,
       marginValue: (json['marginValue'] as num?)?.toDouble() ?? 0.0,
       clientValue: (json['clientValue'] as num?)?.toDouble() ?? 0.0,
@@ -177,9 +180,6 @@ Map<String, dynamic> _$DivisionsMarginPojoToJson(
   'divisionShortName': instance.divisionShortName,
   'divisionDescription': instance.divisionDescription,
   'resourceDivisionSummaryCost': instance.resourceDivisionSummaryCost,
-  'overPriceFactor': instance.overPriceFactor,
-  'marginFactor': instance.marginFactor,
-  'clientFactor': instance.clientFactor,
   'overPriceValue': instance.overPriceValue,
   'marginValue': instance.marginValue,
   'clientValue': instance.clientValue,

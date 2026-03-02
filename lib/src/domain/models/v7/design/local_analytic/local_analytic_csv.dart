@@ -54,7 +54,7 @@ class LocalAnalyticCsvBuilder extends CsvParser<LocalAnalyticCSV> {
           rows.skip(1).map((row) => LocalAnalyticCSV.fromCsvRow(row)).toList();
 
   @override
-  Future<List<LocalAnalyticCSV>> build() async {
-    return await parse(_parser);
+  Future<List<LocalAnalyticCSV>> build(ReadFrom readFrom) async {
+    return await parse(_parser, readFrom);
   }
 }

@@ -16,10 +16,8 @@ class DesignOfferRepository {
 
   DesignOfferRepository(DesignOfferMemorySource designOfferMemorySource)
     : _designOfferMemorySource = designOfferMemorySource {
-    if (_designOfferMemorySource.commercialOffer == null) {
-      _designOfferMemorySource.designPresaleDTO?.commercialOfferDTO =
-          CommercialOfferDTO.from(_designOfferMemorySource);
-    }
+    _designOfferMemorySource.designPresaleDTO?.commercialOfferDTO =
+        CommercialOfferDTO.from(_designOfferMemorySource);
   }
 
   void updatePresaleFactor(double value) {

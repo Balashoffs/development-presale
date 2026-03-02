@@ -2,6 +2,7 @@ import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_
 import 'package:presale/src/domain/models/v3/design/custom_factors/custom_factors.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_margin_table/division_with_margin_row_viewmodel.dart';
+import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 
 /*
 
@@ -20,8 +21,7 @@ import 'package:presale/src/domain/models/v5/design/divisions_margin_table/divis
      */
 
 double calcResourceCost(
-  DivisionWithResourceViewModel divisionResourceViewModel,
-) {
+    DivisionWithResourceViewModel divisionResourceViewModel,) {
   return divisionResourceViewModel.resourceCostPerDayVN.value *
       divisionResourceViewModel.resourceUsingFactor *
       divisionResourceViewModel.squareFactor *
@@ -42,9 +42,9 @@ void calcDivisionCost(DivisionsWithMarginRowVM model) {
 
   total =
       model.divisionSummaryCost +
-      model.overPriceValue +
-      model.marginValue +
-      model.clientValue;
+          model.overPriceValue +
+          model.marginValue +
+          model.clientValue;
 
   double withTax = total * Russian_Tax_Factor;
   model.summaryCostWithMarginVN.value = total;
@@ -52,18 +52,16 @@ void calcDivisionCost(DivisionsWithMarginRowVM model) {
   model.taxValue = withTax * Russian_Tax_Factor_Reverce;
 }
 
-double calcHumaHoursCost(
-  double totalResourceRowCost,
-  InputFactorsDTO inputsFactors,
-) {
+double calcHumaHoursCost(double totalResourceRowCost,
+    InputFactorsDTO inputsFactors,) {
   double overPrice =
       totalResourceRowCost * inputsFactors.overPriceFactor -
-      totalResourceRowCost;
+          totalResourceRowCost;
   double marginValue =
       totalResourceRowCost * inputsFactors.marginFactor - totalResourceRowCost;
   double customerValue =
       totalResourceRowCost * inputsFactors.customerFactor -
-      totalResourceRowCost;
+          totalResourceRowCost;
 
   double total = totalResourceRowCost + overPrice + marginValue + customerValue;
   double fullCost = total * Russian_Tax_Factor;
@@ -71,21 +69,22 @@ double calcHumaHoursCost(
   return fullCost;
 }
 
-DivisionsMarginDTO calcDivisionMarginDTOCost(DivisionsMarginDTO dto) {
-  double tof = dto.resourceDivisionSummaryCost * dto.overPriceFactor;
+
+DivisionsMarginDTO calcDivisionMarginDTOCost(InputFactorsDTO inputFactors, DivisionsMarginDTO dto) {
+  double tof = dto.resourceDivisionSummaryCost * inputFactors.overPriceFactor;
   double overPriceValue = tof - dto.resourceDivisionSummaryCost;
 
-  double mf = dto.resourceDivisionSummaryCost * dto.marginFactor;
+  double mf = dto.resourceDivisionSummaryCost * inputFactors.marginFactor;
   double marginValue = mf - dto.resourceDivisionSummaryCost;
 
-  double cf = dto.resourceDivisionSummaryCost * dto.clientFactor;
+  double cf = dto.resourceDivisionSummaryCost * inputFactors.customerFactor;
   double clientValue = cf - dto.resourceDivisionSummaryCost;
 
   double summaryCostWithMargin =
       dto.resourceDivisionSummaryCost +
-      overPriceValue +
-      marginValue +
-      clientValue;
+          overPriceValue +
+          marginValue +
+          clientValue;
 
   double withTax = summaryCostWithMargin * Russian_Tax_Factor;
 

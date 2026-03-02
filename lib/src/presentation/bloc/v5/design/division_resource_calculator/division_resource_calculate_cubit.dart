@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
+import 'package:presale/src/data/v3/design_calculator.dart';
 
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
@@ -8,6 +10,7 @@ import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_with_unselected_vc.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
+import 'package:presale/src/domain/repository/v5/design/divsion_margin_repository.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/domain/repository/v5/design/division_resources_repository.dart';
 
@@ -23,8 +26,6 @@ class DivisionResourceCalculateCubit
       _resourcesViewController;
 
   final DivisionRepository _divisionRepository;
-
-
 
   DivisionResourceCalculateCubit({required DependencyInjector di})
     : _divisionRepository = DivisionRepository(di),
@@ -54,7 +55,8 @@ class DivisionResourceCalculateCubit
     DivisionWithResourceViewModel? result;
     result = _resourcesViewController.onAdd(id);
     if (result != null) {
-      _divisionRepository.addDivisionResourceDto(result.toDto());
+      var resourceDto = result.toDto();
+      _divisionRepository.addDivisionResourceDto(resourceDto);
     }
   }
 
@@ -62,7 +64,8 @@ class DivisionResourceCalculateCubit
     DivisionWithResourceViewModel? result;
     result = _resourcesViewController.onDelete(resourceId);
     if (result != null) {
-      _divisionRepository.removeDivisionResourceDto(result.toDto());
+      var resourceDto = result.toDto();
+      _divisionRepository.removeDivisionResourceDto(resourceDto);
     }
   }
 
@@ -73,7 +76,6 @@ class DivisionResourceCalculateCubit
       _divisionRepository.updateDivisionResourceDto(result.toDto());
     }
   }
-
 
   void onResourceQnt(int resourceId, int value) {
     DivisionWithResourceViewModel? result = _resourcesViewController
@@ -121,5 +123,9 @@ class DivisionResourceCalculateCubit
     final viewModelRows = _resourcesViewController.changeTableView(value);
     final dtoRows = viewModelRows.map((e) => e.toDto()).toList();
     _divisionRepository.updateResourceDivision(dtoRows);
+  }
+
+  void onCalculateResourceMargin() {
+    _divisionRepository.calculateResourceMargin();
   }
 }

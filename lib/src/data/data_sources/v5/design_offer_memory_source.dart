@@ -20,10 +20,23 @@ class DesignOfferMemorySource {
       [];
 
   List<DivisionsMarginDTO> get divisionMargins =>
-      _designPresaleDTO?.divisionMargins.values
+      _designPresaleDTO?.divisionResourceMargins.values
           .sorted((a, b) => a.id.compareTo(b.id))
           .toList() ??
       [];
+
+  List<DivisionsWithAnalyticDTO> get divisionWithAnalytics =>
+      _designPresaleDTO?.divisionWithAnalytic.values
+          .sorted((a, b) => a.id.compareTo(b.id))
+          .toList() ??
+      [];
+
+  List<DivisionsMarginDTO> get divisionWithAnalyticsMargin =>
+      _designPresaleDTO?.divisionAnalyticMargins.values
+          .sorted((a, b) => a.id.compareTo(b.id))
+          .toList() ??
+          [];
+
 
   CommercialOfferDTO? get commercialOffer =>
       _designPresaleDTO?.commercialOfferDTO;
@@ -35,13 +48,15 @@ class DesignOfferMemorySource {
   void init() {
     _designPresaleDTO ??= DesignPresaleDTO(
       divisionResources: {},
-      divisionMargins: {},
-      divisionWithAnalytic: {}
+      divisionResourceMargins: {},
+      divisionWithAnalytic: {},
+      divisionAnalyticMargins: {},
     );
   }
 
-  bool isFilled(){
-    return _designPresaleDTO != null &&  _designPresaleDTO?.inputDataDesignDTO != null;
+  bool isFilled() {
+    return _designPresaleDTO != null &&
+        _designPresaleDTO?.inputDataDesignDTO != null;
   }
 
   void setInputData(InputDataDesignDTO value) {
@@ -56,6 +71,10 @@ class DesignOfferMemorySource {
     _designPresaleDTO?.divisionResources[add.resourceId] = add;
   }
 
+  void addDivisionResourceWithMargin(DivisionsMarginDTO margin) {
+    _designPresaleDTO?.divisionResourceMargins[margin.id] = margin;
+  }
+
   void removeDivisionResource(DivisionResourceDTO delete) {
     _designPresaleDTO?.divisionResources.removeWhere(
       (key, value) => key == delete.resourceId,
@@ -66,25 +85,15 @@ class DesignOfferMemorySource {
     _designPresaleDTO?.divisionResources[update.resourceId] = update;
   }
 
-  void updateDivisionsMargin(DivisionsMarginDTO value) {
-    _designPresaleDTO?.divisionMargins[value.id] = value;
-  }
-
   void updateDivisionsAnalytic(DivisionsWithAnalyticDTO value) {
     _designPresaleDTO?.divisionWithAnalytic[value.id] = value;
   }
 
-  void setAllResources(bool isAll) {
-    _designPresaleDTO?.isAllResources = isAll;
-  }
-
-  void setCommercialOffer(CommercialOfferDTO commercialOffer) {
-    _designPresaleDTO?.commercialOfferDTO = commercialOffer;
-  }
-
   void clearResource() {
     _designPresaleDTO?.divisionResources.clear();
-    _designPresaleDTO?.divisionMargins.clear();
+    _designPresaleDTO?.divisionResourceMargins.clear();
     _designPresaleDTO?.divisionWithAnalytic.clear();
   }
+
+
 }

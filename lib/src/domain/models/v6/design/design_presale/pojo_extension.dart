@@ -14,16 +14,13 @@ import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_
 import 'package:presale/src/presentation/bloc/v5/design/input/object_input_data/object_input_data_cubit.dart';
 
 extension ResourceDivisionDtoExt on DivisionResourceDTO {
-  DivisionsMarginDTO toMargin(InputFactorsDTO factors, double summary) {
+  DivisionsMarginDTO toMargin(double summary) {
     return DivisionsMarginDTO(
-      id: id,
+      id: resourceId,
       divisionName: divisionName,
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: summary,
-      overPriceFactor: factors.overPriceFactor,
-      clientFactor: factors.customerFactor,
-      marginFactor: factors.marginFactor,
     );
   }
 
@@ -70,9 +67,6 @@ extension DivisionMarginsViewModelExt on DivisionsWithMarginRowVM {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: divisionSummaryCost,
-      overPriceFactor: overPriceFactor,
-      marginFactor: marginFactor,
-      clientFactor: clientFactor,
       summaryCostWithTax: summaryCostWithTaxVN.value,
       summaryCostWithMargin: summaryCostWithMarginVN.value,
       marginValue: marginValue,
@@ -93,26 +87,22 @@ extension DivisionWithAnalyticDtoExt on DivisionsWithAnalyticDTO {
       outsideAnalytic: outsideAnalytic,
       localAnalytic: localAnalytic,
       manualAnalytic: manualAnalytic,
-      result: result
-
+      result: result,
     );
   }
 }
 
 extension DivisionMarginsDtoExt on DivisionsMarginDTO {
-  DivisionsWithMarginRowVM toViewModel() {
+  DivisionsWithMarginRowVM toViewModel(InputFactorsDTO inputFactors) {
     return DivisionsWithMarginRowVM(
       id: id,
       divisionName: divisionName,
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       divisionSummaryCost: resourceDivisionSummaryCost,
-      overPriceFactor: overPriceFactor,
-      overPriceValue: resourceDivisionSummaryCost * overPriceFactor,
-      marginFactor: marginFactor,
-      marginValue: resourceDivisionSummaryCost * marginFactor,
-      clientFactor: clientFactor,
-      clientValue: resourceDivisionSummaryCost * clientFactor,
+      overPriceValue: resourceDivisionSummaryCost * inputFactors.overPriceFactor,
+      marginValue: resourceDivisionSummaryCost * inputFactors.marginFactor,
+      clientValue: resourceDivisionSummaryCost * inputFactors.customerFactor,
       taxValue: taxValue,
       summaryCostWithMargin: summaryCostWithMargin,
       summaryCostWithTax: summaryCostWithTax,
@@ -136,7 +126,6 @@ extension DivisionMarginsDtoExt on DivisionsMarginDTO {
 
 extension CommercialOfferDtoExt on CommercialOfferDTO {
   DesignOfferResultViewModel toViewModel() {
-    print('payValues.date: ${payValues.afterPayDate}');
     return DesignOfferResultViewModel(
       offerId: id,
       divisionType: divisionType,
@@ -220,41 +209,44 @@ extension InputDataDesignDtoExt on InputDataDesignDTO {
 
 extension DesignPresalePojoExt on DesignPresalePojo {
   DesignPresaleDTO toDto() {
-    final resources = divisionResources
-        .map((e) => e.toResourceDto())
-        .sorted((a, b) => a.resourceId.compareTo(b.resourceId))
-        .toList();
+    final resources = divisionResources.map((e) => e.toResourceDto()).toList();
 
     Map<int, DivisionResourceDTO> updatesResources = {};
     for (var value in resources) {
       updatesResources.putIfAbsent(value.resourceId, () => value);
     }
 
-    final margins = divisionMargins
-        .map((e) => e.toMarginDto())
-        .sorted((a, b) => a.id.compareTo(b.id))
-        .toList();
+    final resourceMargins = divisionResourceMargins.map((e) => e.toMarginDto()).toList();
+
+    Map<int, DivisionsMarginDTO> updatesResourceMargins = {};
+    for (var value in resourceMargins) {
+      updatesResourceMargins.putIfAbsent(value.id, () => value);
+    }
 
     final analytics = divisionsWithAnalytic
         .map((e) => e.toAnalyticDto())
-        .sorted((a, b) => a.id.compareTo(b.id))
         .toList();
-
-    Map<int, DivisionsMarginDTO> updatesMargins = {};
-    for (var value in margins) {
-      updatesMargins.putIfAbsent(value.id, () => value);
-    }
 
     Map<int, DivisionsWithAnalyticDTO> updatesAnalytics = {};
     for (var value in analytics) {
       updatesAnalytics.putIfAbsent(value.id, () => value);
     }
 
+    final analyticMargins = divisionsAnalyticMargin
+        .map((e) => e.toMarginDto())
+        .toList();
+
+    Map<int, DivisionsMarginDTO> updatesAnalyticMargins = {};
+    for (var value in analyticMargins) {
+      updatesAnalyticMargins.putIfAbsent(value.id, () => value);
+    }
+
     return DesignPresaleDTO(
       inputDataDesignDTO: toInputDataDto(),
       divisionResources: updatesResources,
-      divisionMargins: updatesMargins,
+      divisionResourceMargins: updatesResourceMargins,
       divisionWithAnalytic: updatesAnalytics,
+      divisionAnalyticMargins: updatesAnalyticMargins,
       isAllResources: isAllResources,
     );
   }
@@ -347,9 +339,6 @@ extension DivisionsMarginPojoExt on DivisionsMarginPojo {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: resourceDivisionSummaryCost,
-      overPriceFactor: overPriceFactor,
-      marginFactor: marginFactor,
-      clientFactor: clientFactor,
     );
   }
 }

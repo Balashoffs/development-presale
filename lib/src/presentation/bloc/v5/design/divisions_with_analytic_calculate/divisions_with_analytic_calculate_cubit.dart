@@ -19,9 +19,9 @@ class DivisionsWithAnalyticCalculateCubit
       _divisionsViewController;
 
   DivisionsWithAnalyticCalculateCubit({required DependencyInjector di})
-      : _divisionsViewController = DivisionsWithAnalyticViewController(),
-        _repository = DivisionsWithAnalyticRepository(di),
-        super(const DivisionsWithAnalyticCalculateState()) {
+    : _divisionsViewController = DivisionsWithAnalyticViewController(),
+      _repository = DivisionsWithAnalyticRepository(di),
+      super(const DivisionsWithAnalyticCalculateState()) {
     _init();
   }
 
@@ -36,19 +36,27 @@ class DivisionsWithAnalyticCalculateCubit
   void onManualAnalytic(int id, double value) async {
     double result = _repository.updateDivisionWithAnalytic(id, value);
     _divisionsViewController.onManualAnalytic(id, value, result);
-
   }
 
-  void onBack() {
-    List<DivisionsWithAnalyticDTO> forSave = _divisionsViewController.rows.map((e) =>
-        DivisionsWithAnalyticDTO(id: e.id,
+  void onSave() {
+    List<DivisionsWithAnalyticDTO> forSave = _divisionsViewController.rows
+        .map(
+          (e) => DivisionsWithAnalyticDTO(
+            id: e.id,
             shifr: e.shifr,
             section: e.section,
             humanHours: e.humanHours,
             localAnalytic: e.localAnalytic,
             outsideAnalytic: e.outsideAnalytic,
             manualAnalytic: e.manualAnalytic,
-            result: e.resultVN.value),).toList();
+            result: e.resultVN.value,
+          ),
+        )
+        .toList();
     _repository.save(forSave);
+  }
+
+  void onCalculateAnalyticMargin() {
+    _repository.calculateAnalyticMargin();
   }
 }

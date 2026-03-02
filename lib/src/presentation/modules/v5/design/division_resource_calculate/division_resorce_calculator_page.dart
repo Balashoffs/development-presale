@@ -159,6 +159,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                           onTap: value == true
                               ? () {
                                   // context.go(designDivisionsRoute);
+                                  cubit.onCalculateResourceMargin();
                                   context.go(designAnalyticsRoute);
                                 }
                               : null,

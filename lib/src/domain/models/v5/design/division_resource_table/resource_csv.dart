@@ -15,8 +15,13 @@ class ResourceCSV {
   final String resourceCostPerHour;
   final String resourceCostPerDay;
 
+
+  @override
+  String toString() {
+    return 'ResourceCSV{id: $id, resourceCode: $resourceCode, resourceName: $resourceName, resourceCostPerHour: $resourceCostPerHour, resourceCostPerDay: $resourceCostPerDay}';
+  }
+
   factory ResourceCSV.fromCsvRow(List<dynamic> row) {
-    print(row);
     return ResourceCSV(
       id: row[0],
       resourceName: row[1],
@@ -45,7 +50,7 @@ class ResourceCostDtoBuilder extends CsvParser<ResourceCSV> {
       (rows) => rows.skip(1).map((row) => ResourceCSV.fromCsvRow(row)).toList();
 
   @override
-  Future<List<ResourceCSV>> build() async {
-    return await parse(_parser);
+  Future<List<ResourceCSV>> build(ReadFrom readFrom) async {
+    return await parse(_parser, readFrom);
   }
 }

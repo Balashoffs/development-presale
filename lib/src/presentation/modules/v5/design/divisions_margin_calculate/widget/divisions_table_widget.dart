@@ -87,7 +87,7 @@ class _DivisionsMarginTableWidgetState
                 cubit.onOverPriceFactor(row.id, value);
                 setState(() {});
               },
-              defaultValue: row.overPriceFactor,
+              defaultValue: 0.0,
             ),
           ),
           CellDecorationWidget(
@@ -98,7 +98,7 @@ class _DivisionsMarginTableWidgetState
                 cubit.onMarginFactor(row.id, value);
                 setState(() {});
               },
-              defaultValue: row.marginFactor,
+              defaultValue: 0.0,
             ),
           ),
           CellDecorationWidget(
@@ -109,7 +109,7 @@ class _DivisionsMarginTableWidgetState
                 cubit.onClientFactor(row.id, value);
                 setState(() {});
               },
-              defaultValue: row.clientFactor,
+              defaultValue: 0.0,
             ),
           ),
           CellDecorationWidget(

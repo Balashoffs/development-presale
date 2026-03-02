@@ -18,7 +18,7 @@ const designDivisionsRoute = "$designResourcesRoute/$designDivisionsRoutePath";
 const designAnalyticRoutePath = "design-analytic";
 const designAnalyticsRoute = "$designResourcesRoute/$designAnalyticRoutePath";
 const designOfferRoutePath = "design-offer";
-const designOfferRoute = "$designDivisionsRoute/$designOfferRoutePath";
+const designOfferRoute = "$designAnalyticsRoute/$designOfferRoutePath";
 
 class DesignInputRoute extends AuthNeedRoute {
   DesignInputRoute({

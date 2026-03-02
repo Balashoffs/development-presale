@@ -11,16 +11,18 @@ import 'package:presale/src/presentation/bloc/v5/design/offer/design_offer_cubit
 class DesignPresaleDTO {
   InputDataDesignDTO? inputDataDesignDTO;
   Map<int, DivisionResourceDTO> divisionResources;
-  Map<int, DivisionsMarginDTO> divisionMargins;
+  Map<int, DivisionsMarginDTO> divisionResourceMargins;
   Map<int, DivisionsWithAnalyticDTO> divisionWithAnalytic;
+  Map<int, DivisionsMarginDTO> divisionAnalyticMargins;
   CommercialOfferDTO? commercialOfferDTO;
   bool isAllResources;
 
   DesignPresaleDTO({
     this.inputDataDesignDTO,
     required this.divisionResources,
-    required this.divisionMargins,
+    required this.divisionResourceMargins,
     required this.divisionWithAnalytic,
+    required this.divisionAnalyticMargins,
     this.commercialOfferDTO,
     this.isAllResources = false,
   });
@@ -291,8 +293,8 @@ class DivisionsWithAnalyticDTOBuilder {
       'outsideAnalytic must be set before building',
     );
     assert(
-    _manualAnalytic != null,
-    'manualAnalytic must be set before building',
+      _manualAnalytic != null,
+      'manualAnalytic must be set before building',
     );
     assert(_result != null, 'result must be set before building');
 
@@ -315,9 +317,6 @@ class DivisionsMarginDTO {
   final String divisionShortName;
   final String divisionDescription;
   final double resourceDivisionSummaryCost;
-  final double overPriceFactor;
-  final double marginFactor;
-  final double clientFactor;
   final double overPriceValue;
   final double marginValue;
   final double clientValue;
@@ -331,9 +330,6 @@ class DivisionsMarginDTO {
     required this.divisionShortName,
     required this.divisionDescription,
     required this.resourceDivisionSummaryCost,
-    required this.overPriceFactor,
-    required this.marginFactor,
-    required this.clientFactor,
     this.overPriceValue = 0.0,
     this.marginValue = 0.0,
     this.clientValue = 0.0,
@@ -365,9 +361,6 @@ class DivisionsMarginDTO {
       divisionDescription: divisionDescription ?? this.divisionDescription,
       resourceDivisionSummaryCost:
           resourceDivisionSummaryCost ?? this.resourceDivisionSummaryCost,
-      overPriceFactor: overPriceFactor ?? this.overPriceFactor,
-      marginFactor: marginFactor ?? this.marginFactor,
-      clientFactor: clientFactor ?? this.clientFactor,
       overPriceValue: overPriceValue ?? this.overPriceValue,
       marginValue: marginValue ?? this.marginValue,
       clientValue: clientValue ?? this.clientValue,
@@ -380,7 +373,7 @@ class DivisionsMarginDTO {
 
   @override
   String toString() {
-    return 'DivisionsMarginDTO{id: $id, divisionName: $divisionName, divisionShortName: $divisionShortName, divisionDescription: $divisionDescription, resourceDivisionSummaryCost: $resourceDivisionSummaryCost, overPriceFactor: $overPriceFactor, marginFactor: $marginFactor, clientFactor: $clientFactor, overPriceValue: $overPriceValue, marginValue: $marginValue, clientValue: $clientValue, summaryCostWithMargin: $summaryCostWithMargin, summaryCostWithTax: $summaryCostWithTax, taxValue: $taxValue}';
+    return 'DivisionsMarginDTO{id: $id, divisionName: $divisionName, divisionShortName: $divisionShortName, divisionDescription: $divisionDescription, resourceDivisionSummaryCost: $resourceDivisionSummaryCost,  overPriceValue: $overPriceValue, marginValue: $marginValue, clientValue: $clientValue, summaryCostWithMargin: $summaryCostWithMargin, summaryCostWithTax: $summaryCostWithTax, taxValue: $taxValue}';
   }
 }
 
@@ -407,7 +400,7 @@ class ResultsTableDTO {
     required this.fullSummaryWithTax,
   });
 
-  static ResultsTableDTO from(
+  static ResultsTableDTO fromMargin(
     List<DivisionsMarginDTO> divisionMargins,
     String divisionType,
   ) {
@@ -510,8 +503,8 @@ class CommercialOfferDTO {
 
   static CommercialOfferDTO from(DesignOfferMemorySource memory) {
     final inputData = memory.inputDataDesignDTO!;
-    ResultsTableDTO resultsTable = ResultsTableDTO.from(
-      memory.divisionMargins,
+    ResultsTableDTO resultsTable = ResultsTableDTO.fromMargin(
+      memory.divisionWithAnalyticsMargin,
       inputData.divisionType.text,
     );
     return CommercialOfferDTO(

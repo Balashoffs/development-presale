@@ -26,9 +26,10 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
   final DesignOfferRepository _designOfferRepository;
   final ExcelService _excelService;
   late final NotesService _notesService;
-  final ValueNotifier<bool> _isCorrect = ValueNotifier(false);
 
+  final ValueNotifier<bool> _isCorrect = ValueNotifier(false);
   ValueNotifier<bool> get isCorrect => _isCorrect;
+
   bool isPersonSignValid = false;
   bool isCompanyValid = false;
 
@@ -147,9 +148,7 @@ class DesignOfferCubit extends Cubit<DesignOfferState> {
   }
 
   void save() {
-    print(_notesService.allNotes);
     _designOfferRepository.commercialOffer?.notes = _notesService.allNotes;
-    print(_designOfferRepository.commercialOffer?.notes);
     _notesService.clear();
   }
 

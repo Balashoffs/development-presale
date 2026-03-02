@@ -8,7 +8,7 @@ extension DesignPresaleDtoExt on DesignPresaleDTO {
       objectType: inputDataDesignDTO!.objectType.text,
       isAllResources: isAllResources,
       dayCounter: inputDataDesignDTO!.dayCounter.toDayCounterPojo(),
-      divisionMargins: divisionMargins.values
+      divisionResourceMargins: divisionResourceMargins.values
           .map((e) => e.toMarginPojo())
           .toList(),
       objectData: inputDataDesignDTO!.objectData.toObjectDataPojo(),
@@ -83,9 +83,6 @@ extension DivisionsMarginDtoExt on DivisionsMarginDTO {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: resourceDivisionSummaryCost,
-      overPriceFactor: overPriceFactor,
-      marginFactor: marginFactor,
-      clientFactor: clientFactor,
     );
   }
 }

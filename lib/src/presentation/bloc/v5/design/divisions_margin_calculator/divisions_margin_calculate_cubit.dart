@@ -20,7 +20,9 @@ class DivisionsMarginCalculateCubit
   DivisionsViewController get controller => _divisionsViewController;
 
   DivisionsMarginCalculateCubit({required DependencyInjector di})
-    : _divisionsViewController = DivisionsViewController(),
+    : _divisionsViewController = DivisionsViewController(
+        inputFactorsDTO: di.inMemoryImpl.inputDataDesignDTO!.inputFactors,
+      ),
       _repository = DivisionsMarginRepository(di),
       super(const DivisionsMarginCalculateState()) {
     _init();

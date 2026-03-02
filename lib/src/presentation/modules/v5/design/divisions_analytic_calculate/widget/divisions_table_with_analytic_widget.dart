@@ -7,7 +7,7 @@ import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/data/core/string_converter.dart';
 
 import 'package:presale/src/domain/models/v5/design/divisions_table_with_analytic/division_with_analytic_row_viewmodel.dart';
-import 'package:presale/src/presentation/bloc/v5/design/divisions_with_analytic_calculate_cubit.dart';
+import 'package:presale/src/presentation/bloc/v5/design/divisions_with_analytic_calculate/divisions_with_analytic_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/table/division_resources_table_utils.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';

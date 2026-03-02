@@ -14,8 +14,9 @@ abstract class DesignPresalePojo with _$DesignPresalePojo {
     required String divisionType,
     required String objectType,
     @Default([]) List<DivisionResourcePojo> divisionResources,
-    @Default([]) List<DivisionsMarginPojo> divisionMargins,
+    @Default([]) List<DivisionsMarginPojo> divisionResourceMargins,
     @Default([]) List<DivisionWithAnalyticPojo> divisionsWithAnalytic,
+    @Default([]) List<DivisionsMarginPojo> divisionsAnalyticMargin,
     @Default(false) bool isAllResources,
 }) = _DesignPresalePojo;
 
@@ -96,9 +97,6 @@ abstract class DivisionsMarginPojo with _$DivisionsMarginPojo {
     required String divisionShortName,
     required String divisionDescription,
     required double resourceDivisionSummaryCost,
-    required double overPriceFactor,
-    required double marginFactor,
-    required double clientFactor,
     @Default(0.0) double overPriceValue,
     @Default(0.0) double marginValue,
     @Default(0.0) double clientValue,

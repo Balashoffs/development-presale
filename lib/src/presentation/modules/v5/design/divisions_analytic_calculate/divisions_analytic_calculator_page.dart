@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/service/v6/design/share_presale.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
-import 'package:presale/src/presentation/bloc/v5/design/divisions_with_analytic_calculate_cubit.dart';
+import 'package:presale/src/presentation/bloc/v5/design/divisions_with_analytic_calculate/divisions_with_analytic_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_app_bar.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/custom_circle_loader.dart';
@@ -82,7 +82,7 @@ class DivisionsWithAnalyticCalculateWidget extends StatelessWidget {
               CustomButtonWidget(
                 text: '  Назад  ',
                 onTap: () {
-                  cubit.onBack();
+                  cubit.onSave();
                   context.pop();
                 },
               ),
@@ -106,7 +106,8 @@ class DivisionsWithAnalyticCalculateWidget extends StatelessWidget {
                       CustomButtonWidget(
                         text: ' Вперед ',
                         onTap: value ?() {
-                          cubit.onBack();
+                          cubit.onSave();
+                          cubit.onCalculateAnalyticMargin();
                           context.go(designOfferRoute);
                         } : null,
                       ),

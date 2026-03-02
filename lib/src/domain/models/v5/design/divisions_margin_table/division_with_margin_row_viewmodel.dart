@@ -6,9 +6,6 @@ class DivisionsWithMarginRowVM {
   final String divisionShortName;
   final String divisionDescription;
   final double divisionSummaryCost;
-  double overPriceFactor;
-  double marginFactor;
-  double clientFactor;
 
   double _overPriceValue;
 
@@ -39,6 +36,12 @@ class DivisionsWithMarginRowVM {
 
   double _taxValue;
 
+  double overPriceFactor = 0.0;
+
+  double marginFactor = 0.0;
+
+  double clientFactor = 0.0;
+
   set taxValue(double value) {
     _taxValue = value;
   }
@@ -51,9 +54,6 @@ class DivisionsWithMarginRowVM {
     required this.divisionShortName,
     required this.divisionDescription,
     required this.divisionSummaryCost,
-    required this.overPriceFactor,
-    required this.marginFactor,
-    required this.clientFactor,
     double taxValue = 0.0,
     double marginValue = 1.0,
     double clientValue = 1.0,

@@ -32,6 +32,11 @@ class DivisionCSV {
       resourceCode: row[4],
     );
   }
+
+  @override
+  String toString() {
+    return 'DivisionCSV{id: $id, divisionShortName: $divisionShortName, divisionName: $divisionName, divisionDescription: $divisionDescription, resourceCode: $resourceCode}';
+  }
 }
 
 typedef DivisionCSVParser =
@@ -44,7 +49,7 @@ class DivisionCostDtoBuilder extends CsvParser<DivisionCSV> {
       (rows) => rows.skip(1).map((row) => DivisionCSV.fromCsvRow(row)).toList();
 
   @override
-  Future<List<DivisionCSV>> build() async {
-    return await parse(_parser);
+  Future<List<DivisionCSV>> build(ReadFrom readFrom) async {
+    return await parse(_parser, readFrom);
   }
 }

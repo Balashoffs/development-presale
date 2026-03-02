@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/di/di.dart';
@@ -59,7 +60,6 @@ class DivisionsWithAnalyticRepository {
           analytics[firstElement.divisionShortName]?.median ??
           0.0 * _designPresaleDTO.inputDataDesignDTO!.objectData.square;
       builder.setLocalAnalytic(median);
-
 
       //Calc external analytic cost for division
       builder.setOutsideAnalytic(0.0);
@@ -127,7 +127,6 @@ class DivisionsWithAnalyticRepository {
     if (res != null) {
       res = res.copyWith(manualAnalytic: value, result: result);
       _designPresaleDTO.divisionWithAnalytic[id] = res;
-
     }
 
     return result;
@@ -137,6 +136,35 @@ class DivisionsWithAnalyticRepository {
     _designPresaleDTO!.divisionWithAnalytic.clear();
     for (var value in updated) {
       _designPresaleDTO.divisionWithAnalytic.putIfAbsent(value.id, () => value);
+    }
+  }
+
+  void calculateAnalyticMargin() {
+    _designPresaleDTO?.divisionAnalyticMargins.clear();
+    List<DivisionsMarginDTO>? divisionMargins = _designPresaleDTO
+        ?.divisionWithAnalytic
+        .values
+        .map(
+          (e) => DivisionsMarginDTO(
+            id: e.id,
+            divisionName: e.section,
+            divisionShortName: e.shifr,
+            divisionDescription: e.section,
+            resourceDivisionSummaryCost: e.manualAnalytic,
+          ),
+        )
+        .map((e) {
+          return calcDivisionMarginDTOCost(inputFactorsDTO!, e);
+        })
+        .toList();
+
+    if (divisionMargins != null) {
+      for (var value in divisionMargins) {
+        _designPresaleDTO?.divisionAnalyticMargins.putIfAbsent(
+          value.id,
+          () => value,
+        );
+      }
     }
   }
 }

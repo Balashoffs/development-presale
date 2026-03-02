@@ -13,17 +13,23 @@ class DivisionsMarginRepository {
       _designPresaleDTO?.divisionResources.values.toList() ?? [];
 
   List<DivisionsMarginDTO> get divisionMargins =>
-      _designPresaleDTO?.divisionMargins.values.toList() ?? [];
+      _designPresaleDTO?.divisionResourceMargins.values.toList() ?? [];
 
   InputFactorsDTO? get inputFactorsDTO =>
       _designPresaleDTO?.inputDataDesignDTO?.inputFactors;
 
   void add(DivisionsMarginDTO value) {
-    _designPresaleDTO?.divisionMargins.putIfAbsent(value.id, () => value);
+    _designPresaleDTO?.divisionResourceMargins.putIfAbsent(
+      value.id,
+      () => value,
+    );
   }
 
   void update(DivisionsMarginDTO updated) {
-    _designPresaleDTO?.divisionMargins.update(updated.id, (value) => updated);
+    _designPresaleDTO?.divisionResourceMargins.update(
+      updated.id,
+      (value) => updated,
+    );
   }
 
   List<DivisionsMarginDTO> getDivisionMargins() {
@@ -42,12 +48,13 @@ class DivisionsMarginRepository {
             .reduce((value, element) => value + element);
         DivisionResourceDTO dto = e.first;
         DivisionsMarginDTO margin = calcDivisionMarginDTOCost(
-          dto.toMargin(inputFactorsDTO!, total),
+          inputFactorsDTO!,
+          dto.toMargin(total),
         );
         return margin;
       }).toList();
 
-      final olds = _designPresaleDTO!.divisionMargins;
+      final olds = _designPresaleDTO!.divisionResourceMargins;
       List<DivisionsMarginDTO> news = [];
 
       if (olds.isEmpty) {
@@ -67,7 +74,7 @@ class DivisionsMarginRepository {
                     element.resourceDivisionSummaryCost,
               );
             }
-            old = calcDivisionMarginDTOCost(old);
+            old = calcDivisionMarginDTOCost(inputFactorsDTO!, old);
             news.add(old);
             continue;
           }
@@ -83,7 +90,7 @@ class DivisionsMarginRepository {
   }
 
   void updates(List<DivisionsMarginDTO> divisions) {
-    _designPresaleDTO!.divisionMargins.clear();
+    _designPresaleDTO!.divisionResourceMargins.clear();
     for (var value in divisions) {
       add(value);
     }

@@ -1,10 +1,11 @@
+import 'package:flutter/services.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_csv.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/resource_csv.dart';
 import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
-class ResourceDTO implements Comparable<ResourceDTO>{
+class ResourceDTO implements Comparable<ResourceDTO> {
   final int id;
   final String resourceCode;
   final String resourceName;
@@ -21,13 +22,13 @@ class ResourceDTO implements Comparable<ResourceDTO>{
     this.resourceFactor = 1.0,
   });
 
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is ResourceDTO && runtimeType == other.runtimeType &&
-              resourceCode == other.resourceCode &&
-              resourceName == other.resourceName;
+      other is ResourceDTO &&
+          runtimeType == other.runtimeType &&
+          resourceCode == other.resourceCode &&
+          resourceName == other.resourceName;
 
   @override
   int get hashCode => Object.hash(resourceCode, resourceName);
@@ -70,33 +71,42 @@ class DivisionDTO {
   }
 }
 
-
-
 class ResourcesDTO {
-  static Future<Map<String,DivisionDTO>> build(DivisionType type, DesignClass dc) async {
-    List<ResourceCSV> resourcesFromCsv = await ResourceCostDtoBuilder(dc.resources).build();
-    String divisionPath = type == DivisionType.working ? dc.workDivisions : dc.projectDivisions;
-    List<DivisionCSV> divisionsFromCsv = await DivisionCostDtoBuilder(divisionPath).build();
+  static Future<Map<String, DivisionDTO>> build(
+    DivisionType type,
+    DesignClass dc,
+  ) async {
+    List<ResourceCSV> resourcesFromCsv = await ResourceCostDtoBuilder(
+      dc.resources,
+    ).build((path) => rootBundle.loadString(path));
+    String divisionPath = type == DivisionType.working
+        ? dc.workDivisions
+        : dc.projectDivisions;
+    List<DivisionCSV> divisionsFromCsv = await DivisionCostDtoBuilder(
+      divisionPath,
+    ).build((path) => rootBundle.loadString(path));
     Map<String, List<ResourceDTO>> allResources = {};
-    Map<String,DivisionDTO> divisions = {};
+    Map<String, DivisionDTO> divisions = {};
 
     for (var value in divisionsFromCsv) {
       List<ResourceDTO> resources = resourcesFromCsv
           .where(
-            (element) => element.resourceCode.toUpperCase() == value.resourceCode.toUpperCase(),
+            (element) =>
+                element.resourceCode.toUpperCase() ==
+                value.resourceCode.toUpperCase(),
           )
           .map((e) => e.from())
           .toList();
-      allResources.putIfAbsent(value.divisionShortName, () => [],);
+      allResources.putIfAbsent(value.divisionShortName, () => []);
       allResources[value.divisionShortName]?.addAll(resources);
     }
 
     for (var value in divisionsFromCsv) {
-      if(divisions.containsKey(value.divisionShortName)) continue;
+      if (divisions.containsKey(value.divisionShortName)) continue;
       List<ResourceDTO> resources = allResources[value.divisionShortName] ?? [];
-      if(resources.isNotEmpty){
+      if (resources.isNotEmpty) {
         DivisionDTO newDivision = value.from(resources);
-        divisions.putIfAbsent(newDivision.divisionShortName,() => newDivision,);
+        divisions.putIfAbsent(newDivision.divisionShortName, () => newDivision);
       }
     }
     return divisions;
