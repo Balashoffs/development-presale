@@ -92,7 +92,9 @@ extension DivisionWithAnalyticDtoExt on DivisionsWithAnalyticDTO {
       humanHours: humanHours,
       outsideAnalytic: outsideAnalytic,
       localAnalytic: localAnalytic,
+      manualAnalytic: manualAnalytic,
       result: result
+
     );
   }
 }
@@ -331,6 +333,7 @@ extension DivisionsWithAnalyticPojoExt on DivisionWithAnalyticPojo {
       humanHours: humanHours,
       localAnalytic: localAnalytic,
       outsideAnalytic: outsideAnalytic,
+      manualAnalytic: manualAnalytic,
       result: result,
     );
   }

@@ -15,6 +15,7 @@ _DivisionWithAnalyticPojo _$DivisionWithAnalyticPojoFromJson(
   humanHours: (json['humanHours'] as num).toDouble(),
   localAnalytic: (json['localAnalytic'] as num).toDouble(),
   outsideAnalytic: (json['outsideAnalytic'] as num).toDouble(),
+  manualAnalytic: (json['manualAnalytic'] as num).toDouble(),
   result: (json['result'] as num).toDouble(),
 );
 
@@ -27,5 +28,6 @@ Map<String, dynamic> _$DivisionWithAnalyticPojoToJson(
   'humanHours': instance.humanHours,
   'localAnalytic': instance.localAnalytic,
   'outsideAnalytic': instance.outsideAnalytic,
+  'manualAnalytic': instance.manualAnalytic,
   'result': instance.result,
 };

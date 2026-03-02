@@ -60,11 +60,6 @@ class DivisionsWithAnalyticRepository {
           0.0 * _designPresaleDTO.inputDataDesignDTO!.objectData.square;
       builder.setLocalAnalytic(median);
 
-      print("sum: $sum");
-      print("square: ${_designPresaleDTO.inputDataDesignDTO!.objectData.square}");
-      print("median from file: ${analytics[firstElement.divisionShortName]?.median}");
-      print("median and square: $median");
-
 
       //Calc external analytic cost for division
       builder.setOutsideAnalytic(0.0);
@@ -75,11 +70,14 @@ class DivisionsWithAnalyticRepository {
             .divisionWithAnalytic[firstElement.divisionShortName.hashCode];
         if (analytic?.humanHours.compareTo(sum) == 0) {
           builder.setResult(analytic!.result);
+          builder.setManualAnalytic(analytic.manualAnalytic);
         } else {
           builder.setResult(0.0);
+          builder.setManualAnalytic(0.0);
         }
       } else {
         builder.setResult(0.0);
+        builder.setManualAnalytic(0.0);
       }
 
       DivisionsWithAnalyticDTO built = builder.build();
@@ -123,12 +121,16 @@ class DivisionsWithAnalyticRepository {
     return foundAnalytics;
   }
 
-  void updateDivisionWithAnalytic(int id, double value) {
+  double updateDivisionWithAnalytic(int id, double value) {
+    double result = calcHumaHoursCost(value, inputFactorsDTO!);
     var res = _designPresaleDTO!.divisionWithAnalytic[id];
     if (res != null) {
-      res = res.copyWith(result: value);
+      res = res.copyWith(manualAnalytic: value, result: result);
       _designPresaleDTO.divisionWithAnalytic[id] = res;
+
     }
+
+    return result;
   }
 
   void save(List<DivisionsWithAnalyticDTO> updated) {

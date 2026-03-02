@@ -1,4 +1,6 @@
 
+import 'package:flutter/cupertino.dart';
+
 class DivisionsWithAnalyticRowVM {
   final int id;
   final String shifr;
@@ -6,7 +8,8 @@ class DivisionsWithAnalyticRowVM {
   final double humanHours;
   final double localAnalytic;
   final double outsideAnalytic;
-  double result;
+  double manualAnalytic;
+  final ValueNotifier<double> resultVN;
 
   DivisionsWithAnalyticRowVM({
     required this.id,
@@ -15,6 +18,7 @@ class DivisionsWithAnalyticRowVM {
     required this.humanHours,
     required this.outsideAnalytic,
     required this.localAnalytic,
-    this.result = 0.0
-  });
+    required this.manualAnalytic,
+    required double result,
+  }):resultVN = ValueNotifier(result);
 }

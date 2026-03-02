@@ -33,9 +33,10 @@ class DivisionsWithAnalyticCalculateCubit
     emit(DivisionsWithAnalyticCalculateState(stateEnum: StateEnum.showing));
   }
 
-  void onResult(int id, double value) async {
-    _divisionsViewController.onResult(id, value);
-    _repository.updateDivisionWithAnalytic(id, value);
+  void onManualAnalytic(int id, double value) async {
+    double result = _repository.updateDivisionWithAnalytic(id, value);
+    _divisionsViewController.onManualAnalytic(id, value, result);
+
   }
 
   void onBack() {
@@ -46,7 +47,8 @@ class DivisionsWithAnalyticCalculateCubit
             humanHours: e.humanHours,
             localAnalytic: e.localAnalytic,
             outsideAnalytic: e.outsideAnalytic,
-            result: e.result),).toList();
+            manualAnalytic: e.manualAnalytic,
+            result: e.resultVN.value),).toList();
     _repository.save(forSave);
   }
 }

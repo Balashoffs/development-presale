@@ -12,6 +12,7 @@ abstract class DivisionWithAnalyticPojo with _$DivisionWithAnalyticPojo {
     required double humanHours,
     required double localAnalytic,
     required double outsideAnalytic,
+    required double manualAnalytic,
     required double result,
 }) = _DivisionWithAnalyticPojo;
 

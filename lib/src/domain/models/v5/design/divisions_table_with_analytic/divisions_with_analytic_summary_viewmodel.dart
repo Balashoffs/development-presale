@@ -6,13 +6,12 @@ import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extensio
 class DivisionsWithAnalyticViewController {
   final List<DivisionsWithAnalyticRowVM> rows = [];
   final ValueNotifier<double> divisionSummaryVN = ValueNotifier(0.0);
+  final ValueNotifier<bool> isValid = ValueNotifier(false);
 
   DivisionsWithAnalyticRowVM? getById(int id) =>
       rows
           .where((element) => element.id == id)
           .firstOrNull;
-
-  final ValueNotifier<bool> isValid = ValueNotifier(false);
 
   void fill(List<DivisionsWithAnalyticDTO> divisions) {
     for (var division in divisions) {
@@ -24,10 +23,11 @@ class DivisionsWithAnalyticViewController {
     _allowNext();
   }
 
-  void onResult(int id, double value) {
+  void onManualAnalytic(int id, double manualAnalytic, double result) {
     DivisionsWithAnalyticRowVM? found = getById(id);
     if (found != null) {
-      found.result = value;
+      found.manualAnalytic = manualAnalytic;
+      found.resultVN.value = result;
     }
     _calcTotal();
     _allowNext();
@@ -35,13 +35,14 @@ class DivisionsWithAnalyticViewController {
 
   void _calcTotal() {
     divisionSummaryVN.value = rows
-        .map((e) => e.result)
+        .map((e) => e.resultVN.value)
         .reduce((value, element) => value + element);
   }
 
   void _allowNext() {
     bool isAllow = rows
-        .where((element) => element.result.compareTo(0.0) == 0,).isEmpty;
-    isValid.value = isAllow;
+        .where((element) => element.manualAnalytic.compareTo(0.0) == 0,).isEmpty;
+    bool isNotZero = rows.where((e) => e.manualAnalytic.compareTo(0.0) > 0,).isNotEmpty;
+    isValid.value = isAllow && isNotZero;
   }
 }

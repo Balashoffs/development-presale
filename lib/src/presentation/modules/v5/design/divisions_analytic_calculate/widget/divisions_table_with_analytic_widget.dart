@@ -97,11 +97,15 @@ class _DivisionsTableWithAnalyticWidgetState
               key: Key(row.id.toString()),
               width: 100,
               onChanged: (context, value) async {
-                cubit.onResult(row.id, value);
+                cubit.onManualAnalytic(row.id, value);
                 setState(() {});
               },
-              defaultValue: row.result,
+              defaultValue: row.manualAnalytic,
             ),
+          ),
+          CellDecorationWidget(
+            key: Key('result_$index'),
+            child: TextWithNotifier(vn: row.resultVN),
           ),
         ],
       );
@@ -109,10 +113,12 @@ class _DivisionsTableWithAnalyticWidgetState
   }
 
   MoonTableFooter _generateTableFooter() {
-    final controller = context.read<DivisionsWithAnalyticCalculateCubit>().controller;
+    final controller = context
+        .read<DivisionsWithAnalyticCalculateCubit>()
+        .controller;
     return MoonTableFooter(
       cells: List.generate(widget.rowAttributes.length, (int index) {
-        if (widget.rowAttributes.length -1 == index) {
+        if (widget.rowAttributes.length - 1 == index) {
           return CellDecorationWidget(
             key: Key('clear_cost'),
             child: TextWithNotifier(vn: controller.divisionSummaryVN),

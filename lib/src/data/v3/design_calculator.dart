@@ -67,12 +67,6 @@ double calcHumaHoursCost(
 
   double total = totalResourceRowCost + overPrice + marginValue + customerValue;
   double fullCost = total * Russian_Tax_Factor;
-  print(totalResourceRowCost);
-  print(overPrice);
-  print(marginValue);
-  print(customerValue);
-  print(total);
-  print(fullCost);
 
   return fullCost;
 }

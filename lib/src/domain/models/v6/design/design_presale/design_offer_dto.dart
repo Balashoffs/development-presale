@@ -202,6 +202,7 @@ class DivisionsWithAnalyticDTO {
   final double humanHours;
   final double localAnalytic;
   final double outsideAnalytic;
+  final double manualAnalytic;
   final double result;
 
   DivisionsWithAnalyticDTO({
@@ -211,6 +212,7 @@ class DivisionsWithAnalyticDTO {
     required this.humanHours,
     required this.localAnalytic,
     required this.outsideAnalytic,
+    required this.manualAnalytic,
     required this.result,
   });
 
@@ -221,6 +223,7 @@ class DivisionsWithAnalyticDTO {
     double? humanHours,
     double? localAnalytic,
     double? outsideAnalytic,
+    double? manualAnalytic,
     double? result,
   }) {
     return DivisionsWithAnalyticDTO(
@@ -230,6 +233,7 @@ class DivisionsWithAnalyticDTO {
       humanHours: humanHours ?? this.humanHours,
       localAnalytic: localAnalytic ?? this.localAnalytic,
       outsideAnalytic: outsideAnalytic ?? this.outsideAnalytic,
+      manualAnalytic: manualAnalytic ?? this.manualAnalytic,
       result: result ?? this.result,
     );
   }
@@ -245,6 +249,7 @@ class DivisionsWithAnalyticDTOBuilder {
   double? _humanHours;
   double? _localAnalytic;
   double? _outsideAnalytic;
+  double? _manualAnalytic;
   double? _result;
 
   DivisionsWithAnalyticDTOBuilder({
@@ -268,6 +273,11 @@ class DivisionsWithAnalyticDTOBuilder {
     return this;
   }
 
+  DivisionsWithAnalyticDTOBuilder setManualAnalytic(double value) {
+    _manualAnalytic = value;
+    return this;
+  }
+
   DivisionsWithAnalyticDTOBuilder setResult(double value) {
     _result = value;
     return this;
@@ -280,6 +290,10 @@ class DivisionsWithAnalyticDTOBuilder {
       _outsideAnalytic != null,
       'outsideAnalytic must be set before building',
     );
+    assert(
+    _manualAnalytic != null,
+    'manualAnalytic must be set before building',
+    );
     assert(_result != null, 'result must be set before building');
 
     return DivisionsWithAnalyticDTO(
@@ -289,6 +303,7 @@ class DivisionsWithAnalyticDTOBuilder {
       humanHours: _humanHours!,
       localAnalytic: _localAnalytic!,
       outsideAnalytic: _outsideAnalytic!,
+      manualAnalytic: _manualAnalytic!,
       result: _result!,
     );
   }

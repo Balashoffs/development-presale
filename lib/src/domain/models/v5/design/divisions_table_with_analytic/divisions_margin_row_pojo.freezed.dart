@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DivisionWithAnalyticPojo {
 
- int get id; String get shifr; String get section; double get humanHours; double get localAnalytic; double get outsideAnalytic; double get result;
+ int get id; String get shifr; String get section; double get humanHours; double get localAnalytic; double get outsideAnalytic; double get manualAnalytic; double get result;
 /// Create a copy of DivisionWithAnalyticPojo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $DivisionWithAnalyticPojoCopyWith<DivisionWithAnalyticPojo> get copyWith => _$Di
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DivisionWithAnalyticPojo&&(identical(other.id, id) || other.id == id)&&(identical(other.shifr, shifr) || other.shifr == shifr)&&(identical(other.section, section) || other.section == section)&&(identical(other.humanHours, humanHours) || other.humanHours == humanHours)&&(identical(other.localAnalytic, localAnalytic) || other.localAnalytic == localAnalytic)&&(identical(other.outsideAnalytic, outsideAnalytic) || other.outsideAnalytic == outsideAnalytic)&&(identical(other.result, result) || other.result == result));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DivisionWithAnalyticPojo&&(identical(other.id, id) || other.id == id)&&(identical(other.shifr, shifr) || other.shifr == shifr)&&(identical(other.section, section) || other.section == section)&&(identical(other.humanHours, humanHours) || other.humanHours == humanHours)&&(identical(other.localAnalytic, localAnalytic) || other.localAnalytic == localAnalytic)&&(identical(other.outsideAnalytic, outsideAnalytic) || other.outsideAnalytic == outsideAnalytic)&&(identical(other.manualAnalytic, manualAnalytic) || other.manualAnalytic == manualAnalytic)&&(identical(other.result, result) || other.result == result));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,shifr,section,humanHours,localAnalytic,outsideAnalytic,result);
+int get hashCode => Object.hash(runtimeType,id,shifr,section,humanHours,localAnalytic,outsideAnalytic,manualAnalytic,result);
 
 @override
 String toString() {
-  return 'DivisionWithAnalyticPojo(id: $id, shifr: $shifr, section: $section, humanHours: $humanHours, localAnalytic: $localAnalytic, outsideAnalytic: $outsideAnalytic, result: $result)';
+  return 'DivisionWithAnalyticPojo(id: $id, shifr: $shifr, section: $section, humanHours: $humanHours, localAnalytic: $localAnalytic, outsideAnalytic: $outsideAnalytic, manualAnalytic: $manualAnalytic, result: $result)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $DivisionWithAnalyticPojoCopyWith<$Res>  {
   factory $DivisionWithAnalyticPojoCopyWith(DivisionWithAnalyticPojo value, $Res Function(DivisionWithAnalyticPojo) _then) = _$DivisionWithAnalyticPojoCopyWithImpl;
 @useResult
 $Res call({
- int id, String shifr, String section, double humanHours, double localAnalytic, double outsideAnalytic, double result
+ int id, String shifr, String section, double humanHours, double localAnalytic, double outsideAnalytic, double manualAnalytic, double result
 });
 
 
@@ -65,7 +65,7 @@ class _$DivisionWithAnalyticPojoCopyWithImpl<$Res>
 
 /// Create a copy of DivisionWithAnalyticPojo
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? shifr = null,Object? section = null,Object? humanHours = null,Object? localAnalytic = null,Object? outsideAnalytic = null,Object? result = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? shifr = null,Object? section = null,Object? humanHours = null,Object? localAnalytic = null,Object? outsideAnalytic = null,Object? manualAnalytic = null,Object? result = null,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,shifr: null == shifr ? _self.shifr : shifr // ignore: cast_nullable_to_non_nullable
@@ -73,6 +73,7 @@ as String,section: null == section ? _self.section : section // ignore: cast_nul
 as String,humanHours: null == humanHours ? _self.humanHours : humanHours // ignore: cast_nullable_to_non_nullable
 as double,localAnalytic: null == localAnalytic ? _self.localAnalytic : localAnalytic // ignore: cast_nullable_to_non_nullable
 as double,outsideAnalytic: null == outsideAnalytic ? _self.outsideAnalytic : outsideAnalytic // ignore: cast_nullable_to_non_nullable
+as double,manualAnalytic: null == manualAnalytic ? _self.manualAnalytic : manualAnalytic // ignore: cast_nullable_to_non_nullable
 as double,result: null == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
 as double,
   ));
@@ -159,10 +160,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String shifr,  String section,  double humanHours,  double localAnalytic,  double outsideAnalytic,  double result)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String shifr,  String section,  double humanHours,  double localAnalytic,  double outsideAnalytic,  double manualAnalytic,  double result)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _DivisionWithAnalyticPojo() when $default != null:
-return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localAnalytic,_that.outsideAnalytic,_that.result);case _:
+return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localAnalytic,_that.outsideAnalytic,_that.manualAnalytic,_that.result);case _:
   return orElse();
 
 }
@@ -180,10 +181,10 @@ return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localA
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String shifr,  String section,  double humanHours,  double localAnalytic,  double outsideAnalytic,  double result)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String shifr,  String section,  double humanHours,  double localAnalytic,  double outsideAnalytic,  double manualAnalytic,  double result)  $default,) {final _that = this;
 switch (_that) {
 case _DivisionWithAnalyticPojo():
-return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localAnalytic,_that.outsideAnalytic,_that.result);case _:
+return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localAnalytic,_that.outsideAnalytic,_that.manualAnalytic,_that.result);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +201,10 @@ return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localA
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String shifr,  String section,  double humanHours,  double localAnalytic,  double outsideAnalytic,  double result)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String shifr,  String section,  double humanHours,  double localAnalytic,  double outsideAnalytic,  double manualAnalytic,  double result)?  $default,) {final _that = this;
 switch (_that) {
 case _DivisionWithAnalyticPojo() when $default != null:
-return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localAnalytic,_that.outsideAnalytic,_that.result);case _:
+return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localAnalytic,_that.outsideAnalytic,_that.manualAnalytic,_that.result);case _:
   return null;
 
 }
@@ -215,7 +216,7 @@ return $default(_that.id,_that.shifr,_that.section,_that.humanHours,_that.localA
 @JsonSerializable()
 
 class _DivisionWithAnalyticPojo implements DivisionWithAnalyticPojo {
-  const _DivisionWithAnalyticPojo({required this.id, required this.shifr, required this.section, required this.humanHours, required this.localAnalytic, required this.outsideAnalytic, required this.result});
+  const _DivisionWithAnalyticPojo({required this.id, required this.shifr, required this.section, required this.humanHours, required this.localAnalytic, required this.outsideAnalytic, required this.manualAnalytic, required this.result});
   factory _DivisionWithAnalyticPojo.fromJson(Map<String, dynamic> json) => _$DivisionWithAnalyticPojoFromJson(json);
 
 @override final  int id;
@@ -224,6 +225,7 @@ class _DivisionWithAnalyticPojo implements DivisionWithAnalyticPojo {
 @override final  double humanHours;
 @override final  double localAnalytic;
 @override final  double outsideAnalytic;
+@override final  double manualAnalytic;
 @override final  double result;
 
 /// Create a copy of DivisionWithAnalyticPojo
@@ -239,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DivisionWithAnalyticPojo&&(identical(other.id, id) || other.id == id)&&(identical(other.shifr, shifr) || other.shifr == shifr)&&(identical(other.section, section) || other.section == section)&&(identical(other.humanHours, humanHours) || other.humanHours == humanHours)&&(identical(other.localAnalytic, localAnalytic) || other.localAnalytic == localAnalytic)&&(identical(other.outsideAnalytic, outsideAnalytic) || other.outsideAnalytic == outsideAnalytic)&&(identical(other.result, result) || other.result == result));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DivisionWithAnalyticPojo&&(identical(other.id, id) || other.id == id)&&(identical(other.shifr, shifr) || other.shifr == shifr)&&(identical(other.section, section) || other.section == section)&&(identical(other.humanHours, humanHours) || other.humanHours == humanHours)&&(identical(other.localAnalytic, localAnalytic) || other.localAnalytic == localAnalytic)&&(identical(other.outsideAnalytic, outsideAnalytic) || other.outsideAnalytic == outsideAnalytic)&&(identical(other.manualAnalytic, manualAnalytic) || other.manualAnalytic == manualAnalytic)&&(identical(other.result, result) || other.result == result));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,shifr,section,humanHours,localAnalytic,outsideAnalytic,result);
+int get hashCode => Object.hash(runtimeType,id,shifr,section,humanHours,localAnalytic,outsideAnalytic,manualAnalytic,result);
 
 @override
 String toString() {
-  return 'DivisionWithAnalyticPojo(id: $id, shifr: $shifr, section: $section, humanHours: $humanHours, localAnalytic: $localAnalytic, outsideAnalytic: $outsideAnalytic, result: $result)';
+  return 'DivisionWithAnalyticPojo(id: $id, shifr: $shifr, section: $section, humanHours: $humanHours, localAnalytic: $localAnalytic, outsideAnalytic: $outsideAnalytic, manualAnalytic: $manualAnalytic, result: $result)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$DivisionWithAnalyticPojoCopyWith<$Res> implements $Divisi
   factory _$DivisionWithAnalyticPojoCopyWith(_DivisionWithAnalyticPojo value, $Res Function(_DivisionWithAnalyticPojo) _then) = __$DivisionWithAnalyticPojoCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String shifr, String section, double humanHours, double localAnalytic, double outsideAnalytic, double result
+ int id, String shifr, String section, double humanHours, double localAnalytic, double outsideAnalytic, double manualAnalytic, double result
 });
 
 
@@ -276,7 +278,7 @@ class __$DivisionWithAnalyticPojoCopyWithImpl<$Res>
 
 /// Create a copy of DivisionWithAnalyticPojo
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? shifr = null,Object? section = null,Object? humanHours = null,Object? localAnalytic = null,Object? outsideAnalytic = null,Object? result = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? shifr = null,Object? section = null,Object? humanHours = null,Object? localAnalytic = null,Object? outsideAnalytic = null,Object? manualAnalytic = null,Object? result = null,}) {
   return _then(_DivisionWithAnalyticPojo(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,shifr: null == shifr ? _self.shifr : shifr // ignore: cast_nullable_to_non_nullable
@@ -284,6 +286,7 @@ as String,section: null == section ? _self.section : section // ignore: cast_nul
 as String,humanHours: null == humanHours ? _self.humanHours : humanHours // ignore: cast_nullable_to_non_nullable
 as double,localAnalytic: null == localAnalytic ? _self.localAnalytic : localAnalytic // ignore: cast_nullable_to_non_nullable
 as double,outsideAnalytic: null == outsideAnalytic ? _self.outsideAnalytic : outsideAnalytic // ignore: cast_nullable_to_non_nullable
+as double,manualAnalytic: null == manualAnalytic ? _self.manualAnalytic : manualAnalytic // ignore: cast_nullable_to_non_nullable
 as double,result: null == result ? _self.result : result // ignore: cast_nullable_to_non_nullable
 as double,
   ));

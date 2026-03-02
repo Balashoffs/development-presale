@@ -113,26 +113,32 @@ final List<CollumAttribute> divisionTableWithAnalyticAttributes = [
   CollumAttribute(
     pos: 4,
     name: 'Ресурсный',
-    width: 196.0,
+    width: 180.0,
     tooltip: 'Стоимость на основе задейстованных людей и времени',
   ),
   CollumAttribute(
     pos: 5,
     name: 'Аналитический',
-    width: 196.0,
+    width: 180.0,
     tooltip: 'Стоимость на основе стоимости 1 кв.м ',
   ),
   CollumAttribute(
     pos: 6,
     name: 'Рыночный',
-    width: 196.0,
+    width: 180.0,
     tooltip: 'Стоимость  по рынку за 1 кв.м',
   ),
   CollumAttribute(
     pos: 7,
-    name: 'Итоговая стоимость',
-    width: 196.0,
+    name: 'Ручной',
+    width: 180.0,
     tooltip: 'Ручной ввод стоимости',
+  ),
+  CollumAttribute(
+    pos: 7,
+    name: 'Итоговая стоимость',
+    width: 180.0,
+    tooltip: 'Итоговая стоимость раздела с учетом расходов и дохода',
   ),
 ];
 
