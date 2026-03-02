@@ -6,7 +6,7 @@ import 'package:presale/src/utils/dart_define/model/design_class/design_class.da
 
 DartDefineModel buildFrom() {
   String type = const String.fromEnvironment('type');
-  final source = const String.fromEnvironment('design');
+  String source = const String.fromEnvironment('source');
   final ui = const String.fromEnvironment('ui');
   final password = const String.fromEnvironment('email');
   final appName = const String.fromEnvironment('appName');
@@ -29,6 +29,7 @@ DartDefineModel buildFrom() {
 
   final ya = const String.fromEnvironment('ya');
   final tg = const String.fromEnvironment('tg');
+  source = utf8.decode(base64Decode(source));
   final map = json.decode(source);
   DesignClass design = DesignClass.fromJson(map);
   return DartDefineModel(

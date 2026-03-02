@@ -303,7 +303,7 @@ double onChangeFactorValue(String? newValue) {
       ? 0.0
       : newValue.isEmpty
       ? 0.0
-      : double.parse(newValue);
+      : double.tryParse(newValue) ?? 0.0;
 }
 
 int onChangeIntValue(String? newValue) {
@@ -311,5 +311,5 @@ int onChangeIntValue(String? newValue) {
       ? 0
       : newValue.isEmpty
       ? 0
-      : int.parse(newValue);
+      : int.tryParse(newValue) ?? 0;
 }

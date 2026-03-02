@@ -178,6 +178,9 @@ class ResourcesWithUnselectedViewController {
       found.resourceQnt = value;
       _calcResourceTotal(found);
     }
+    if(value == 0){
+      isValid.value = false;
+    }
     return found;
   }
 
@@ -186,6 +189,9 @@ class ResourcesWithUnselectedViewController {
     if (found != null) {
       found.workDays = value;
       _calcResourceTotal(found);
+    }
+    if(value == 0){
+      isValid.value = false;
     }
     return found;
   }
@@ -196,6 +202,9 @@ class ResourcesWithUnselectedViewController {
       found.complexFactor = value;
       _calcResourceTotal(found);
     }
+    if(value.compareTo(0.0) == 0){
+      isValid.value = false;
+    }
     return found;
   }
 
@@ -204,6 +213,9 @@ class ResourcesWithUnselectedViewController {
     if (found != null) {
       found.squareFactor = value;
       _calcResourceTotal(found);
+    }
+    if(value.compareTo(0.0) == 0){
+      isValid.value = false;
     }
     return found;
   }
@@ -216,6 +228,9 @@ class ResourcesWithUnselectedViewController {
     if (found != null) {
       found.resourceUsingFactor = value;
       _calcResourceTotal(found);
+    }
+    if(value.compareTo(0.0) == 0){
+      isValid.value = false;
     }
     return found;
   }

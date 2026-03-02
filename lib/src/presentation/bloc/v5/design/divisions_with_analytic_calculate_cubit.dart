@@ -26,7 +26,7 @@ class DivisionsWithAnalyticCalculateCubit
   }
 
   void _init() async {
-    List<DivisionsWithAnalyticDTO> divisions = _repository
+    List<DivisionsWithAnalyticDTO> divisions = await _repository
         .getDivisionsWithAnalytic();
     _divisionsViewController.fill(divisions);
 

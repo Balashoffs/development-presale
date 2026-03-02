@@ -1,9 +1,6 @@
 import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 
-import 'package:presale/src/data/helpers/csv_eol_helper/desktop_csv_eol_helper.dart'
-if (dart.library.html) 'package:presale/src/data/helpers/csv_eol_helper/web_csv_eol_helper.dart' as helper;
-
 abstract class CsvParser<T> {
   final String _pathToFile;
 
@@ -14,13 +11,13 @@ abstract class CsvParser<T> {
   }
 
   Future<List<T>> parse(List<T> Function(List<List<dynamic>>) rowParse) async {
-
     String csv = await _readFromAssets();
+    final normalizedContent = csv.replaceAll('\r\n', '\n').replaceAll('\r', '\n');
     List<List<dynamic>> csvData = CsvToListConverter(
-      eol: helper.eol,
+      eol: '\n',
       fieldDelimiter: ';',
       shouldParseNumbers: false,
-    ).convert(csv);
+    ).convert(normalizedContent);
     return rowParse(csvData);
   }
 

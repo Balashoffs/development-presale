@@ -181,7 +181,7 @@ class LoadedWidget extends StatelessWidget {
                             ),
                             TextWithRowHint(
                               leading: Icons.square_outlined,
-                              hintText: 'Площадь объекта, м2*',
+                              hintText: 'Площадь объекта, м\u00B2*',
                               textWidget: CustomTextInput(
                                 width: 128,
                                 onChanged: cubit.setSquare,

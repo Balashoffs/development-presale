@@ -5,6 +5,7 @@ import 'package:presale/src/presentation/modules/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// const loginRoutePath = "/service-type-select/offer-preview/design-input";
 const loginRoutePath = "/login";
 
 class LoginRoute extends NoAuthNeedRoute {

@@ -1,0 +1,59 @@
+//Stage;Function;Mark;TDS;COUNT;MIN;MEDIAN;MAX
+import 'package:presale/src/domain/models/v7/design/local_analytic/local_analytic_csv.dart';
+import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
+
+class LocalAnalyticDTO {
+  final String stage;
+  final String function;
+  final String shifr;
+  final double median;
+
+  const LocalAnalyticDTO({
+    required this.stage,
+    required this.function,
+    required this.shifr,
+    required this.median,
+  });
+
+  LocalAnalyticDTO copyWith({
+    String? stage,
+    String? function,
+    String? shifr,
+    double? median,
+  }) {
+    return LocalAnalyticDTO(
+      stage: stage ?? this.stage,
+      function: function ?? this.function,
+      shifr: shifr ?? this.shifr,
+      median: median ?? this.median,
+    );
+  }
+}
+
+class LocalAnalyticsDTO {
+  static Future<List<LocalAnalyticDTO>> build(DesignClass dc) async {
+    List<LocalAnalyticCSV> resourcesFromCsv = await LocalAnalyticCsvBuilder(
+      dc.localAnalytic,
+    ).build();
+    Map<String, List<LocalAnalyticDTO>> allResources = {};
+    RegExp regExp = RegExp("([а-яА-Я]{1,})\\d{0,}");
+    for (var value in resourcesFromCsv) {
+      String shifr = regExp.firstMatch(value.tds)?.group(1) ?? "";
+      LocalAnalyticDTO dto = LocalAnalyticDTO(
+        stage: value.stage,
+        function: value.function,
+        shifr: shifr,
+        median: double.tryParse(value.median) ?? 0.0,
+      );
+
+      allResources.putIfAbsent(shifr, () => []);
+      allResources[dto.shifr]!.add(dto);
+    }
+
+    return allResources.values.map((e) {
+      double sum = e.map((v) => v.median).reduce((r1, r2) => r1 + r2);
+
+      return e.first.copyWith(median: sum);
+    }).toList();
+  }
+}

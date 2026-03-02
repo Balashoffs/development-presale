@@ -14,8 +14,9 @@ abstract class DesignClass with _$DesignClass {
   const factory DesignClass({
     @JsonKey(name: 'job_divisions') required String workDivisions,
     @JsonKey(name: 'project_divisions') required String projectDivisions,
-    String? sign,
     required String resources,
+    @JsonKey(name: 'local_analytic')required String localAnalytic,
+    @JsonKey(name: 'external_analytic')required String externalAnalytic,
   }) = _DesignClass;
 
 
