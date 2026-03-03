@@ -64,9 +64,8 @@ double calcHumaHoursCost(double totalResourceRowCost,
           totalResourceRowCost;
 
   double total = totalResourceRowCost + overPrice + marginValue + customerValue;
-  double fullCost = total * Russian_Tax_Factor;
 
-  return fullCost;
+  return total;
 }
 
 
