@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_resource_row_viewmodel.dart';
-import 'package:presale/src/domain/service/v6/design/share_presale.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/division_resource_calculator/division_resource_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';

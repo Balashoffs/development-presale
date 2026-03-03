@@ -6,7 +6,6 @@ import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
 import 'package:presale/src/utils/dart_define/model/dart_define_model.dart';
-import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 class DivisionRepository {
   final DesignOfferMemorySource _memorySource;

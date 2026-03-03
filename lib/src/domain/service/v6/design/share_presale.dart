@@ -1,6 +1,4 @@
 import 'package:date_format/date_format.dart';
-import 'package:presale/src/data/v3/design_calculator.dart';
-
 import 'package:presale/src/domain/models/common/metadata_for_saving.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_pojo.dart';

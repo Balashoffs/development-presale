@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/object_type.dart';
