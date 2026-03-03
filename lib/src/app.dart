@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_fullscreen/flutter_fullscreen.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:flutter/foundation.dart';
@@ -18,7 +17,6 @@ abstract class App extends StatelessWidget {
 
   Future<void> _init() async {
     _ensureWidgetsInitialized();
-    await FullScreen.ensureInitialized();
     await _initAppComponents();
   }
 
@@ -54,7 +52,7 @@ class ServiceCalcApp extends App {
           GlobalMaterialLocalizations.delegate
         ],
         supportedLocales: [
-          const Locale('ru'),
+          const Locale('en'),
         ],
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(

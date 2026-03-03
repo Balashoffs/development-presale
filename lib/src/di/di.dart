@@ -1,5 +1,3 @@
-import 'package:dart_seq/dart_seq.dart';
-import 'package:dart_seq_http_client/dart_seq_http_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
@@ -47,14 +45,6 @@ class DependencyInjector {
   void _initBuildConfig() {
     DartDefineModel dartDefineModel = buildFrom();
     _getItInstance.registerSingleton<DartDefineModel>(dartDefineModel);
-  }
-
-  Future<void> _initSegClient() async {
-    SeqLogger logger = SeqHttpLogger.create(
-      host: 'http://localhost:5341',
-      globalContext: {'App': 'PresaleCalc'},
-    );
-    _getItInstance.registerSingleton<SeqLogger>(logger);
   }
 
   void _registerRouter() {
@@ -107,8 +97,6 @@ class DependencyInjector {
   AuthCubit get authCubit => _getItInstance<AuthCubit>();
 
   UserRepository get userRepository => _getItInstance<UserRepository>();
-
-  SeqLogger get segLogger => _getItInstance<SeqLogger>();
 
   DBClient get dbClientImpl => _getItInstance<DBClient>();
   DesignOfferMemorySource get inMemoryImpl => _getItInstance<DesignOfferMemorySource>();
