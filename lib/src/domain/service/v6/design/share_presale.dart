@@ -13,7 +13,7 @@ import 'package:presale/src/data/helpers/file_saver_helper/save_file_mobile.dart
     if (dart.library.html) 'package:presale/src/data/helpers/file_saver_helper/save_file_web.dart';
 import 'package:presale/src/utils/dart_define/model/dart_define_model.dart';
 
-void onShare(DesignPresaleDTO designData, DartDefineModel defineModel) async {
+void share(DesignPresaleDTO designData, DartDefineModel defineModel) async {
   DesignPresalePojo designPresalePojo = designData.toPojo();
   int key = stringToInt(defineModel.user);
   EncryptShareDesignOfferService service = EncryptShareDesignOfferService(key);
@@ -31,7 +31,7 @@ void onShare(DesignPresaleDTO designData, DartDefineModel defineModel) async {
           String end = formatDate(DateTime.now(), ['HH', '-', 'nn', '-', 'ss']);
           MetadataForSaving metaData = MetadataForSaving.saveAsPresaleFile(
             r,
-            '${id}_$end',
+            '${id}_$end.presale',
           );
           saveAndLaunchFile(metaData);
         }),

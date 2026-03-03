@@ -195,9 +195,11 @@ extension DivisionResultDtoExt on RowDivisionResultDTO {
 extension InputDataDesignDtoExt on InputDataDesignDTO {
   InputDataViewModel toVM() {
     return InputDataViewModel(
+      customer: objectData.customer,
       name: objectData.name,
       address: objectData.address,
-      type: divisionType.text,
+      docType: divisionType.text,
+      objectType: objectType.text,
       square: objectData.square,
       deadline: objectData.deadline,
       marginFactor: inputFactors.marginFactor,

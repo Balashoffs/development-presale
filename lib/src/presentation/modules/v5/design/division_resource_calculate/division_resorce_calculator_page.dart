@@ -144,14 +144,7 @@ class DivisionResourceCalculateWidget extends StatelessWidget {
                         CustomButtonWidget(
                           text: 'Поделиться',
                           onTap: value == true
-                              ? () {
-                                  final designData =
-                                      di.inMemoryImpl.designPresaleDTO;
-                                  final defineModel = di.dartDefineModel;
-                                  if (designData != null) {
-                                    onShare(designData, defineModel);
-                                  }
-                                }
+                              ? cubit.onShare
                               : null,
                         ),
                         CustomButtonWidget(

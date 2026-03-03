@@ -1,17 +1,20 @@
-import 'package:collection/collection.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v7/design/local_analytic/local_analytic_dto.dart';
+import 'package:presale/src/utils/dart_define/model/dart_define_model.dart';
 import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 class DivisionsWithAnalyticRepository {
   final DesignPresaleDTO? _designPresaleDTO;
-  final DesignClass _dc;
+
+  DesignPresaleDTO? get designPresaleDTO => _designPresaleDTO;
+  final DartDefineModel _dartDefineModel;
+  DartDefineModel get dartDefineModel => _dartDefineModel;
 
   DivisionsWithAnalyticRepository(DependencyInjector di)
     : _designPresaleDTO = di.inMemoryImpl.designPresaleDTO,
-      _dc = di.dartDefineModel.design;
+        _dartDefineModel = di.dartDefineModel;
 
   List<DivisionResourceDTO> get divisionResources =>
       _designPresaleDTO?.divisionResources.values.toList() ?? [];
@@ -25,7 +28,7 @@ class DivisionsWithAnalyticRepository {
   Future<List<DivisionsWithAnalyticDTO>> getDivisionsWithAnalytic() async {
     Map<String, LocalAnalyticDTO> analytics = await _findAtLocalAnalytics(
       _designPresaleDTO!,
-      _dc,
+      _dartDefineModel.design,
     );
 
     Map<int, List<DivisionResourceDTO>> founds = {};

@@ -4,6 +4,7 @@ import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_table_with_analytic/divisions_with_analytic_summary_viewmodel.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/repository/v5/design/divsions_with_analytic_repository.dart';
+import 'package:presale/src/domain/service/v6/design/share_presale.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 
 part 'divisions_with_analytic_calculate_state.dart';
@@ -54,6 +55,14 @@ class DivisionsWithAnalyticCalculateCubit
         )
         .toList();
     _repository.save(forSave);
+  }
+
+  void onShare(){
+    final designData = _repository.designPresaleDTO;
+    final defineModel = _repository.dartDefineModel;
+    if (designData != null) {
+      share(designData, defineModel);
+    }
   }
 
   void onCalculateAnalyticMargin() {

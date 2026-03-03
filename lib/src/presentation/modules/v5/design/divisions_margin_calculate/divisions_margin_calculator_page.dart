@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:presale/src/di/di.dart';
-import 'package:presale/src/domain/service/v6/design/share_presale.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/divisions_margin_calculator/divisions_margin_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
@@ -46,8 +45,8 @@ class DivisionsMarginCalculateConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<
-      DivisionsMarginCalculateCubit,
-      DivisionsMarginCalculateState
+        DivisionsMarginCalculateCubit,
+        DivisionsMarginCalculateState
     >(
       builder: (context, state) {
         if (state.stateEnum == StateEnum.loading) {
@@ -64,15 +63,16 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var cubit = context
+        .read<DivisionsMarginCalculateCubit>();
     return Column(
       children: [
         Expanded(
           flex: 9,
           child: DivisionsMarginTableWidget(
             rowAttributes: divisionMarginTableAttributes,
-            tableDataRows: context
-                .read<DivisionsMarginCalculateCubit>()
-                .controller
+            tableDataRows:
+            cubit.controller
                 .rows,
           ),
         ),
@@ -84,14 +84,8 @@ class DivisionsMarginCalculateWidget extends StatelessWidget {
             children: [
               CustomButtonWidget(text: '  Назад  ', onTap: context.pop),
               CustomButtonWidget(
-                  text: 'Поделиться',
-                onTap: () {
-                  final designData = di.inMemoryImpl.designPresaleDTO;
-                  final defineModel = di.dartDefineModel;
-                  if (designData != null) {
-                    onShare(designData, defineModel);
-                  }
-                },
+                text: 'Поделиться',
+                onTap: cubit.share,
               ),
               CustomButtonWidget(
                 text: ' Вперед ',

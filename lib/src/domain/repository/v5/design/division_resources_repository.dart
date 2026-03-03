@@ -1,24 +1,30 @@
-import 'package:presale/src/data/v3/design_calculator.dart' show calcDivisionMarginDTOCost;
+import 'package:presale/src/data/v3/design_calculator.dart'
+    show calcDivisionMarginDTOCost;
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/divisions_with_resources_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/pojo_extension.dart';
+import 'package:presale/src/utils/dart_define/model/dart_define_model.dart';
 import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 class DivisionRepository {
   final DesignOfferMemorySource _memorySource;
 
-  final DesignClass _designClass;
+  DesignOfferMemorySource get memorySource => _memorySource;
+
+  final DartDefineModel _dartDefineModel;
+
+  DartDefineModel get dartDefineModel => _dartDefineModel;
 
   DivisionRepository(DependencyInjector di)
     : _memorySource = di.inMemoryImpl,
-      _designClass = di.dartDefineModel.design;
+      _dartDefineModel = di.dartDefineModel;
 
   Future<Map<String, DivisionDTO>> load() async {
     return await ResourcesDTO.build(
       _memorySource.inputDataDesignDTO!.divisionType,
-      _designClass,
+      _dartDefineModel.design,
     );
   }
 

@@ -161,10 +161,11 @@ class ObjectRepository {
     final inputData = designPresaleDTO.inputDataDesignDTO!;
     setObjectName(inputData.objectData.name);
     setObjectLocation(inputData.objectData.address);
+    setObjectCustomer(inputData.objectData.customer);
     _objectDataBuilder.setDivisionType(inputData.divisionType.text);
+    _objectDataBuilder.setObjectType(inputData.objectType.text);
     _objectDataBuilder.setObjectSquare(inputData.objectData.square);
     _objectDataBuilder.setDeadlineValue(inputData.objectData.deadline);
-
     final inputFactors = inputData.inputFactors;
     _objectDataBuilder.setCustomerFactor(inputFactors.customerFactor);
     _objectDataBuilder.setOverPriceFactor(inputFactors.overPriceFactor);

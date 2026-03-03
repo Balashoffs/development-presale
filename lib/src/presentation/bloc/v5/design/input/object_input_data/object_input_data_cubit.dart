@@ -94,8 +94,10 @@ class ObjectDataCubit extends Cubit<ObjectInputDataState> {
 
 class InputDataViewModel {
   final String name;
+  final String customer;
   final String address;
-  final String type;
+  final String docType;
+  final String objectType;
   final int square;
   final int deadline;
   final double overPriceFactor;
@@ -104,8 +106,10 @@ class InputDataViewModel {
 
   const InputDataViewModel({
     required this.name,
+    required this.customer,
     required this.address,
-    required this.type,
+    required this.docType,
+    required this.objectType,
     this.square = 0,
     this.deadline = 0,
     this.overPriceFactor = 1.2,

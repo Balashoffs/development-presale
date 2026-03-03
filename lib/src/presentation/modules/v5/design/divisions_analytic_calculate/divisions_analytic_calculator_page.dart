@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:presale/src/di/di.dart';
-import 'package:presale/src/domain/service/v6/design/share_presale.dart';
 import 'package:presale/src/presentation/bloc/core/core/cubit_state_enum.dart';
 import 'package:presale/src/presentation/bloc/v5/design/divisions_with_analytic_calculate/divisions_with_analytic_calculate_cubit.dart';
 import 'package:presale/src/presentation/modules/v5/design/common/collum_attributes.dart';
@@ -96,11 +95,10 @@ class DivisionsWithAnalyticCalculateWidget extends StatelessWidget {
                       CustomButtonWidget(
                         text: 'Поделиться',
                         onTap: value ? () {
-                          final designData = di.inMemoryImpl.designPresaleDTO;
-                          final defineModel = di.dartDefineModel;
-                          if (designData != null) {
-                            onShare(designData, defineModel);
-                          }
+                          cubit.onSave();
+                          cubit.onCalculateAnalyticMargin();
+                          cubit.onShare();
+
                         }:null,
                       ),
                       CustomButtonWidget(

@@ -59,4 +59,6 @@ class DivisionsMarginCalculateCubit
       _repository.update(dto);
     }
   }
+
+  void share() {}
 }

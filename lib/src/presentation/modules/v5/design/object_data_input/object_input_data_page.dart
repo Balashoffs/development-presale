@@ -116,7 +116,7 @@ class LoadedWidget extends StatelessWidget {
                               width: 500,
                               hintText: 'Заказчик*',
                               onChanged: cubit.setObjectCustomer,
-                              initValue: inputDataDesign?.name,
+                              initValue: inputDataDesign?.customer,
                               trailing: MoonIcons.controls_close_small_24_light,
                               validator: objectNameValidator,
                             ),
@@ -150,7 +150,7 @@ class LoadedWidget extends StatelessWidget {
                                     'Нужно выбрать',
                                   ),
                                   initText:
-                                      inputDataDesign?.type ?? 'Нужно выбрать',
+                                      inputDataDesign?.docType ?? 'Нужно выбрать',
                                   onSelected:
                                       cubit.setResultDesignDocumentations,
                                   leadingIcon:
@@ -172,7 +172,7 @@ class LoadedWidget extends StatelessWidget {
                                     'Нужно выбрать',
                                   ),
                                   initText:
-                                      inputDataDesign?.type ?? 'Нужно выбрать',
+                                      inputDataDesign?.objectType ?? 'Нужно выбрать',
                                   onSelected: cubit.setResultTypeObject,
                                   leadingIcon:
                                       MoonIcons.text_bullets_list_16_light,
