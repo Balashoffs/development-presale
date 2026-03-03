@@ -56,7 +56,7 @@ main() async {
   }
 
   StringBuffer sb = StringBuffer();
-  sb.writeln("Из ресурсов;Из аналитики;Название раздела;Расширенное описание раздела");
+  sb.writeln("Из ресурсов;Из аналитики");
   for (var value in sections) {
     sb.writeln(value.toCsvLine());
   }
@@ -126,7 +126,7 @@ class Section {
   });
 
   String toCsvLine() {
-    return "$resourceFile;$analyticFile;$divisionName;$divisionDescription";
+    return "$resourceFile;$analyticFile";
   }
 }
 

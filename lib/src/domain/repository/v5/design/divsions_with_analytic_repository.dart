@@ -59,10 +59,12 @@ class DivisionsWithAnalyticRepository {
       builder.setHumanHours(sum);
 
       //Calc local analytic cost for division
+
       double median =
-          analytics[firstElement.divisionShortName]?.median ??
-          0.0 * _designPresaleDTO.inputDataDesignDTO!.objectData.square;
-      builder.setLocalAnalytic(median);
+          analytics[firstElement.divisionShortName]?.median ?? 0.0;
+      int square = _designPresaleDTO.inputDataDesignDTO!.objectData.square;
+      double result = square * median;
+      builder.setLocalAnalytic(result);
 
       //Calc external analytic cost for division
       builder.setOutsideAnalytic(0.0);

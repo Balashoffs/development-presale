@@ -1,5 +1,4 @@
-import 'package:presale/src/data/v3/design_calculator.dart'
-    show calcDivisionMarginDTOCost;
+import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/di/di.dart';
