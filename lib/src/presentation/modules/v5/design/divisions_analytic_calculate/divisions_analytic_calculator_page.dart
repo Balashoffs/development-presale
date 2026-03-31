@@ -18,7 +18,7 @@ class DivisionsWithAnalyticCalculatePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(
-      title: Text('Сводная таблица стоимости разделов'),
+      title: Center(child: Text('Сводная таблица стоимости разделов')),
       child: DivisionsWithAnalyticCalculateProvider(),
     );
   }

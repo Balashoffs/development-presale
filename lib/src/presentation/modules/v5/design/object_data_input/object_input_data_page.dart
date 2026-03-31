@@ -78,192 +78,198 @@ class LoadedWidget extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        spacing: 16.0,
         children: [
           Expanded(
             flex: 9,
-            child: SingleChildScrollView(
-              padding: EdgeInsets.all(8.0),
-              child: Form(
-                child: Builder(
-                  builder: (context) {
-                    return Column(
-                      spacing: 16.0,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          spacing: 16.0,
-                          children: [
-                            FutureBuilder(
-                              future: cubit.counterFuture,
-                              builder: (context, snapshot) {
-                                OfferDayCounterDTO? counter = snapshot.data;
-                                if (counter != null) {
-                                  cubit.setCounter(counter);
-                                  return RowTextWidgets(
-                                    values: [
-                                      counter.localDate,
-                                      '№ ${counter.getOfferUniqueNumber()}',
-                                    ],
-                                  );
-                                }
-                                return CustomCircleLoader();
-                              },
-                            ),
-                            CustomTextInput(
-                              width: 500,
-                              hintText: 'Заказчик*',
-                              onChanged: cubit.setObjectCustomer,
-                              initValue: inputDataDesign?.customer,
-                              trailing: MoonIcons.controls_close_small_24_light,
-                              validator: objectNameValidator,
-                            ),
-                            CustomTextInput(
-                              width: 500,
-                              hintText: 'Наименование объекта*',
-                              onChanged: cubit.setObjectName,
-                              initValue: inputDataDesign?.name,
-                              trailing: MoonIcons.controls_close_small_24_light,
-                              validator: objectNameValidator,
-                            ),
-                            CustomTextAreaInput(
-                              width: 500,
-                              hintText: 'Адрес объекта*',
-                              onChanged: cubit.setObjectLocation,
-                              initValue: inputDataDesign?.address,
-                              trailing: MoonIcons.controls_close_small_24_light,
-                              validator: objectLocationValidator,
-                            ),
-                            TextWithRowHint(
-                              hintText: "Виды проектной документации*",
-                              textWidget: ChangeNotifierProvider(
-                                create: (context) => DropDownTextController(
-                                  inputData: DivisionType.values
-                                      .map((e) => e.text)
-                                      .toList(),
-                                ),
-                                child: CustomMoonDropDown(
-                                  width: 240,
-                                  validator: divisionTypeValidator(
-                                    'Нужно выбрать',
+            child: SizedBox(
+              width: 1300,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(8.0),
+                child: Form(
+                  child: Builder(
+                    builder: (context) {
+                      return Column(
+                        spacing: 16.0,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 16.0,
+                            children: [
+                              FutureBuilder(
+                                future: cubit.counterFuture,
+                                builder: (context, snapshot) {
+                                  OfferDayCounterDTO? counter = snapshot.data;
+                                  if (counter != null) {
+                                    cubit.setCounter(counter);
+                                    return RowTextWidgets(
+                                      values: [
+                                        counter.localDate,
+                                        '№ ${counter.getOfferUniqueNumber()}',
+                                      ],
+                                    );
+                                  }
+                                  return CustomCircleLoader();
+                                },
+                              ),
+                              CustomTextInput(
+                                width: 500,
+                                hintText: 'Заказчик*',
+                                onChanged: cubit.setObjectCustomer,
+                                initValue: inputDataDesign?.customer,
+                                trailing: MoonIcons.controls_close_small_24_light,
+                                validator: objectNameValidator,
+                              ),
+                              CustomTextInput(
+                                width: 500,
+                                hintText: 'Наименование объекта*',
+                                onChanged: cubit.setObjectName,
+                                initValue: inputDataDesign?.name,
+                                trailing: MoonIcons.controls_close_small_24_light,
+                                validator: objectNameValidator,
+                              ),
+                              CustomTextAreaInput(
+                                width: 500,
+                                hintText: 'Адрес объекта*',
+                                onChanged: cubit.setObjectLocation,
+                                initValue: inputDataDesign?.address,
+                                trailing: MoonIcons.controls_close_small_24_light,
+                                validator: objectLocationValidator,
+                              ),
+                              TextWithRowHint(
+                                hintText: "Виды проектной документации*",
+                                textWidget: ChangeNotifierProvider(
+                                  create: (context) => DropDownTextController(
+                                    inputData: DivisionType.values
+                                        .map((e) => e.text)
+                                        .toList(),
                                   ),
-                                  initText:
-                                      inputDataDesign?.docType ?? 'Нужно выбрать',
-                                  onSelected:
-                                      cubit.setResultDesignDocumentations,
-                                  leadingIcon:
-                                      MoonIcons.text_bullets_list_16_light,
-                                ),
-                              ),
-                            ),
-                            TextWithRowHint(
-                              hintText: "Тип объекта*",
-                              textWidget: ChangeNotifierProvider(
-                                create: (context) => DropDownTextController(
-                                  inputData: ObjectType.values
-                                      .map((e) => e.text)
-                                      .toList(),
-                                ),
-                                child: CustomMoonDropDown(
-                                  width: 240,
-                                  validator: divisionTypeValidator(
-                                    'Нужно выбрать',
+                                  child: CustomMoonDropDown(
+                                    width: 240,
+                                    validator: divisionTypeValidator(
+                                      'Нужно выбрать',
+                                    ),
+                                    initText:
+                                        inputDataDesign?.docType ??
+                                        'Нужно выбрать',
+                                    onSelected:
+                                        cubit.setResultDesignDocumentations,
+                                    leadingIcon:
+                                        MoonIcons.text_bullets_list_16_light,
                                   ),
-                                  initText:
-                                      inputDataDesign?.objectType ?? 'Нужно выбрать',
-                                  onSelected: cubit.setResultTypeObject,
-                                  leadingIcon:
-                                      MoonIcons.text_bullets_list_16_light,
                                 ),
                               ),
-                            ),
-                            TextWithRowHint(
-                              leading: Icons.square_outlined,
-                              hintText: 'Площадь объекта, м\u00B2*',
-                              textWidget: CustomTextInput(
-                                width: 128,
-                                onChanged: cubit.setSquare,
-                                trailing:
-                                    MoonIcons.controls_close_small_24_light,
-                                validator: onlyInfiniteNumberValidator,
-                                initValue:
-                                    inputDataDesign?.square.toString() ?? '0',
+                              TextWithRowHint(
+                                hintText: "Тип объекта*",
+                                textWidget: ChangeNotifierProvider(
+                                  create: (context) => DropDownTextController(
+                                    inputData: ObjectType.values
+                                        .map((e) => e.text)
+                                        .toList(),
+                                  ),
+                                  child: CustomMoonDropDown(
+                                    width: 240,
+                                    validator: divisionTypeValidator(
+                                      'Нужно выбрать',
+                                    ),
+                                    initText:
+                                        inputDataDesign?.objectType ??
+                                        'Нужно выбрать',
+                                    onSelected: cubit.setResultTypeObject,
+                                    leadingIcon:
+                                        MoonIcons.text_bullets_list_16_light,
+                                  ),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        TextDivider(
-                          text: 'Необязательные параметры',
-                          paddingTop: 8.0,
-                          paddingBottom: 8.0,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          spacing: 16.0,
-                          children: [
-                            TextWithRowHint(
-                              leading: Icons.timer,
-                              hintText: 'Сроки выполнения, дн.',
-                              textWidget: CustomTextInput(
-                                width: 128,
-                                onChanged: cubit.setDeadline,
-                                trailing:
-                                    MoonIcons.controls_close_small_24_light,
-                                validator: onlyInfiniteNumberValidator,
-                                initValue:
-                                    inputDataDesign?.deadline.toString() ?? '0',
+                              TextWithRowHint(
+                                leading: Icons.square_outlined,
+                                hintText: 'Площадь объекта, м\u00B2*',
+                                textWidget: CustomTextInput(
+                                  width: 128,
+                                  onChanged: cubit.setSquare,
+                                  trailing:
+                                      MoonIcons.controls_close_small_24_light,
+                                  validator: onlyInfiniteNumberValidator,
+                                  initValue:
+                                      inputDataDesign?.square.toString() ?? '0',
+                                ),
                               ),
-                            ),
-                            TextWithRowHint(
-                              leading: Icons.money_off,
-                              hintText: 'Накладные',
-                              textWidget: CustomTextInput(
-                                width: 128,
-                                onChanged: cubit.setOverPriceFactor,
-                                trailing:
-                                    MoonIcons.controls_close_small_24_light,
-                                validator: onlyFactorValidator,
-                                initValue:
-                                    inputDataDesign?.overPriceFactor
-                                        .toString() ??
-                                    '1.2',
+                            ],
+                          ),
+                          TextDivider(
+                            text: 'Необязательные параметры',
+                            paddingTop: 8.0,
+                            paddingBottom: 8.0,
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 16.0,
+                            children: [
+                              TextWithRowHint(
+                                leading: Icons.timer,
+                                hintText: 'Сроки выполнения, дн.',
+                                textWidget: CustomTextInput(
+                                  width: 128,
+                                  onChanged: cubit.setDeadline,
+                                  trailing:
+                                      MoonIcons.controls_close_small_24_light,
+                                  validator: onlyInfiniteNumberValidator,
+                                  initValue:
+                                      inputDataDesign?.deadline.toString() ?? '0',
+                                ),
                               ),
-                            ),
-                            TextWithRowHint(
-                              leading: Icons.calculate,
-                              hintText: 'Норма прибыли',
-                              textWidget: CustomTextInput(
-                                width: 128,
-                                onChanged: cubit.setMarginFactor,
-                                trailing:
-                                    MoonIcons.controls_close_small_24_light,
-                                initValue:
-                                    inputDataDesign?.marginFactor.toString() ??
-                                    '1.3',
+                              TextWithRowHint(
+                                leading: Icons.money_off,
+                                hintText: 'Накладные',
+                                textWidget: CustomTextInput(
+                                  width: 128,
+                                  onChanged: cubit.setOverPriceFactor,
+                                  trailing:
+                                      MoonIcons.controls_close_small_24_light,
+                                  validator: onlyFactorValidator,
+                                  initValue:
+                                      inputDataDesign?.overPriceFactor
+                                          .toString() ??
+                                      '1.2',
+                                ),
                               ),
-                            ),
-                            TextWithRowHint(
-                              leading: Icons.person,
-                              hintText: 'Заказчик',
-                              textWidget: CustomTextInput(
-                                width: 128,
-                                onChanged: cubit.setCustomerFactor,
-                                trailing:
-                                    MoonIcons.controls_close_small_24_light,
-                                validator: onlyFactorValidator,
-                                initValue:
-                                    inputDataDesign?.clientFactor.toString() ??
-                                    '1.0',
+                              TextWithRowHint(
+                                leading: Icons.calculate,
+                                hintText: 'Норма прибыли',
+                                textWidget: CustomTextInput(
+                                  width: 128,
+                                  onChanged: cubit.setMarginFactor,
+                                  trailing:
+                                      MoonIcons.controls_close_small_24_light,
+                                  initValue:
+                                      inputDataDesign?.marginFactor.toString() ??
+                                      '1.3',
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    );
-                  },
+                              TextWithRowHint(
+                                leading: Icons.person,
+                                hintText: 'Заказчик',
+                                textWidget: CustomTextInput(
+                                  width: 128,
+                                  onChanged: cubit.setCustomerFactor,
+                                  trailing:
+                                      MoonIcons.controls_close_small_24_light,
+                                  validator: onlyFactorValidator,
+                                  initValue:
+                                      inputDataDesign?.clientFactor.toString() ??
+                                      '1.0',
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

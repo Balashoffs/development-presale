@@ -50,11 +50,14 @@ class ServiceCalcApp extends App {
         localizationsDelegates: [
           // GlobalMaterialLocalizations.delegate
         ],
-        supportedLocales: [
-          const Locale('en'),
-        ],
+        supportedLocales: [const Locale('en')],
         debugShowCheckedModeBanner: false,
         theme: ThemeData.light().copyWith(
+          scrollbarTheme: ScrollbarThemeData(
+            thumbVisibility: WidgetStateProperty.all(true),
+            thickness: WidgetStateProperty.all(8),
+            radius: const Radius.circular(8),
+          ),
           scaffoldBackgroundColor: const Color(0xFFF6F7F9), // Gohan light.
           extensions: <ThemeExtension<dynamic>>[
             MoonTheme(

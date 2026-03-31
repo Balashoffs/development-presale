@@ -19,7 +19,7 @@ class DesignOfferPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomAppBar(
-      title: Text('Коммерческое предложение'),
+      title: Center(child: Text('Коммерческое предложение')),
       child: DesignOfferRepositoryProvider(),
     );
   }

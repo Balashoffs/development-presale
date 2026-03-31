@@ -41,8 +41,8 @@ class DivisionsWithAnalyticViewController {
 
   void _allowNext() {
     bool isAllow = rows
-        .where((element) => element.manualAnalytic.compareTo(0.0) == 0,).isEmpty;
-    bool isNotZero = rows.where((e) => e.manualAnalytic.compareTo(0.0) > 0,).isNotEmpty;
+        .where((element) => element.resultVN.value.compareTo(0.0) == 0,).isEmpty;
+    bool isNotZero = rows.where((e) => e.resultVN.value.compareTo(0.0) > 0,).isNotEmpty;
     isValid.value = isAllow && isNotZero;
   }
 }

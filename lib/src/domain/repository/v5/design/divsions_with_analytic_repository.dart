@@ -75,12 +75,14 @@ class DivisionsWithAnalyticRepository {
           builder.setResult(analytic!.result);
           builder.setManualAnalytic(analytic.manualAnalytic);
         } else {
-          builder.setResult(0.0);
+          print("analytic?.humanHours.compareTo(sum) != 0");
           builder.setManualAnalytic(0.0);
+          builder.setResult(0.0);
         }
       } else {
-        builder.setResult(0.0);
+        print("!_designPresaleDTO.divisionWithAnalytic.containsKey(firstElement.divisionShortName.hashCode)");
         builder.setManualAnalytic(0.0);
+        builder.setResult(sum);
       }
 
       DivisionsWithAnalyticDTO built = builder.build();
@@ -152,7 +154,7 @@ class DivisionsWithAnalyticRepository {
             divisionName: e.section,
             divisionShortName: e.shifr,
             divisionDescription: e.section,
-            resourceDivisionSummaryCost: e.manualAnalytic,
+            resourceDivisionSummaryCost: e.result,
           ),
         )
         .map((e) {

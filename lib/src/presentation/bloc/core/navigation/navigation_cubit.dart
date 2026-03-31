@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:presale/src/presentation/bloc/core/core/repository_state.dart';
 import 'package:presale/src/presentation/bloc/user/user_repository.dart';
 import 'package:go_router/go_router.dart';
@@ -16,6 +17,9 @@ class NavigationCubit extends HydratedCubit<NavigationMode> {
     userRepository.stream
         .distinct((previous, next) => previous.runtimeType == next.runtimeType)
         .listen((state) => _handleUserState(state, userRepository.fromPath));
+    if(!kIsWeb){
+      setAuthorizedMode();
+    }
   }
 
   void _handleUserState(RepositoryState userState, String? fromPath) {
