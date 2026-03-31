@@ -115,7 +115,7 @@ class _DivisionsResultsTableWidgetState
             index) {
           return CellDecorationWidget(
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(4.0),
               child: Align(
                 alignment: AlignmentGeometry.centerRight,
                 child: Column(

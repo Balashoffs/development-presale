@@ -31,7 +31,8 @@ class DesignOfferTemplate extends OfferTemplateBuilder {
 
   @override
   Future<void> fillRows() async {
-    await offerHeader.addHeaderImg(commercialOffer.companyInfo.pathToColonType);
+    rowPos.increment();
+    await offerHeader.addHeaderImg(commercialOffer.companyInfo.pathToColonType, rowPos.Pos);
     rowPos.increment(5);
     offerHeader.addConsumer(commercialOffer.objectCustomer);
     rowPos.increment();

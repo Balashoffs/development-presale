@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/design_class.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_csv.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/resource_csv.dart';
-import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 class ResourceDTO implements Comparable<ResourceDTO> {
   final int id;
@@ -72,16 +72,13 @@ class DivisionDTO {
 }
 
 class ResourcesDTO {
-  static Future<Map<String, DivisionDTO>> build(
-    DivisionType type,
-    DesignClass dc,
-  ) async {
+  static Future<Map<String, DivisionDTO>> build(DivisionType type) async {
     List<ResourceCSV> resourcesFromCsv = await ResourceCostDtoBuilder(
-      dc.resources,
+      DesignClass.resources,
     ).build((path) => rootBundle.loadString(path));
     String divisionPath = type == DivisionType.working
-        ? dc.workDivisions
-        : dc.projectDivisions;
+        ? DesignClass.jobDivisions
+        : DesignClass.projectDivisions;
     List<DivisionCSV> divisionsFromCsv = await DivisionCostDtoBuilder(
       divisionPath,
     ).build((path) => rootBundle.loadString(path));

@@ -9,7 +9,7 @@ void main() {
   test(
     'Convert to JSON -> Base64 -> XOR -> bytes -> XOR -> Base64 - JSON ',
     () async {
-      File file = File('./assets/calculator_data/test_resources/02102025-1_15-56-26');
+      File file = File('./assets/data/test_resources/02102025-1_15-56-26');
       String simple = 'simple';
       int key = stringToInt(simple);
 

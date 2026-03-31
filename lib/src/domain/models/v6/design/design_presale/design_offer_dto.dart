@@ -547,3 +547,13 @@ class RowDivisionResultDTO {
     required this.divisionSummaryWithTax,
   });
 }
+
+class AdditionalTemplateDataDTO {
+  final String siteUrl;
+  final String emailTemplate;
+
+  AdditionalTemplateDataDTO({
+    required this.siteUrl,
+    required this.emailTemplate,
+  });
+}

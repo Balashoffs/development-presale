@@ -22,7 +22,7 @@ jobs:
 #        run: flutter pub get
 #
 #      - name: Build web
-#        run: flutter build web --release --dart-define-from-file=.env/production.json
+#        run: flutter build web --release --dart-define-from-file=.consumer_env/production.json
 #
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3

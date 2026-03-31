@@ -12,11 +12,11 @@ main() async {
   }
 
   List<DivisionCSV> divisionsFromCsv = await DivisionCostDtoBuilder(
-    "assets/calculator_data/design/debug/job_divisions.csv",
+    "assets/data/design/debug/job_divisions.csv",
   ).build((String path) => readFrom(path));
 
   List<LocalAnalyticCSV> analyticFromCsv = await LocalAnalyticCsvBuilder(
-    "assets/calculator_data/design/debug/local_analytic.csv",
+    "assets/data/design/debug/local_analytic.csv",
   ).build((String path) => readFrom(path));
   Set<String> shortNames = {};
   List<Section> sections = [];
@@ -66,7 +66,7 @@ main() async {
   }
 
   List<ResourceCSV> resourcesFromCsv = await ResourceCostDtoBuilder(
-    "assets/calculator_data/design/debug/resources.csv",
+    "assets/data/design/debug/resources.csv",
   ).build((String path) => readFrom(path));
   Set<String> shortMark = {};
   List<Mark> marks = [];

@@ -3,7 +3,6 @@ import 'package:presale/src/data/v3/design_calculator.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:presale/src/domain/models/v7/design/local_analytic/local_analytic_dto.dart';
 import 'package:presale/src/utils/dart_define/model/dart_define_model.dart';
-import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 class DivisionsWithAnalyticRepository {
   final DesignPresaleDTO? _designPresaleDTO;
@@ -27,8 +26,7 @@ class DivisionsWithAnalyticRepository {
 
   Future<List<DivisionsWithAnalyticDTO>> getDivisionsWithAnalytic() async {
     Map<String, LocalAnalyticDTO> analytics = await _findAtLocalAnalytics(
-      _designPresaleDTO!,
-      _dartDefineModel.design,
+      _designPresaleDTO!
     );
 
     Map<int, List<DivisionResourceDTO>> founds = {};
@@ -94,9 +92,8 @@ class DivisionsWithAnalyticRepository {
 
   Future<Map<String, LocalAnalyticDTO>> _findAtLocalAnalytics(
     DesignPresaleDTO designPresale,
-    DesignClass dc,
   ) async {
-    List<LocalAnalyticDTO> analytics = await LocalAnalyticsDTO.build(dc);
+    List<LocalAnalyticDTO> analytics = await LocalAnalyticsDTO.build();
     Set<String> shifrs = designPresale.divisionResources.values
         .map((e) => e.divisionShortName.toLowerCase())
         .toSet();

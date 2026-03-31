@@ -10,7 +10,6 @@ _DartDefineModel _$DartDefineModelFromJson(Map<String, dynamic> json) =>
     _DartDefineModel(
       type: json['type'] as String,
       ui: json['ui'] as String,
-      design: DesignClass.fromJson(json['design'] as Map<String, dynamic>),
       user: json['user'] as String,
       tg: json['tg'] as String,
       ya: json['ya'] as String,
@@ -24,7 +23,6 @@ Map<String, dynamic> _$DartDefineModelToJson(_DartDefineModel instance) =>
     <String, dynamic>{
       'type': instance.type,
       'ui': instance.ui,
-      'design': instance.design,
       'user': instance.user,
       'tg': instance.tg,
       'ya': instance.ya,

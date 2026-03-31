@@ -1,9 +1,7 @@
 import 'dart:async';
 
-import 'package:collection/collection.dart';
 import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/domain/models/v6/colontype_image/colontype_image_dto.dart';
-import 'package:presale/src/domain/models/v6/selected_company/colontype_type.dart';
 import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart';
 import 'package:presale/src/domain/models/v6/selected_company/selected_company_dto.dart';
 import 'package:presale/src/domain/service/v6/design/colontype_image_service.dart';
@@ -19,10 +17,10 @@ class CompanyInfoRepository {
       _companiesStore.map((e) => e.companyName).toList();
 
   final StreamController<SelectedCompanyDTO> _streamController =
-  StreamController.broadcast();
+      StreamController.broadcast();
 
   CompanyInfoRepository(DesignOfferMemorySource designOfferMemorySource)
-      : _designOfferMemorySource = designOfferMemorySource;
+    : _designOfferMemorySource = designOfferMemorySource;
 
   Stream<SelectedCompanyDTO> get companyStream => _streamController.stream;
 
@@ -47,15 +45,16 @@ class CompanyInfoRepository {
   }
 
   Future<SelectedCompanyDTO> selectedCompanyByName(String selected) async {
-    CompanyInfoDTO foundCompanyInfo = _companiesStore.firstWhereOrNull(
-          (element) => element.companyName == selected,
-    ) ?? CompanyInfoDTO();
-    if (foundCompanyInfo.colonType == ColonType.UNDEF) {
+    CompanyInfoDTO foundCompanyInfo = _companiesStore.firstWhere(
+      (element) => element.companyName == selected,
+    );
+    if (foundCompanyInfo.colonType == '') {
       throw Error();
     }
-    ColonTypeImageDTO colonType = _colonTypesStore.firstWhereOrNull((
-        element) => element.colonType == foundCompanyInfo.colonType) ?? ColonTypeImageDTO();
-    if(colonType.colonType == ColonType.UNDEF){
+    ColonTypeImageDTO colonType = _colonTypesStore.firstWhere(
+      (element) => element.colonType == foundCompanyInfo.colonType,
+    );
+    if (colonType.colonType == '') {
       throw Error();
     }
     _selectedCompany = SelectedCompanyDTO.build(foundCompanyInfo, colonType);

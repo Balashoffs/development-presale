@@ -35,7 +35,6 @@ class OfferPersonSign extends OfferBase {
     sb.writeln('КОНТАКТНАЯ ИНФОРМАЦИЯ:');
     sb.writeln('${personSign!.fullName} | ${personSign.jobTitle}');
     sb.writeln('${personSign.phoneNumber} | ${personSign.jobEmail}');
-    sb.writeln('www.liis.su');
     buildCell(
       sb.toString(),
       currentCell(3),

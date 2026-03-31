@@ -9,7 +9,7 @@ class EmailCustomValidator {
     _jobEmailController.text = value;
   }
 
-  final String emailSuffix = '@liis.su';
+  String emailSuffix = '';
   bool _isInternalUpdate = false;
 
   EmailCustomValidator() {

@@ -34,14 +34,14 @@ class DesignPresaleDataSourceLocal
 class DesignPresaleDataTest {
  static Future<DesignPresalePojo> getDevInputDesignPresale() async {
     String devJson = await rootBundle.loadString(
-        'assets/calculator_data/test_resources/design_input.json');
+        'assets/data/test_resources/design_input.json');
     Map<String, dynamic> json = jsonDecode(devJson);
     return DesignPresalePojo.fromJson(json);
   }
 
  static Future<DesignPresalePojo> getDevDivisionsDesignPresale() async {
    String devJson = await rootBundle.loadString(
-       'assets/calculator_data/test_resources/design_divisions.json');
+       'assets/data/test_resources/design_divisions.json');
    Map<String, dynamic> json = jsonDecode(devJson);
    return DesignPresalePojo.fromJson(json);
  }

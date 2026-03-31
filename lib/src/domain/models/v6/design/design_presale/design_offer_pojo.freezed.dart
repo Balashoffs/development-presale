@@ -1799,4 +1799,264 @@ as double,
 
 }
 
+/// @nodoc
+mixin _$AdditionalTemplateDataPojo {
+
+ String get siteUrl; String get emailTemplate;
+/// Create a copy of AdditionalTemplateDataPojo
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$AdditionalTemplateDataPojoCopyWith<AdditionalTemplateDataPojo> get copyWith => _$AdditionalTemplateDataPojoCopyWithImpl<AdditionalTemplateDataPojo>(this as AdditionalTemplateDataPojo, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AdditionalTemplateDataPojo&&(identical(other.siteUrl, siteUrl) || other.siteUrl == siteUrl)&&(identical(other.emailTemplate, emailTemplate) || other.emailTemplate == emailTemplate));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,siteUrl,emailTemplate);
+
+@override
+String toString() {
+  return 'AdditionalTemplateDataPojo(siteUrl: $siteUrl, emailTemplate: $emailTemplate)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $AdditionalTemplateDataPojoCopyWith<$Res>  {
+  factory $AdditionalTemplateDataPojoCopyWith(AdditionalTemplateDataPojo value, $Res Function(AdditionalTemplateDataPojo) _then) = _$AdditionalTemplateDataPojoCopyWithImpl;
+@useResult
+$Res call({
+ String siteUrl, String emailTemplate
+});
+
+
+
+
+}
+/// @nodoc
+class _$AdditionalTemplateDataPojoCopyWithImpl<$Res>
+    implements $AdditionalTemplateDataPojoCopyWith<$Res> {
+  _$AdditionalTemplateDataPojoCopyWithImpl(this._self, this._then);
+
+  final AdditionalTemplateDataPojo _self;
+  final $Res Function(AdditionalTemplateDataPojo) _then;
+
+/// Create a copy of AdditionalTemplateDataPojo
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') @override $Res call({Object? siteUrl = null,Object? emailTemplate = null,}) {
+  return _then(_self.copyWith(
+siteUrl: null == siteUrl ? _self.siteUrl : siteUrl // ignore: cast_nullable_to_non_nullable
+as String,emailTemplate: null == emailTemplate ? _self.emailTemplate : emailTemplate // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+}
+
+
+/// Adds pattern-matching-related methods to [AdditionalTemplateDataPojo].
+extension AdditionalTemplateDataPojoPatterns on AdditionalTemplateDataPojo {
+/// A variant of `map` that fallback to returning `orElse`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>(TResult Function( _AdditionalTemplateDataPojo value)?  $default,{required TResult orElse(),}){
+final _that = this;
+switch (_that) {
+case _AdditionalTemplateDataPojo() when $default != null:
+return $default(_that);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// Callbacks receives the raw object, upcasted.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case final Subclass2 value:
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult map<TResult extends Object?>(TResult Function( _AdditionalTemplateDataPojo value)  $default,){
+final _that = this;
+switch (_that) {
+case _AdditionalTemplateDataPojo():
+return $default(_that);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `map` that fallback to returning `null`.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case final Subclass value:
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>(TResult? Function( _AdditionalTemplateDataPojo value)?  $default,){
+final _that = this;
+switch (_that) {
+case _AdditionalTemplateDataPojo() when $default != null:
+return $default(_that);case _:
+  return null;
+
+}
+}
+/// A variant of `when` that fallback to an `orElse` callback.
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return orElse();
+/// }
+/// ```
+
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String siteUrl,  String emailTemplate)?  $default,{required TResult orElse(),}) {final _that = this;
+switch (_that) {
+case _AdditionalTemplateDataPojo() when $default != null:
+return $default(_that.siteUrl,_that.emailTemplate);case _:
+  return orElse();
+
+}
+}
+/// A `switch`-like method, using callbacks.
+///
+/// As opposed to `map`, this offers destructuring.
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case Subclass2(:final field2):
+///     return ...;
+/// }
+/// ```
+
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String siteUrl,  String emailTemplate)  $default,) {final _that = this;
+switch (_that) {
+case _AdditionalTemplateDataPojo():
+return $default(_that.siteUrl,_that.emailTemplate);case _:
+  throw StateError('Unexpected subclass');
+
+}
+}
+/// A variant of `when` that fallback to returning `null`
+///
+/// It is equivalent to doing:
+/// ```dart
+/// switch (sealedClass) {
+///   case Subclass(:final field):
+///     return ...;
+///   case _:
+///     return null;
+/// }
+/// ```
+
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String siteUrl,  String emailTemplate)?  $default,) {final _that = this;
+switch (_that) {
+case _AdditionalTemplateDataPojo() when $default != null:
+return $default(_that.siteUrl,_that.emailTemplate);case _:
+  return null;
+
+}
+}
+
+}
+
+/// @nodoc
+
+
+class _AdditionalTemplateDataPojo implements AdditionalTemplateDataPojo {
+  const _AdditionalTemplateDataPojo({required this.siteUrl, required this.emailTemplate});
+  
+
+@override final  String siteUrl;
+@override final  String emailTemplate;
+
+/// Create a copy of AdditionalTemplateDataPojo
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$AdditionalTemplateDataPojoCopyWith<_AdditionalTemplateDataPojo> get copyWith => __$AdditionalTemplateDataPojoCopyWithImpl<_AdditionalTemplateDataPojo>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AdditionalTemplateDataPojo&&(identical(other.siteUrl, siteUrl) || other.siteUrl == siteUrl)&&(identical(other.emailTemplate, emailTemplate) || other.emailTemplate == emailTemplate));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,siteUrl,emailTemplate);
+
+@override
+String toString() {
+  return 'AdditionalTemplateDataPojo(siteUrl: $siteUrl, emailTemplate: $emailTemplate)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$AdditionalTemplateDataPojoCopyWith<$Res> implements $AdditionalTemplateDataPojoCopyWith<$Res> {
+  factory _$AdditionalTemplateDataPojoCopyWith(_AdditionalTemplateDataPojo value, $Res Function(_AdditionalTemplateDataPojo) _then) = __$AdditionalTemplateDataPojoCopyWithImpl;
+@override @useResult
+$Res call({
+ String siteUrl, String emailTemplate
+});
+
+
+
+
+}
+/// @nodoc
+class __$AdditionalTemplateDataPojoCopyWithImpl<$Res>
+    implements _$AdditionalTemplateDataPojoCopyWith<$Res> {
+  __$AdditionalTemplateDataPojoCopyWithImpl(this._self, this._then);
+
+  final _AdditionalTemplateDataPojo _self;
+  final $Res Function(_AdditionalTemplateDataPojo) _then;
+
+/// Create a copy of AdditionalTemplateDataPojo
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? siteUrl = null,Object? emailTemplate = null,}) {
+  return _then(_AdditionalTemplateDataPojo(
+siteUrl: null == siteUrl ? _self.siteUrl : siteUrl // ignore: cast_nullable_to_non_nullable
+as String,emailTemplate: null == emailTemplate ? _self.emailTemplate : emailTemplate // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
 // dart format on

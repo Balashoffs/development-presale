@@ -1,7 +1,7 @@
 //Stage;Function;Mark;TDS;COUNT;MIN;MEDIAN;MAX
 import 'package:flutter/services.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/design_class.dart';
 import 'package:presale/src/domain/models/v7/design/local_analytic/local_analytic_csv.dart';
-import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 class LocalAnalyticDTO {
   final String stage;
@@ -32,9 +32,9 @@ class LocalAnalyticDTO {
 }
 
 class LocalAnalyticsDTO {
-  static Future<List<LocalAnalyticDTO>> build(DesignClass dc) async {
+  static Future<List<LocalAnalyticDTO>> build() async {
     List<LocalAnalyticCSV> resourcesFromCsv = await LocalAnalyticCsvBuilder(
-      dc.localAnalytic,
+      DesignClass.localAnalytic,
     ).build((path) => rootBundle.loadString(path),);
     Map<String, List<LocalAnalyticDTO>> allResources = {};
     RegExp regExp = RegExp("([а-яА-Я]{1,})\\d{0,}");

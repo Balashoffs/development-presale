@@ -1,4 +1,3 @@
-import 'package:presale/src/domain/models/v6/selected_company/colontype_type.dart';
 import 'package:presale/src/domain/models/v6/company_info/company_info.dart';
 import 'package:presale/src/domain/models/v6/company_info/company_info_dto.dart';
 
@@ -7,9 +6,9 @@ extension CompanyInfoExt on CompanyInfoPojo {
     return CompanyInfoDTO(
       companyName: companyName,
       CEOSurnameName: CEOSurnameName,
-      CEOFistName: CEOFistName,
+      CEOFirstName: CEOFirstName,
       CEOSecondNam: CEOSecondName,
-      colonType: ColonType.find(colonType),
+      colonType: colonType,
     );
   }
 }

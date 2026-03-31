@@ -15,6 +15,9 @@ class PersonSignTextInputValidator {
   final EmailCustomValidator _emailCustomValidator = EmailCustomValidator();
   TextEditingController get emailController => _emailCustomValidator.jobEmailController;
 
+  void setEmail(String email){
+    _emailCustomValidator.emailSuffix = email;
+  }
 
   PersonSignTextInputValidator();
 
@@ -38,7 +41,7 @@ class PersonSignTextInputValidator {
   FormFieldValidator<String>? jobEmailValidator = (value) {
     return value != null &&
         !RegExp(
-          r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@liis.su$',
+          r'^[a-zA-Z0-9.!#$%&*+/=?^_`{|}~-]+@[a-z]{3,}\.[a-z]{2,}$',
         ).hasMatch(value)
         ? "Разрешаются буквы английского языка, цифры и другие допустимые символы"
         : null;

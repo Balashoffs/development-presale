@@ -18,7 +18,7 @@ abstract class DesignPresalePojo with _$DesignPresalePojo {
     @Default([]) List<DivisionWithAnalyticPojo> divisionsWithAnalytic,
     @Default([]) List<DivisionsMarginPojo> divisionsAnalyticMargin,
     @Default(false) bool isAllResources,
-}) = _DesignPresalePojo;
+  }) = _DesignPresalePojo;
 
   factory DesignPresalePojo.fromJson(Map<String, dynamic> json) =>
       _$DesignPresalePojoFromJson(json);
@@ -29,7 +29,7 @@ abstract class OfferDayCounterPojo with _$OfferDayCounterPojo {
   const factory OfferDayCounterPojo({
     required int timeStamp,
     required int offerId,
-}) = _OfferDayCounterPojo;
+  }) = _OfferDayCounterPojo;
 
   factory OfferDayCounterPojo.fromJson(Map<String, dynamic> json) =>
       _$OfferDayCounterPojoFromJson(json);
@@ -107,4 +107,12 @@ abstract class DivisionsMarginPojo with _$DivisionsMarginPojo {
 
   factory DivisionsMarginPojo.fromJson(Map<String, dynamic> json) =>
       _$DivisionsMarginPojoFromJson(json);
+}
+
+@freezed
+abstract class AdditionalTemplateDataPojo with _$AdditionalTemplateDataPojo {
+  const factory AdditionalTemplateDataPojo({
+    required String siteUrl,
+    required String emailTemplate,
+  }) = _AdditionalTemplateDataPojo;
 }

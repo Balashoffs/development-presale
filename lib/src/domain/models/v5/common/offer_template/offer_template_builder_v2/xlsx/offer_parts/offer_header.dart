@@ -6,9 +6,9 @@ import 'offer_base.dart';
 class OfferHeader extends OfferBase {
   OfferHeader({required super.worksheet, required super.rowPos});
 
-  Future<Picture> addHeaderImg(String path) async {
+  Future<Picture> addHeaderImg(String path,int start) async {
     final baseData = await toExcelImage(path);
-    return worksheet.pictures.addBase64(1, 2, baseData);
+    return worksheet.pictures.addBase64(start, 2, baseData);
   }
 
   void addConsumer(String value) {

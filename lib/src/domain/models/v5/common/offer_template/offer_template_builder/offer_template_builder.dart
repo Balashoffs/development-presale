@@ -17,7 +17,7 @@
 //   final String startCell = 'B';
 //   final String endCell = 'G';
 //   final String headerImagePath =
-//       'assets/calculator_data/template/header_logo.png';
+//       'assets/data/template/header_logo.png';
 //
 //   String get _fullRange => '$startCell${rowPos.Pos}:$endCell${rowPos.Pos}';
 //

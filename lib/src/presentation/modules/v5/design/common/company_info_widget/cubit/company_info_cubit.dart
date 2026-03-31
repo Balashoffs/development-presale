@@ -34,7 +34,7 @@ class CompanyInfoCubit extends Cubit<CompanyInfoState> {
     _loadingData();
   }
 
-  void _loadingData(){
+  void _loadingData()async{
     _companyInfoRepository.getCompanyNameList().then(
           (value) => emit(CompanyInfoState.selecting(value)),
       onError: (error) {

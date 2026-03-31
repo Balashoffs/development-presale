@@ -10,7 +10,7 @@ _CompanyInfoPojo _$CompanyInfoPojoFromJson(Map<String, dynamic> json) =>
     _CompanyInfoPojo(
       companyName: json['companyName'] as String,
       CEOSurnameName: json['CEOSurnameName'] as String,
-      CEOFistName: json['CEOFistName'] as String,
+      CEOFirstName: json['CEOFirstName'] as String,
       CEOSecondName: json['CEOSecondName'] as String,
       colonType: json['colonType'] as String,
     );

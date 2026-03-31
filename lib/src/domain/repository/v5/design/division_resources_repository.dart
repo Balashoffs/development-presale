@@ -1,4 +1,5 @@
 import 'package:presale/src/data/v3/design_calculator.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/design_class.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/data/data_sources/v5/design_offer_memory_source.dart';
 import 'package:presale/src/di/di.dart';
@@ -21,8 +22,7 @@ class DivisionRepository {
 
   Future<Map<String, DivisionDTO>> load() async {
     return await ResourcesDTO.build(
-      _memorySource.inputDataDesignDTO!.divisionType,
-      _dartDefineModel.design,
+      _memorySource.inputDataDesignDTO!.divisionType
     );
   }
 

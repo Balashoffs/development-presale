@@ -9,7 +9,7 @@ abstract class CompanyInfoPojo with _$CompanyInfoPojo {
   const factory CompanyInfoPojo({
     required String companyName,
     required String CEOSurnameName,
-    required String CEOFistName,
+    required String CEOFirstName,
     required String CEOSecondName,
     required String colonType,
   }) = _CompanyInfoPojo;

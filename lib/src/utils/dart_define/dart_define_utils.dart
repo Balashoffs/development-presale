@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:date_format/date_format.dart';
 import 'package:presale/src/utils/dart_define/model/dart_define_model.dart';
-import 'package:presale/src/utils/dart_define/model/design_class/design_class.dart';
 
 DartDefineModel buildFrom() {
   String type = const String.fromEnvironment('type');
@@ -29,13 +26,9 @@ DartDefineModel buildFrom() {
 
   final ya = const String.fromEnvironment('ya');
   final tg = const String.fromEnvironment('tg');
-  source = utf8.decode(base64Decode(source));
-  final map = json.decode(source);
-  DesignClass design = DesignClass.fromJson(map);
   return DartDefineModel(
     api: api,
     type: type,
-    design: design,
     ui: ui,
     user: password,
     createdDate: created,

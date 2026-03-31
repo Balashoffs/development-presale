@@ -1,25 +1,25 @@
-import 'package:presale/src/domain/models/v6/selected_company/colontype_type.dart';
-
 class CompanyInfoDTO {
   final String companyName;
   final String CEOSurnameName;
-  final String CEOFistName;
+  final String CEOFirstName;
   final String CEOSecondNam;
-  final ColonType colonType;
+  final String colonType;
 
-  String get shortSign => '$CEOSurnameName ${CEOFistName.substring(0, 1)}. ${CEOSecondNam.substring(0, 1)}.';
-  String get fullSign => '$CEOSurnameName $CEOFistName. $CEOSecondNam';
+
+  String get shortSign => '$CEOSurnameName ${CEOFirstName.substring(0, 1)}. ${CEOSecondNam.substring(0, 1)}.';
+  String get fullSign => '$CEOSurnameName $CEOFirstName. $CEOSecondNam';
 
   const CompanyInfoDTO({
     this.companyName = '',
     this.CEOSurnameName = '',
-    this.CEOFistName = '',
+    this.CEOFirstName = '',
     this.CEOSecondNam = '',
-    this.colonType = ColonType.UNDEF,
+    this.colonType = '',
+
   });
 
   @override
   String toString() {
-    return 'CompanyInfoDTO{companyName: $companyName, CEOSurnameName: $CEOSurnameName, CEOFistName: $CEOFistName, CEOSecondNam: $CEOSecondNam, colonType: $colonType}';
+    return 'CompanyInfoDTO{companyName: $companyName, CEOSurnameName: $CEOSurnameName, CEOFirstName: $CEOFirstName, CEOSecondNam: $CEOSecondNam, colonType: $colonType}';
   }
 }

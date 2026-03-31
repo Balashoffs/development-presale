@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/design_class.dart';
 import 'package:presale/src/domain/models/v6/colontype_image/colontype_image_dto.dart';
 import 'package:presale/src/domain/models/v6/colontype_image/colontype_image_pojo.dart';
 import 'package:presale/src/domain/models/v6/colontype_image/extension.dart';
@@ -20,7 +21,6 @@ List<ColonTypeImageDTO> parseJson(String json) {
 }
 
 Future<String> readFromAssets() async {
-  return rootBundle.loadString(
-    'assets/calculator_data/template/colontype_image.json',
-  );
+  String path = DesignClass.colontypes;
+  return rootBundle.loadString(path);
 }

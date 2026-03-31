@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CompanyInfoPojo {
 
- String get companyName; String get CEOSurnameName; String get CEOFistName; String get CEOSecondName; String get colonType;
+ String get companyName; String get CEOSurnameName; String get CEOFirstName; String get CEOSecondName; String get colonType;
 /// Create a copy of CompanyInfoPojo
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $CompanyInfoPojoCopyWith<CompanyInfoPojo> get copyWith => _$CompanyInfoPojoCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is CompanyInfoPojo&&(identical(other.companyName, companyName) || other.companyName == companyName)&&(identical(other.CEOSurnameName, CEOSurnameName) || other.CEOSurnameName == CEOSurnameName)&&(identical(other.CEOFistName, CEOFistName) || other.CEOFistName == CEOFistName)&&(identical(other.CEOSecondName, CEOSecondName) || other.CEOSecondName == CEOSecondName)&&(identical(other.colonType, colonType) || other.colonType == colonType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is CompanyInfoPojo&&(identical(other.companyName, companyName) || other.companyName == companyName)&&(identical(other.CEOSurnameName, CEOSurnameName) || other.CEOSurnameName == CEOSurnameName)&&(identical(other.CEOFirstName, CEOFirstName) || other.CEOFirstName == CEOFirstName)&&(identical(other.CEOSecondName, CEOSecondName) || other.CEOSecondName == CEOSecondName)&&(identical(other.colonType, colonType) || other.colonType == colonType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,companyName,CEOSurnameName,CEOFistName,CEOSecondName,colonType);
+int get hashCode => Object.hash(runtimeType,companyName,CEOSurnameName,CEOFirstName,CEOSecondName,colonType);
 
 @override
 String toString() {
-  return 'CompanyInfoPojo(companyName: $companyName, CEOSurnameName: $CEOSurnameName, CEOFistName: $CEOFistName, CEOSecondName: $CEOSecondName, colonType: $colonType)';
+  return 'CompanyInfoPojo(companyName: $companyName, CEOSurnameName: $CEOSurnameName, CEOFirstName: $CEOFirstName, CEOSecondName: $CEOSecondName, colonType: $colonType)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $CompanyInfoPojoCopyWith<$Res>  {
   factory $CompanyInfoPojoCopyWith(CompanyInfoPojo value, $Res Function(CompanyInfoPojo) _then) = _$CompanyInfoPojoCopyWithImpl;
 @useResult
 $Res call({
- String companyName, String CEOSurnameName, String CEOFistName, String CEOSecondName, String colonType
+ String companyName, String CEOSurnameName, String CEOFirstName, String CEOSecondName, String colonType
 });
 
 
@@ -63,11 +63,11 @@ class _$CompanyInfoPojoCopyWithImpl<$Res>
 
 /// Create a copy of CompanyInfoPojo
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? companyName = null,Object? CEOSurnameName = null,Object? CEOFistName = null,Object? CEOSecondName = null,Object? colonType = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? companyName = null,Object? CEOSurnameName = null,Object? CEOFirstName = null,Object? CEOSecondName = null,Object? colonType = null,}) {
   return _then(_self.copyWith(
 companyName: null == companyName ? _self.companyName : companyName // ignore: cast_nullable_to_non_nullable
 as String,CEOSurnameName: null == CEOSurnameName ? _self.CEOSurnameName : CEOSurnameName // ignore: cast_nullable_to_non_nullable
-as String,CEOFistName: null == CEOFistName ? _self.CEOFistName : CEOFistName // ignore: cast_nullable_to_non_nullable
+as String,CEOFirstName: null == CEOFirstName ? _self.CEOFirstName : CEOFirstName // ignore: cast_nullable_to_non_nullable
 as String,CEOSecondName: null == CEOSecondName ? _self.CEOSecondName : CEOSecondName // ignore: cast_nullable_to_non_nullable
 as String,colonType: null == colonType ? _self.colonType : colonType // ignore: cast_nullable_to_non_nullable
 as String,
@@ -155,10 +155,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String companyName,  String CEOSurnameName,  String CEOFistName,  String CEOSecondName,  String colonType)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String companyName,  String CEOSurnameName,  String CEOFirstName,  String CEOSecondName,  String colonType)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _CompanyInfoPojo() when $default != null:
-return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFistName,_that.CEOSecondName,_that.colonType);case _:
+return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFirstName,_that.CEOSecondName,_that.colonType);case _:
   return orElse();
 
 }
@@ -176,10 +176,10 @@ return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFistName,_that.C
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String companyName,  String CEOSurnameName,  String CEOFistName,  String CEOSecondName,  String colonType)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String companyName,  String CEOSurnameName,  String CEOFirstName,  String CEOSecondName,  String colonType)  $default,) {final _that = this;
 switch (_that) {
 case _CompanyInfoPojo():
-return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFistName,_that.CEOSecondName,_that.colonType);case _:
+return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFirstName,_that.CEOSecondName,_that.colonType);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -196,10 +196,10 @@ return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFistName,_that.C
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String companyName,  String CEOSurnameName,  String CEOFistName,  String CEOSecondName,  String colonType)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String companyName,  String CEOSurnameName,  String CEOFirstName,  String CEOSecondName,  String colonType)?  $default,) {final _that = this;
 switch (_that) {
 case _CompanyInfoPojo() when $default != null:
-return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFistName,_that.CEOSecondName,_that.colonType);case _:
+return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFirstName,_that.CEOSecondName,_that.colonType);case _:
   return null;
 
 }
@@ -211,12 +211,12 @@ return $default(_that.companyName,_that.CEOSurnameName,_that.CEOFistName,_that.C
 @JsonSerializable(createToJson: false)
 
 class _CompanyInfoPojo implements CompanyInfoPojo {
-  const _CompanyInfoPojo({required this.companyName, required this.CEOSurnameName, required this.CEOFistName, required this.CEOSecondName, required this.colonType});
+  const _CompanyInfoPojo({required this.companyName, required this.CEOSurnameName, required this.CEOFirstName, required this.CEOSecondName, required this.colonType});
   factory _CompanyInfoPojo.fromJson(Map<String, dynamic> json) => _$CompanyInfoPojoFromJson(json);
 
 @override final  String companyName;
 @override final  String CEOSurnameName;
-@override final  String CEOFistName;
+@override final  String CEOFirstName;
 @override final  String CEOSecondName;
 @override final  String colonType;
 
@@ -230,16 +230,16 @@ _$CompanyInfoPojoCopyWith<_CompanyInfoPojo> get copyWith => __$CompanyInfoPojoCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CompanyInfoPojo&&(identical(other.companyName, companyName) || other.companyName == companyName)&&(identical(other.CEOSurnameName, CEOSurnameName) || other.CEOSurnameName == CEOSurnameName)&&(identical(other.CEOFistName, CEOFistName) || other.CEOFistName == CEOFistName)&&(identical(other.CEOSecondName, CEOSecondName) || other.CEOSecondName == CEOSecondName)&&(identical(other.colonType, colonType) || other.colonType == colonType));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _CompanyInfoPojo&&(identical(other.companyName, companyName) || other.companyName == companyName)&&(identical(other.CEOSurnameName, CEOSurnameName) || other.CEOSurnameName == CEOSurnameName)&&(identical(other.CEOFirstName, CEOFirstName) || other.CEOFirstName == CEOFirstName)&&(identical(other.CEOSecondName, CEOSecondName) || other.CEOSecondName == CEOSecondName)&&(identical(other.colonType, colonType) || other.colonType == colonType));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,companyName,CEOSurnameName,CEOFistName,CEOSecondName,colonType);
+int get hashCode => Object.hash(runtimeType,companyName,CEOSurnameName,CEOFirstName,CEOSecondName,colonType);
 
 @override
 String toString() {
-  return 'CompanyInfoPojo(companyName: $companyName, CEOSurnameName: $CEOSurnameName, CEOFistName: $CEOFistName, CEOSecondName: $CEOSecondName, colonType: $colonType)';
+  return 'CompanyInfoPojo(companyName: $companyName, CEOSurnameName: $CEOSurnameName, CEOFirstName: $CEOFirstName, CEOSecondName: $CEOSecondName, colonType: $colonType)';
 }
 
 
@@ -250,7 +250,7 @@ abstract mixin class _$CompanyInfoPojoCopyWith<$Res> implements $CompanyInfoPojo
   factory _$CompanyInfoPojoCopyWith(_CompanyInfoPojo value, $Res Function(_CompanyInfoPojo) _then) = __$CompanyInfoPojoCopyWithImpl;
 @override @useResult
 $Res call({
- String companyName, String CEOSurnameName, String CEOFistName, String CEOSecondName, String colonType
+ String companyName, String CEOSurnameName, String CEOFirstName, String CEOSecondName, String colonType
 });
 
 
@@ -267,11 +267,11 @@ class __$CompanyInfoPojoCopyWithImpl<$Res>
 
 /// Create a copy of CompanyInfoPojo
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? companyName = null,Object? CEOSurnameName = null,Object? CEOFistName = null,Object? CEOSecondName = null,Object? colonType = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? companyName = null,Object? CEOSurnameName = null,Object? CEOFirstName = null,Object? CEOSecondName = null,Object? colonType = null,}) {
   return _then(_CompanyInfoPojo(
 companyName: null == companyName ? _self.companyName : companyName // ignore: cast_nullable_to_non_nullable
 as String,CEOSurnameName: null == CEOSurnameName ? _self.CEOSurnameName : CEOSurnameName // ignore: cast_nullable_to_non_nullable
-as String,CEOFistName: null == CEOFistName ? _self.CEOFistName : CEOFistName // ignore: cast_nullable_to_non_nullable
+as String,CEOFirstName: null == CEOFirstName ? _self.CEOFirstName : CEOFirstName // ignore: cast_nullable_to_non_nullable
 as String,CEOSecondName: null == CEOSecondName ? _self.CEOSecondName : CEOSecondName // ignore: cast_nullable_to_non_nullable
 as String,colonType: null == colonType ? _self.colonType : colonType // ignore: cast_nullable_to_non_nullable
 as String,

@@ -1,11 +1,9 @@
-import 'package:presale/src/domain/models/v6/selected_company/colontype_type.dart';
-
 class ColonTypeImageDTO {
   String pathToAssetImage;
-  ColonType colonType;
+  String colonType;
 
   ColonTypeImageDTO({
-    this.colonType = ColonType.UNDEF,
+    this.colonType = '',
     this.pathToAssetImage = '',
   });
 
