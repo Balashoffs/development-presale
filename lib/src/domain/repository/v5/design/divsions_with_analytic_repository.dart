@@ -126,14 +126,13 @@ class DivisionsWithAnalyticRepository {
   }
 
   double updateDivisionWithAnalytic(int id, double value) {
-    double result = calcHumaHoursCost(value, inputFactorsDTO!);
     var res = _designPresaleDTO!.divisionWithAnalytic[id];
     if (res != null) {
-      res = res.copyWith(manualAnalytic: value, result: result);
+      res = res.copyWith(manualAnalytic: value, result: value);
       _designPresaleDTO.divisionWithAnalytic[id] = res;
     }
 
-    return result;
+    return value;
   }
 
   void save(List<DivisionsWithAnalyticDTO> updated) {
@@ -154,12 +153,13 @@ class DivisionsWithAnalyticRepository {
             divisionName: e.section,
             divisionShortName: e.shifr,
             divisionDescription: e.section,
-            resourceDivisionSummaryCost: e.result,
+            summaryCostWithMargin: e.result,
+            resourceDivisionSummaryCost: e.humanHours,
+            summaryCostWithTax: 0.0,
+
           ),
         )
-        .map((e) {
-          return calcDivisionMarginDTOCost(inputFactorsDTO!, e);
-        })
+    .map((e) => calcDivisionMarginWithAnalyticDTOCost(e),)
         .toList();
 
     if (divisionMargins != null) {

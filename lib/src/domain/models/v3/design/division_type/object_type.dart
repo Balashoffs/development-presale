@@ -1,12 +1,11 @@
 enum ObjectType {
+  gemeral(
+      'general',
+      'Общее'
+  ),
   office(
     'office',
     'Офисное'
-  ),
-  gemeral(
-    'general',
-    'Общее'
-
   ),
   dou(
     'dou',

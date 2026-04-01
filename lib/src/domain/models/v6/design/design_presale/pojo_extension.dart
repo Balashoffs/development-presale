@@ -20,6 +20,7 @@ extension ResourceDivisionDtoExt on DivisionResourceDTO {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: summary,
+      summaryCostWithTax: 0.0
     );
   }
 
@@ -66,11 +67,11 @@ extension DivisionMarginsViewModelExt on DivisionsWithMarginRowVM {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: divisionSummaryCost,
-      summaryCostWithTax: summaryCostWithTaxVN.value,
       summaryCostWithMargin: summaryCostWithMarginVN.value,
       marginValue: marginValue,
       clientValue: clientValue,
       overPriceValue: overPriceValue,
+      summaryCostWithTax: summaryCostWithTaxVN.value,
       taxValue: taxValue,
     );
   }
@@ -340,6 +341,8 @@ extension DivisionsMarginPojoExt on DivisionsMarginPojo {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: resourceDivisionSummaryCost,
+      summaryCostWithTax: summaryCostWithTax
+
     );
   }
 }

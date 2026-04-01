@@ -35,7 +35,7 @@ class LocalAnalyticsDTO {
   static Future<List<LocalAnalyticDTO>> build() async {
     List<LocalAnalyticCSV> resourcesFromCsv = await LocalAnalyticCsvBuilder(
       DesignClass.localAnalytic,
-    ).build((path) => rootBundle.loadString(path),);
+    ).build((path) => rootBundle.loadString(path).onError((error, stackTrace) => '',));
     Map<String, List<LocalAnalyticDTO>> allResources = {};
     RegExp regExp = RegExp("([а-яА-Я]{1,})\\d{0,}");
     for (var value in resourcesFromCsv) {

@@ -334,7 +334,7 @@ class DivisionsMarginDTO {
     this.marginValue = 0.0,
     this.clientValue = 0.0,
     this.summaryCostWithMargin = 0.0,
-    this.summaryCostWithTax = 0.0,
+    required this.summaryCostWithTax,
     this.taxValue = 0.0,
   });
 

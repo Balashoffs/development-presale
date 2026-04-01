@@ -1,6 +1,7 @@
 import 'package:flutter/services.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/design_class.dart';
+import 'package:presale/src/domain/models/v5/design/division_resource_table/devision_hardcore.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/division_csv.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/extensions.dart';
 import 'package:presale/src/domain/models/v5/design/division_resource_table/resource_csv.dart';
@@ -75,13 +76,13 @@ class ResourcesDTO {
   static Future<Map<String, DivisionDTO>> build(DivisionType type) async {
     List<ResourceCSV> resourcesFromCsv = await ResourceCostDtoBuilder(
       DesignClass.resources,
-    ).build((path) => rootBundle.loadString(path));
+    ).build(_getResourcesFromAssets);
     String divisionPath = type == DivisionType.working
         ? DesignClass.jobDivisions
         : DesignClass.projectDivisions;
     List<DivisionCSV> divisionsFromCsv = await DivisionCostDtoBuilder(
       divisionPath,
-    ).build((path) => rootBundle.loadString(path));
+    ).build((path) => _getDivisionsFromAssets(path, type));
     Map<String, List<ResourceDTO>> allResources = {};
     Map<String, DivisionDTO> divisions = {};
 
@@ -107,5 +108,28 @@ class ResourcesDTO {
       }
     }
     return divisions;
+  }
+
+  static Future<String> _getResourcesFromAssets(String path) async {
+    String str = await rootBundle
+        .loadString(path)
+        .onError((error, stackTrace) => "");
+    return str.isNotEmpty ? str : resourcesHardCore;
+  }
+
+  static Future<String> _getDivisionsFromAssets(String path, DivisionType type) async {
+    String str = await rootBundle
+        .loadString(path)
+        .onError((error, stackTrace) => "");
+    if (str.isNotEmpty) {
+      return str;
+    }
+
+    switch (type) {
+      case DivisionType.project:
+        return projectDivisionHardCore;
+      case DivisionType.working:
+        return jobDivisionHardCore;
+    }
   }
 }
