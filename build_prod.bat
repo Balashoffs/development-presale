@@ -36,6 +36,8 @@ if "%VERSION%"=="" (
 :: DERIVED PATHS
 :: ==========================================
 set "PROJECT_DIR=%~dp0"
+set "PROJECT_DIR_NOSLASH=%~dp0"
+if "%PROJECT_DIR_NOSLASH:~-1%"=="\" set "PROJECT_DIR_NOSLASH=%PROJECT_DIR_NOSLASH:~0,-1%"
 set "ASSETS_DIR=%PROJECT_DIR%assets"
 set "CONSUMER_ENV_DIR=%PROJECT_DIR%.consumer_env\%CONSUMER_FOLDER%"
 set "CONSUMER_ASSETS_DIR=%CONSUMER_ENV_DIR%\assets"
@@ -70,63 +72,63 @@ if not exist "%LAUNCHER_ICONS_FILE%" (
 
 echo [OK] All inputs validated.
 
-:: ==========================================
-:: STEP 2: CLEAN ASSETS
-:: ==========================================
-echo.
-echo [STEP 2] Cleaning assets directory...
-
-if exist "%ASSETS_DIR%" (
-    rd /s /q "%ASSETS_DIR%"
-    if errorlevel 1 (
-        echo [ERROR] Failed to delete assets directory.
-        exit /b 1
-    )
-    echo [OK] Assets directory deleted.
-) else (
-    echo [SKIP] Assets directory does not exist.
-)
-
-:: ==========================================
-:: STEP 3: COPY CONSUMER ASSETS
-:: ==========================================
-echo.
-echo [STEP 3] Copying assets from: %CONSUMER_ASSETS_DIR%
-
-mkdir "%ASSETS_DIR%"
-xcopy "%CONSUMER_ASSETS_DIR%\*" "%ASSETS_DIR%\" /E /I /H /Y
-if errorlevel 1 (
-    echo [ERROR] Failed to copy assets.
-    exit /b 1
-)
-echo [OK] Assets copied.
-
-:: ==========================================
-:: STEP 4: FLUTTER CLEAN
-:: ==========================================
-echo.
-echo [STEP 4] Running fvm flutter clean...
-
-cd /d "%PROJECT_DIR%"
-fvm flutter clean
-if errorlevel 1 (
-    echo [ERROR] fvm flutter clean failed.
-    exit /b 1
-)
-echo [OK] Flutter clean done.
-
-:: ==========================================
-:: STEP 5: BUILD RUNNER
-:: ==========================================
-echo.
-echo [STEP 5] Running build_runner...
-
-fvm dart run build_runner build -d
-if errorlevel 1 (
-    echo [ERROR] build_runner failed.
-    exit /b 1
-)
-echo [OK] build_runner done.
+@REM :: ==========================================
+@REM :: STEP 2: CLEAN ASSETS
+@REM :: ==========================================
+@REM echo.
+@REM echo [STEP 2] Cleaning assets directory...
+@REM
+@REM if exist "%ASSETS_DIR%" (
+@REM     rd /s /q "%ASSETS_DIR%"
+@REM     if errorlevel 1 (
+@REM         echo [ERROR] Failed to delete assets directory.
+@REM         exit /b 1
+@REM     )
+@REM     echo [OK] Assets directory deleted.
+@REM ) else (
+@REM     echo [SKIP] Assets directory does not exist.
+@REM )
+@REM
+@REM :: ==========================================
+@REM :: STEP 3: COPY CONSUMER ASSETS
+@REM :: ==========================================
+@REM echo.
+@REM echo [STEP 3] Copying assets from: %CONSUMER_ASSETS_DIR%
+@REM
+@REM mkdir "%ASSETS_DIR%"
+@REM xcopy "%CONSUMER_ASSETS_DIR%\*" "%ASSETS_DIR%\" /E /I /H /Y
+@REM if errorlevel 1 (
+@REM     echo [ERROR] Failed to copy assets.
+@REM     exit /b 1
+@REM )
+@REM echo [OK] Assets copied.
+@REM
+@REM :: ==========================================
+@REM :: STEP 4: FLUTTER CLEAN
+@REM :: ==========================================
+@REM echo.
+@REM echo [STEP 4] Running fvm flutter clean...
+@REM
+@REM cd /d "%PROJECT_DIR%"
+@REM fvm flutter clean
+@REM if errorlevel 1 (
+@REM     echo [ERROR] fvm flutter clean failed.
+@REM     exit /b 1
+@REM )
+@REM echo [OK] Flutter clean done.
+@REM
+@REM :: ==========================================
+@REM :: STEP 5: BUILD RUNNER
+@REM :: ==========================================
+@REM echo.
+@REM echo [STEP 5] Running build_runner...
+@REM
+@REM fvm dart run build_runner build -d
+@REM if errorlevel 1 (
+@REM     echo [ERROR] build_runner failed.
+@REM     exit /b 1
+@REM )
+@REM echo [OK] build_runner done.
 
 :: ==========================================
 :: STEP 6: DOCKER BUILD
@@ -158,7 +160,7 @@ set DOCKER_DEFAULT_PLATFORM=linux/amd64
 docker build -f "%PROJECT_DIR%scripts\dockerfile_prod" ^
     --build-arg "DART_DEFINE_FILE_CONTENT=!DART_DEFINE_B64!" ^
     --build-arg "LAUNCHER_ICONS_CONTENT=!LAUNCHER_ICONS_B64!" ^
-    -t "%IMAGE_TAG%" "%PROJECT_DIR%"
+    -t "%IMAGE_TAG%" "%PROJECT_DIR_NOSLASH%"
 
 if errorlevel 1 (
     echo [ERROR] Docker build failed.
