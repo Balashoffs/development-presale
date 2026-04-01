@@ -171,7 +171,7 @@ echo.
 if not exist "%OUTPUT_DIR%" mkdir "%OUTPUT_DIR%"
 
 :: Run Inno Setup
-"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "C:\tmp\src\presale\scripts\installer.iss" /DMyAppVersion="%APP_VERSION%" /DMyBuildDir="%BUILD_DIR%" /DMyOutputDir="%OUTPUT_DIR%" /DMyAppName="%APP_NAME%"
+"C:\Program Files (x86)\Inno Setup 6\ISCC.exe" ".\scripts\installer.iss" /DMyAppVersion="%APP_VERSION%" /DMyBuildDir="%BUILD_DIR%" /DMyOutputDir="%OUTPUT_DIR%" /DMyAppName="%APP_NAME%"
 if errorlevel 1 (
     echo [ERROR] Inno Setup compilation failed.
     exit /b 1
