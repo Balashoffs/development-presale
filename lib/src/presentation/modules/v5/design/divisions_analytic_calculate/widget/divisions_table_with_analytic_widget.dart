@@ -32,9 +32,20 @@ class _DivisionsTableWithAnalyticWidgetState
   void _scrollListener(ScrollController verticalScrollController) {}
 
   MoonTableHeader _generateTableHeader() {
+    bool isLocalAnalyticColumn =  widget.tableDataRows.map((e) => e.localAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
+    bool isOutsideAnalyticColumn =  widget.tableDataRows.map((e) => e.outsideAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
+    print("_generateTableHeader");
+    print(isLocalAnalyticColumn);
+    print(isOutsideAnalyticColumn);
     return MoonTableHeader(
       height: 56,
       columns: List.generate(widget.rowAttributes.length, (int index) {
+        if(index == 4 && !isLocalAnalyticColumn) {
+          return null;
+        }
+        if(index == 5 && !isOutsideAnalyticColumn) {
+          return null;
+        }
         return MoonTableColumn(
           width: widget.rowAttributes[index].width,
           cell: CellDecorationWidget(
@@ -42,12 +53,17 @@ class _DivisionsTableWithAnalyticWidgetState
             child: HeaderCellWidget(attribute: widget.rowAttributes[index]),
           ),
         );
-      }),
+      }).nonNulls.toList()
     );
   }
 
   List<MoonTableRow> _generateTableRows() {
     final cubit = context.read<DivisionsWithAnalyticCalculateCubit>();
+    bool isLocalAnalyticColumn =  widget.tableDataRows.map((e) => e.localAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
+    bool isOutsideAnalyticColumn =  widget.tableDataRows.map((e) => e.outsideAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
+    print("_generateTableRows");
+    print(isLocalAnalyticColumn);
+    print(isOutsideAnalyticColumn);
     return List.generate(widget.tableDataRows.length, (int index) {
       final row = widget.tableDataRows[index];
       return MoonTableRow(
@@ -79,18 +95,20 @@ class _DivisionsTableWithAnalyticWidgetState
               key: Key(row.id.toString()),
             ),
           ),
-          CellDecorationWidget(
-            child: TextCellWidget(
-              label: convertToRubleString(row.localAnalytic, 0),
-              key: Key(row.id.toString()),
+          if(isLocalAnalyticColumn)
+            CellDecorationWidget(
+              child: TextCellWidget(
+                label: convertToRubleString(row.localAnalytic, 0),
+                key: Key(row.id.toString()),
+              ),
             ),
-          ),
-          CellDecorationWidget(
-            child: TextCellWidget(
-              label: convertToRubleString(row.outsideAnalytic, 0),
-              key: Key(row.id.toString()),
+          if(isOutsideAnalyticColumn)
+            CellDecorationWidget(
+              child: TextCellWidget(
+                label: convertToRubleString(row.outsideAnalytic, 0),
+                key: Key(row.id.toString()),
+              ),
             ),
-          ),
           CellDecorationWidget(
             child: FloatInputCellWidget(
               validator: onlyInfiniteNumberValidator,
@@ -109,15 +127,26 @@ class _DivisionsTableWithAnalyticWidgetState
           ),
         ],
       );
-    });
+    }).nonNulls.toList();
   }
 
   MoonTableFooter _generateTableFooter() {
     final controller = context
         .read<DivisionsWithAnalyticCalculateCubit>()
         .controller;
+    bool isLocalAnalyticColumn =  widget.tableDataRows.map((e) => e.localAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
+    bool isOutsideAnalyticColumn =  widget.tableDataRows.map((e) => e.outsideAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
+    print("_generateTableFooter");
+    print(isLocalAnalyticColumn);
+    print(isOutsideAnalyticColumn);
     return MoonTableFooter(
       cells: List.generate(widget.rowAttributes.length, (int index) {
+        if(index == 4 && !isLocalAnalyticColumn) {
+          return null;
+        }
+        if(index == 5 && !isOutsideAnalyticColumn) {
+          return null;
+        }
         if (widget.rowAttributes.length - 1 == index) {
           return CellDecorationWidget(
             key: Key('clear_cost'),
@@ -128,17 +157,35 @@ class _DivisionsTableWithAnalyticWidgetState
           isFistCell: index == 0,
           child: SizedBox.shrink(),
         );
-      }),
+      }).nonNulls.toList(),
       height: 56,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    bool isLocalAnalyticColumn =  widget.tableDataRows.map((e) => e.localAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
+    bool isOutsideAnalyticColumn =  widget.tableDataRows.map((e) => e.outsideAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
+    int localAnalyticPos = (isLocalAnalyticColumn ? 0 : 1);
+    int outsideAnalyticPos = (isOutsideAnalyticColumn ? 0 : 1);
+    print("build");
+    print(isLocalAnalyticColumn);
+    print(isOutsideAnalyticColumn);
+    print(localAnalyticPos);
+    print(outsideAnalyticPos);
+    int total = widget.rowAttributes.length - localAnalyticPos - outsideAnalyticPos;
+    print(total);
+    print(widget.rowAttributes.length);
+    var header = _generateTableHeader();
+    var body = _generateTableRows();
+    var footer = _generateTableFooter();
+    print(header.columns.length);
+    print(body.length);
+    print(footer.cells.length);
     return OverflowBox(
       fit: OverflowBoxFit.deferToChild,
       child: MoonTable(
-        columnsCount: widget.rowAttributes.length,
+        columnsCount: total,
         isHeaderPinned: true,
         isFooterPinned: true,
         rowGap: 2.0,
@@ -148,9 +195,9 @@ class _DivisionsTableWithAnalyticWidgetState
           dragDevices: {PointerDeviceKind.mouse},
         ),
         rowSize: MoonTableRowSize.md,
-        header: _generateTableHeader(),
-        rows: _generateTableRows(),
-        footer: _generateTableFooter(),
+        header: header,
+        rows: body,
+        footer: footer,
         tablePadding: const EdgeInsets.symmetric(horizontal: 16),
         cellPadding: const EdgeInsets.symmetric(vertical: 8),
         onScrollControllersReady:
