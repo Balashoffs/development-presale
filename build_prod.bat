@@ -4,9 +4,9 @@ setlocal enabledelayedexpansion
 :: ==========================================
 :: CONFIGURATION — EDIT THESE
 :: ==========================================
-set "VPS_KEY_NAME=217.18.62.204"
-set "VPS_USER=root"
-set "VPS_IP=217.18.62.204"
+set "VPS_KEY_NAME=-"
+set "VPS_USER=-"
+set "VPS_IP=-"
 set "APP_NAME=presale_prod"
 
 :: ==========================================
