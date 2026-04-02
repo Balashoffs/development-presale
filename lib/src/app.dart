@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:moon_design/moon_design.dart';
 import 'package:presale/src/di/di.dart';
 import 'package:flutter/foundation.dart';
@@ -48,7 +49,9 @@ class ServiceCalcApp extends App {
       ],
       child: MaterialApp.router(
         localizationsDelegates: [
-          // GlobalMaterialLocalizations.delegate
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
         supportedLocales: [const Locale('en')],
         debugShowCheckedModeBanner: false,
