@@ -24,7 +24,7 @@ class OfferPreviewCubitProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OfferPreviewCubit(di),
+      create: (_) => OfferPreviewCubit(di),
       child: DesignOfferPreviewRootWidget(),
     );
   }
@@ -36,6 +36,7 @@ class DesignOfferPreviewRootWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<OfferPreviewCubit>();
+    print(cubit.state);
     return BlocConsumer<OfferPreviewCubit, OfferPreviewState>(
       listener: (context, state) {
         state.whenOrNull(

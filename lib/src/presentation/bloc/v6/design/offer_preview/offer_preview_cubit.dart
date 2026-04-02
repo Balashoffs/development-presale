@@ -30,6 +30,7 @@ class OfferPreviewCubit extends Cubit<OfferPreviewState> {
   }
 
   void process(MetadataAfterPiking metadata) {
+    emit(OfferPreviewState.initial());
     if (metadata.bytes.isNotEmpty) {
       _shareDesignOfferService?.decrypt(metadata.bytes).then((value) {
         value.fold((l) {}, (r) {

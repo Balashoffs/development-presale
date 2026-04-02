@@ -64,7 +64,12 @@ class DesignOfferMemorySource {
   }
 
   void clearCashed() {
-    _designPresaleDTO = null;
+    _designPresaleDTO = DesignPresaleDTO(
+      divisionResources: {},
+      divisionResourceMargins: {},
+      divisionWithAnalytic: {},
+      divisionAnalyticMargins: {},
+    );
   }
 
   void addDivisionResource(DivisionResourceDTO add) {

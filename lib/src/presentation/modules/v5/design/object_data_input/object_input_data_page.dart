@@ -46,7 +46,7 @@ class ObjectInputDataBlocBuilderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ObjectDataCubit(di),
+      create: (_) => ObjectDataCubit(di),
       child: ObjectInputDataConsumerWidget(),
     );
   }
