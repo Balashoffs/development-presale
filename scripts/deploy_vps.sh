@@ -91,7 +91,7 @@ docker run -d \
     --name "$CONTAINER_NAME" \
     --restart unless-stopped \
     -p "$PORT:80" \
-    -v "$ASSETS_DIR:/usr/share/nginx/html/assets" \
+    -v "$ASSETS_DIR:/usr/share/nginx/html/assets/assets " \
     "$IMAGE_TAG"
 
 echo "[OK] Container started."

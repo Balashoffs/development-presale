@@ -115,7 +115,7 @@ Files are expected to exist in the current directory (placed there by scp from b
    - `--name presale_prod`
    - `--restart unless-stopped`
    - `-p <port>:80`
-   - `-v /home/presale/assets:/usr/share/nginx/html/assets`
+   - `-v /home/presale/assets:/usr/share/nginx/html/assets/assets`
 
 ---
 
