@@ -13,7 +13,7 @@ import 'package:presale/src/presentation/modules/v5/design/common/table/division
 import 'package:presale/src/presentation/modules/v5/design/common/text_input_validators.dart';
 
 class DivisionsTableWithAnalyticWidget extends StatefulWidget {
-  const DivisionsTableWithAnalyticWidget({
+  DivisionsTableWithAnalyticWidget({
     super.key,
     required this.rowAttributes,
     required this.tableDataRows,
@@ -21,6 +21,20 @@ class DivisionsTableWithAnalyticWidget extends StatefulWidget {
 
   final List<CollumAttribute> rowAttributes;
   final List<DivisionsWithAnalyticRowVM> tableDataRows;
+
+  bool get _isLocalAnalyticColumn =>
+      tableDataRows
+          .map((e) => e.localAnalytic)
+          .reduce((value, element) => value + element)
+          .compareTo(0.0) >
+      0;
+
+  bool get _isOutsideAnalyticColumn =>
+      tableDataRows
+          .map((e) => e.outsideAnalytic)
+          .reduce((value, element) => value + element)
+          .compareTo(0.0) >
+      0;
 
   @override
   State<DivisionsTableWithAnalyticWidget> createState() =>
@@ -32,18 +46,13 @@ class _DivisionsTableWithAnalyticWidgetState
   void _scrollListener(ScrollController verticalScrollController) {}
 
   MoonTableHeader _generateTableHeader() {
-    bool isLocalAnalyticColumn =  widget.tableDataRows.map((e) => e.localAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
-    bool isOutsideAnalyticColumn =  widget.tableDataRows.map((e) => e.outsideAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
-    print("_generateTableHeader");
-    print(isLocalAnalyticColumn);
-    print(isOutsideAnalyticColumn);
     return MoonTableHeader(
       height: 56,
       columns: List.generate(widget.rowAttributes.length, (int index) {
-        if(index == 4 && !isLocalAnalyticColumn) {
+        if (index == 4 && !widget._isLocalAnalyticColumn) {
           return null;
         }
-        if(index == 5 && !isOutsideAnalyticColumn) {
+        if (index == 5 && !widget._isOutsideAnalyticColumn) {
           return null;
         }
         return MoonTableColumn(
@@ -53,17 +62,12 @@ class _DivisionsTableWithAnalyticWidgetState
             child: HeaderCellWidget(attribute: widget.rowAttributes[index]),
           ),
         );
-      }).nonNulls.toList()
+      }).nonNulls.toList(),
     );
   }
 
   List<MoonTableRow> _generateTableRows() {
     final cubit = context.read<DivisionsWithAnalyticCalculateCubit>();
-    bool isLocalAnalyticColumn =  widget.tableDataRows.map((e) => e.localAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
-    bool isOutsideAnalyticColumn =  widget.tableDataRows.map((e) => e.outsideAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
-    print("_generateTableRows");
-    print(isLocalAnalyticColumn);
-    print(isOutsideAnalyticColumn);
     return List.generate(widget.tableDataRows.length, (int index) {
       final row = widget.tableDataRows[index];
       return MoonTableRow(
@@ -95,14 +99,14 @@ class _DivisionsTableWithAnalyticWidgetState
               key: Key(row.id.toString()),
             ),
           ),
-          if(isLocalAnalyticColumn)
+          if (widget._isLocalAnalyticColumn)
             CellDecorationWidget(
               child: TextCellWidget(
                 label: convertToRubleString(row.localAnalytic, 0),
                 key: Key(row.id.toString()),
               ),
             ),
-          if(isOutsideAnalyticColumn)
+          if (widget._isOutsideAnalyticColumn)
             CellDecorationWidget(
               child: TextCellWidget(
                 label: convertToRubleString(row.outsideAnalytic, 0),
@@ -134,17 +138,24 @@ class _DivisionsTableWithAnalyticWidgetState
     final controller = context
         .read<DivisionsWithAnalyticCalculateCubit>()
         .controller;
-    bool isLocalAnalyticColumn =  widget.tableDataRows.map((e) => e.localAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
-    bool isOutsideAnalyticColumn =  widget.tableDataRows.map((e) => e.outsideAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
-    print("_generateTableFooter");
-    print(isLocalAnalyticColumn);
-    print(isOutsideAnalyticColumn);
+    bool isLocalAnalyticColumn =
+        widget.tableDataRows
+            .map((e) => e.localAnalytic)
+            .reduce((value, element) => value + element)
+            .compareTo(0.0) >
+        0;
+    bool isOutsideAnalyticColumn =
+        widget.tableDataRows
+            .map((e) => e.outsideAnalytic)
+            .reduce((value, element) => value + element)
+            .compareTo(0.0) >
+        0;
     return MoonTableFooter(
       cells: List.generate(widget.rowAttributes.length, (int index) {
-        if(index == 4 && !isLocalAnalyticColumn) {
+        if (index == 4 && !isLocalAnalyticColumn) {
           return null;
         }
-        if(index == 5 && !isOutsideAnalyticColumn) {
+        if (index == 5 && !isOutsideAnalyticColumn) {
           return null;
         }
         if (widget.rowAttributes.length - 1 == index) {
@@ -164,24 +175,14 @@ class _DivisionsTableWithAnalyticWidgetState
 
   @override
   Widget build(BuildContext context) {
-    bool isLocalAnalyticColumn =  widget.tableDataRows.map((e) => e.localAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
-    bool isOutsideAnalyticColumn =  widget.tableDataRows.map((e) => e.outsideAnalytic,).reduce((value, element) => value + element,).compareTo(0.0) > 0;
-    int localAnalyticPos = (isLocalAnalyticColumn ? 0 : 1);
-    int outsideAnalyticPos = (isOutsideAnalyticColumn ? 0 : 1);
-    print("build");
-    print(isLocalAnalyticColumn);
-    print(isOutsideAnalyticColumn);
-    print(localAnalyticPos);
-    print(outsideAnalyticPos);
-    int total = widget.rowAttributes.length - localAnalyticPos - outsideAnalyticPos;
-    print(total);
-    print(widget.rowAttributes.length);
+    int localAnalyticPos = (widget._isLocalAnalyticColumn ? 0 : 1);
+    int outsideAnalyticPos = (widget._isOutsideAnalyticColumn ? 0 : 1);
+    int total =
+        widget.rowAttributes.length - localAnalyticPos - outsideAnalyticPos;
     var header = _generateTableHeader();
     var body = _generateTableRows();
     var footer = _generateTableFooter();
-    print(header.columns.length);
-    print(body.length);
-    print(footer.cells.length);
+
     return OverflowBox(
       fit: OverflowBoxFit.deferToChild,
       child: MoonTable(
