@@ -21,7 +21,7 @@ class OfferFooter extends OfferBase {
   }
 
   void addSigns(CommercialOfferDTO commercialOffer) {
-    offerCompanySign.addSign(commercialOffer.companyInfo);
+    offerCompanySign.addSign(commercialOffer.companyInfo!);
     rowPos.increment(2);
     offerPersonSign.addSign(commercialOffer.personSign!);
   }

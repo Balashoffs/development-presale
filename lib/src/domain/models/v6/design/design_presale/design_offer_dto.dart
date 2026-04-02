@@ -483,7 +483,7 @@ class CommercialOfferDTO {
   final PayValuesDTO payValues;
   String notes;
   late PersonSignDTO? personSign;
-  late SelectedCompanyDTO companyInfo;
+  SelectedCompanyDTO companyInfo;
 
   CommercialOfferDTO({
     required this.id,
@@ -498,7 +498,7 @@ class CommercialOfferDTO {
     required this.resultsTable,
     this.notes = '',
     this.personSign,
-    required this.companyInfo,
+    this.companyInfo = const SelectedCompanyDTO(),
   });
 
   static CommercialOfferDTO from(DesignOfferMemorySource memory) {

@@ -32,6 +32,10 @@ class CompanyInfoRepository {
     return _companyNames;
   }
 
+  SelectedCompanyDTO getSavedCompany(){
+    return _designOfferMemorySource.commercialOffer?.companyInfo ?? SelectedCompanyDTO();
+  }
+
   Future<void> _loadCompaniesInfo() async {
     List<CompanyInfoDTO> founded = await getCompanyInfoFromAssets();
     print(founded);

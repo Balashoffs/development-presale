@@ -17,7 +17,12 @@ class CompanyInfoCubit extends Cubit<CompanyInfoState> {
   }
 
   void _init() {
-    _loadingData();
+    var company = _companyInfoRepository.getSavedCompany();
+    if (company.companyName != '') {
+      emit(CompanyInfoState.selected(company));
+    } else {
+      _loadingData();
+    }
   }
 
   void onSelected(String selected) {
@@ -34,9 +39,9 @@ class CompanyInfoCubit extends Cubit<CompanyInfoState> {
     _loadingData();
   }
 
-  void _loadingData()async{
+  void _loadingData() async {
     _companyInfoRepository.getCompanyNameList().then(
-          (value) => emit(CompanyInfoState.selecting(value)),
+      (value) => emit(CompanyInfoState.selecting(value)),
       onError: (error) {
         emit(CompanyInfoState.error());
       },

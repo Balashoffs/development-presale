@@ -75,12 +75,10 @@ class DivisionsWithAnalyticRepository {
           builder.setResult(analytic!.result);
           builder.setManualAnalytic(analytic.manualAnalytic);
         } else {
-          print("analytic?.humanHours.compareTo(sum) != 0");
           builder.setManualAnalytic(0.0);
           builder.setResult(sum);
         }
       } else {
-        print("!_designPresaleDTO.divisionWithAnalytic.containsKey(firstElement.divisionShortName.hashCode)");
         builder.setManualAnalytic(0.0);
         builder.setResult(sum);
       }

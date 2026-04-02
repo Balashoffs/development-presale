@@ -155,7 +155,7 @@ extension CommercialOfferDtoExt on CommercialOfferDTO {
           (payValues.presaleFactor * resultsTable.fullSummaryWithTax)
               .toStringAsFixed(0),
       resultTableViewModel: resultsTable.toViewModel(),
-      colonTypeImagePath: companyInfo.pathToColonType,
+      colonTypeImagePath: companyInfo!.pathToColonType,
     );
   }
 }
