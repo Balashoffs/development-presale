@@ -25,11 +25,11 @@ main() async {
     String nameR = element.divisionShortName;
     if (!shortNames.contains(nameR)) {
       LocalAnalyticCSV? analyticCSV = analyticFromCsv
-          .where((element) => element.tds == nameR)
+          .where((element) => element.mark == nameR)
           .firstOrNull;
       Section newSection = Section(
         resourceFile: nameR,
-        analyticFile: analyticCSV == null ? '-' : analyticCSV.tds,
+        analyticFile: analyticCSV == null ? '-' : analyticCSV.mark,
         divisionName: element.divisionName,
         divisionDescription: element.divisionDescription,
       );
@@ -39,7 +39,7 @@ main() async {
   }
 
   for (var element in analyticFromCsv) {
-    String name = element.tds;
+    String name = element.mark;
     if (!shortNames.contains(name)) {
       DivisionCSV? divisionCSV = divisionsFromCsv
           .where((element) => element.divisionShortName == name)

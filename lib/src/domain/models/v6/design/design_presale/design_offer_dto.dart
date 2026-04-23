@@ -13,7 +13,7 @@ class DesignPresaleDTO {
   Map<int, DivisionResourceDTO> divisionResources;
   Map<int, DivisionsMarginDTO> divisionResourceMargins;
   Map<int, DivisionsWithAnalyticDTO> divisionWithAnalytic;
-  Map<int, DivisionsMarginDTO> divisionAnalyticMargins;
+  Map<int, DivisionsResultDTO> divisionsResult;
   CommercialOfferDTO? commercialOfferDTO;
   bool isAllResources;
 
@@ -22,7 +22,7 @@ class DesignPresaleDTO {
     required this.divisionResources,
     required this.divisionResourceMargins,
     required this.divisionWithAnalytic,
-    required this.divisionAnalyticMargins,
+    required this.divisionsResult,
     this.commercialOfferDTO,
     this.isAllResources = false,
   });
@@ -377,13 +377,54 @@ class DivisionsMarginDTO {
   }
 }
 
+class DivisionsResultDTO {
+  final int id;
+  final String divisionName;
+  final String divisionShortName;
+  final String divisionDescription;
+  final double resultValue;
+  final double summaryCostWithTax;
+  final double taxValue;
+
+  const DivisionsResultDTO({
+    required this.id,
+    required this.divisionName,
+    required this.divisionShortName,
+    required this.divisionDescription,
+    required this.resultValue,
+    this.summaryCostWithTax = 0.0,
+    this.taxValue = 0.0,
+  });
+
+  DivisionsResultDTO copyWith({
+    int? id,
+    String? divisionName,
+    String? divisionShortName,
+    String? divisionDescription,
+    double? resultValue,
+    double? summaryCostWithTax,
+    double? taxValue,
+  }) {
+    return DivisionsResultDTO(
+      id: id ?? this.id,
+      divisionName: divisionName ?? this.divisionName,
+      divisionShortName: divisionShortName ?? this.divisionShortName,
+      divisionDescription: divisionDescription ?? this.divisionDescription,
+      resultValue: resultValue ?? this.resultValue,
+      summaryCostWithTax: summaryCostWithTax ?? this.summaryCostWithTax,
+      taxValue: taxValue ?? this.taxValue,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'DivisionsResultDTO{id: $id, divisionName: $divisionName, divisionShortName: $divisionShortName, divisionDescription: $divisionDescription, resultValue: $resultValue, summaryCostWithTax: $summaryCostWithTax, taxValue: $taxValue}';
+  }
+}
+
 class ResultsTableDTO {
   final String headerTitle;
-  final List<RowDivisionResultDTO> divisionRows;
-  final double clearSummary;
-  final double overPriceSummary;
-  final double marginSummary;
-  final double clientSummary;
+  final List<DivisionsResultDTO> divisionRows;
   final double fullSummary;
   final double tax;
   final double fullSummaryWithTax;
@@ -391,44 +432,26 @@ class ResultsTableDTO {
   const ResultsTableDTO({
     required this.headerTitle,
     required this.divisionRows,
-    required this.clearSummary,
-    required this.overPriceSummary,
-    required this.marginSummary,
-    required this.clientSummary,
     required this.fullSummary,
     required this.tax,
     required this.fullSummaryWithTax,
   });
 
   static ResultsTableDTO fromMargin(
-    List<DivisionsMarginDTO> divisionMargins,
+    List<DivisionsResultDTO> divisionsResult,
     String divisionType,
   ) {
     return ResultsTableDTO(
       headerTitle: buildHeaderTitle(divisionType),
-      divisionRows: divisionMargins.map((e) => e.toDto()).toList(),
-      clearSummary: divisionMargins
-          .map((e) => e.clientValue)
-          .reduce((value, element) => value + element),
-      overPriceSummary: divisionMargins
-          .map((e) => e.overPriceValue)
-          .reduce((value, element) => value + element),
-      marginSummary: divisionMargins
-          .map((e) => e.marginValue)
-          .reduce((value, element) => value + element),
-      clientSummary: divisionMargins
-          .map((e) => e.clientValue)
-          .reduce((value, element) => value + element),
-      fullSummary: divisionMargins
-          .map((e) => e.summaryCostWithMargin)
+      divisionRows: divisionsResult,
+      fullSummary: divisionsResult
+          .map((e) => e.resultValue)
           .reduce((value, element) => value + element),
       tax:
-          divisionMargins
-              .map((e) => e.summaryCostWithMargin)
-              .reduce((value, element) => value + element) *
-          Russian_Tax_Factor *
-          Russian_Tax_Factor_Reverce,
-      fullSummaryWithTax: divisionMargins
+          divisionsResult
+              .map((e) => e.taxValue)
+              .reduce((value, element) => value + element),
+      fullSummaryWithTax: divisionsResult
           .map((e) => e.summaryCostWithTax)
           .reduce((value, element) => value + element),
     );
@@ -504,7 +527,7 @@ class CommercialOfferDTO {
   static CommercialOfferDTO from(DesignOfferMemorySource memory) {
     final inputData = memory.inputDataDesignDTO!;
     ResultsTableDTO resultsTable = ResultsTableDTO.fromMargin(
-      memory.divisionWithAnalyticsMargin,
+      memory.divisionResults,
       inputData.divisionType.text,
     );
     return CommercialOfferDTO(
@@ -528,10 +551,6 @@ class RowDivisionResultDTO {
   final int id;
   final String divisionShortName;
   final String divisionName;
-  final double divisionClearCost;
-  final double divisionOverPriceCost;
-  final double divisionMarginCost;
-  final double divisionClientCost;
   final double divisionSummary;
   final double divisionSummaryWithTax;
 
@@ -539,10 +558,6 @@ class RowDivisionResultDTO {
     required this.id,
     required this.divisionShortName,
     required this.divisionName,
-    required this.divisionClearCost,
-    required this.divisionOverPriceCost,
-    required this.divisionMarginCost,
-    required this.divisionClientCost,
     required this.divisionSummary,
     required this.divisionSummaryWithTax,
   });

@@ -31,8 +31,8 @@ class DesignOfferMemorySource {
           .toList() ??
       [];
 
-  List<DivisionsMarginDTO> get divisionWithAnalyticsMargin =>
-      _designPresaleDTO?.divisionAnalyticMargins.values
+  List<DivisionsResultDTO> get divisionResults =>
+      _designPresaleDTO?.divisionsResult.values
           .sorted((a, b) => a.id.compareTo(b.id))
           .toList() ??
           [];
@@ -50,7 +50,7 @@ class DesignOfferMemorySource {
       divisionResources: {},
       divisionResourceMargins: {},
       divisionWithAnalytic: {},
-      divisionAnalyticMargins: {},
+      divisionsResult: {},
     );
   }
 
@@ -68,7 +68,7 @@ class DesignOfferMemorySource {
       divisionResources: {},
       divisionResourceMargins: {},
       divisionWithAnalytic: {},
-      divisionAnalyticMargins: {},
+      divisionsResult: {},
     );
   }
 

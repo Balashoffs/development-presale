@@ -85,10 +85,6 @@ class PayValueViewModel {
 class ResultTableViewModel {
   final String headerTitle;
   final List<DesignOfferResultRowViewModel> divisionRows;
-  final String clearSummary;
-  final String overPriceSummary;
-  final String marginSummary;
-  final String clientSummary;
   final String fullSummary;
   final String tax;
   final String fullSummaryWithTax;
@@ -96,10 +92,6 @@ class ResultTableViewModel {
   const ResultTableViewModel({
     required this.headerTitle,
     required this.divisionRows,
-    required this.clearSummary,
-    required this.overPriceSummary,
-    required this.marginSummary,
-    required this.clientSummary,
     required this.fullSummary,
     required this.tax,
     required this.fullSummaryWithTax,

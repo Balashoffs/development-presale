@@ -11,7 +11,7 @@ class DesignOfferRepository {
   CommercialOfferDTO? get commercialOffer =>
       _designOfferMemorySource.designPresaleDTO?.commercialOfferDTO;
 
-  List<RowDivisionResultDTO> get divisions =>
+  List<DivisionsResultDTO> get divisions =>
       _designOfferMemorySource.commercialOffer?.resultsTable.divisionRows ?? [];
 
   DesignOfferRepository(DesignOfferMemorySource designOfferMemorySource)

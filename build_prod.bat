@@ -235,6 +235,6 @@ echo [OK] Local files cleaned up.
 echo.
 echo [DONE] Build and upload complete.
 echo        Image: %IMAGE_TAG%
-echo        On VPS run: ./deploy_vps.sh %TAR_NAME% %ZIP_NAME% ^<port^>
+echo        On VPS run: ./deploy_vps.sh %VERSION% ^<port^>
 echo.
 endlocal

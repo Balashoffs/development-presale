@@ -101,23 +101,23 @@ class DivisionsWithAnalyticRepository {
     List<LocalAnalyticDTO> filtered = analytics
         .where(
           (element) =>
-              element.stage ==
-              designPresale.inputDataDesignDTO!.divisionType.shortText,
+              element.documentationType.toLowerCase() ==
+              designPresale.inputDataDesignDTO!.divisionType.shortText.toLowerCase(),
         )
         .where(
           (element) =>
-              element.function ==
-              designPresale.inputDataDesignDTO!.objectType.text,
+              element.objectType.toLowerCase() ==
+              designPresale.inputDataDesignDTO!.objectType.text.toLowerCase(),
         )
         .where(
           (element) => shifrs
-              .where((v) => v.contains(element.shifr.toLowerCase()))
+              .where((v) => v.toLowerCase() == element.mark.toLowerCase())
               .isNotEmpty,
         )
         .toList();
 
     for (var value in filtered) {
-      foundAnalytics.putIfAbsent(value.shifr, () => value);
+      foundAnalytics.putIfAbsent(value.mark, () => value);
     }
 
     return foundAnalytics;
@@ -141,28 +141,25 @@ class DivisionsWithAnalyticRepository {
   }
 
   void calculateAnalyticMargin() {
-    _designPresaleDTO?.divisionAnalyticMargins.clear();
-    List<DivisionsMarginDTO>? divisionMargins = _designPresaleDTO
+    _designPresaleDTO?.divisionsResult.clear();
+    List<DivisionsResultDTO>? divisionResultsDTO = _designPresaleDTO
         ?.divisionWithAnalytic
         .values
         .map(
-          (e) => DivisionsMarginDTO(
+          (e) => DivisionsResultDTO(
             id: e.id,
             divisionName: e.section,
             divisionShortName: e.shifr,
             divisionDescription: e.section,
-            summaryCostWithMargin: e.result,
-            resourceDivisionSummaryCost: e.humanHours,
-            summaryCostWithTax: 0.0,
-
+            resultValue: e.result,
           ),
         )
     .map((e) => calcDivisionMarginWithAnalyticDTOCost(e),)
         .toList();
 
-    if (divisionMargins != null) {
-      for (var value in divisionMargins) {
-        _designPresaleDTO?.divisionAnalyticMargins.putIfAbsent(
+    if (divisionResultsDTO != null) {
+      for (var value in divisionResultsDTO) {
+        _designPresaleDTO?.divisionsResult.putIfAbsent(
           value.id,
           () => value,
         );

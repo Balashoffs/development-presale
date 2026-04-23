@@ -98,17 +98,13 @@ DivisionsMarginDTO calcDivisionMarginDTOCost(InputFactorsDTO inputFactors, Divis
   return dto;
 }
 
-DivisionsMarginDTO calcDivisionMarginWithAnalyticDTOCost(DivisionsMarginDTO dto) {
+DivisionsResultDTO calcDivisionMarginWithAnalyticDTOCost(DivisionsResultDTO dto) {
 
-  double withTax = dto.resourceDivisionSummaryCost * Russian_Tax_Factor;
+  double withTax = dto.resultValue * Russian_Tax_Factor;
 
   double taxValue = withTax * Russian_Tax_Factor_Reverce;
   dto = dto.copyWith(
     taxValue: taxValue,
-    overPriceValue: dto.overPriceValue,
-    marginValue: dto.marginValue,
-    clientValue: dto.clientValue,
-    summaryCostWithMargin: dto.summaryCostWithMargin,
     summaryCostWithTax: withTax,
 
   );

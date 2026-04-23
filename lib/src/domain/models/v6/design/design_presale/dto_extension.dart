@@ -1,4 +1,5 @@
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/domain/models/v5/design/divisions_result_table/divisions_result_pojo.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_table_with_analytic/divisions_margin_row_pojo.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_pojo.dart';
@@ -19,26 +20,42 @@ extension DesignPresaleDtoExt on DesignPresaleDTO {
           .map((e) => e.toMarginPojo())
           .toList(),
       divisionsWithAnalytic: divisionWithAnalytic.values
-          .map((e) => e.toPojo(),)
+          .map((e) => e.toPojo())
           .toList(),
 
-      divisionsAnalyticMargin: divisionAnalyticMargins.values
-          .map((e) => e.toMarginPojo())
+      divisionsResult: divisionsResult.values
+          .map((e) => e.toPojo())
           .toList(),
     );
   }
 }
 
-extension DivisionWithAnalyticExt on DivisionsWithAnalyticDTO{
+extension DivisionWithAnalyticExt on DivisionsWithAnalyticDTO {
   DivisionWithAnalyticPojo toPojo() {
-    return DivisionWithAnalyticPojo(id: id,
-        shifr: shifr,
-        section: section,
-        humanHours: humanHours,
-        localAnalytic: localAnalytic,
-        outsideAnalytic: outsideAnalytic,
-        manualAnalytic: manualAnalytic,
-        result: result);
+    return DivisionWithAnalyticPojo(
+      id: id,
+      shifr: shifr,
+      section: section,
+      humanHours: humanHours,
+      localAnalytic: localAnalytic,
+      outsideAnalytic: outsideAnalytic,
+      manualAnalytic: manualAnalytic,
+      result: result,
+    );
+  }
+}
+
+extension DivisionResultExt on DivisionsResultDTO {
+  DivisionsResultPojo toPojo() {
+    return DivisionsResultPojo(
+      id: id,
+      divisionName: divisionName,
+      divisionShortName: divisionShortName,
+      divisionDescription: divisionDescription,
+      resultValue: resultValue,
+      summaryCostWithTax: summaryCostWithTax,
+      taxValue: taxValue,
+    );
   }
 }
 

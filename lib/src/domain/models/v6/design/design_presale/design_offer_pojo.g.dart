@@ -37,9 +37,9 @@ _DesignPresalePojo _$DesignPresalePojoFromJson(
           )
           .toList() ??
       const [],
-  divisionsAnalyticMargin:
-      (json['divisionsAnalyticMargin'] as List<dynamic>?)
-          ?.map((e) => DivisionsMarginPojo.fromJson(e as Map<String, dynamic>))
+  divisionsResult:
+      (json['divisionsResult'] as List<dynamic>?)
+          ?.map((e) => DivisionsResultPojo.fromJson(e as Map<String, dynamic>))
           .toList() ??
       const [],
   isAllResources: json['isAllResources'] as bool? ?? false,
@@ -55,7 +55,7 @@ Map<String, dynamic> _$DesignPresalePojoToJson(_DesignPresalePojo instance) =>
       'divisionResources': instance.divisionResources,
       'divisionResourceMargins': instance.divisionResourceMargins,
       'divisionsWithAnalytic': instance.divisionsWithAnalytic,
-      'divisionsAnalyticMargin': instance.divisionsAnalyticMargin,
+      'divisionsResult': instance.divisionsResult,
       'isAllResources': instance.isAllResources,
     };
 

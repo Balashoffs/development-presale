@@ -2,6 +2,7 @@ import 'package:presale/src/data/core/string_converter.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/division_type.dart';
 import 'package:presale/src/domain/models/v3/design/division_type/object_type.dart';
 import 'package:presale/src/domain/models/v5/common/offer_counter/dto/offer_day_counter_dto.dart';
+import 'package:presale/src/domain/models/v5/design/divisions_result_table/extensions.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_table_with_analytic/division_with_analytic_row_viewmodel.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_table_with_analytic/divisions_margin_row_pojo.dart';
 import 'package:presale/src/domain/models/v6/design/design_presale/design_offer_dto.dart';
@@ -20,7 +21,7 @@ extension ResourceDivisionDtoExt on DivisionResourceDTO {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: summary,
-      summaryCostWithTax: 0.0
+      summaryCostWithTax: 0.0,
     );
   }
 
@@ -100,7 +101,8 @@ extension DivisionMarginsDtoExt on DivisionsMarginDTO {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       divisionSummaryCost: resourceDivisionSummaryCost,
-      overPriceValue: resourceDivisionSummaryCost * inputFactors.overPriceFactor,
+      overPriceValue:
+          resourceDivisionSummaryCost * inputFactors.overPriceFactor,
       marginValue: resourceDivisionSummaryCost * inputFactors.marginFactor,
       clientValue: resourceDivisionSummaryCost * inputFactors.customerFactor,
       taxValue: taxValue,
@@ -114,10 +116,6 @@ extension DivisionMarginsDtoExt on DivisionsMarginDTO {
       id: id,
       divisionShortName: divisionShortName,
       divisionName: divisionName,
-      divisionClearCost: resourceDivisionSummaryCost,
-      divisionOverPriceCost: overPriceValue,
-      divisionMarginCost: marginValue,
-      divisionClientCost: clientValue,
       divisionSummary: summaryCostWithMargin,
       divisionSummaryWithTax: summaryCostWithTax,
     );
@@ -155,7 +153,7 @@ extension CommercialOfferDtoExt on CommercialOfferDTO {
           (payValues.presaleFactor * resultsTable.fullSummaryWithTax)
               .toStringAsFixed(0),
       resultTableViewModel: resultsTable.toViewModel(),
-      colonTypeImagePath: companyInfo!.pathToColonType,
+      colonTypeImagePath: companyInfo.pathToColonType,
     );
   }
 }
@@ -163,11 +161,17 @@ extension CommercialOfferDtoExt on CommercialOfferDTO {
 extension ResultsTableDtoExt on ResultsTableDTO {
   ResultTableViewModel toViewModel() {
     return ResultTableViewModel(
-      divisionRows: divisionRows.map((e) => e.toViewModel()).toList(),
-      clearSummary: convertToRubleString(clearSummary, 0),
-      overPriceSummary: convertToRubleString(overPriceSummary, 0),
-      marginSummary: convertToRubleString(marginSummary, 0),
-      clientSummary: convertToRubleString(clientSummary, 0),
+      divisionRows: divisionRows
+          .map(
+            (e) => DesignOfferResultRowViewModel(
+              id: e.id,
+              divisionShortName: e.divisionShortName,
+              divisionName: e.divisionName,
+              summary: convertToRubleString(e.resultValue, 0),
+              summaryWithTax: convertToRubleString(e.summaryCostWithTax, 0),
+            ),
+          )
+          .toList(),
       fullSummary: convertToRubleString(fullSummary, 0),
       tax: convertToRubleString(tax, 0),
       fullSummaryWithTax: convertToRubleString(fullSummaryWithTax, 0),
@@ -182,10 +186,6 @@ extension DivisionResultDtoExt on RowDivisionResultDTO {
       id: id,
       divisionShortName: divisionShortName,
       divisionName: divisionName,
-      overPriceCost: convertToRubleString(divisionOverPriceCost, 0),
-      marginCost: convertToRubleString(divisionMarginCost, 0),
-      clientCost: convertToRubleString(divisionClientCost, 0),
-      clearCost: convertToRubleString(divisionClearCost, 0),
       summary: convertToRubleString(divisionSummary, 0),
       summaryWithTax: convertToRubleString(divisionSummaryWithTax, 0),
     );
@@ -218,7 +218,9 @@ extension DesignPresalePojoExt on DesignPresalePojo {
       updatesResources.putIfAbsent(value.resourceId, () => value);
     }
 
-    final resourceMargins = divisionResourceMargins.map((e) => e.toMarginDto()).toList();
+    final resourceMargins = divisionResourceMargins
+        .map((e) => e.toMarginDto())
+        .toList();
 
     Map<int, DivisionsMarginDTO> updatesResourceMargins = {};
     for (var value in resourceMargins) {
@@ -234,11 +236,9 @@ extension DesignPresalePojoExt on DesignPresalePojo {
       updatesAnalytics.putIfAbsent(value.id, () => value);
     }
 
-    final analyticMargins = divisionsAnalyticMargin
-        .map((e) => e.toMarginDto())
-        .toList();
+    final analyticMargins = divisionsResult.map((e) => e.toDto()).toList();
 
-    Map<int, DivisionsMarginDTO> updatesAnalyticMargins = {};
+    Map<int, DivisionsResultDTO> updatesAnalyticMargins = {};
     for (var value in analyticMargins) {
       updatesAnalyticMargins.putIfAbsent(value.id, () => value);
     }
@@ -248,7 +248,7 @@ extension DesignPresalePojoExt on DesignPresalePojo {
       divisionResources: updatesResources,
       divisionResourceMargins: updatesResourceMargins,
       divisionWithAnalytic: updatesAnalytics,
-      divisionAnalyticMargins: updatesAnalyticMargins,
+      divisionsResult: updatesAnalyticMargins,
       isAllResources: isAllResources,
     );
   }
@@ -341,8 +341,7 @@ extension DivisionsMarginPojoExt on DivisionsMarginPojo {
       divisionShortName: divisionShortName,
       divisionDescription: divisionDescription,
       resourceDivisionSummaryCost: resourceDivisionSummaryCost,
-      summaryCostWithTax: summaryCostWithTax
-
+      summaryCostWithTax: summaryCostWithTax,
     );
   }
 }

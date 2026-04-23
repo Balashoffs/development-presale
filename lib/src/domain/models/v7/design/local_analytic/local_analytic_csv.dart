@@ -9,37 +9,28 @@
 import 'package:presale/src/data/core/csv_parser.dart';
 
 class LocalAnalyticCSV {
-  final String stage;
-  final String function;
+  final String objectType;
+  final String documentationType;
+  final String name;
   final String mark;
-  final String tds;
-  final String count;
-  final String min;
   final String median;
-  final String max;
 
   factory LocalAnalyticCSV.fromCsvRow(List<dynamic> row) {
     return LocalAnalyticCSV(
-      stage: row[0],
-      function: row[1],
-      mark: row[2],
-      tds: row[3],
-      count: row[4],
-      min: row[5],
-      median: row[6],
-      max: row[7],
+      objectType: row[0],
+      documentationType: row[1],
+      name: row[2],
+      mark: row[3],
+      median: row[4],
     );
   }
 
   LocalAnalyticCSV({
-    required this.stage,
-    required this.function,
+    required this.objectType,
+    required this.documentationType,
+    required this.name,
     required this.mark,
-    required this.tds,
-    required this.count,
-    required this.min,
     required this.median,
-    required this.max,
   });
 }
 

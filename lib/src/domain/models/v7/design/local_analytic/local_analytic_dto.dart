@@ -4,28 +4,32 @@ import 'package:presale/src/domain/models/v5/design/division_resource_table/desi
 import 'package:presale/src/domain/models/v7/design/local_analytic/local_analytic_csv.dart';
 
 class LocalAnalyticDTO {
-  final String stage;
-  final String function;
-  final String shifr;
+  final String objectType;
+  final String documentationType;
+  final String name;
+  final String mark;
   final double median;
 
   const LocalAnalyticDTO({
-    required this.stage,
-    required this.function,
-    required this.shifr,
+    required this.objectType,
+    required this.documentationType,
+    required this.name,
+    required this.mark,
     required this.median,
   });
 
   LocalAnalyticDTO copyWith({
-    String? stage,
-    String? function,
-    String? shifr,
+    String? objectType,
+    String? documentationType,
+    String? name,
+    String? mark,
     double? median,
   }) {
     return LocalAnalyticDTO(
-      stage: stage ?? this.stage,
-      function: function ?? this.function,
-      shifr: shifr ?? this.shifr,
+      objectType: objectType ?? this.objectType,
+      documentationType: documentationType ?? this.documentationType,
+      name: name ?? this.name,
+      mark: mark ?? this.mark,
       median: median ?? this.median,
     );
   }
@@ -36,25 +40,21 @@ class LocalAnalyticsDTO {
     List<LocalAnalyticCSV> resourcesFromCsv = await LocalAnalyticCsvBuilder(
       DesignClass.localAnalytic,
     ).build((path) => rootBundle.loadString(path).onError((error, stackTrace) => '',));
-    Map<String, List<LocalAnalyticDTO>> allResources = {};
-    RegExp regExp = RegExp("([а-яА-Я]{1,})\\d{0,}");
+    Map<String, LocalAnalyticDTO> allResources = {};
     for (var value in resourcesFromCsv) {
-      String shifr = regExp.firstMatch(value.tds)?.group(1) ?? "";
+      print(value.median);
+      double p = double.tryParse(value.median) ?? 0.0;
       LocalAnalyticDTO dto = LocalAnalyticDTO(
-        stage: value.stage,
-        function: value.function,
-        shifr: shifr,
-        median: double.tryParse(value.median) ?? 0.0,
+        objectType: value.objectType,
+        documentationType: value.documentationType,
+        name: value.name,
+        mark: value.mark,
+        median:  p,
       );
 
-      allResources.putIfAbsent(shifr, () => []);
-      allResources[dto.shifr]!.add(dto);
+      allResources.putIfAbsent(value.mark, () => dto);
     }
 
-    return allResources.values.map((e) {
-      double sum = e.map((v) => v.median).reduce((r1, r2) => r1 + r2);
-
-      return e.first.copyWith(median: sum);
-    }).toList();
+    return allResources.values.toList();
   }
 }

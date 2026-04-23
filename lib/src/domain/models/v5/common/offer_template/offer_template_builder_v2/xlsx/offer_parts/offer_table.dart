@@ -60,9 +60,9 @@ class OfferTable extends OfferBase {
     );
   }
 
-  void addTableRows(List<RowDivisionResultDTO> rows) {
+  void addTableRows(List<DivisionsResultDTO> rows) {
     for (int i = 0; i < rows.length; i++) {
-      RowDivisionResultDTO result = rows[i];
+      DivisionsResultDTO result = rows[i];
       buildCell(
         '${i + 1}',
         currentCell(1),
@@ -77,7 +77,7 @@ class OfferTable extends OfferBase {
         isWrap: true,
       );
       buildCell(
-        convertToRubleString(result.divisionSummary, 0),
+        convertToRubleString(result.resultValue, 0),
         currentCell(3),
         width: 38,
         alignType: HAlignType.right,

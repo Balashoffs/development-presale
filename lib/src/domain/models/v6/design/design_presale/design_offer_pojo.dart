@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:presale/src/domain/models/v5/design/divisions_result_table/divisions_result_pojo.dart';
 import 'package:presale/src/domain/models/v5/design/divisions_table_with_analytic/divisions_margin_row_pojo.dart';
 
 part 'design_offer_pojo.g.dart';
@@ -16,7 +17,7 @@ abstract class DesignPresalePojo with _$DesignPresalePojo {
     @Default([]) List<DivisionResourcePojo> divisionResources,
     @Default([]) List<DivisionsMarginPojo> divisionResourceMargins,
     @Default([]) List<DivisionWithAnalyticPojo> divisionsWithAnalytic,
-    @Default([]) List<DivisionsMarginPojo> divisionsAnalyticMargin,
+    @Default([]) List<DivisionsResultPojo> divisionsResult,
     @Default(false) bool isAllResources,
   }) = _DesignPresalePojo;
 

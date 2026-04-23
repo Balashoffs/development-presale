@@ -11,6 +11,7 @@ set -e
 VPS_KEY_NAME="217.18.62.204"
 VPS_USER="root"
 VPS_IP="217.18.62.204"
+VPS_PORT="22"
 APP_NAME="presale_prod"
 
 # ==========================================
@@ -151,7 +152,7 @@ echo "[OK] Assets zipped: $ZIP_NAME"
 echo ""
 echo "[STEP 9] Uploading tar to VPS..."
 
-scp -i "$HOME/.ssh/$VPS_KEY_NAME" "$TAR_PATH" "$VPS_USER@$VPS_IP:/home/presale/$TAR_NAME"
+scp -P $VPS_PORT -i "$HOME/.ssh/$VPS_KEY_NAME" "$TAR_PATH" "$VPS_USER@$VPS_IP:/home/beard/presale/$TAR_NAME"
 echo "[OK] Tar uploaded."
 
 # ==========================================
@@ -160,7 +161,7 @@ echo "[OK] Tar uploaded."
 echo ""
 echo "[STEP 10] Uploading assets zip to VPS..."
 
-scp -i "$HOME/.ssh/$VPS_KEY_NAME" "$ZIP_PATH" "$VPS_USER@$VPS_IP:/home/presale/$ZIP_NAME"
+scp -P $VPS_PORT -i "$HOME/.ssh/$VPS_KEY_NAME" "$ZIP_PATH" "$VPS_USER@$VPS_IP:/home/beard/presale/$ZIP_NAME"
 echo "[OK] Assets zip uploaded."
 
 # ==========================================
