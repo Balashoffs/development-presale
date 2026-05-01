@@ -1,0 +1,55 @@
+# VCS / IDE
+.git
+.gitignore
+.github
+.idea
+.vscode
+.DS_Store
+
+# Flutter / Dart build outputs and caches
+build
+.dart_tool
+.flutter-plugins
+.flutter-plugins-dependencies
+.fvm
+.metadata
+ephemeral
+
+# Native platforms (we build only web)
+android
+ios
+macos
+windows
+
+# Project-local configs and secrets
+.env
+.env.deploy
+.env.deploy.*
+.consumer_env
+
+# Deploy + compose artifacts (rebuilt inside the image only via build-args)
+deploy.sh
+docker-compose.yaml
+docker-compose.yml
+Dockerfile
+.dockerignore
+
+# Docs and scratch
+docs
+to-do
+.todo
+img-how-it-view
+site
+test
+bin
+macos_build.md
+README.md
+
+# Legacy script outputs
+scripts/output
+scripts/*.tar
+scripts/*.zip
+
+# Logs
+*.log
+npm-debug.log*

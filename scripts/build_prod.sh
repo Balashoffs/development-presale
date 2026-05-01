@@ -8,10 +8,10 @@ set -e
 # ==========================================
 # CONFIGURATION — EDIT THESE
 # ==========================================
-VPS_KEY_NAME="217.18.62.204"
-VPS_USER="root"
-VPS_IP="217.18.62.204"
-VPS_PORT="22"
+VPS_KEY_NAME="beard_91.237.249.93"
+VPS_USER="beard"
+VPS_IP="91.237.249.93"
+VPS_PORT="2315"
 APP_NAME="presale_prod"
 
 # ==========================================
@@ -149,11 +149,7 @@ echo "[OK] Assets zipped: $ZIP_NAME"
 # ==========================================
 # STEP 9: SCP TAR TO VPS
 # ==========================================
-echo ""
-echo "[STEP 9] Uploading tar to VPS..."
 
-scp -P $VPS_PORT -i "$HOME/.ssh/$VPS_KEY_NAME" "$TAR_PATH" "$VPS_USER@$VPS_IP:/home/beard/presale/$TAR_NAME"
-echo "[OK] Tar uploaded."
 
 # ==========================================
 # STEP 10: SCP ZIP TO VPS

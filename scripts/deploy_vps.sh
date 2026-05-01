@@ -10,8 +10,8 @@ set -e
 # ==========================================
 APP_NAME="presale_prod"
 CONTAINER_NAME="presale_prod"
-UPLOAD_DIR="/home/presale"
-ASSETS_DIR="/home/presale/assets"
+UPLOAD_DIR="/home/beard/presale"
+ASSETS_DIR="/home/beard/presale/assets"
 
 # ==========================================
 # ARGUMENTS

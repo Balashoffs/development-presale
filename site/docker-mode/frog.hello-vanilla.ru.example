@@ -1,0 +1,39 @@
+# Хостовый nginx server-блок для режима A (reverse-proxy → Docker контейнер).
+# enable-site.sh заменит плейсхолдеры __DOMAIN__ и __UPSTREAM_PORT__,
+# затем certbot --nginx добавит listen 443 ssl и редирект.
+
+server {
+    listen 80;
+    listen [::]:80;
+    server_name frog.hello-vanilla.ru;
+
+    # certbot впишет сюда ssl_certificate / ssl_certificate_key и поднимет 443
+
+    access_log /var/log/nginx/frog.hello-vanilla.ru.access.log;
+    error_log  /var/log/nginx/frog.hello-vanilla.ru.error.log;
+
+    client_max_body_size 10m;
+
+    # Если используете certbot webroot вместо --nginx:
+    # location /.well-known/acme-challenge/ {
+    #     root /var/www/certbot;
+    # }
+
+    location / {
+        proxy_pass         http://127.0.0.1:8081;
+        proxy_http_version 1.1;
+
+        proxy_set_header   Host              $host;
+        proxy_set_header   X-Real-IP         $remote_addr;
+        proxy_set_header   X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header   X-Forwarded-Proto $scheme;
+        proxy_set_header   X-Forwarded-Host  $host;
+
+        proxy_connect_timeout 30s;
+        proxy_send_timeout    60s;
+        proxy_read_timeout    60s;
+
+        # Контейнер уже отдаёт корректные Cache-Control / gzip из своего nginx.conf —
+        # хостовому проксирующему nginx ничего дублировать не нужно.
+    }
+}

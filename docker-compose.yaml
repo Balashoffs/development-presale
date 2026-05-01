@@ -1,9 +1,16 @@
-version: '3.8'
-
 services:
   web:
-    image: alexbeard/presale:latest  # Замените на ваш Docker Hub образ
-    container_name: presale_web
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        DART_DEFINE_FILE_CONTENT: ${DART_DEFINE_FILE_CONTENT:?set DART_DEFINE_FILE_CONTENT to a base64-encoded dart_define_file.json}
+    image: presale:latest
+    container_name: presale
     ports:
-      - "5566:80"  # Или 443:443 для HTTPS
-    restart: always
+      - "127.0.0.1:8080:80"
+    volumes:
+      - ./.consumer_env/${CONSUMER_FOLDER:?set CONSUMER_FOLDER, e.g. consumer_2}/assets:/usr/share/nginx/html/assets/assets:ro
+    restart: unless-stopped
+
+  scp -P 2315 -i ~/.ssh/beard_91.237.249.93 site/docker-mode/enable-site.sh site/docker-mode/frog.hello-vanilla.ru.example beard@91.237.249.93:/tmp/
