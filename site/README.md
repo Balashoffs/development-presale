@@ -25,14 +25,14 @@ site/
     └── publish.sh
 ```
 
-Файлы `*.example` — **шаблоны**: заменяйте `frog.hello-vanilla.ru` на ваш реальный домен перед копированием.
+Файлы `*.example` — **шаблоны**: заменяйте `example.com` на ваш реальный домен перед копированием.
 
 ---
 
 ## Предусловия (общие для обоих режимов)
 
 1. VPS с Ubuntu 22.04+ (Debian 12 тоже подходит) и sudo-доступом.
-2. DNS A-запись (и AAAA, если есть IPv6) для `frog.hello-vanilla.ru`, указывающая на IP VPS. **Проверка:** `dig +short frog.hello-vanilla.ru` должен вернуть IP сервера.
+2. DNS A-запись (и AAAA, если есть IPv6) для `example.com`, указывающая на IP VPS. **Проверка:** `dig +short example.com` должен вернуть IP сервера.
 3. Открыты входящие порты `80` и `443` (UFW: `sudo ufw allow 80,443/tcp`).
 4. Учётная запись с правом `sudo` без интерактивного пароля (или комфорт работать через `sudo -i`).
 
@@ -91,15 +91,15 @@ scp site/docker-mode/enable-site.sh    user@vps:/tmp/
 
 # На VPS:
 ssh user@vps
-sudo bash /tmp/enable-site.sh koneks-dev.hello-vanilla.ru samehhurgada@gmail.com 8081
+sudo bash /tmp/enable-site.sh koneks-dev.hello-vanilla.ru example@com 8081
 ```
 
 Скрипт `enable-site.sh`:
-1. Копирует шаблон в `/etc/nginx/sites-available/frog.hello-vanilla.ru.conf`, заменяя плейсхолдеры `__DOMAIN__` и `__UPSTREAM_PORT__`.
+1. Копирует шаблон в `/etc/nginx/sites-available/example.com.conf`, заменяя плейсхолдеры `__DOMAIN__` и `__UPSTREAM_PORT__`.
 2. Делает симлинк в `/etc/nginx/sites-enabled/`.
 3. Проверяет конфиг: `nginx -t`.
 4. Перезагружает nginx: `systemctl reload nginx`.
-5. Запрашивает SSL: `certbot --nginx -d frog.hello-vanilla.ru -m you@example.com --agree-tos --redirect -n`.
+5. Запрашивает SSL: `certbot --nginx -d example.com -m you@example.com --agree-tos --redirect -n`.
 
 После этого certbot **самостоятельно перепишет** server-блок: добавит `listen 443 ssl http2`, пути к сертификату, и server-блок с редиректом 80 → 443.
 
@@ -149,7 +149,7 @@ ssh user@vps 'sudo bash /tmp/deploy-host-setup.sh'
 
 ```bash
 npm run build
-./site/static-mode/publish.sh user@vps frog.hello-vanilla.ru
+./site/static-mode/publish.sh user@vps example.com
 ```
 
 Скрипт `publish.sh` запускает:
@@ -166,7 +166,7 @@ rsync -avz --delete ./dist/ user@vps:/var/www/konex/
 scp site/static-mode/konex.conf.example user@vps:/tmp/
 scp site/static-mode/enable-site.sh    user@vps:/tmp/
 ssh user@vps
-sudo bash /tmp/enable-site.sh frog.hello-vanilla.ru you@example.com /var/www/konex
+sudo bash /tmp/enable-site.sh example.com you@example.com /var/www/konex
 ```
 
 Скрипт делает то же самое, что и в режиме A, но без upstream-порта — просто статика из `/var/www/konex`.
@@ -174,7 +174,7 @@ sudo bash /tmp/enable-site.sh frog.hello-vanilla.ru you@example.com /var/www/kon
 #### 4. Обновления приложения
 
 ```bash
-npm run build && ./site/static-mode/publish.sh user@vps frog.hello-vanilla.ru
+npm run build && ./site/static-mode/publish.sh user@vps example.com
 ```
 
 Хостовый nginx ничего перечитывать не нужно — он раздаёт файлы из ФС напрямую. HTML-кеш в шаблоне выставлен `Cache-Control: must-revalidate`, ассеты с long-term cache (`/_astro/*` immutable 1 год) — это безопасно, потому что Astro хеширует имена файлов.
@@ -192,16 +192,16 @@ npm run build && ./site/static-mode/publish.sh user@vps frog.hello-vanilla.ru
 ### Архитектура
 
 ```
-[Клиент] —HTTPS→ [хост nginx] ┬─→ [контейнер konex-v3-dev :8080]   (dev.frog.hello-vanilla.ru)
-                              └─→ [контейнер konex-v3-prod :8081]  (frog.hello-vanilla.ru)
+[Клиент] —HTTPS→ [хост nginx] ┬─→ [контейнер dev-example :8080]   (dev.example.com)
+                              └─→ [контейнер konex-v3-prod :8081]  (example.com)
 ```
 
 - Контейнеры **никогда не пересекаются** по имени и порту:
-  - `konex-v3-dev` слушает на `127.0.0.1:8080`,
+  - `dev-example` слушает на `127.0.0.1:8080`,
   - `konex-v3-prod` слушает на `127.0.0.1:8081`.
 - Хост-nginx маршрутизирует по `server_name`:
-  - `dev.frog.hello-vanilla.ru` → `proxy_pass http://127.0.0.1:8080`,
-  - `frog.hello-vanilla.ru` → `proxy_pass http://127.0.0.1:8081`.
+  - `dev.example.com` → `proxy_pass http://127.0.0.1:8080`,
+  - `example.com` → `proxy_pass http://127.0.0.1:8081`.
 - Certbot выпускает **отдельный сертификат для каждого домена**.
 
 ### Шаги (Docker-mode A)
@@ -228,11 +228,11 @@ cp site/.env.deploy.prod.example .env.deploy.prod
 #### 3. Запуск контейнеров
 
 ```bash
-./deploy.sh --env=dev    # build → ship → run konex-v3-dev :8080
+./deploy.sh --env=dev    # build → ship → run dev-example :8080
 ./deploy.sh --env=prod   # build → ship → run konex-v3-prod :8081
 ```
 
-`--env=dev` использует `.env.deploy.dev` и создаёт `konex-v3-dev` с тегом `dev-<git-sha>`. То же для prod. Контейнеры независимы — `--no-build` и `--logs` работают per-env (`./deploy.sh --env=dev --logs`).
+`--env=dev` использует `.env.deploy.dev` и создаёт `dev-example` с тегом `dev-<git-sha>`. То же для prod. Контейнеры независимы — `--no-build` и `--logs` работают per-env (`./deploy.sh --env=dev --logs`).
 
 #### 4. Включение двух доменов в хостовом nginx
 
@@ -248,9 +248,9 @@ scp site/docker-mode/enable-site.sh    user@vps:/tmp/
 ```bash
 ssh user@vps
 # dev:
-sudo bash /tmp/enable-site.sh dev.frog.hello-vanilla.ru you@example.com 8080
+sudo bash /tmp/enable-site.sh dev.example.com you@example.com 8080
 # prod:
-sudo bash /tmp/enable-site.sh frog.hello-vanilla.ru    you@example.com 8081
+sudo bash /tmp/enable-site.sh example.com    you@example.com 8081
 ```
 
 `enable-site.sh` идемпотентен — если запустить ещё раз с тем же доменом, conf просто перепишется и certbot обновит сертификат при необходимости.
@@ -271,15 +271,15 @@ sudo bash /tmp/deploy-host-setup.sh /var/www/konex
 И `publish.sh` принимает webroot третьим аргументом:
 
 ```bash
-./site/static-mode/publish.sh user@vps dev.frog.hello-vanilla.ru  /var/www/konex-dev
-./site/static-mode/publish.sh user@vps     frog.hello-vanilla.ru  /var/www/konex
+./site/static-mode/publish.sh user@vps dev.example.com  /var/www/konex-dev
+./site/static-mode/publish.sh user@vps     example.com  /var/www/konex
 ```
 
 `enable-site.sh` тоже принимает webroot:
 
 ```bash
-sudo bash /tmp/enable-site.sh dev.frog.hello-vanilla.ru you@example.com /var/www/konex-dev
-sudo bash /tmp/enable-site.sh     frog.hello-vanilla.ru you@example.com /var/www/konex
+sudo bash /tmp/enable-site.sh dev.example.com you@example.com /var/www/konex-dev
+sudo bash /tmp/enable-site.sh     example.com you@example.com /var/www/konex
 ```
 
 ### Backward compatibility
@@ -310,11 +310,11 @@ sudo bash /tmp/enable-site.sh     frog.hello-vanilla.ru you@example.com /var/www
 | `502 Bad Gateway` на сайте (режим A) | `ssh user@vps 'docker ps'` — контейнер запущен? `curl http://127.0.0.1:${VPS_PORT}` — отвечает? Если нет — `docker logs konex-v3`. |
 | `403 Forbidden` (режим B) | Права на `/var/www/konex/` — должен быть `www-data:www-data`, `chmod -R o+r`. |
 | `nginx -t` ругается на синтаксис | После замены плейсхолдеров `__DOMAIN__` проверьте, что в конфиге не осталось двойных подчёркиваний. |
-| certbot падает с `Connection refused` | DNS не успел распространиться — подождите 5-10 минут, перепроверьте `dig +short frog.hello-vanilla.ru`. |
+| certbot падает с `Connection refused` | DNS не успел распространиться — подождите 5-10 минут, перепроверьте `dig +short example.com`. |
 | certbot падает с `Timeout` на 80 порту | UFW закрывает порт. `sudo ufw status`, `sudo ufw allow 80/tcp`. |
-| После certbot нет редиректа 80→443 | Запускали без `--redirect` — повторите: `sudo certbot --nginx -d frog.hello-vanilla.ru --redirect`. |
+| После certbot нет редиректа 80→443 | Запускали без `--redirect` — повторите: `sudo certbot --nginx -d example.com --redirect`. |
 | Сертификат не обновляется автоматически | `sudo systemctl status certbot.timer` — должен быть active. Принудительно: `sudo certbot renew --force-renewal && sudo systemctl reload nginx`. |
-| Хочу удалить сайт | `sudo rm /etc/nginx/sites-enabled/frog.hello-vanilla.ru.conf && sudo nginx -t && sudo systemctl reload nginx`, затем `sudo certbot delete --cert-name frog.hello-vanilla.ru`. |
+| Хочу удалить сайт | `sudo rm /etc/nginx/sites-enabled/example.com.conf && sudo nginx -t && sudo systemctl reload nginx`, затем `sudo certbot delete --cert-name example.com`. |
 
 ### Полезные команды
 
@@ -328,7 +328,7 @@ sudo tail -f /var/log/nginx/konex.error.log
 docker logs -f konex-v3
 
 # Принудительное обновление SSL
-sudo certbot renew --force-renewal --cert-name frog.hello-vanilla.ru
+sudo certbot renew --force-renewal --cert-name example.com
 sudo systemctl reload nginx
 
 # Список включённых сайтов

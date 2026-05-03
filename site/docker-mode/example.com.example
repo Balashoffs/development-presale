@@ -5,12 +5,12 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name frog.hello-vanilla.ru;
+    server_name example.com;
 
     # certbot впишет сюда ssl_certificate / ssl_certificate_key и поднимет 443
 
-    access_log /var/log/nginx/frog.hello-vanilla.ru.access.log;
-    error_log  /var/log/nginx/frog.hello-vanilla.ru.error.log;
+    access_log /var/log/nginx/example.com.access.log;
+    error_log  /var/log/nginx/example.com.error.log;
 
     client_max_body_size 10m;
 

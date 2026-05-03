@@ -6,7 +6,7 @@
 #   sudo bash enable-site.sh <domain> <email> <upstream_port>
 #
 # Example:
-#   sudo bash enable-site.sh frog.hello-vanilla.ru samehhurgada@gmail.com 8081
+#   sudo bash enable-site.sh example.com example@com 8081
 
 set -euo pipefail
 
@@ -15,12 +15,12 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-DOMAIN="${1:?Первый аргумент — домен (например, frog.hello-vanilla.ru)}"
+DOMAIN="${1:?Первый аргумент — домен (например, example.com)}"
 EMAIL="${2:?Второй аргумент — email для Lets Encrypt}"
 UPSTREAM_PORT="${3:?Третий аргумент — порт docker-контейнера на хосте (например, 8081)}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-TEMPLATE="${SCRIPT_DIR}/frog.hello-vanilla.ru.example"
+TEMPLATE="${SCRIPT_DIR}/example.com.example"
 TARGET="/etc/nginx/sites-available/${DOMAIN}.conf"
 LINK="/etc/nginx/sites-enabled/${DOMAIN}.conf"
 

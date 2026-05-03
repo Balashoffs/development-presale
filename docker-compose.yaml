@@ -13,4 +13,4 @@ services:
       - ./.consumer_env/${CONSUMER_FOLDER:?set CONSUMER_FOLDER, e.g. consumer_2}/assets:/usr/share/nginx/html/assets/assets:ro
     restart: unless-stopped
 
-  scp -P 2315 -i ~/.ssh/beard_91.237.249.93 site/docker-mode/enable-site.sh site/docker-mode/frog.hello-vanilla.ru.example beard@91.237.249.93:/tmp/
+  scp -P 2315 -i ~/.ssh/beard_91.237.249.93 site/docker-mode/enable-site.sh site/docker-mode/example.com.example beard@91.237.249.93:/tmp/
