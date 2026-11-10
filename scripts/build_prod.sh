@@ -6,12 +6,12 @@
 set -e
 
 # ==========================================
-# CONFIGURATION — EDIT THESE
+# CONFIGURATION — set via environment (e.g. in a local, untracked .env)
 # ==========================================
-VPS_KEY_NAME="beard_91.237.249.93"
-VPS_USER="beard"
-VPS_IP="91.237.249.93"
-VPS_PORT="2315"
+: "${VPS_KEY_NAME:?set VPS_KEY_NAME (ssh key file name in ~/.ssh)}"
+: "${VPS_USER:?set VPS_USER}"
+: "${VPS_IP:?set VPS_IP}"
+VPS_PORT="${VPS_PORT:-22}"
 APP_NAME="presale_prod"
 
 # ==========================================
@@ -157,7 +157,7 @@ echo "[OK] Assets zipped: $ZIP_NAME"
 echo ""
 echo "[STEP 10] Uploading assets zip to VPS..."
 
-scp -P $VPS_PORT -i "$HOME/.ssh/$VPS_KEY_NAME" "$ZIP_PATH" "$VPS_USER@$VPS_IP:/home/beard/presale/$ZIP_NAME"
+scp -P $VPS_PORT -i "$HOME/.ssh/$VPS_KEY_NAME" "$ZIP_PATH" "$VPS_USER@$VPS_IP:/home/$VPS_USER/presale/$ZIP_NAME"
 echo "[OK] Assets zip uploaded."
 
 # ==========================================
